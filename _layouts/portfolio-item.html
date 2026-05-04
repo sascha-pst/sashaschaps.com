@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<article class="portfolio-item wrap">
+  <header class="portfolio-header">
+    <p class="kicker">{% if page.kind == 'brand' %}Brand collaboration{% else %}Project{% endif %}{% if page.role %} &middot; {{ page.role }}{% endif %}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="lead">{{ page.summary }}</p>{% endif %}
+
+    <dl class="portfolio-meta">
+      {% if page.client %}<dt>Client</dt><dd>{{ page.client }}</dd>{% endif %}
+      {% if page.year %}<dt>Year</dt><dd>{{ page.year }}</dd>{% endif %}
+      {% if page.tools %}<dt>Tools</dt><dd>{{ page.tools | join: ", " }}</dd>{% endif %}
+      {% if page.tags %}<dt>Tags</dt><dd>{{ page.tags | join: ", " }}</dd>{% endif %}
+      {% if page.link %}<dt>Link</dt><dd><a href="{{ page.link }}" rel="noopener">{{ page.link }}</a></dd>{% endif %}
+    </dl>
+  </header>
+
+  {% if page.cover %}
+    <figure class="portfolio-cover">
+      <img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}">
+    </figure>
+  {% endif %}
+
+  <div class="portfolio-content">
+    {{ content }}
+  </div>
+
+  {% if page.gallery %}
+    <section class="gallery">
+      {% for item in page.gallery %}
+        <figure>
+          <img src="{{ item.src | relative_url }}" alt="{{ item.alt }}">
+          {% if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+        </figure>
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <footer class="portfolio-footer">
+    <a href="{{ '/portfolio/' | relative_url }}">&larr; Back to portfolio</a>
+  </footer>
+</article>
