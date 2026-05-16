@@ -1,1 +1,87 @@
+---
+layout: default
+title: Home
+---
 
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-eyebrow">Writer &middot; Researcher &middot; Creative</div>
+    <h1 class="hero-name">Sasha<br>Schaps</h1>
+    <p class="hero-lead">
+      This is in progress
+    </p>
+    <div class="hero-actions">
+      <a href="/about/" class="btn btn--primary">About me</a>
+      <a href="/portfolio/" class="btn btn--ghost">View work</a>
+    </div>
+  </div>
+  <div class="hero-rule"></div>
+</section>
+
+{% assign recent_posts = site.blog | sort: 'date' | reverse %}
+{% assign recent_posts = recent_posts | limit: 3 %}
+
+{% if recent_posts.size > 0 %}
+<section class="home-section">
+  <div class="wrap">
+    <header class="section-header">
+      <h2 class="section-title">Latest writing</h2>
+      <a href="/blog/" class="section-link">All posts &rarr;</a>
+    </header>
+    <div class="stack">
+      {% for post in recent_posts %}
+        {% include post-card.html post=post %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="home-section">
+  <div class="wrap">
+    <header class="section-header">
+      <h2 class="section-title">Latest writing</h2>
+      <a href="/blog/" class="section-link">All posts &rarr;</a>
+    </header>
+    <p class="placeholder-note">Essays and notes will appear here.</p>
+  </div>
+</section>
+{% endif %}
+
+{% assign featured_brands = site.brands | where: 'featured', true %}
+{% assign featured_projects = site.projects | where: 'featured', true %}
+{% assign featured = featured_brands | concat: featured_projects | sort: 'year' | reverse %}
+
+{% if featured.size > 0 %}
+<section class="home-section home-section--tinted">
+  <div class="wrap">
+    <header class="section-header">
+      <h2 class="section-title">Selected work</h2>
+      <a href="/portfolio/" class="section-link">Full portfolio &rarr;</a>
+    </header>
+    <div class="grid">
+      {% for item in featured limit: 3 %}
+        <div class="grid-item">
+          {% include portfolio-card.html item=item %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="home-section home-section--tinted">
+  <div class="wrap">
+    <header class="section-header">
+      <h2 class="section-title">Selected work</h2>
+      <a href="/portfolio/" class="section-link">Full portfolio &rarr;</a>
+    </header>
+    <p class="placeholder-note">Portfolio items will appear here. Add files under <code>_brands/</code> or <code>_projects/</code> with <code>featured: true</code>.</p>
+  </div>
+</section>
+{% endif %}
+
+<section class="home-cta">
+  <div class="wrap home-cta-inner">
+    <p class="home-cta-text">Have a project in mind?</p>
+    <a href="/contact/" class="btn btn--primary">Get in touch</a>
+  </div>
+</section>
