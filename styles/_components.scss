@@ -1,0 +1,158 @@
+// ─── Buttons ──────────────────────────────────────────────────────────────────
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.65rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  border: 1.5px solid transparent;
+
+  &--primary {
+    background: var(--color-clear);
+    color: var(--color-white);
+    border-color: var(--color-clear);
+    &:hover { background: var(--color-opal); border-color: var(--color-opal); color: #fff; }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: var(--color-clear);
+    border-color: var(--color-clear);
+    &:hover { background: var(--color-clear); color: var(--color-white); }
+  }
+}
+
+// ─── Tags ─────────────────────────────────────────────────────────────────────
+
+.tag {
+  display: inline-block;
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2em 0.7em;
+  border-radius: 20px;
+  background: rgba(118,140,69,0.12);
+  color: var(--color-palm);
+  border: 1px solid rgba(118,140,69,0.25);
+}
+
+.kicker {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-opal);
+  margin-bottom: var(--space-2);
+}
+
+// ─── Cards ────────────────────────────────────────────────────────────────────
+
+.card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+
+  &:hover {
+    border-color: var(--color-bleu);
+    box-shadow: 0 4px 20px rgba(63,115,115,0.08);
+  }
+
+  .card-image {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+    &:hover img { transform: scale(1.03); }
+  }
+
+  .card-body { padding: var(--space-5) var(--space-6); }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    margin-bottom: var(--space-2);
+    line-height: 1.2;
+    a { color: var(--color-text); &:hover { color: var(--color-opal); } }
+  }
+
+  p { font-size: var(--text-sm); color: var(--color-text-dim); margin-bottom: var(--space-3); line-height: 1.6; &:last-child { margin-bottom: 0; } }
+
+  .card-meta { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+  .card-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); margin-bottom: 0; }
+}
+
+.post-card {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 200px 1fr;
+    .card-image { aspect-ratio: auto; height: 100%; }
+  }
+}
+
+.portfolio-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .card-body { flex: 1; }
+}
+
+// ─── Filter bar ───────────────────────────────────────────────────────────────
+
+.filter {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+
+  button {
+    padding: 0.4rem 1.1rem;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all var(--transition);
+
+    &:hover { border-color: var(--color-clear); color: var(--color-clear); }
+    &.active { background: var(--color-clear); border-color: var(--color-clear); color: var(--color-white); }
+  }
+}
+
+// ─── Misc ─────────────────────────────────────────────────────────────────────
+
+.lead {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-style: italic;
+  color: var(--color-text-dim);
+  line-height: 1.55;
+}
+
+:focus-visible { outline: 2px solid var(--color-opal); outline-offset: 3px; border-radius: var(--radius); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border-width: 0;
+}
