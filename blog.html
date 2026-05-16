@@ -1,0 +1,18 @@
+---
+layout: page
+title: Blog
+subtitle: Essays, notes, and updates.
+permalink: /blog/
+---
+
+{% assign posts = site.blog | sort: 'date' | reverse %}
+
+<div class="stack">
+  {% for post in posts %}
+    {% include post-card.html post=post %}
+  {% endfor %}
+</div>
+
+{% if posts.size == 0 %}
+  <p class="lead">No posts yet. Add folders under <code>_blog/</code> with an <code>index.md</code> file.</p>
+{% endif %}
