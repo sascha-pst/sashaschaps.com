@@ -2,9 +2,9 @@
 
 Personal portfolio for Sasha Schaps.
 
-## Architecture
+## Production architecture
 
-This site is intentionally dependency-free static HTML and CSS. It does not require Jekyll, Liquid, Ruby, Node, or a build step. This prevents template source from leaking into production when a host publishes the repository root.
+The production site is dependency-free static HTML and CSS in `public/`. It does not require Jekyll, Liquid, Ruby, Node, or a framework build. Keeping the published assets in one dedicated directory prevents source templates or application files from leaking into production.
 
 ## Pages
 
@@ -14,26 +14,23 @@ This site is intentionally dependency-free static HTML and CSS. It does not requ
 - `/contact/` — contact details
 - `/404.html` — fallback page
 
-## Deploy
+## Cloudflare Pages configuration
 
-### Cloudflare Pages
+Use these exact settings:
 
+- Git repository: `sascha-pst/sashaschaps.com`
 - Production branch: `main`
 - Framework preset: `None`
-- Build command: leave blank
-- Build output directory: `/` (repository root)
+- Root directory: leave blank
+- Build command: `exit 0`
+- Build output directory: `public`
 
-The custom domain should be `sashaschaps.com`.
-
-### GitHub Pages
-
-The included `CNAME` and `.nojekyll` files also support publishing directly from the root of `main`.
+Attach `sashaschaps.com` under Custom domains after the first successful deployment. Every push to `main` should then create a new production deployment.
 
 ## Local preview
 
-From the repository root:
-
 ```bash
+cd public
 python3 -m http.server 8000
 ```
 
