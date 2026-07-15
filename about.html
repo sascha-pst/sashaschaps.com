@@ -171,23 +171,15 @@
   }
 
   @media (max-width:720px){
-    /* Wedge on top, words below: stack the hero instead of overlaying */
-    .hero{height:auto;overflow:visible}
-    canvas#slab{position:relative;inset:auto;height:42svh;min-height:260px}
-    .glaze-overlay{inset:auto;top:0;left:0;right:0;height:42svh;min-height:260px}
-    .hero-inner{
-      position:static;inset:auto;pointer-events:auto;
-      padding:1.8rem 1.5rem 0.6rem;
+    /* Text stays inside the clay: taller hero, glaze sandwiched above + below */
+    .hero{height:clamp(420px,72svh,640px)}
+    .hero-inner{padding:0 1.5rem 4.5rem}
+    .glaze-overlay{
+      background:
+        linear-gradient(180deg, rgba(14,30,48,0.5), rgba(14,30,48,0.16) 32%, rgba(14,30,48,0.16) 60%, rgba(14,30,48,0.55) 100%),
+        linear-gradient(100deg, rgba(14,30,48,0.4), transparent 75%);
     }
-    .hero-inner h1{color:var(--ink);text-shadow:none}
-    .hero-inner h1 em{color:var(--pine)}
-    .hero-inner .eyebrow{color:var(--moss);opacity:1}
-    .hero-inner .hero-hint{color:var(--ink);opacity:0.65}
-    .hero-inner .hero-hint::before{background:var(--moss);opacity:0.7}
-    .hero-actions{
-      top:calc(max(42svh, 260px) - 3.4rem);
-      bottom:auto;right:1.2rem;
-    }
+    .hero-actions{right:1.2rem;bottom:1.4rem}
     .about-grid{grid-template-columns:1fr}
     .slice-mark{justify-self:start}
     .slab{grid-template-columns:6px 1fr}
