@@ -214,7 +214,7 @@
       <div>
         <p>I'm Sasha — a Bay Area native and aspiring data scientist inspired by natural ordered networks. Nerikomi potters don't paint a pattern onto the surface; they stack colored clays and let the cross-section reveal the structure. That's how I try to work: it runs through the data collection, pipeline builds, cleaned dataset, model comparisons, and insights.</p>
         <p>Current project: <a href="https://observablehq.com/d/43405b7a594c53cf"><em>Let's Not Boil the Ocean</em></a>, specifically the bit on <a href="https://github.com/thfrawley/California_State_CVA">Climate Vulnerability of select species</a>. Not really, that was done by a really cool team of fisheries folks.
-        <p>Off the keyboard, I'm spinning my wheels trying to not crack. That's a porcelain joke. Kind of a slab in the face, nerikomi.</p>
+        <p>Off the keyboard, I'm spinning my wheels.</p>
       <div class="slice-mark" role="img" aria-label="A round cross-section slice showing concentric green clay rings"></div>
     </div>
   </section>
@@ -291,12 +291,12 @@
     for (let i = 0; i < img.data.length; i += 4){
       const v = 200 + Math.random() * 55;
       img.data[i] = img.data[i+1] = img.data[i+2] = v;
-      img.data[i+3] = Math.random() * 18;   // very faint speckle
+      img.data[i+3] = Math.random() * 18; 
     }
     g.putImageData(img,0,0);
   }
 
-  // --- interaction: the cursor is a marbling tool -----------------
+  // --- interaction -----------------
   let last = null;
   function pull(x, y, dy){
     const sigX = 75, sigY = 80;
@@ -345,11 +345,11 @@
       let prev = row[0];
       for (let c = 1; c < COLS - 1; c++){
         const cur = row[c];
-        row[c] = cur * 0.9 + (prev + row[c+1]) * 0.05; // lateral diffusion: clay slumps, barely
+        row[c] = cur * 0.9 + (prev + row[c+1]) * 0.05; 
         prev = cur;
       }
     }
-    // light vertical coupling so neighboring layers drag each other
+  
     for (let b = 1; b < N_BOUND; b++){
       const a = disp[b-1], r = disp[b];
       for (let c = 0; c < COLS; c++){
@@ -363,7 +363,7 @@
   function boundaryY(b, c){
     let y = base[b] + disp[b][c];
     if (!reduceMotion){
-      y += Math.sin(t * 0.0006 + b * 1.7 + c * STEP * 0.004) * 2.5; // faint kiln shimmer
+      y += Math.sin(t * 0.0006 + b * 1.7 + c * STEP * 0.004) * 2.5; 
     }
     return y;
   }
@@ -372,7 +372,7 @@
     ctx.clearRect(0,0,W,H);
     for (let band = 0; band <= N_BOUND; band++){
       ctx.beginPath();
-      // top edge
+      
       if (band === 0){
         ctx.moveTo(0,0); ctx.lineTo(W,0);
       } else {
@@ -380,7 +380,7 @@
         ctx.moveTo(0, boundaryY(b,0));
         for (let c = 1; c < COLS; c++) ctx.lineTo(c*STEP, boundaryY(b,c));
       }
-      // bottom edge (reverse)
+      
       if (band === N_BOUND){
         ctx.lineTo(W,H); ctx.lineTo(0,H);
       } else {
@@ -390,7 +390,7 @@
       ctx.fillStyle = PALETTE[band % PALETTE.length];
       ctx.fill();
     }
-    // clay grain
+    
     ctx.save();
     ctx.globalAlpha = 0.5;
     ctx.fillStyle = ctx.createPattern(grain,'repeat');
@@ -408,8 +408,7 @@
   window.addEventListener('resize', resize);
   resize();
   if (reduceMotion){
-    // render a static, still-interactive-on-click slab: draw once,
-    // and redraw only when the user deforms it or re-wedges.
+    
     draw();
     const redraw = () => { smooth(); draw(); };
     canvas.addEventListener('mousemove', redraw);
