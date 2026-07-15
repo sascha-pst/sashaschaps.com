@@ -197,9 +197,9 @@
   <canvas id="slab" aria-label="Interactive marbled clay background. Drag to deform the layers."></canvas>
   <div class="glaze-overlay"></div>
   <div class="hero-inner">
-    <p class="eyebrow">About · 練り込み</p>
-    <h1>Layered by hand,<br>revealed in the <em>cut</em>.</h1>
-    <p class="hero-hint">Drag across the slab — the clay remembers your mark</p>
+    <p class="eyebrow">About</p>
+    <h1>Wedged out of words</h1>
+    <p class="hero-hint">It's time for another cup of coffee.</p>
   </div>
   <div class="hero-actions">
     <button id="rewedge" type="button">Re-wedge the clay</button>
@@ -209,7 +209,7 @@
 <main>
   <section id="about">
     <p class="section-label">The maker</p>
-    <h2>I build things the way nerikomi is made — <em>pattern all the way through</em>.</h2>
+    <h2>Through and <em>through</em>.</h2>
     <div class="about-grid">
       <div>
         <p>I'm Sasha — a Bay Area native and aspiring data scientist inspired by natural ordered networks. Nerikomi potters don't paint a pattern onto the surface; they stack colored clays and let the cross-section reveal the structure. That's how I try to work: the rigor isn't decoration on top, it runs through the dataset, the model, and the write-up.</p>
@@ -221,8 +221,8 @@
   </section>
 
   <section class="strata" id="skills">
-    <p class="section-label">Strata</p>
-    <h2>What's in the layers</h2>
+    <p class="section-label">I'm unfurling - sudo command - strata</p>
+    <h2>LOREM IPSUM</h2>
     <div class="slab-list">
       <div class="slab" style="--band:var(--pine)"><i></i><strong>Python · pandas · scikit-learn</strong><span>daily driver</span></div>
       <div class="slab" style="--band:var(--moss)"><i></i><strong>SQL &amp; data modeling</strong><span>structural layer</span></div>
@@ -234,11 +234,10 @@
 
 <footer id="contact">
   <p class="section-label">Contact</p>
-  <h2>Slice in, say hello.</h2>
+  <h2>I need a job.</h2>
   <div class="contact-row">
     <a href="mailto:sasha.schaps@gmail.com">Email</a>
     <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley email</a>
-    <a href="https://linkedin.com/in/sashaschaps" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub</a>
   </div>
   <p class="signoff">I can't wait to get the wheel spinning!!!</p>
@@ -250,14 +249,13 @@
   const ctx = canvas.getContext('2d');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Paper base, complementary greens, deepest layer in the site navy
   const PALETTE = ['#FAFBFC','#D8DFCB','#A9C2A3','#6E8A66','#3E5C46','#0E1E30'];
 
-  const STEP = 8;            // px between control points along x
-  const N_BOUND = 11;        // boundaries -> 10 bands (chunkier at banner height)
+  const STEP = 8;            
+  const N_BOUND = 11;        
   let W = 0, H = 0, DPR = 1, COLS = 0;
-  let base = [];             // base y of each boundary
-  let disp = [];             // disp[boundary][col] displacement
+  let base = [];             
+  let disp = [];            
   let grain = null;
   let t = 0;
 
@@ -276,7 +274,6 @@
     for (let b = 0; b < N_BOUND; b++){
       base.push((b + 1) / (N_BOUND + 1) * H);
       const row = new Float32Array(COLS);
-      // gentle organic waviness so a fresh slab never looks machine-cut
       const amp = 6 + Math.random() * 10;
       const freq = 0.008 + Math.random() * 0.01;
       const phase = Math.random() * Math.PI * 2;
