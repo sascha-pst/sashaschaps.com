@@ -55,9 +55,9 @@
     /* ============ UR MY HERO ============ */
     #hero {
         position: relative;
-        height: 100vh;
-        height: 120svh;
-        min-height: 480px;
+        height: 100vh;      /* fallback for older browsers */
+        height: 100svh;     /* respects mobile browser UI (URL bar) */
+        min-height: 560px;
         overflow: hidden;
         cursor: pointer;
     }
@@ -77,7 +77,7 @@
         z-index: 3;
         left: 40px;
         right: 40px;
-        bottom: 24vh;
+        bottom: 12vh;
         max-width: 640px;
         pointer-events: none;
     }
@@ -130,7 +130,7 @@
     .scroll-cue {
         position: absolute;
         z-index: 3;
-        bottom: 46px;
+        bottom: 26px;
         left: 50%;
         transform: translateX(-50%);
         font-family: 'Roboto Mono', monospace;
@@ -180,7 +180,16 @@
     @media (max-width: 640px) {
         nav { padding: 18px 22px; }
         nav .links a { margin-left: 16px; }
-        .hero-content { left: 22px; right: 22px; bottom: 14vh; }
+        /* Separate the animation from the text: canvas on top, text below */
+        #hero { height: auto; min-height: 0; }
+        #hero-canvas { position: relative; height: 55svh; min-height: 320px; }
+        .hero-vignette { inset: auto; top: 0; left: 0; right: 0; height: 55svh; min-height: 320px; }
+        .hero-content {
+            position: static;
+            max-width: none;
+            padding: 28px 22px 40px;
+        }
+        .scroll-cue { display: none; }
         section.page { padding: 80px 22px; }
     }
 </style>
