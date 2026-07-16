@@ -746,27 +746,24 @@
 
     // ---------- SOLID UI: ----------
     render(() => html`
-        <p class="eyebrow" style=${() => `color: ${heroState().color}`}>
-            Nerikomi study · ${() => heroState().label} — click to turn the wheel
-        </p>
     `, document.getElementById('eyebrow-mount'));
 
     // adding a project 
     const projects = [
         {
-            title: "Let's Not Boil the Ocean",
-            tags: ["Python", "Geospatial", "Time series"],
-            blurb: "California fisheries × ocean climate — tracing how warming waters reshape what we catch, and where."
+            title: "Let's Not",
+            tags: ["Snakes"],
+            blurb: "Beep."
         },
         {
-            title: "SQL & Python Analysis Samples",
+            title: "Samples",
             tags: ["SQL", "pandas", "Statistics"],
-            blurb: "Selected coursework and independent analyses from UC Berkeley MIDS."
+            blurb: "Boop."
         },
         {
             title: "Program Case Studies",
             tags: ["Strategy", "Enablement"],
-            blurb: "Seven years of content strategy and program development, told with the numbers behind them."
+            blurb: "I wish I had a hammer".
         }
     ];
 
