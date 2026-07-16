@@ -167,6 +167,39 @@
     section.page p { font-size: 1.1rem; line-height: 1.7; opacity: 0.78; max-width: 62ch; }
     section.page a { color: var(--prussian); transition: color 0.3s; }
     section.page a:hover { color: var(--cobalt); }
+    
+    /* ============ PROJECT CARDS (Solid-rendered) ============ */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-top: 36px;
+    }
+    .card {
+        border: 1px solid rgba(14,30,48,0.1);
+        border-radius: 16px;
+        padding: 26px 24px;
+        background: #fff;
+        transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+        border-color: var(--cerulean);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px -18px rgba(27,58,92,0.35);
+    }
+    .card h3 { font-weight: 400; font-size: 1.15rem; margin: 0 0 10px; letter-spacing: 0.02em; }
+    .card p { font-size: 0.95rem; line-height: 1.6; opacity: 0.72; margin: 0 0 18px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--prussian);
+        border: 1px solid rgba(62,124,177,0.35);
+        border-radius: 20px;
+        padding: 5px 10px;
+    }
     footer {
         padding: 60px 40px;
         text-align: center;
@@ -192,7 +225,10 @@
         "imports": {
             "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
             "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
-            "gsap": "https://unpkg.com/gsap@3.12.5/index.js"
+            "gsap": "https://unpkg.com/gsap@3.12.5/index.js",
+            "solid-js": "https://cdn.jsdelivr.net/npm/solid-js@1.9.14/dist/solid.js",
+            "solid-js/web": "https://cdn.jsdelivr.net/npm/solid-js@1.9.14/web/dist/web.js",
+            "solid-js/html": "https://cdn.jsdelivr.net/npm/solid-js@1.9.14/html/dist/html.js"
         }
     }
 </script>
@@ -211,10 +247,11 @@
     <div class="hero-vignette" aria-hidden="true"></div>
 
     <div class="hero-content">
+        <div id="eyebrow-mount"></div>
         <h1>Building neural <br><em>hyphae</em>.</h1>
         <p class="sub">
-            I'm Sasha <— I'm a Bay Area native and aspiring data scientist that's inspired by natural ordered networks.
-            There are layers to it.
+            I'm Sasha — I'm a Bay Area native and aspiring data scientist that's inspired by natural ordered networks.
+            Currently taking time to master ceramics and study Data Science.
         </p>
         <div class="cta-row">
             <a class="btn btn-primary" href="#work">View work</a>
@@ -229,12 +266,13 @@
     <section class="page" id="work">
         <div class="kicker">Selected Work</div>
         <h2>Projects</h2>
-        <p>Gallery soon.</p>
+        <p>Work in progress</p>
+        <div id="cards-mount"></div>
     </section>
     <section class="page" id="about">
         <div class="kicker">About</div>
         <h2>Background</h2>
-        <p>Shipping soon.</p>
+        <p>I'm from the Bay!</p>
     </section>
     <section class="page" id="contact">
         <div class="kicker">Contact</div>
@@ -253,6 +291,9 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     import gsap from 'gsap';
+    import { createSignal, createEffect, For } from 'solid-js';
+    import { render } from 'solid-js/web';
+    import html from 'solid-js/html';
 
     const container = document.getElementById('hero-canvas');
 
@@ -269,6 +310,8 @@
     container.appendChild(renderer.domElement);
 
     // ---------- PHOTO STUDIO ----------
+    // image-based lighting (soft "room" reflections) + warm key / cool fill,
+    // like a two-softbox tabletop shoot against seamless paper
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.fog = new THREE.Fog(0xFAFBFC, 60, 150);
@@ -371,6 +414,7 @@
 
     // ---------- MARBLED CLAY / SEA MATERIAL (physically based) ----------
     const OCEAN_SIZE = 120.0;
+
     function makeClayBump() {
         const c = document.createElement('canvas');
         c.width = 256; c.height = 1024;
@@ -402,7 +446,7 @@
         uGloss:  { value: 0.9 },
         uFoam:   { value: 0.0 },
         uDrift:  { value: 0.0 },
-        uClear:  { value: 0.28 }  
+        uClear:  { value: 0.0 }    
     };
 
     const clayMaterial = new THREE.MeshPhysicalMaterial({
@@ -411,6 +455,9 @@
         metalness: 0.0,
         clearcoat: 1.0,            
         clearcoatRoughness: 0.4,
+        sheen: 1.0,                
+        sheenColor: new THREE.Color(0x8FBFE0),
+        sheenRoughness: 0.42,
         bumpMap: makeClayBump(),
         bumpScale: 0.8,
         envMapIntensity: 0.75,
@@ -485,11 +532,14 @@
 
         shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `
             #include <color_fragment>
-            // Nerikomi marbling: abyss -> midnight -> coastal -> sea glass -> salt
+            // Neriage marbling: abyss -> midnight -> coastal -> sea glass -> salt
             vec3 pc = vPattern + vec3(0.0, uTime * uDrift, uTime * uDrift * 0.4);
             float warpA = snoise(pc * 0.14);
             float warpB = snoise(pc * 0.42 + 31.7);
-            float band  = sin(pc.y * 1.7 + warpA * 5.5 + warpB * 1.8);
+            // thrown on the wheel: strata spiral around the form
+            // (integer harmonic on theta keeps the wrap seamless)
+            float theta = atan(vPattern.z, vPattern.x);
+            float band  = sin(pc.y * 1.7 + theta * 2.0 + warpA * 5.5 + warpB * 1.8);
             float tBand = band * 0.5 + 0.5;
 
             vec3 clayCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.3, tBand));
@@ -500,6 +550,34 @@
             // cobalt slip lines between laminae, softened like fired clay
             float vein = smoothstep(0.955, 1.0, abs(band));
             clayCol = mix(clayCol, COBALT, vein * 0.55);
+
+            // --- slab view: blues stacked in flat depth zones, like a bathymetric chart ---
+            float slab = 1.0 - uMorph;                     // 1 on the vessel -> 0 at sea
+            float levels = 7.0;
+            float zone = floor(tBand * levels) / levels;   // quantized "depth soundings"
+            vec3 zoneCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.3, zone));
+            zoneCol = mix(zoneCol, CERULEAN, smoothstep(0.3, 0.58, zone));
+            zoneCol = mix(zoneCol, SKY,      smoothstep(0.58, 0.8, zone));
+            zoneCol = mix(zoneCol, ICE,      smoothstep(0.8, 0.96, zone));
+            clayCol = mix(clayCol, zoneCol, 0.45 * slab);
+            // hairline isolines between zones, pale over deep water, cobalt over shallows
+            float iso = fract(tBand * levels);
+            float isoLine = 1.0 - smoothstep(0.03, 0.1, min(iso, 1.0 - iso));
+            clayCol = mix(clayCol, mix(ICE, COBALT, tBand), isoLine * 0.22 * slab);
+
+            // richer pigment in the slab view
+            float grey = dot(clayCol, vec3(0.299, 0.587, 0.114));
+            clayCol = clamp(mix(vec3(grey), clayCol, 1.0 + 0.4 * slab), 0.0, 1.0);
+            clayCol *= 1.0 - 0.06 * slab;   // a touch more ink density
+
+            // mycelium up close: ridged noise -> pale branching filaments (hyphae)
+            // threading the strata, strongest over deep water
+            float ridgeA = 1.0 - abs(snoise(pc * 0.9 + 5.1));
+            float ridgeB = 1.0 - abs(snoise(pc * 2.3 + 17.3));
+            float hyphae = pow(ridgeA, 10.0) + 0.6 * pow(ridgeB, 14.0);
+            hyphae *= 0.25 + 0.75 * (1.0 - tBand);
+            hyphae = clamp(hyphae, 0.0, 1.0) * (0.15 + 0.85 * slab);
+            clayCol = mix(clayCol, ICE, hyphae * 0.5);
 
             // unglazed porcelain foot ring
             float footMask = (1.0 - smoothstep(-10.65, -10.25, vPattern.y)) * (1.0 - uMorph);
@@ -516,9 +594,15 @@
 
         shader.fragmentShader = shader.fragmentShader.replace('#include <roughnessmap_fragment>', `
             float glossF = clamp((uGloss - 0.6) / 0.8, 0.0, 1.0);
-            float roughnessFactor = mix(0.62, 0.28, glossF);        // satin clay -> wet sea
+            float roughnessFactor = mix(0.68, 0.28, glossF);        // matte slab -> wet sea
             roughnessFactor += snoise(vPattern * 26.0) * 0.05;      // fired-surface micro variation
             roughnessFactor += tBand * 0.05 - 0.02;                 // pale laminae read slightly drier
+            // glimmer: micro-glints that twinkle as the wheel turns,
+            // concentrated along the hyphal filaments
+            float grain = snoise(vPattern * 55.0);
+            float pulse = 0.55 + 0.45 * sin(uTime * 1.6 + grain * 43.0);
+            float glint = smoothstep(0.8, 0.97, grain) * pulse;
+            roughnessFactor -= (glint * 0.3 + hyphae * pulse * 0.25) * (1.0 - uMorph);
             roughnessFactor = mix(roughnessFactor, 0.9, footMask);  // raw unglazed foot
             roughnessFactor -= foam * 0.2;
             roughnessFactor = clamp(roughnessFactor, 0.08, 1.0);
@@ -528,14 +612,15 @@
             #include <lights_physical_fragment>
             material.clearcoat = uClear * (1.0 - footMask);
             material.clearcoatRoughness = mix(0.42, 0.16, glossF);
+            // sheer veil: fabric-like sheen instead of glaze, brightest along
+            // the filaments and over the deep blues; fades away at sea
+            material.sheenColor *= (0.35 + 0.65 * (1.0 - tBand)) * (0.6 + 0.8 * hyphae) * (1.0 - uMorph);
         `);
     };
 
     const vessel = new THREE.Mesh(vaseGeo, clayMaterial);
     scene.add(vessel);
 
-    // soft photographic contact shadow, offset away from the key light;
-    // fades out as the vessel becomes the sea
     function makeShadowTexture() {
         const c = document.createElement('canvas');
         c.width = c.height = 256;
@@ -613,29 +698,31 @@
     // ---------- STATES: vessel -> unfurling -> current ----------
     const config = [
         {
-            color: "#2D6BD8",   // cobalt
-            morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.9, foam: 0.0, drift: 0.0, clear: 0.28,
+            label: "vessel", color: "#2D6BD8",   // cobalt
+            morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.62, foam: 0.0, drift: 0.0, clear: 0.0,
             rotate: 0.5, camY: 14, camDist: 54
         },
         {
-            color: "#3E7CB1",   // cerulean
-            morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02, clear: 0.5,
+            label: "unfurling", color: "#3E7CB1",   // cerulean
+            morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02, clear: 0.3,
             rotate: 1.6, camY: 30, camDist: 78
         },
         {
-            color: "#1B3A5C",   // prussian
+            label: "current", color: "#1B3A5C",   // prussian
             morph: 1.0, swirl: 0.0, wave: 1.0, gloss: 1.4, foam: 1.0, drift: 0.06, clear: 1.0,
             rotate: 0.25, camY: 11, camDist: 85
         }
     ];
 
-    let stateIdx = 0;
-    const eyebrow = document.getElementById('eyebrow');
+    // ---------- SOLID: ----------
+    const [stateIdx, setStateIdx] = createSignal(0);
+    const heroState = () => config[stateIdx()];
     const camControl = { distance: 54 };
 
-    function transition() {
-        stateIdx = (stateIdx + 1) % config.length;
-        const s = config[stateIdx];
+    let firstRun = true;
+    createEffect(() => {
+        const s = heroState();
+        if (firstRun) { firstRun = false; return; }   // scene already starts in state 0
         const u = clayUniforms;
         const tl = gsap.timeline({ defaults: { duration: 4.5, ease: "power2.inOut" } });
         tl.to(u.uMorph, { value: s.morph }, 0);
@@ -651,12 +738,53 @@
         tl.to(controls, { autoRotateSpeed: s.rotate }, 0);
         tl.to(camera.position, { y: s.camY }, 0);
         tl.to(camControl, { distance: s.camDist }, 0);
-        eyebrow.style.color = s.color;
+    });
+
+    function turnWheel() {
+        setStateIdx(i => (i + 1) % config.length);
     }
+
+    // ---------- SOLID UI: ----------
+    render(() => html`
+        <p class="eyebrow" style=${() => `color: ${heroState().color}`}>
+            Nerikomi study · ${() => heroState().label} — click to turn the wheel
+        </p>
+    `, document.getElementById('eyebrow-mount'));
+
+    // adding a project 
+    const projects = [
+        {
+            title: "Let's Not Boil the Ocean",
+            tags: ["Python", "Geospatial", "Time series"],
+            blurb: "California fisheries × ocean climate — tracing how warming waters reshape what we catch, and where."
+        },
+        {
+            title: "SQL & Python Analysis Samples",
+            tags: ["SQL", "pandas", "Statistics"],
+            blurb: "Selected coursework and independent analyses from UC Berkeley MIDS."
+        },
+        {
+            title: "Program Case Studies",
+            tags: ["Strategy", "Enablement"],
+            blurb: "Seven years of content strategy and program development, told with the numbers behind them."
+        }
+    ];
+
+    render(() => html`
+        <div class="cards">
+            <${For} each=${projects}>${(p) => html`
+                <article class="card">
+                    <h3>${p.title}</h3>
+                    <p>${p.blurb}</p>
+                    <div class="tags">${p.tags.map(t => html`<span class="tag">${t}</span>`)}</div>
+                </article>
+            `}<//>
+        </div>
+    `, document.getElementById('cards-mount'));
 
     let cycle = null;
     function startCycle() {
-        if (!cycle && !reducedMotion) cycle = setInterval(transition, 12000);
+        if (!cycle && !reducedMotion) cycle = setInterval(turnWheel, 12000);
     }
     function stopCycle() {
         if (cycle) { clearInterval(cycle); cycle = null; }
@@ -664,11 +792,10 @@
     startCycle();
 
     // click anywhere on the hero to turn the wheel
-    // (clicks on links/buttons are ignored
     document.getElementById('hero').addEventListener('click', (e) => {
         if (e.target.closest('a')) return;
         stopCycle();
-        transition();
+        turnWheel();
         startCycle();
     });
 
