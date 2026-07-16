@@ -8,14 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&family=Roboto+Mono:wght@300;500&display=swap" rel="stylesheet">
 <style>
     :root {
-        /* ===== PALETTE: ===== */
+        /* ===== PALETTE ===== */
         --paper:    #FAFBFC;   
-        --ink:      #0E1E30;   /
-        --prussian: #1B3A5C;   /
-        --cerulean: #3E7CB1;   / 
-        --sky:      #8FBFE0;   /
-        --ice:      #E6EFF6;   / 
-        --cobalt:   #2D6BD8;   /
+        --ink:      #0E1E30;   
+        --prussian: #1B3A5C;
+        --cerulean: #3E7CB1;
+        --sky:      #8FBFE0;
+        --ice:      #E6EFF6;
+        --cobalt:   #2D6BD8;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -55,8 +55,7 @@
     /* ============ UR MY HERO ============ */
     #hero {
         position: relative;
-        height: 100vh;      /* fallback for older browsers */
-        height: 100svh;     /* respects mobile browser UI (URL bar) */
+        height: 100vh;
         min-height: 560px;
         overflow: hidden;
         cursor: pointer;
@@ -180,16 +179,7 @@
     @media (max-width: 640px) {
         nav { padding: 18px 22px; }
         nav .links a { margin-left: 16px; }
-        /* Separate the animation from the text: canvas on top, text below */
-        #hero { height: auto; min-height: 0; }
-        #hero-canvas { position: relative; height: 55svh; min-height: 320px; }
-        .hero-vignette { inset: auto; top: 0; left: 0; right: 0; height: 55svh; min-height: 320px; }
-        .hero-content {
-            position: static;
-            max-width: none;
-            padding: 28px 22px 40px;
-        }
-        .scroll-cue { display: none; }
+        .hero-content { left: 22px; right: 22px; bottom: 14vh; }
         section.page { padding: 80px 22px; }
     }
 </style>
@@ -210,7 +200,7 @@
 <nav>
     <div class="brand">Sasha Schaps</div>
     <div class="links">
-        <a href="/about.html">About</a>
+        <a href="#about">About</a>
         <a href="#work">Work</a>
         <a href="#contact">Contact</a>
     </div>
@@ -221,10 +211,11 @@
     <div class="hero-vignette" aria-hidden="true"></div>
 
     <div class="hero-content">
+        <p class="eyebrow" id="eyebrow">Nerikomi study — click to turn the wheel</p>
         <h1>Building neural <br><em>hyphae</em>.</h1>
         <p class="sub">
-            I'm Sasha <- I'm a Bay Area native and aspiring data scientist that's inspired by natural ordered networks.</p>
-            <p><em>Currently taking time to master ceramics and balancing UC Berkeley MIDS.</em>
+            I'm Sasha <— I'm a Bay Area native and aspiring data scientist that's inspired by natural ordered networks.
+            There are layers to it.
         </p>
         <div class="cta-row">
             <a class="btn btn-primary" href="#work">View work</a>
@@ -239,19 +230,19 @@
     <section class="page" id="work">
         <div class="kicker">Selected Work</div>
         <h2>Projects</h2>
-        <p>This will be flip tiles and potentially a gallery</p>
+        <p>Gallery soon.</p>
     </section>
     <section class="page" id="about">
         <div class="kicker">About</div>
         <h2>Background</h2>
-        <p>I'm shipping something soon!<a href="/about/">About page</a>.</p>
+        <p>Shipping soon.</p>
     </section>
     <section class="page" id="contact">
         <div class="kicker">Contact</div>
         <h2>Say hello</h2>
         <p>Open to opportunities, collaborations, and conversations.<br>
         <a href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a> ·
-        <a href="mailto:sashaschaps@bekeley.edu">sashaschaps@ischool.berekeley.edu</a> ·
+        <a href="mailto:sashaschaps@ischool.berkeley.edu">sashaschaps@ischool.berkeley.edu</a> ·
         <a href="https://github.com/sascha-pst">GitHub</a></p>
     </section>
 </main>
@@ -261,6 +252,7 @@
 <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     import gsap from 'gsap';
 
     const container = document.getElementById('hero-canvas');
@@ -276,6 +268,18 @@
     renderer.toneMappingExposure = 1.25;
     renderer.setClearColor(0xFAFBFC);
     container.appendChild(renderer.domElement);
+
+    // ---------- PHOTO STUDIO ----------
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.fog = new THREE.Fog(0xFAFBFC, 60, 150);
+
+    const keyLight = new THREE.DirectionalLight(0xfff2e2, 1.4);
+    keyLight.position.set(-18, 30, 24);
+    scene.add(keyLight);
+    const fillLight = new THREE.DirectionalLight(0xdfeaff, 0.45);
+    fillLight.position.set(26, 8, -12);
+    scene.add(fillLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enabled = false;
@@ -366,109 +370,195 @@
     }
     const vaseGeo = new THREE.LatheGeometry(profilePts, 240);
 
-    // ---------- MARBLED CLAY / SEA MATERIAL ----------
+    // ---------- MARBLED CLAY / SEA MATERIAL (physically based) ----------
     const OCEAN_SIZE = 120.0;
-    const clayMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-            uTime:   { value: 0 },
-            uMorph:  { value: 0 },     // 0 - vase -> 1 - ocean
-            uSwirl:  { value: 0 },
-            uWave:   { value: 0.15 },
-            uGloss:  { value: 0.9 },
-            uFoam:   { value: 0.0 },
-            uDrift:  { value: 0.0 }
-        },
-        vertexShader: `
-            ${noiseChunk}
+    function makeClayBump() {
+        const c = document.createElement('canvas');
+        c.width = 256; c.height = 1024;
+        const g = c.getContext('2d');
+        g.fillStyle = 'rgb(128,128,128)';
+        g.fillRect(0, 0, 256, 1024);
+        for (let y = 0; y < 1024; y++) {
+            const ring = Math.sin(y * 0.55) * 5 + Math.sin(y * 0.13) * 4;
+            const v = Math.round(128 + ring + (Math.random() - 0.5) * 10);
+            g.fillStyle = `rgba(${v},${v},${v},0.85)`;
+            g.fillRect(0, y, 256, 1);
+        }
+        g.globalAlpha = 0.35;
+        for (let i = 0; i < 9000; i++) {
+            const v = Math.round(128 + (Math.random() - 0.5) * 60);
+            g.fillStyle = `rgb(${v},${v},${v})`;
+            g.fillRect(Math.random() * 256, Math.random() * 1024, 1.4, 1.4);
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        return tex;
+    }
+
+    const clayUniforms = {
+        uTime:   { value: 0 },
+        uMorph:  { value: 0 },     // 0 - vase -> 1 - ocean
+        uSwirl:  { value: 0 },
+        uWave:   { value: 0.15 },
+        uGloss:  { value: 0.9 },
+        uFoam:   { value: 0.0 },
+        uDrift:  { value: 0.0 },
+        uClear:  { value: 0.28 }  
+    };
+
+    const clayMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        roughness: 0.55,
+        metalness: 0.0,
+        clearcoat: 1.0,            
+        clearcoatRoughness: 0.4,
+        bumpMap: makeClayBump(),
+        bumpScale: 0.8,
+        envMapIntensity: 0.75,
+        side: THREE.DoubleSide
+    });
+
+    clayMaterial.onBeforeCompile = (shader) => {
+        Object.assign(shader.uniforms, clayUniforms);
+        clayMaterial.userData.shader = shader;
+
+        shader.vertexShader = `
             uniform float uTime;
             uniform float uMorph;
             uniform float uSwirl;
             uniform float uWave;
-            varying vec3 vWorld;
             varying vec3 vPattern;
+            varying vec3 vWorldPos2;
             varying float vCrest;
-            void main() {
-                vec3 vasePos = position;
-                float twist = uSwirl * (position.y * 0.16 + 1.2);
-                float ct = cos(twist), st = sin(twist);
-                vasePos.xz = mat2(ct, -st, st, ct) * vasePos.xz;
-
-                float ox = (uv.x - 0.5) * ${OCEAN_SIZE.toFixed(1)};
-                float oz = (uv.y - 0.5) * ${OCEAN_SIZE.toFixed(1)};
-                float swellA = snoise(vec3(ox * 0.045, oz * 0.045, uTime * 0.18)) * 2.6;
-                float swellB = snoise(vec3(ox * 0.14,  oz * 0.14,  uTime * 0.35)) * 0.9;
-                float chop   = snoise(vec3(ox * 0.4,   oz * 0.4,   uTime * 0.6 )) * 0.25;
-                float h = (swellA + swellB + chop) * uWave;
-                vec3 seaPos = vec3(ox, -3.0 + h, oz);
-
-                float m = smoothstep(0.0, 1.0, uMorph);
-                vec3 p = mix(vasePos, seaPos, m);
-
-                float unrest = uSwirl * snoise(vec3(p.xz * 0.1, uTime * 0.4)) * 2.0;
-                p.y += unrest * (1.0 - abs(m - 0.5) * 2.0);
-
-                vCrest = h;
-                vPattern = position;
-                vWorld = (modelMatrix * vec4(p, 1.0)).xyz;
-                gl_Position = projectionMatrix * viewMatrix * vec4(vWorld, 1.0);
-            }
-        `,
-        fragmentShader: `
             ${noiseChunk}
-            ${paletteChunk}
+            float seaHeight(vec2 o) {
+                float swellA = snoise(vec3(o * 0.045, uTime * 0.18)) * 2.6;
+                float swellB = snoise(vec3(o * 0.14,  uTime * 0.35)) * 0.9;
+                float chop   = snoise(vec3(o * 0.4,   uTime * 0.6 )) * 0.25;
+                return (swellA + swellB + chop) * uWave;
+            }
+        ` + shader.vertexShader;
+
+        shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', `
+            vec3 objectNormal = vec3(normal);
+            float twist = uSwirl * (position.y * 0.16 + 1.2);
+            float ct = cos(twist), st = sin(twist);
+            objectNormal.xz = mat2(ct, -st, st, ct) * objectNormal.xz;
+
+            // analytic sea normal from the height field, so waves catch light correctly
+            vec2 oxz = (uv - 0.5) * ${OCEAN_SIZE.toFixed(1)};
+            float hC = seaHeight(oxz);
+            float eN = 0.65;
+            vec3 seaNormal = normalize(vec3(
+                -(seaHeight(oxz + vec2(eN, 0.0)) - hC) / eN,
+                1.0,
+                -(seaHeight(oxz + vec2(0.0, eN)) - hC) / eN
+            ));
+            float m = smoothstep(0.0, 1.0, uMorph);
+            objectNormal = normalize(mix(objectNormal, seaNormal, m));
+        `);
+
+        shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
+            vec3 vasePos = vec3(position);
+            vasePos.xz = mat2(ct, -st, st, ct) * vasePos.xz;
+            vec3 seaPos = vec3(oxz.x, -3.0 + hC, oxz.y);
+            vec3 transformed = mix(vasePos, seaPos, m);
+            float unrest = uSwirl * snoise(vec3(transformed.xz * 0.1, uTime * 0.4)) * 2.0;
+            transformed.y += unrest * (1.0 - abs(m - 0.5) * 2.0);
+            vCrest = hC;
+            vPattern = position;
+            vWorldPos2 = (modelMatrix * vec4(transformed, 1.0)).xyz;
+        `);
+
+        shader.fragmentShader = `
             uniform float uTime;
             uniform float uMorph;
             uniform float uGloss;
             uniform float uFoam;
             uniform float uDrift;
-            varying vec3 vWorld;
+            uniform float uClear;
             varying vec3 vPattern;
+            varying vec3 vWorldPos2;
             varying float vCrest;
+            ${noiseChunk}
+            ${paletteChunk}
+        ` + shader.fragmentShader;
 
-            void main() {
-                // Nerikomi marbling: abyss -> midnight -> coastal -> sea glass -> salt
-                vec3 pc = vPattern + vec3(0.0, uTime * uDrift, uTime * uDrift * 0.4);
-                float warpA = snoise(pc * 0.14);
-                float warpB = snoise(pc * 0.42 + 31.7);
-                float band  = sin(pc.y * 1.7 + warpA * 5.5 + warpB * 1.8);
-                float t = band * 0.5 + 0.5;
+        shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `
+            #include <color_fragment>
+            // Nerikomi marbling: abyss -> midnight -> coastal -> sea glass -> salt
+            vec3 pc = vPattern + vec3(0.0, uTime * uDrift, uTime * uDrift * 0.4);
+            float warpA = snoise(pc * 0.14);
+            float warpB = snoise(pc * 0.42 + 31.7);
+            float band  = sin(pc.y * 1.7 + warpA * 5.5 + warpB * 1.8);
+            float tBand = band * 0.5 + 0.5;
 
-                vec3 base = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.3, t));
-                base = mix(base, CERULEAN, smoothstep(0.3, 0.58, t));
-                base = mix(base, SKY,      smoothstep(0.58, 0.8, t));
-                base = mix(base, ICE,      smoothstep(0.8, 0.96, t));
+            vec3 clayCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.3, tBand));
+            clayCol = mix(clayCol, CERULEAN, smoothstep(0.3, 0.58, tBand));
+            clayCol = mix(clayCol, SKY,      smoothstep(0.58, 0.8, tBand));
+            clayCol = mix(clayCol, ICE,      smoothstep(0.8, 0.96, tBand));
 
-                // cobalt slip lines between laminae
-                float vein = smoothstep(0.965, 1.0, abs(band));
-                base = mix(base, COBALT, vein * 0.7);
+            // cobalt slip lines between laminae, softened like fired clay
+            float vein = smoothstep(0.955, 1.0, abs(band));
+            clayCol = mix(clayCol, COBALT, vein * 0.55);
 
-                vec3 N = normalize(cross(dFdx(vWorld), dFdy(vWorld)));
-                vec3 V = normalize(cameraPosition - vWorld);
-                if (dot(N, V) < 0.0) N = -N;
-                vec3 L = normalize(vec3(0.45, 0.85, 0.3));
-                float diff = clamp(dot(N, L), 0.0, 1.0);
-                float spec = pow(max(dot(reflect(-L, N), V), 0.0), 48.0) * uGloss;
-                float fres = pow(1.0 - max(dot(N, V), 0.0), 3.0);
+            // unglazed porcelain foot ring
+            float footMask = (1.0 - smoothstep(-10.65, -10.25, vPattern.y)) * (1.0 - uMorph);
+            clayCol = mix(clayCol, vec3(0.93, 0.915, 0.89), footMask);
 
-                vec3 col = base * (0.45 + 0.65 * diff) + ICE * spec * 0.6;
-                col += SKY * fres * 0.25 * (0.5 + uMorph);
+            // sea foam
+            float foam = smoothstep(1.1, 2.4, vCrest) * uFoam;
+            foam += smoothstep(0.6, 0.0, abs(snoise(vWorldPos2 * 0.5 + uTime * 0.2))) * 0.12 * uFoam;
+            foam = clamp(foam, 0.0, 1.0);
+            clayCol = mix(clayCol, ICE, foam);
 
-                float foam = smoothstep(1.1, 2.4, vCrest) * uFoam;
-                foam += smoothstep(0.6, 0.0, abs(snoise(vWorld * 0.5 + uTime * 0.2))) * 0.12 * uFoam;
-                col = mix(col, ICE, clamp(foam, 0.0, 1.0));
+            diffuseColor.rgb = pow(clayCol, vec3(2.2));   // sRGB palette -> linear
+        `);
 
-                // distance fog into gallery white
-                float fogF = smoothstep(55.0, 150.0, length(vWorld - cameraPosition));
-                col = mix(col, PAPER, fogF);
+        shader.fragmentShader = shader.fragmentShader.replace('#include <roughnessmap_fragment>', `
+            float glossF = clamp((uGloss - 0.6) / 0.8, 0.0, 1.0);
+            float roughnessFactor = mix(0.62, 0.28, glossF);        // satin clay -> wet sea
+            roughnessFactor += snoise(vPattern * 26.0) * 0.05;      // fired-surface micro variation
+            roughnessFactor += tBand * 0.05 - 0.02;                 // pale laminae read slightly drier
+            roughnessFactor = mix(roughnessFactor, 0.9, footMask);  // raw unglazed foot
+            roughnessFactor -= foam * 0.2;
+            roughnessFactor = clamp(roughnessFactor, 0.08, 1.0);
+        `);
 
-                gl_FragColor = vec4(col, 1.0);
-            }
-        `,
-        side: THREE.DoubleSide
-    });
+        shader.fragmentShader = shader.fragmentShader.replace('#include <lights_physical_fragment>', `
+            #include <lights_physical_fragment>
+            material.clearcoat = uClear * (1.0 - footMask);
+            material.clearcoatRoughness = mix(0.42, 0.16, glossF);
+        `);
+    };
 
     const vessel = new THREE.Mesh(vaseGeo, clayMaterial);
     scene.add(vessel);
+
+    // soft photographic contact shadow, offset away from the key light;
+    // fades out as the vessel becomes the sea
+    function makeShadowTexture() {
+        const c = document.createElement('canvas');
+        c.width = c.height = 256;
+        const g = c.getContext('2d');
+        const grad = g.createRadialGradient(128, 128, 8, 128, 128, 126);
+        grad.addColorStop(0.0,  'rgba(14,30,48,0.40)');
+        grad.addColorStop(0.45, 'rgba(14,30,48,0.16)');
+        grad.addColorStop(1.0,  'rgba(14,30,48,0.0)');
+        g.fillStyle = grad;
+        g.fillRect(0, 0, 256, 256);
+        return new THREE.CanvasTexture(c);
+    }
+    const shadowMat = new THREE.MeshBasicMaterial({
+        map: makeShadowTexture(),
+        transparent: true,
+        depthWrite: false,
+        fog: false
+    });
+    const contactShadow = new THREE.Mesh(new THREE.PlaneGeometry(34, 28), shadowMat);
+    contactShadow.rotation.x = -Math.PI / 2;
+    contactShadow.position.set(2.0, -11.03, -1.0);
+    scene.add(contactShadow);
 
     // ---------- STAIN ON SLAB ----------
     const SPRAY_N = 600;
@@ -525,17 +615,17 @@
     const config = [
         {
             color: "#2D6BD8",   // cobalt
-            morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.9, foam: 0.0, drift: 0.0,
+            morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.9, foam: 0.0, drift: 0.0, clear: 0.28,
             rotate: 0.5, camY: 14, camDist: 54
         },
         {
             color: "#3E7CB1",   // cerulean
-            morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02,
+            morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02, clear: 0.5,
             rotate: 1.6, camY: 30, camDist: 78
         },
         {
             color: "#1B3A5C",   // prussian
-            morph: 1.0, swirl: 0.0, wave: 1.0, gloss: 1.4, foam: 1.0, drift: 0.06,
+            morph: 1.0, swirl: 0.0, wave: 1.0, gloss: 1.4, foam: 1.0, drift: 0.06, clear: 1.0,
             rotate: 0.25, camY: 11, camDist: 85
         }
     ];
@@ -547,7 +637,7 @@
     function transition() {
         stateIdx = (stateIdx + 1) % config.length;
         const s = config[stateIdx];
-        const u = clayMaterial.uniforms;
+        const u = clayUniforms;
         const tl = gsap.timeline({ defaults: { duration: 4.5, ease: "power2.inOut" } });
         tl.to(u.uMorph, { value: s.morph }, 0);
         tl.to(u.uSwirl, { value: s.swirl }, 0);
@@ -555,7 +645,10 @@
         tl.to(u.uGloss, { value: s.gloss }, 0);
         tl.to(u.uFoam,  { value: s.foam },  0);
         tl.to(u.uDrift, { value: s.drift }, 0);
+        tl.to(u.uClear, { value: s.clear }, 0);
         tl.to(sprayMat.uniforms.uMorph, { value: s.morph }, 0);
+        tl.to(shadowMat, { opacity: 1.0 - s.morph }, 0);
+        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0);  // throwing rings vanish at sea
         tl.to(controls, { autoRotateSpeed: s.rotate }, 0);
         tl.to(camera.position, { y: s.camY }, 0);
         tl.to(camControl, { distance: s.camDist }, 0);
@@ -589,7 +682,7 @@
         rafId = null;
         if (!heroVisible || document.hidden) return;
         const time = clock.getElapsedTime();
-        clayMaterial.uniforms.uTime.value = time;
+        clayUniforms.uTime.value = time;
         sprayMat.uniforms.uTime.value = time;
         const currentDir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
         camera.position.x = controls.target.x + currentDir.x * camControl.distance;
