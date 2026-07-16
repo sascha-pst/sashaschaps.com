@@ -326,9 +326,11 @@
     renderer.setClearColor(0xFAFBFC);
     container.appendChild(renderer.domElement);
     // ---------- PHOTO STUDIO ----------
+    // image-based lighting (soft "room" reflections) + warm key / cool fill,
+    // like a two-softbox tabletop shoot against seamless paper
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    pmrem.dispose();   
+    pmrem.dispose();   // env texture generated; free the generator's GPU scratch space
     scene.fog = new THREE.Fog(0xFAFBFC, 60, 150);
     const keyLight = new THREE.DirectionalLight(0xfff2e2, 1.4);
     keyLight.position.set(-18, 30, 24);
@@ -399,7 +401,7 @@
         const vec3 ABYSS    = vec3(0.055, 0.118, 0.188); // #0E1E30
         const vec3 PAPER    = vec3(0.980, 0.984, 0.988); // #FAFBFC
     `;
-    // ---------- VASE ----------
+    // ---------- VASE PROFILE ----------
     function smoothstepJS(a, b, x) {
         const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
         return t * t * (3 - 2 * t);
@@ -420,8 +422,7 @@
         profilePts.push(new THREE.Vector2(profileRadius(t), t * VASE_H - VASE_H * 0.5 + 2));
     }
     const vaseGeo = new THREE.LatheGeometry(profilePts, 240);
-
-    // ---------- MARBLED CLAY + LAYERING ----------
+    // ---------- MARBLED CLAY / SEA MATERIAL (physically based) ----------
     const OCEAN_SIZE = 120.0;
     function makeClayBump() {
         const c = document.createElement('canvas');
@@ -630,7 +631,6 @@
     contactShadow.rotation.x = -Math.PI / 2;
     contactShadow.position.set(2.0, -11.03, -1.0);
     scene.add(contactShadow);
-    
     // ---------- STAIN ON SLAB ----------
     const SPRAY_N = 600;
     const sprayGeo = new THREE.BufferGeometry();
@@ -680,21 +680,20 @@
         transparent: true, blending: THREE.NormalBlending, depthWrite: false
     });
     scene.add(new THREE.Points(sprayGeo, sprayMat));
-    
     // ---------- STATES: vessel -> unfurling -> current ----------
     const config = [
         {
-            label: "vessel", color: "#2D6BD8",   
+            label: "vessel", color: "#2D6BD8",   // cobalt
             morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.62, foam: 0.0, drift: 0.0, clear: 0.0,
             rotate: 0.5, camY: 14, camDist: 54
         },
         {
-            label: "unfurling", color: "#3E7CB1",   
+            label: "unfurling", color: "#3E7CB1",   // cerulean
             morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02, clear: 0.3,
             rotate: 1.6, camY: 30, camDist: 78
         },
         {
-            label: "current", color: "#1B3A5C",   
+            label: "current", color: "#1B3A5C",   // prussian
             morph: 1.0, swirl: 0.0, wave: 1.0, gloss: 1.4, foam: 1.0, drift: 0.06, clear: 1.0,
             rotate: 0.25, camY: 11, camDist: 85
         }
@@ -706,9 +705,9 @@
     let firstRun = true;
     createEffect(() => {
         const s = heroState();
-        if (firstRun) { firstRun = false; return; }   
+        if (firstRun) { firstRun = false; return; }   // scene already starts in state 0
         const u = clayUniforms;
-        
+        // reduced motion: jump straight to the new state instead of the 4.5s morph
         const tl = gsap.timeline({ defaults: { duration: reducedMotion ? 0 : 4.5, ease: "power2.inOut" } });
         tl.to(u.uMorph, { value: s.morph }, 0);
         tl.to(u.uSwirl, { value: s.swirl }, 0);
@@ -719,7 +718,7 @@
         tl.to(u.uClear, { value: s.clear }, 0);
         tl.to(sprayMat.uniforms.uMorph, { value: s.morph }, 0);
         tl.to(shadowMat, { opacity: 1.0 - s.morph }, 0);
-        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0);  
+        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0);  // throwing rings vanish at sea
         tl.to(controls, { autoRotateSpeed: s.rotate }, 0);
         tl.to(camera.position, { y: s.camY }, 0);
         tl.to(camControl, { distance: s.camDist }, 0);
@@ -727,13 +726,9 @@
     function turnWheel() {
         setStateIdx(i => (i + 1) % config.length);
     }
-    
-    render(() => html`
-        <div class="eyebrow" style=${() => `color:${heroState().color}`}>
-            ${() => heroState().label} — click to turn the wheel
-        </div>
-    `, document.getElementById('eyebrow-mount'));
-// ADD PROJECTS HERE
+    // adding a project: { title, tags, blurb, image? }
+    // give a piece image: "screenshots/my-project.png" to hang a real screenshot;
+    // leave image off and a marbled study is painted for it instead.
     const projects = [
         {
             title: "Let's Not",
@@ -751,6 +746,7 @@
             blurb: "I wish I had a hammer."
         }
     ];
+    // ---------- MARBLED STUDIES: seeded canvas art for pieces without screenshots ----------
     function mulberry32(a) {
         return function() {
             a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -763,10 +759,11 @@
         const W = canvas.width = 640, H = canvas.height = 800;
         const g = canvas.getContext('2d');
         const rnd = mulberry32(seed * 7919 + 13);
-        const strata = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30'];  
-        const cyc = [0, 1, 2, 3, 4, 3, 2, 1];
+        const strata = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30'];  // ice -> abyss
+        const cyc = [0, 1, 2, 3, 4, 3, 2, 1];   // ping-pong through the palette, like the vase banding
         g.fillStyle = strata[0];
         g.fillRect(0, 0, W, H);
+        // laminae: wavy strata drifting across the piece
         const waves = Array.from({ length: 3 }, () => ({
             a: 10 + rnd() * 24, f: 0.004 + rnd() * 0.011, p: rnd() * Math.PI * 2
         }));
@@ -788,6 +785,7 @@
             g.closePath();
             g.fill();
         }
+        // cobalt slip veins between laminae
         g.strokeStyle = '#2D6BD8';
         for (let v = 0; v < 7; v++) {
             const yv = rnd() * H;
@@ -802,6 +800,7 @@
             }
             g.stroke();
         }
+        // hyphae: pale filaments wandering through the strata
         g.strokeStyle = strata[0];
         for (let h = 0; h < 22; h++) {
             let x = rnd() * W, y = rnd() * H, ang = rnd() * Math.PI * 2;
@@ -819,6 +818,7 @@
             g.stroke();
         }
         g.globalAlpha = 1;
+        // ink motes and a soft vignette for depth
         for (let d = 0; d < 700; d++) {
             g.fillStyle = 'rgba(14,30,48,' + (0.02 + rnd() * 0.07).toFixed(3) + ')';
             g.fillRect(rnd() * W, rnd() * H, 1.3, 1.3);
@@ -876,6 +876,7 @@
     function animate() {
         rafId = null;
         if (!heroVisible || document.hidden) return;
+        // accumulate clamped deltas so waves don't leap forward after a hidden tab
         shaderTime += Math.min(clock.getDelta(), 0.1);
         clayUniforms.uTime.value = shaderTime;
         sprayMat.uniforms.uTime.value = shaderTime;
