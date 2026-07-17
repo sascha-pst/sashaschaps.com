@@ -55,6 +55,7 @@
     #hero {
         position: relative;
         height: 100vh;
+        height: 100svh;   /* phones: viewport minus browser chrome, so nothing hides behind the URL bar */
         min-height: 560px;
         overflow: hidden;
         cursor: pointer;
@@ -164,7 +165,6 @@
     section.page p { font-size: 1.1rem; line-height: 1.7; opacity: 0.78; max-width: 62ch; }
     section.page a { color: var(--prussian); transition: color 0.3s; }
     section.page a:hover { color: var(--cobalt); }
-
     /* ============ GALLERY WALK (Solid-rendered) ============ */
     .gallery-wrap { margin-top: 44px; }
     .walk-hint {
@@ -237,10 +237,43 @@
         text-transform: uppercase;
         opacity: 0.4;
     }
+    /* ============ SMALL SCREENS: keep the ink legible over the blues ============ */
     @media (max-width: 640px) {
-        nav { padding: 18px 22px; }
-        nav .links a { margin-left: 16px; }
-        .hero-content { left: 22px; right: 22px; bottom: 14vh; }
+        nav {
+            padding: 16px 20px;
+            font-size: 0.6rem;
+            letter-spacing: 0.16em;
+            background: linear-gradient(to bottom, rgba(250,251,252,0.95), rgba(250,251,252,0.7) 65%, transparent);
+        }
+        nav .links a { margin-left: 14px; }
+        .hero-content { left: 20px; right: 20px; bottom: max(11svh, 84px); }
+        h1 { font-size: clamp(2.05rem, 9.5vw, 3rem); }
+        .sub { opacity: 0.92; }
+        .btn { padding: 13px 20px; }
+        .btn-ghost {
+            background: rgba(250,251,252,0.6);
+            border-color: rgba(14,30,48,0.35);
+        }
+        /* heavier scrim low on the screen, where the type lives —
+           the art keeps a clear window up top */
+        .hero-vignette {
+            background:
+                radial-gradient(circle at 50% 30%, transparent 32%, rgba(250,251,252,0.4) 72%, rgba(250,251,252,0.6) 100%),
+                linear-gradient(to bottom,
+                    rgba(250,251,252,0.6),
+                    transparent 20%,
+                    transparent 36%,
+                    rgba(250,251,252,0.55) 58%,
+                    rgba(250,251,252,0.88) 78%,
+                    var(--paper) 100%);
+        }
+        /* paper halo behind the letterforms, like white slip under cobalt */
+        .eyebrow, .hero-content h1, .hero-content .sub {
+            text-shadow:
+                0 1px 2px rgba(250,251,252,0.95),
+                0 0 12px rgba(250,251,252,0.85),
+                0 0 32px rgba(250,251,252,0.6);
+        }
         section.page { padding: 80px 22px; }
     }
 </style>
@@ -325,11 +358,9 @@
     renderer.setClearColor(0xFAFBFC);
     container.appendChild(renderer.domElement);
     // ---------- PHOTO STUDIO ----------
-    // image-based lighting (soft "room" reflections) + warm key / cool fill,
-    // like a two-softbox tabletop shoot against seamless paper
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    pmrem.dispose();   // env texture generated; free the generator's GPU scratch space
+    pmrem.dispose(); 
     scene.fog = new THREE.Fog(0xFAFBFC, 60, 150);
     const keyLight = new THREE.DirectionalLight(0xfff2e2, 1.4);
     keyLight.position.set(-18, 30, 24);
@@ -421,7 +452,8 @@
         profilePts.push(new THREE.Vector2(profileRadius(t), t * VASE_H - VASE_H * 0.5 + 2));
     }
     const vaseGeo = new THREE.LatheGeometry(profilePts, 240);
-    // ---------- MARBLED CLAY / SEA MATERIAL (physically based) ----------
+    
+    // ---------- MARBLED CLAY / SEA MATERIAL  ----------
     const OCEAN_SIZE = 120.0;
     function makeClayBump() {
         const c = document.createElement('canvas');
@@ -630,6 +662,7 @@
     contactShadow.rotation.x = -Math.PI / 2;
     contactShadow.position.set(2.0, -11.03, -1.0);
     scene.add(contactShadow);
+  
     // ---------- STAIN ON SLAB ----------
     const SPRAY_N = 600;
     const sprayGeo = new THREE.BufferGeometry();
@@ -679,6 +712,7 @@
         transparent: true, blending: THREE.NormalBlending, depthWrite: false
     });
     scene.add(new THREE.Points(sprayGeo, sprayMat));
+   
     // ---------- STATES: vessel -> unfurling -> current ----------
     const config = [
         {
@@ -704,9 +738,8 @@
     let firstRun = true;
     createEffect(() => {
         const s = heroState();
-        if (firstRun) { firstRun = false; return; }   // scene already starts in state 0
+        if (firstRun) { firstRun = false; return; }
         const u = clayUniforms;
-        // reduced motion: jump straight to the new state instead of the 4.5s morph
         const tl = gsap.timeline({ defaults: { duration: reducedMotion ? 0 : 4.5, ease: "power2.inOut" } });
         tl.to(u.uMorph, { value: s.morph }, 0);
         tl.to(u.uSwirl, { value: s.swirl }, 0);
@@ -717,7 +750,7 @@
         tl.to(u.uClear, { value: s.clear }, 0);
         tl.to(sprayMat.uniforms.uMorph, { value: s.morph }, 0);
         tl.to(shadowMat, { opacity: 1.0 - s.morph }, 0);
-        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0);  // throwing rings vanish at sea
+        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0); 
         tl.to(controls, { autoRotateSpeed: s.rotate }, 0);
         tl.to(camera.position, { y: s.camY }, 0);
         tl.to(camControl, { distance: s.camDist }, 0);
@@ -725,9 +758,7 @@
     function turnWheel() {
         setStateIdx(i => (i + 1) % config.length);
     }
-    // adding a project: { title, tags, blurb, image? }
-    // give a piece image: "screenshots/my-project.png" to hang a real screenshot;
-    // leave image off and a marbled study is painted for it instead.
+    // adding a project: { title, tags, blurb, image }
     const projects = [
         {
             title: "Let's Not",
@@ -745,7 +776,7 @@
             blurb: "I wish I had a hammer."
         }
     ];
-    // ---------- MARBLED STUDIES: seeded canvas art for pieces without screenshots ----------
+    // ---------- MARBLED STUDIES: ----------
     function mulberry32(a) {
         return function() {
             a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -758,11 +789,10 @@
         const W = canvas.width = 640, H = canvas.height = 800;
         const g = canvas.getContext('2d');
         const rnd = mulberry32(seed * 7919 + 13);
-        const strata = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30'];  // ice -> abyss
-        const cyc = [0, 1, 2, 3, 4, 3, 2, 1];   // ping-pong through the palette, like the vase banding
+        const strata = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30']; 
+        const cyc = [0, 1, 2, 3, 4, 3, 2, 1];  
         g.fillStyle = strata[0];
         g.fillRect(0, 0, W, H);
-        // laminae: wavy strata drifting across the piece
         const waves = Array.from({ length: 3 }, () => ({
             a: 10 + rnd() * 24, f: 0.004 + rnd() * 0.011, p: rnd() * Math.PI * 2
         }));
@@ -784,7 +814,6 @@
             g.closePath();
             g.fill();
         }
-        // cobalt slip veins between laminae
         g.strokeStyle = '#2D6BD8';
         for (let v = 0; v < 7; v++) {
             const yv = rnd() * H;
@@ -799,7 +828,6 @@
             }
             g.stroke();
         }
-        // hyphae: pale filaments wandering through the strata
         g.strokeStyle = strata[0];
         for (let h = 0; h < 22; h++) {
             let x = rnd() * W, y = rnd() * H, ang = rnd() * Math.PI * 2;
@@ -817,7 +845,6 @@
             g.stroke();
         }
         g.globalAlpha = 1;
-        // ink motes and a soft vignette for depth
         for (let d = 0; d < 700; d++) {
             g.fillStyle = 'rgba(14,30,48,' + (0.02 + rnd() * 0.07).toFixed(3) + ')';
             g.fillRect(rnd() * W, rnd() * H, 1.3, 1.3);
@@ -860,7 +887,6 @@
         if (cycle) { clearInterval(cycle); cycle = null; }
     }
     startCycle();
-    // click anywhere on the hero to turn the wheel
     document.getElementById('hero').addEventListener('click', (e) => {
         if (e.target.closest('a')) return;
         stopCycle();
@@ -875,13 +901,12 @@
     function animate() {
         rafId = null;
         if (!heroVisible || document.hidden) return;
-        // accumulate clamped deltas so waves don't leap forward after a hidden tab
         shaderTime += Math.min(clock.getDelta(), 0.1);
         clayUniforms.uTime.value = shaderTime;
         sprayMat.uniforms.uTime.value = shaderTime;
         const currentDir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
-        camera.position.x = controls.target.x + currentDir.x * camControl.distance;
-        camera.position.z = controls.target.z + currentDir.z * camControl.distance;
+        camera.position.x = controls.target.x + currentDir.x * camControl.distance * distScale;
+        camera.position.z = controls.target.z + currentDir.z * camControl.distance * distScale;
         controls.update();
         renderer.render(scene, camera);
         rafId = requestAnimationFrame(animate);
@@ -898,12 +923,18 @@
         else stopCycle();
     }, { threshold: 0.05 }).observe(document.getElementById('hero'));
     document.addEventListener('visibilitychange', resumeIfNeeded);
+    let distScale = 1;
+    function fitCamera() {
+        distScale = camera.aspect < 0.72 ? 1.22 : 1.0;
+    }
+    fitCamera();
     new ResizeObserver(() => {
         const w = container.clientWidth, h = container.clientHeight;
         if (w === 0 || h === 0) return;
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
+        fitCamera();
     }).observe(container);
     resumeIfNeeded();
 </script>
