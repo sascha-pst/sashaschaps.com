@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&family=Roboto+Mono:wght@300;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --icy:#FAFBFC;
-    --saweetie:#0E1E30;
+    --paper:#FAFBFC;
+    --ink:#0E1E30;
     --prussian:#1B3A5C;
     --cobalt:#2D6BD8;
     --porcelain:#FAFBFC;
@@ -76,9 +76,16 @@
   h1 em{font-style:italic;color:var(--pale-sage)}
   .hero-hint{
     font-family:'Roboto Mono',monospace;
-    margin-top:1.2rem;color:var(--prussian);opacity:0.95;font-size:0.65rem;
+    margin:1.2rem calc(-1 * clamp(1.5rem,7vw,7rem)) 0;
+    padding:0.55rem clamp(1.5rem,7vw,7rem);
+    color:var(--prussian);font-size:0.65rem;
     letter-spacing:0.12em;text-transform:uppercase;
     display:flex;align-items:center;gap:0.6rem;
+    /* porcelain seam: a frosted pale strip through the clay, so the navy
+       stays legible no matter which band drifts behind it */
+    background:rgba(250,251,252,0.78);
+    -webkit-backdrop-filter:blur(3px);
+    backdrop-filter:blur(3px);
   }
   .hero-hint::before{
     content:"";width:2.2rem;height:1px;background:var(--prussian);opacity:0.7;
@@ -178,6 +185,7 @@
     /* Text stays inside the clay: taller hero, glaze sandwiched above + below */
     .hero{height:clamp(420px,72svh,640px)}
     .hero-inner{padding:0 1.5rem 4.5rem}
+    .hero-hint{margin-left:-1.5rem;margin-right:-1.5rem;padding-left:1.5rem;padding-right:1.5rem}
     .glaze-overlay{
       background:
         linear-gradient(180deg, rgba(14,30,48,0.5), rgba(14,30,48,0.16) 32%, rgba(14,30,48,0.16) 60%, rgba(14,30,48,0.55) 100%),
@@ -224,7 +232,7 @@
     <h2>Through and <em>through</em>.</h2>
     <div class="about-grid">
       <div>
-        <p>I'm Sasha — a Bay Area native and aspiring data scientist inspired by nature's self organizing networks, anarchy and colored clay.</p>
+        <p>I'm Sasha — a Bay Area native and aspiring data scientist inspired by natural ordered networks and colored clay.</p>
         <p>Current project: <a href="https://observablehq.com/d/43405b7a594c53cf"><em>Let's Not Boil the Ocean</em></a>, specifically the bit on <a href="https://github.com/thfrawley/California_State_CVA">Climate Vulnerability of select species</a>. Not really, that was done by a partnership between a lab, the fisheries department and NOAA.</p>
         <p>Off the keyboard, I'm spinning my wheels.</p>
       </div>
