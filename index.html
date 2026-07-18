@@ -3,62 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sasha Schaps — Data Science</title>
+<title>Sasha Schaps — Data Science </title>
 <meta name="description" content="Sasha Tejada Schaps, all California seas.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='26' fill='%232D6BD8'/><path d='M12 38c7-9 13 9 20 0s13 9 20 0' stroke='%23E6EFF6' stroke-width='5' fill='none'/></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300&family=Roboto+Mono:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200..800&family=Jost:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <style>
     :root {
         /* ===== PALETTE ===== */
-        --paper:    #FAFBFC;
-        --ink:      #0E1E30;
+        --paper:    #FAFBFC;   
+        --ink:      #0E1E30;   
         --prussian: #1B3A5C;
         --cerulean: #3E7CB1;
         --sky:      #8FBFE0;
-        --ice:      #E6EFF6;
+        --icy:      #E6EFF6;
         --cobalt:   #2D6BD8;
+        --bisque:   #F1ECE3;   
+
+        /* ===== COLOR STORY ===== */
+        --bg:     var(--paper);
+        --fg:     var(--ink);
+        --accent: var(--cobalt);
+
+        --rail: max(24px, calc((100vw - 1096px) / 2));
+
+        --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+        --mono:  'IBM Plex Mono', monospace;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body {
         margin: 0;
-        background-color: var(--paper);
-        font-family: 'Roboto', -apple-system, sans-serif;
-        color: var(--ink);
+        background-color: var(--bg);
+        font-family: 'Jost', 'Avenir Next', -apple-system, sans-serif;
+        color: var(--fg);
     }
-    /* ============ NAV NINJA ============ */
+    ::selection { background: var(--cobalt); color: #fff; }
+    a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+    .kicker {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 26px;
+    }
+
     nav {
         position: fixed;
         top: 0; left: 0; right: 0;
+        z-index: 50;
+        font-family: var(--mono);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 92%, transparent), transparent);
+    }
+    nav::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--bg) 78%, transparent);
+        -webkit-backdrop-filter: blur(16px) saturate(1.15);
+        backdrop-filter: blur(16px) saturate(1.15);
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+        opacity: 0;
+        transition: opacity 0.45s ease;
+        pointer-events: none;
+    }
+    nav.scrolled::before { opacity: 1; }
+    nav .strip, nav .navrow { position: relative; }
+    nav .strip {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 9px var(--rail) 8px;
+        font-size: 0.52rem;
+        letter-spacing: 0.22em;
+        opacity: 0.55;
+        border-bottom: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+    }
+    nav .navrow {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 22px 40px;
-        z-index: 50;
-        font-family: 'Roboto Mono', monospace;
+        padding: 16px var(--rail);
         font-size: 0.68rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        background: linear-gradient(to bottom, rgba(250,251,252,0.88), transparent);
     }
-    nav .brand { color: var(--ink); opacity: 0.9; }
+    nav .brand { color: var(--fg); opacity: 0.9; }
     nav .links a {
-        color: var(--ink);
+        color: var(--fg);
         opacity: 0.55;
         text-decoration: none;
-        margin-left: 28px;
+        margin-left: 26px;
         transition: opacity 0.3s, color 0.3s;
     }
-    nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--cobalt); }
-    a:focus-visible, button:focus-visible { outline: 1px solid var(--cobalt); outline-offset: 4px; }
+    nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--accent); }
+
     /* ============ UR MY HERO ============ */
     #hero {
         position: relative;
         height: 100vh;
-        height: 100svh;   /* phones: viewport minus browser chrome, so nothing hides behind the URL bar */
         min-height: 560px;
         overflow: hidden;
-        cursor: pointer;
     }
     #hero-canvas { position: absolute; inset: 0; z-index: 1; }
     #hero-canvas canvas { display: block; }
@@ -74,15 +119,15 @@
     .hero-content {
         position: absolute;
         z-index: 3;
-        left: 40px;
-        right: 40px;
-        bottom: 12vh;
-        max-width: 640px;
+        left: var(--rail);
+        right: var(--rail);
+        bottom: 11vh;
+        max-width: 680px;
         pointer-events: none;
     }
     .hero-content > * { pointer-events: auto; }
     .eyebrow {
-        font-family: 'Roboto Mono', monospace;
+        font-family: var(--mono);
         font-size: 0.62rem;
         letter-spacing: 0.35em;
         text-transform: uppercase;
@@ -91,186 +136,354 @@
         transition: color 1.5s ease;
     }
     h1 {
+        font-family: var(--display);
         font-weight: 300;
-        font-size: clamp(2.4rem, 6vw, 4.4rem);
-        line-height: 1.05;
-        letter-spacing: 0.04em;
-        margin: 0 0 16px 0;
+        font-size: clamp(2.4rem, 5.6vw, 4.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.015em;
+        margin: 0 0 18px 0;
     }
-    h1 em { font-style: italic; color: var(--cerulean); }
+    h1 em, .statement em { font-style: normal; font-weight: 500; color: var(--cerulean); }
     .sub {
-        font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+        font-size: clamp(1.02rem, 1.5vw, 1.22rem);
         font-weight: 300;
-        line-height: 1.5;
+        line-height: 1.55;
         opacity: 0.8;
-        max-width: 46ch;
-        margin: 0 0 30px 0;
+        max-width: 52ch;
+        margin: 0;
     }
-    .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
-    .btn {
-        font-family: 'Roboto Mono', monospace;
-        font-size: 0.65rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        text-decoration: none;
-        padding: 13px 26px;
-        border-radius: 30px;
-        transition: all 0.35s ease;
-    }
-    .btn-primary {
-        color: var(--paper);
-        background: var(--ink);
-        border: 1px solid var(--ink);
-    }
-    .btn-primary:hover { background: var(--cobalt); border-color: var(--cobalt); }
-    .btn-ghost { color: var(--ink); border: 1px solid rgba(14,30,48,0.25); }
-    .btn-ghost:hover { border-color: var(--cerulean); color: var(--cerulean); }
-    .scroll-cue {
-        position: absolute;
-        z-index: 3;
-        bottom: 26px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: 'Roboto Mono', monospace;
-        font-size: 0.55rem;
-        letter-spacing: 0.35em;
-        text-transform: uppercase;
-        opacity: 0.45;
-        animation: bob 2.8s ease-in-out infinite;
-    }
-    @keyframes bob {
-        0%, 100% { transform: translate(-50%, 0); }
-        50%      { transform: translate(-50%, 7px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-        .scroll-cue { animation: none; }
-        html { scroll-behavior: auto; }
-    }
-    /* ============ PAGE CONTENT (UNLIKE MY FINGERS) ============ */
+
+    /* ============ SECTION SHELLS ============ */
     section.page {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 110px 40px;
-        border-top: 1px solid rgba(14,30,48,0.08);
+        padding: 120px var(--rail) 110px;
+        border-top: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
     }
-    section.page h2 { font-weight: 300; font-size: 2rem; letter-spacing: 0.06em; margin: 0 0 10px; }
-    section.page .kicker {
-        font-family: 'Roboto Mono', monospace;
-        font-size: 0.6rem;
-        letter-spacing: 0.35em;
-        text-transform: uppercase;
-        color: var(--cerulean);
-        margin-bottom: 26px;
+    section.band { padding: 130px 0 120px; position: relative; }
+    .band-head { padding: 0 var(--rail); text-align: center; }
+    h2 {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(1.85rem, 3.3vw, 2.7rem);
+        letter-spacing: -0.01em;
+        margin: 0 0 14px;
     }
-    section.page p { font-size: 1.1rem; line-height: 1.7; opacity: 0.78; max-width: 62ch; }
-    section.page a { color: var(--prussian); transition: color 0.3s; }
-    section.page a:hover { color: var(--cobalt); }
-    /* ============ GALLERY WALK (Solid-rendered) ============ */
-    .gallery-wrap { margin-top: 44px; }
-    .walk-hint {
-        font-family: 'Roboto Mono', monospace;
+    section p { font-size: 1.08rem; line-height: 1.7; opacity: 0.82; max-width: 62ch; }
+    .band-head p { margin-inline: auto; }
+    section a { color: var(--accent); transition: color 0.3s; }
+    section a:hover { color: color-mix(in srgb, var(--accent) 60%, var(--fg)); }
+
+    .split {
+        display: grid;
+        grid-template-columns: 1.55fr 1fr;
+        gap: clamp(40px, 6vw, 90px);
+        align-items: start;
+    }
+    .statement {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(1.65rem, 3vw, 2.5rem);
+        line-height: 1.18;
+        letter-spacing: -0.008em;
+        margin: 0 0 26px;
+    }
+    .sig {
+        font-family: 'Mrs Saint Delafield', cursive;
+        font-size: 2.7rem;
+        color: var(--accent);
+        display: inline-block;
+        margin-top: 18px;
+    }
+    .details { margin-top: 8px; }
+    .details .row {
+        padding: 15px 0 14px;
+        border-top: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+    }
+    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--fg) 14%, transparent); }
+    .details dt {
+        font-family: var(--mono);
         font-size: 0.55rem;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        opacity: 0.45;
-        text-align: right;
-        margin: 0 4px 12px;
+        color: var(--accent);
+        margin: 0 0 7px;
     }
-    .gallery {
+    .details dd { margin: 0; font-size: 0.97rem; font-weight: 300; line-height: 1.5; opacity: 0.85; }
+
+    .track {
         display: flex;
         gap: 26px;
         overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding: 8px 4px 26px;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(62,124,177,0.45) transparent;
+        overscroll-behavior-x: contain;
+        padding: 56px var(--rail) 12px;
+        position: relative;
+        cursor: grab;
+        scrollbar-width: none;
     }
-    .gallery::-webkit-scrollbar { height: 6px; }
-    .gallery::-webkit-scrollbar-track { background: transparent; }
-    .gallery::-webkit-scrollbar-thumb { background: rgba(62,124,177,0.35); border-radius: 3px; }
-    .gallery:focus-visible { outline: 1px solid var(--cobalt); outline-offset: 6px; }
-    .piece {
-        scroll-snap-align: start;
-        flex: 0 0 min(340px, 82vw);
+    .track::-webkit-scrollbar { display: none; }
+    .track.drag { cursor: grabbing; }
+    .track.drag .mat { pointer-events: none; }
+    .mat {
+        flex: 0 0 clamp(236px, 27vw, 330px);
+        margin: 0;
+        background: var(--paper);
+        border-radius: 8px;
+        padding: 14px 14px 16px;
+        box-shadow: 0 30px 60px -34px rgba(3, 10, 18, 0.75);
     }
-    .frame {
-        background: #fff;
-        padding: 12px;
-        border: 1px solid rgba(14,30,48,0.09);
-        border-radius: 6px;
-        box-shadow: 0 22px 44px -30px rgba(27,58,92,0.45);
-        transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
+    .art {
+        aspect-ratio: 4 / 5;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #EDF2F7;
     }
-    .piece:hover .frame {
-        transform: translateY(-6px);
-        border-color: var(--cerulean);
-        box-shadow: 0 32px 54px -30px rgba(27,58,92,0.55);
+    .art canvas, .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mat figcaption { padding: 13px 4px 0; color: var(--ink); }
+    .mat h3 {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 1.12rem;
+        margin: 0 0 5px;
     }
-    .frame canvas, .frame img { display: block; width: 100%; height: auto; border-radius: 3px; }
-    .plaque { padding: 18px 6px 0; }
-    .plaque h3 { font-weight: 400; font-size: 1.2rem; letter-spacing: 0.02em; margin: 0 0 8px; }
-    .plaque p { font-size: 0.95rem; line-height: 1.6; opacity: 0.72; margin: 0 0 14px; max-width: none; }
-    .plaque .materials {
-        font-family: 'Roboto Mono', monospace;
+    .mat .meta {
+        font-family: var(--mono);
         font-size: 0.55rem;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.55;
+    }
+    .track-note {
+        font-family: var(--mono);
+        font-size: 0.57rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        line-height: 2;
+        opacity: 0.5;
+        padding: 22px var(--rail) 0;
+        max-width: none;
+    }
+
+    /* ============ SELECTED WORK ============ */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 42px;
+    }
+    .card {
+        position: relative;
+        border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+        border-radius: 10px;
+        padding: 26px 24px;
+        background: #fff;
+        color: var(--ink);
+        transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+        border-color: var(--cerulean);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px -18px rgba(27,58,92,0.35);
+    }
+    .card h3 {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 1.22rem;
+        margin: 0 0 10px;
+        letter-spacing: 0.01em;
+    }
+    .card p { font-size: 0.95rem; line-height: 1.6; opacity: 0.72; margin: 0 0 18px; max-width: none; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+        font-family: var(--mono);
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--prussian);
-        opacity: 0.8;
-        border-top: 1px solid rgba(14,30,48,0.12);
-        padding-top: 10px;
+        border: 1px solid rgba(62,124,177,0.35);
+        border-radius: 20px;
+        padding: 5px 10px;
     }
-    footer {
-        padding: 60px 40px;
+
+    section.q-band {
+        min-height: 58vh;
+        display: grid;
+        place-items: center;
         text-align: center;
-        font-family: 'Roboto Mono', monospace;
+        padding: 140px var(--rail);
+        overflow: hidden;
+    }
+    .q-band::before {
+        content: '';
+        position: absolute;
+        inset: -30%;
+        background: repeating-radial-gradient(
+            circle at 50% 135%,
+            color-mix(in srgb, var(--fg) 7%, transparent) 0 1px,
+            transparent 1px 78px
+        );
+        pointer-events: none;
+    }
+    .q-band blockquote {
+        position: relative;
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: clamp(1.9rem, 4.4vw, 3.3rem);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        margin: 0;
+        max-width: 22ch;
+    }
+    .q-band blockquote strong { font-weight: 700; font-style: normal; color: var(--sky); }
+    .q-band cite {
+        position: relative;
+        display: block;
+        margin-top: 30px;
+        font-family: var(--mono);
+        font-style: normal;
+        font-size: 0.58rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        opacity: 0.55;
+    }
+
+    /* ============ BACKGROUND (bisque spread) ============ */
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        gap: clamp(40px, 6vw, 90px);
+        margin-top: 10px;
+    }
+    .lead::first-letter {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: 3.1em;
+        float: left;
+        line-height: 0.82;
+        padding: 6px 12px 0 0;
+        color: var(--accent);
+    }
+    .now { margin-top: 34px; }
+
+    /* ============ CONTACT + FOOTER ============ */
+    section.contact-band { text-align: left; padding: 140px var(--rail) 90px; }
+    .contact-band h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); }
+    .bigmail {
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(1.3rem, 2.8vw, 2.1rem);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 8px;
+    }
+    .alt-links {
+        margin-top: 26px;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+    }
+    .alt-links a { color: var(--fg); opacity: 0.65; text-decoration: none; margin-right: 26px; }
+    .alt-links a:hover { opacity: 1; color: var(--accent); }
+
+    footer.site { padding: 0 var(--rail) 56px; }
+    .foot-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1.5fr;
+        gap: 44px;
+        border-top: 1px solid color-mix(in srgb, var(--fg) 16%, transparent);
+        padding-top: 56px;
+    }
+    .foot-grid h4 {
+        font-family: var(--mono);
+        font-size: 0.55rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 18px;
+        font-weight: 500;
+    }
+    .foot-grid a {
+        display: block;
+        color: var(--fg);
+        opacity: 0.7;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 300;
+        margin: 9px 0;
+        transition: opacity 0.3s, color 0.3s;
+    }
+    .foot-grid a:hover { opacity: 1; color: var(--accent); }
+    .colophon { font-size: 0.88rem; font-weight: 300; line-height: 1.75; opacity: 0.65; max-width: 44ch; }
+    .signoff {
+        margin-top: 74px;
+        text-align: center;
+        font-family: var(--mono);
         font-size: 0.6rem;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        opacity: 0.4;
+        opacity: 0.45;
+        line-height: 2.4;
     }
-    /* ============ SMALL SCREENS: keep the ink legible over the blues ============ */
-    @media (max-width: 640px) {
-        nav {
-            padding: 16px 20px;
-            font-size: 0.6rem;
-            letter-spacing: 0.16em;
-            background: linear-gradient(to bottom, rgba(250,251,252,0.95), rgba(250,251,252,0.7) 65%, transparent);
-        }
-        nav .links a { margin-left: 14px; }
-        .hero-content { left: 20px; right: 20px; bottom: max(11svh, 84px); }
-        h1 { font-size: clamp(2.05rem, 9.5vw, 3rem); }
-        .sub { opacity: 0.92; }
-        .btn { padding: 13px 20px; }
-        .btn-ghost {
-            background: rgba(250,251,252,0.6);
-            border-color: rgba(14,30,48,0.35);
-        }
-        /* heavier scrim low on the screen, where the type lives —
-           the art keeps a clear window up top */
-        .hero-vignette {
-            background:
-                radial-gradient(circle at 50% 30%, transparent 32%, rgba(250,251,252,0.4) 72%, rgba(250,251,252,0.6) 100%),
-                linear-gradient(to bottom,
-                    rgba(250,251,252,0.6),
-                    transparent 20%,
-                    transparent 36%,
-                    rgba(250,251,252,0.55) 58%,
-                    rgba(250,251,252,0.88) 78%,
-                    var(--paper) 100%);
-        }
-        /* paper halo behind the letterforms, like white slip under cobalt */
-        .eyebrow, .hero-content h1, .hero-content .sub {
-            text-shadow:
-                0 1px 2px rgba(250,251,252,0.95),
-                0 0 12px rgba(250,251,252,0.85),
-                0 0 32px rgba(250,251,252,0.6);
-        }
-        section.page { padding: 80px 22px; }
+
+    /* ============ DEPTH GAUGE ============ */
+    .gauge {
+        position: fixed;
+        left: 26px;
+        bottom: 30px;
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        pointer-events: none;
+    }
+    .gauge .g-track {
+        width: 1px;
+        height: 74px;
+        background: color-mix(in srgb, var(--fg) 20%, transparent);
+        position: relative;
+        overflow: hidden;
+    }
+    .gauge .g-track i {
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform-origin: top;
+        transform: scaleY(0);
+    }
+    .gauge .g-read {
+        font-family: var(--mono);
+        font-size: 0.5rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        writing-mode: vertical-rl;
+    }
+
+    /* ============ REVEALS ============ */
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .rv.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .stamp .ring { animation: none; }
+        .rv { opacity: 1; transform: none; transition: none; }
+    }
+
+    @media (max-width: 920px) {
+        nav .strip, .stamp, .gauge { display: none; }
+        nav .navrow { padding: 16px 22px; }
+        nav .links a { margin-left: 15px; font-size: 0.6rem; }
+        .hero-content { bottom: 13vh; }
+        .split, .about-grid { grid-template-columns: 1fr; gap: 44px; }
+        section.page { padding: 84px var(--rail) 78px; }
+        section.band { padding: 92px 0 84px; }
+        .mat { flex-basis: 74vw; }
+        .foot-grid { grid-template-columns: 1fr; gap: 30px; }
+        .contact-band { padding: 100px var(--rail) 70px; }
     }
 </style>
 </head>
 <body>
+
 <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
 <script type="importmap">
     {
@@ -284,52 +497,561 @@
         }
     }
 </script>
+
 <nav>
-    <div class="brand">Sasha Schaps</div>
-    <div class="links">
-        <a href="https://sashaschaps.com/about">About</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
+    <div class="strip" aria-hidden="true">
+        <span>Sasha Schaps</span>
+        <span>I'm From the Bay</span>
+    </div>
+    <div class="navrow">
+        <div class="brand">Sasha Schaps</div>
+        <div class="links">
+            <a href="#notes">Notes</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
     </div>
 </nav>
-<header id="hero">
+
+<header id="hero" data-story="paper">
     <div id="hero-canvas" aria-hidden="true"></div>
     <div class="hero-vignette" aria-hidden="true"></div>
+
     <div class="hero-content">
         <div id="eyebrow-mount"></div>
         <h1>Building neural <br><em>hyphae</em>.</h1>
         <p class="sub">
-            I'm Sasha <— a Bay Area native and aspiring data scientist inspired by nature’s self-organizing networks.
+            I'm Sasha — I'm a Bay Area native and aspiring data scientist that's inspired by natural ordered networks.
+            Currently taking time to master ceramics and nurse a finger infection. Kind of niche when balancing UC Berkeley MIDS and marbled porcelain — there are layers to it.
         </p>
-        <div class="cta-row">
-            <a class="btn btn-primary" href="#work">View work</a>
-            <a class="btn btn-ghost" href="#contact">Get in touch</a>
-        </div>
     </div>
-    <div class="scroll-cue">Scroll</div>
+
+    <a class="stamp" href="#gallery" aria-hidden="true" tabindex="-1">
+        <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+                <path id="stamp-circle" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0" fill="none"/>
+            </defs>
+            <text textLength="288" lengthAdjust="spacingAndGlyphs"><textPath href="#stamp-circle">Clay &amp; Code · Sea &amp; Salt · Data ·&#160;</textPath></text>
+        </svg>
+        <svg class="glyph" viewBox="0 0 120 120" aria-hidden="true">
+            <g stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M54 45 h12 M54 47 c-8 3 -12 8 -12 15 c0 10 8 17 18 17 c10 0 18 -7 18 -17 c0 -7 -4 -12 -12 -15"/>
+                <path d="M53 82 h14"/>
+                <path d="M46 60 h28 M44.5 67 h31 M48 74 h24" stroke-width="0.7"/>
+            </g>
+        </svg>
+    </a>
 </header>
+
 <main>
-    <section class="page" id="work">
-        <div class="kicker">Selected Work</div>
-        <h2>Projects</h2>
-        <p>Work in progress</p>
-        <div id="gallery-mount"></div>
+    <!-- ======== STUDIO NOTES ======== -->
+    <section class="page" id="notes" data-story="paper">
+        <div class="split">
+            <div>
+                <div class="kicker rv">Studio Notes</div>
+                <p class="statement rv">Ordered networks — mycelial, neural, <em>marbled</em> — run through everything I make.</p>
+                <p class="rv">The throughline is patterned systems under pressure. Fisheries data and layered
+                porcelain both come down to strata you can read — provenance, sequence, stress.
+                I like work where the structure shows all the way through.</p>
+                <span class="sig rv">— Sasha Tejada Schaps</span>
+            </div>
+            <dl class="details rv">
+                <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
+                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS · algorithmic fairness</dd></div>
+                <div class="row"><dt>Studio</dt><dd>Wheel-thrown &amp; hand-built marbled clay</dd></div>
+                <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
+                <div class="row"><dt>Hours</dt><dd>Kiln — mid-fire · Office — by email, always</dd></div>
+            </dl>
+        </div>
     </section>
-    <section class="page" id="about">
-        <div class="kicker">About</div>
-        <h2>Background</h2>
-        <p>I'm from the Bay!</p>
+
+    <!-- ======== GALLERY (slider) ======== -->
+    <section class="band" id="gallery" data-story="deep">
+        <div class="band-head">
+            <div class="kicker rv">From the Wheel</div>
+            <h2 class="rv">Gallery</h2>
+            <p class="rv">Colored clays layered, cut, and thrown, so the pattern runs
+            all the way through the wall. Studio documentation, newest first.</p>
+        </div>
+        <div class="vslider">
+            <div class="track" id="vessel-track" tabindex="0" aria-label="Pottery gallery — use arrow keys to browse"></div>
+            <p class="track-note rv">Procedural stand-ins for now, drawn with the same profile math as the vessel above —
+            real pieces land here once the kiln (and the finger) cool.</p>
+        </div>
     </section>
-    <section class="page" id="contact">
-        <div class="kicker">Contact</div>
-        <h2>Say hello</h2>
-        <p>Open to opportunities, collaborations, and conversations.<br>
-        <a href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a> ·
-        <a href="mailto:sashaschaps@ischool.berkeley.edu">sashaschaps@ischool.berkeley.edu</a> ·
-        <a href="https://github.com/sascha-pst">GitHub</a></p>
+
+    <!-- ======== SELECTED WORK ======== -->
+    <section class="page" id="work" data-story="paper">
+        <div class="kicker rv">Selected Work</div>
+        <h2 class="rv">Projects</h2>
+        <p class="rv">Write-ups in progress — data and notebooks first, prose second.</p>
+        <div id="cards-mount"></div>
+    </section>
+
+    <!-- ======== INTERLUDE ======== -->
+    <section class="band q-band" id="interlude" data-story="deep">
+        <div>
+            <blockquote class="rv">&ldquo;There are <strong>layers</strong> to it.&rdquo;</blockquote>
+            <cite class="rv">Studio note — on marbled clay &amp; neural nets</cite>
+        </div>
+    </section>
+
+    <!-- ======== BACKGROUND ======== -->
+    <section class="page" id="about" data-story="bisque">
+        <div class="kicker rv">Background</div>
+        <h2 class="rv">Field notes</h2>
+        <div class="about-grid">
+            <p class="lead rv">Seven years in content strategy, scaled enablement, and program development
+            taught me how systems of people learn. UC Berkeley&rsquo;s MIDS program is teaching me how systems
+            of numbers do — with a focus on algorithmic fairness, and a soft spot for anything oceanic.
+            The full story lives on the <a href="/about/">About page</a>.</p>
+            <div>
+                <p class="rv">The pottery isn&rsquo;t a metaphor. (Fine — it&rsquo;s a little bit of a metaphor.)
+                Wedging, layering, trimming: most of data work is preparing material honestly
+                and knowing when to stop.</p>
+                <dl class="details now rv">
+                    <div class="row"><dt>Now</dt><dd>MIDS coursework</dd></div>
+                    <div class="row"><dt>On the wheel</dt><dd>Marbled porcelain lamination tests</dd></div>
+                    <div class="row"><dt>On deck</dt><dd>Fisheries × climate write-up</dd></div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== CONTACT ======== -->
+    <section class="band contact-band" id="contact" data-story="abyss">
+        <div class="kicker rv">Correspondence</div>
+        <h2 class="rv">Say hello.</h2>
+        <p class="rv"><a class="bigmail" href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></p>
+        <div class="alt-links rv">
+            <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley mail</a>
+            <a href="https://linkedin.com/in/sashaschaps">LinkedIn</a>
+            <a href="https://github.com/sascha-pst">GitHub</a>
+        </div>
     </section>
 </main>
-<footer>I can't wait to get the wheel spinning!!!</footer>
+
+<footer class="site" data-story="abyss">
+    <div class="foot-grid">
+        <div>
+            <h4>Navigate</h4>
+            <a href="#notes">Studio notes</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#work">Selected work</a>
+            <a href="#about">Background</a>
+        </div>
+        <div>
+            <h4>Elsewhere</h4>
+            <a href="https://linkedin.com/in/sashaschaps">LinkedIn</a>
+            <a href="https://github.com/sascha-pst">GitHub</a>
+            <a href="mailto:sasha.schaps@gmail.com">Gmail</a>
+            <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley</a>
+        </div>
+        <div>
+            <h4>Colophon</h4>
+            <p class="colophon">Set in Bricolage Grotesque, Jost &amp; IBM Plex Mono. Thrown with Three.js,
+            Solid &amp; GSAP; marbled by hand. No trackers, no cookies — just clay.</p>
+        </div>
+    </div>
+    <div class="signoff">
+        I can't wait to get the wheel spinning!!!<br>
+        © Sasha Schaps · All California seas✌︎
+    </div>
+</footer>
+
+<div class="gauge" aria-hidden="true">
+    <div class="g-track"><i id="gauge-fill"></i></div>
+    <div class="g-read" id="gauge-read">0000 M</div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ================= COLOR STORY =================
+    var STOPS = {
+        paper:  { bg: [250, 251, 252], fg: [14, 30, 48],    accent: [45, 107, 216]  },
+        deep:   { bg: [15, 40, 64],    fg: [230, 239, 246], accent: [143, 191, 224] },
+        bisque: { bg: [241, 236, 227], fg: [27, 58, 92],    accent: [45, 107, 216]  },
+        abyss:  { bg: [9, 20, 32],     fg: [214, 228, 240], accent: [143, 191, 224] }
+    };
+    var storyEls = Array.prototype.slice.call(document.querySelectorAll('[data-story]'));
+    var root = document.documentElement;
+    var cur = { bg: STOPS.paper.bg.slice(), fg: STOPS.paper.fg.slice(), accent: STOPS.paper.accent.slice() };
+    var tgt = STOPS.paper;
+    var storyRaf = null;
+    var EASE = motionOK ? 0.085 : 0.4;
+
+    function applyStory() {
+        root.style.setProperty('--bg', 'rgb(' + cur.bg.map(Math.round).join(',') + ')');
+        root.style.setProperty('--fg', 'rgb(' + cur.fg.map(Math.round).join(',') + ')');
+        root.style.setProperty('--accent', 'rgb(' + cur.accent.map(Math.round).join(',') + ')');
+    }
+    function storyTick() {
+        var maxD = 0, keys = ['bg', 'fg', 'accent'];
+        for (var k = 0; k < 3; k++) {
+            for (var i = 0; i < 3; i++) {
+                var d = tgt[keys[k]][i] - cur[keys[k]][i];
+                cur[keys[k]][i] += d * EASE;
+                maxD = Math.max(maxD, Math.abs(d));
+            }
+        }
+        applyStory();
+        storyRaf = maxD > 0.5 ? requestAnimationFrame(storyTick) : null;
+    }
+    function pickStop() {
+        var line = window.innerHeight * 0.55;
+        for (var i = 0; i < storyEls.length; i++) {
+            var r = storyEls[i].getBoundingClientRect();
+            if (r.top <= line && r.bottom > line) {
+                var s = STOPS[storyEls[i].dataset.story];
+                if (s) tgt = s;
+                break;
+            }
+        }
+    }
+
+    /* ================= DEPTH GAUGE ================= */
+    var gFill = document.getElementById('gauge-fill');
+    var gRead = document.getElementById('gauge-read');
+    var navEl = document.querySelector('nav');
+    function updateGauge() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        gFill.style.transform = 'scaleY(' + p + ')';
+        gRead.textContent = p < 0.25 ? 'Sunlight' : p < 0.5 ? 'Twilight' : p < 0.78 ? 'Midnight' : 'Abyss';
+    }
+
+    function onScroll() {
+        pickStop();
+        updateGauge();
+        navEl.classList.toggle('scrolled', window.scrollY > 24);
+        if (!storyRaf) storyRaf = requestAnimationFrame(storyTick);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    applyStory();
+    onScroll();
+
+    /* ================= REVEALS ================= */
+    var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+    if ('IntersectionObserver' in window && motionOK) {
+        var seen = new WeakMap();
+        rvs.forEach(function (el) {
+            var sec = el.closest('section, footer') || document.body;
+            var n = seen.get(sec) || 0;
+            el.style.transitionDelay = Math.min(n * 80, 400) + 'ms';
+            seen.set(sec, n + 1);
+        });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        rvs.forEach(function (el) { io.observe(el); });
+    } else {
+        rvs.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    /* ================= GALLERY SLIDER =================
+    var pieces = [
+        { t: 'Tidepool cup',      m: 'marbled porcelain · sea-glass glaze', shape: 'cup', src: null },
+        { t: 'Moon jar, overcast', m: 'coil & paddle · cobalt slip', shape: 'moonjar', src: null },
+        { t: 'Seafoam bowl',      m: 'marbled stoneware · clear glaze', shape: 'bowl', src: null },
+        { t: 'Bathymetry vase',   m: 'layered porcelain · cobalt inlay', shape: 'vase', src: null },
+        { t: 'Slipstream bottle', m: 'wheel-thrown · raw, sanded',   shape: 'bottle',  src: null },
+        { t: 'Undertow plate',    m: 'slab & inlay · splint-friendly', shape: 'plate', src: null }
+    ];
+
+    var PAL = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30'];
+    var PROFILES = {
+        cup:     { h: 0.46, pts: [[0, 0.28], [0.06, 0.34], [0.45, 0.41], [0.80, 0.395], [1, 0.37]] },
+        moonjar: { h: 0.60, pts: [[0, 0.17], [0.05, 0.29], [0.42, 0.46], [0.78, 0.31], [0.92, 0.16], [1, 0.18]] },
+        bowl:    { h: 0.36, pts: [[0, 0.12], [0.12, 0.22], [0.55, 0.42], [0.88, 0.50], [1, 0.52]] },
+        vase:    { h: 0.66, pts: [[0, 0.20], [0.08, 0.30], [0.38, 0.43], [0.62, 0.31], [0.84, 0.15], [1, 0.21]] },
+        bottle:  { h: 0.64, pts: [[0, 0.17], [0.14, 0.29], [0.42, 0.325], [0.62, 0.17], [0.82, 0.085], [1, 0.095]] }
+    };
+
+    function smoothstep(a, b, x) {
+        var t = Math.min(Math.max((x - a) / (b - a), 0), 1);
+        return t * t * (3 - 2 * t);
+    }
+    function profileR(pts, t) {
+        for (var i = 0; i < pts.length - 1; i++) {
+            if (t <= pts[i + 1][0]) {
+                var s = smoothstep(pts[i][0], pts[i + 1][0], t);
+                return pts[i][1] + (pts[i + 1][1] - pts[i][1]) * s;
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // seeded picks keep every load identical (and every vessel distinct)
+    function makeRnd(seed) {
+        var s = seed;
+        return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    }
+
+    function drawVessel(canvas, idx, shape) {
+        var DPR = 2, W = 360, H = 450;
+        canvas.width = W * DPR; canvas.height = H * DPR;
+        var x = canvas.getContext('2d');
+        x.scale(DPR, DPR);
+        var rnd = makeRnd(1234 + idx * 777);
+
+        // seamless-paper backdrop
+        var bgG = x.createLinearGradient(0, 0, 0, H);
+        bgG.addColorStop(0, '#F6F9FC');
+        bgG.addColorStop(1, '#E9EFF5');
+        x.fillStyle = bgG; x.fillRect(0, 0, W, H);
+
+        var baseY = H - 62;
+
+        // contact shadow
+        x.save();
+        x.translate(W / 2, baseY + 10);
+        x.scale(1.55, 0.28);
+        var sh = x.createRadialGradient(0, 0, 4, 0, 0, 74);
+        sh.addColorStop(0, 'rgba(14,30,48,0.26)');
+        sh.addColorStop(1, 'rgba(14,30,48,0)');
+        x.fillStyle = sh;
+        x.beginPath(); x.arc(0, 0, 74, 0, Math.PI * 2); x.fill();
+        x.restore();
+
+        if (shape === 'plate') {
+            // top-down: concentric marbled rings, like a sonar sweep
+            var cx = W / 2, cy = H * 0.5, Rx = W * 0.375, Ry = Rx * 0.9, last = -1;
+            var r = 1.0;
+            while (r > 0.05) {
+                var pi = Math.floor(rnd() * PAL.length);
+                if (pi === last) pi = (pi + 1) % PAL.length;
+                last = pi;
+                x.fillStyle = PAL[pi];
+                x.beginPath();
+                x.ellipse(cx + (rnd() - 0.5) * 5, cy + (rnd() - 0.5) * 5, Rx * r, Ry * r, (rnd() - 0.5) * 0.16, 0, Math.PI * 2);
+                x.fill();
+                if (rnd() < 0.45) {
+                    x.strokeStyle = 'rgba(45,107,216,0.5)';
+                    x.lineWidth = 1.1;
+                    x.stroke();
+                }
+                r -= 0.055 + rnd() * 0.11;
+            }
+            x.strokeStyle = 'rgba(14,30,48,0.45)';
+            x.lineWidth = 1.4;
+            x.beginPath(); x.ellipse(cx, cy, Rx, Ry, 0, 0, Math.PI * 2); x.stroke();
+            // engraved sweep lines
+            x.strokeStyle = 'rgba(14,30,48,0.06)';
+            x.lineWidth = 0.6;
+            for (var rr2 = 0.08; rr2 < 1; rr2 += 0.045) {
+                x.beginPath(); x.ellipse(cx, cy, Rx * rr2, Ry * rr2, 0, 0, Math.PI * 2); x.stroke();
+            }
+            return;
+        }
+
+        var prof = PROFILES[shape] || PROFILES.vase;
+        var Hpx = H * prof.h, top = baseY - Hpx, cx2 = W / 2;
+
+        function silhouette() {
+            x.beginPath();
+            var t, i;
+            x.moveTo(cx2 - profileR(prof.pts, 0) * W, baseY);
+            for (i = 0; i <= 50; i++) {
+                t = i / 50;
+                x.lineTo(cx2 - profileR(prof.pts, t) * W, baseY - t * Hpx);
+            }
+            for (i = 50; i >= 0; i--) {
+                t = i / 50;
+                x.lineTo(cx2 + profileR(prof.pts, t) * W, baseY - t * Hpx);
+            }
+            x.closePath();
+        }
+
+        // ---- marbled laminae, clipped to the silhouette ----
+        x.save();
+        silhouette();
+        x.clip();
+
+        var N = 61, step = W / (N - 1) * 1.05, xs = [];
+        for (var i2 = 0; i2 < N; i2++) xs.push(-4 + i2 * step);
+
+        var prev = xs.map(function () { return top - 10; });
+        var yCur = top - 10, lastCol = -1;
+        while (yCur < baseY + 6) {
+            var bandH = 11 + rnd() * 20;
+            var A1 = 3 + rnd() * 6, f1 = 0.012 + rnd() * 0.02, p1 = rnd() * 6.28;
+            var A2 = 1 + rnd() * 3, f2 = 0.05 + rnd() * 0.06, p2 = rnd() * 6.28;
+            var curve = xs.map(function (px) {
+                return yCur + bandH + A1 * Math.sin(px * f1 + p1) + A2 * Math.sin(px * f2 + p2);
+            });
+            var ci = Math.floor(rnd() * PAL.length);
+            if (ci === lastCol) ci = (ci + 1) % PAL.length;
+            lastCol = ci;
+            x.fillStyle = PAL[ci];
+            x.beginPath();
+            x.moveTo(xs[0], prev[0]);
+            for (var j = 1; j < N; j++) x.lineTo(xs[j], prev[j]);
+            for (var j2 = N - 1; j2 >= 0; j2--) x.lineTo(xs[j2], curve[j2]);
+            x.closePath();
+            x.fill();
+            if (rnd() < 0.5) {
+                x.strokeStyle = 'rgba(45,107,216,0.55)';
+                x.lineWidth = 1.1;
+                x.beginPath();
+                x.moveTo(xs[0], curve[0]);
+                for (var j3 = 1; j3 < N; j3++) x.lineTo(xs[j3], curve[j3]);
+                x.stroke();
+            }
+            prev = curve;
+            yCur += bandH;
+        }
+
+        // engraved throwing rings
+        for (var yy = top; yy < baseY; yy += 4.5) {
+            x.strokeStyle = 'rgba(14,30,48,' + ((yy - top) % 23 < 4.5 ? 0.09 : 0.04) + ')';
+            x.lineWidth = 0.6;
+            x.beginPath(); x.moveTo(-4, yy); x.lineTo(W + 4, yy); x.stroke();
+        }
+
+        // clay tooth
+        for (var g = 0; g < 240; g++) {
+            x.fillStyle = g % 2 ? 'rgba(14,30,48,0.05)' : 'rgba(250,251,252,0.08)';
+            x.fillRect(rnd() * W, top + rnd() * Hpx, 1.1, 1.1);
+        }
+
+        // unglazed foot ring
+        x.fillStyle = 'rgba(237,233,227,0.95)';
+        x.fillRect(0, baseY - 7, W, 9);
+        x.strokeStyle = 'rgba(14,30,48,0.25)';
+        x.lineWidth = 0.8;
+        x.beginPath(); x.moveTo(0, baseY - 7); x.lineTo(W, baseY - 7); x.stroke();
+        x.restore();
+
+        // outline + mouth
+        silhouette();
+        x.strokeStyle = 'rgba(14,30,48,0.5)';
+        x.lineWidth = 1.4;
+        x.stroke();
+        var rM = profileR(prof.pts, 1) * W;
+        x.fillStyle = 'rgba(8,19,31,0.92)';
+        x.beginPath();
+        x.ellipse(cx2, top, rM * 0.96, Math.max(4.5, rM * 0.2), 0, 0, Math.PI * 2);
+        x.fill();
+        x.strokeStyle = 'rgba(230,239,246,0.55)';
+        x.lineWidth = 1;
+        x.stroke();
+    }
+
+    // build slides
+    var track = document.getElementById('vessel-track');
+    var REPS = 3;
+    for (var rep = 0; rep < REPS; rep++) {
+        pieces.forEach(function (p, i) {
+            var fig = document.createElement('figure');
+            fig.className = 'mat';
+            if (rep > 0) fig.setAttribute('aria-hidden', 'true');
+            var art = document.createElement('div');
+            art.className = 'art';
+            if (p.src) {
+                var img = document.createElement('img');
+                img.src = p.src;
+                img.alt = rep === 0 ? p.t : '';
+                img.loading = 'lazy';
+                art.appendChild(img);
+            } else {
+                var cv = document.createElement('canvas');
+                cv.setAttribute('role', 'img');
+                cv.setAttribute('aria-label', p.t + ' — drawn stand-in');
+                art.appendChild(cv);
+                drawVessel(cv, i, p.shape);
+            }
+            var cap = document.createElement('figcaption');
+            cap.innerHTML = '<h3>' + p.t + '</h3><span class="meta">' + p.m + '</span>';
+            fig.appendChild(art);
+            fig.appendChild(cap);
+            track.appendChild(fig);
+        });
+    }
+
+    // the reel
+    var slides = Array.prototype.slice.call(track.children);
+    var setWidth = 0, carry = 0, lastT = null, running = false, pauseUntil = 0;
+    var inView = false, hovering = false, dragging = false;
+
+    function measure() {
+        setWidth = slides[pieces.length].offsetLeft - slides[0].offsetLeft;
+    }
+    function wrap() {
+        if (!setWidth) return;
+        if (track.scrollLeft >= setWidth * 2) track.scrollLeft -= setWidth;
+        else if (track.scrollLeft < setWidth * 0.5) track.scrollLeft += setWidth;
+    }
+    function drift(ts) {
+        if (!inView || document.hidden) { running = false; return; }
+        if (lastT !== null && motionOK && !hovering && !dragging && ts > pauseUntil) {
+            var want = track.scrollLeft + Math.min(ts - lastT, 48) * 0.024 + carry;
+            track.scrollLeft = want;
+            carry = want - track.scrollLeft;
+            if (Math.abs(carry) > 2) carry = 0;
+        }
+        lastT = ts;
+        wrap();
+        requestAnimationFrame(drift);
+    }
+    function wake() {
+        if (!running && inView && !document.hidden) {
+            running = true;
+            lastT = null;
+            requestAnimationFrame(drift);
+        }
+    }
+    function rest() { pauseUntil = performance.now() + 3000; }
+
+    measure();
+    track.scrollLeft = setWidth;
+    window.addEventListener('resize', measure);
+    document.addEventListener('visibilitychange', wake);
+    new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        wake();
+    }, { threshold: 0.05 }).observe(track);
+
+    track.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hovering = true; });
+    track.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hovering = false; });
+    track.addEventListener('wheel', rest, { passive: true });
+
+    track.addEventListener('keydown', function (e) {
+        var stepW = slides[1].offsetLeft - slides[0].offsetLeft;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); rest(); track.scrollBy({ left: -stepW, behavior: motionOK ? 'smooth' : 'auto' }); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); rest(); track.scrollBy({ left: stepW, behavior: motionOK ? 'smooth' : 'auto' }); }
+    });
+
+    var dragX = 0, dragSL = 0;
+    track.addEventListener('pointerdown', function (e) {
+        rest();
+        if (e.pointerType !== 'mouse') return;
+        dragging = true;
+        dragX = e.clientX; dragSL = track.scrollLeft;
+        track.classList.add('drag');
+        track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        track.scrollLeft = dragSL - (e.clientX - dragX);
+    });
+    function endDrag() {
+        if (!dragging) return;
+        dragging = false;
+        track.classList.remove('drag');
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+})();
+</script>
+
 <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -338,10 +1060,13 @@
     import { createSignal, createEffect, For } from 'solid-js';
     import { render } from 'solid-js/web';
     import html from 'solid-js/html';
+
     const container = document.getElementById('hero-canvas');
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.set(38, 14, 38);
+
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
@@ -349,19 +1074,19 @@
     renderer.toneMappingExposure = 1.25;
     renderer.setClearColor(0xFAFBFC);
     container.appendChild(renderer.domElement);
+
     // ---------- PHOTO STUDIO ----------
-    // image-based lighting (soft "room" reflections) + warm key / cool fill,
-    // like a two-softbox tabletop shoot against seamless paper
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    pmrem.dispose();   // env texture generated; free the generator's GPU scratch space
     scene.fog = new THREE.Fog(0xFAFBFC, 60, 150);
+
     const keyLight = new THREE.DirectionalLight(0xfff2e2, 1.4);
     keyLight.position.set(-18, 30, 24);
     scene.add(keyLight);
     const fillLight = new THREE.DirectionalLight(0xdfeaff, 0.45);
     fillLight.position.set(26, 8, -12);
     scene.add(fillLight);
+
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enabled = false;
     controls.enableDamping = true;
@@ -370,6 +1095,7 @@
     controls.autoRotate = !reducedMotion;
     controls.autoRotateSpeed = 0.5;
     controls.target.set(0, 2, 0);
+
     const noiseChunk = `
         vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
         vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -415,6 +1141,7 @@
             return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
         }
     `;
+
     // Palette - source of truth
     const paletteChunk = `
         const vec3 PRUSSIAN = vec3(0.106, 0.227, 0.361); // #1B3A5C
@@ -425,29 +1152,35 @@
         const vec3 ABYSS    = vec3(0.055, 0.118, 0.188); // #0E1E30
         const vec3 PAPER    = vec3(0.980, 0.984, 0.988); // #FAFBFC
     `;
-    // ---------- VASE PROFILE ----------
+
+    // ---------- MOON JAR PROFILE ----------
     function smoothstepJS(a, b, x) {
         const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
         return t * t * (3 - 2 * t);
     }
     function profileRadius(t) {
-        const belly = 7.2 * Math.sin(Math.pow(t, 0.85) * Math.PI);
-        const neckTaper = 1.0 - 0.5 * smoothstepJS(0.55, 0.92, t);
-        let r = 2.4 + belly * neckTaper;
-        r += 2.1 * Math.pow(smoothstepJS(0.9, 1.0, t), 2.0);
-        r += 0.9 * (1.0 - smoothstepJS(0.0, 0.07, t));
+        // one near-spherical arc — two hemispheres joined, the moon jar way —
+        // with a small foot, a short tucked neck, and a softly rolled lip
+        const s = -0.96 + t * 1.86;                                   // the slice of the sphere we keep
+        let r = 0.6 + 10.4 * Math.sqrt(Math.max(0.0, 1.0 - s * s));
+        r -= 1.15 * smoothstepJS(0.93, 0.995, t);                     // tuck in the neck
+        r += 0.7 * Math.pow(smoothstepJS(0.975, 1.0, t), 1.6);        // rolled lip
+        r += 0.5 * (1.0 - smoothstepJS(0.0, 0.05, t));                // foot ring
         return Math.max(r, 0.7);
     }
-    const VASE_H = 26;
+
+    const VASE_H = 24;   // width ~22 to height 24: full-moon proportions
     const profilePts = [];
     const P_SEG = 160;
     for (let i = 0; i <= P_SEG; i++) {
         const t = i / P_SEG;
-        profilePts.push(new THREE.Vector2(profileRadius(t), t * VASE_H - VASE_H * 0.5 + 2));
+        profilePts.push(new THREE.Vector2(profileRadius(t), t * VASE_H - 11));
     }
     const vaseGeo = new THREE.LatheGeometry(profilePts, 240);
-    // ---------- MARBLED CLAY / SEA MATERIAL (physically based) ----------
+
+    // ---------- MARBLED CLAY  ----------
     const OCEAN_SIZE = 120.0;
+
     function makeClayBump() {
         const c = document.createElement('canvas');
         c.width = 256; c.height = 1024;
@@ -470,6 +1203,7 @@
         tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
         return tex;
     }
+
     const clayUniforms = {
         uTime:   { value: 0 },
         uMorph:  { value: 0 },     // 0 - vase -> 1 - ocean
@@ -478,25 +1212,25 @@
         uGloss:  { value: 0.9 },
         uFoam:   { value: 0.0 },
         uDrift:  { value: 0.0 },
-        uClear:  { value: 0.0 }
+        uClear:  { value: 0.28 }   
     };
+
     const clayMaterial = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         roughness: 0.55,
         metalness: 0.0,
-        clearcoat: 1.0,
+        clearcoat: 1.0,           
         clearcoatRoughness: 0.4,
-        sheen: 1.0,
-        sheenColor: new THREE.Color(0x8FBFE0),
-        sheenRoughness: 0.42,
         bumpMap: makeClayBump(),
         bumpScale: 0.8,
         envMapIntensity: 0.75,
         side: THREE.DoubleSide
     });
+
     clayMaterial.onBeforeCompile = (shader) => {
         Object.assign(shader.uniforms, clayUniforms);
         clayMaterial.userData.shader = shader;
+
         shader.vertexShader = `
             uniform float uTime;
             uniform float uMorph;
@@ -513,11 +1247,13 @@
                 return (swellA + swellB + chop) * uWave;
             }
         ` + shader.vertexShader;
+
         shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', `
             vec3 objectNormal = vec3(normal);
             float twist = uSwirl * (position.y * 0.16 + 1.2);
             float ct = cos(twist), st = sin(twist);
             objectNormal.xz = mat2(ct, -st, st, ct) * objectNormal.xz;
+
             // analytic sea normal from the height field, so waves catch light correctly
             vec2 oxz = (uv - 0.5) * ${OCEAN_SIZE.toFixed(1)};
             float hC = seaHeight(oxz);
@@ -530,6 +1266,7 @@
             float m = smoothstep(0.0, 1.0, uMorph);
             objectNormal = normalize(mix(objectNormal, seaNormal, m));
         `);
+
         shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
             vec3 vasePos = vec3(position);
             vasePos.xz = mat2(ct, -st, st, ct) * vasePos.xz;
@@ -541,6 +1278,7 @@
             vPattern = position;
             vWorldPos2 = (modelMatrix * vec4(transformed, 1.0)).xyz;
         `);
+
         shader.fragmentShader = `
             uniform float uTime;
             uniform float uMorph;
@@ -554,85 +1292,60 @@
             ${noiseChunk}
             ${paletteChunk}
         ` + shader.fragmentShader;
+
         shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `
             #include <color_fragment>
-            // Neriage marbling: abyss -> midnight -> coastal -> sea glass -> salt
+            // Marbled-clay banding: abyss -> midnight -> coastal -> sea glass -> salt
             vec3 pc = vPattern + vec3(0.0, uTime * uDrift, uTime * uDrift * 0.4);
             float warpA = snoise(pc * 0.14);
             float warpB = snoise(pc * 0.42 + 31.7);
-            // thrown on the wheel: strata spiral around the form
-            // (integer harmonic on theta keeps the wrap seamless)
-            float theta = atan(vPattern.z, vPattern.x);
-            float band  = sin(pc.y * 1.7 + theta * 2.0 + warpA * 5.5 + warpB * 1.8);
+            float band  = sin(pc.y * 1.7 + warpA * 5.5 + warpB * 1.8);
             float tBand = band * 0.5 + 0.5;
-            vec3 clayCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.3, tBand));
-            clayCol = mix(clayCol, CERULEAN, smoothstep(0.3, 0.58, tBand));
-            clayCol = mix(clayCol, SKY,      smoothstep(0.58, 0.8, tBand));
-            clayCol = mix(clayCol, ICE,      smoothstep(0.8, 0.96, tBand));
+
+            // rich blues hold most of the range; sky and ice arrive late,
+            // as thin porcelain seams rather than wide pale bands
+            vec3 clayCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.4, tBand));
+            clayCol = mix(clayCol, CERULEAN, smoothstep(0.4, 0.74, tBand));
+            clayCol = mix(clayCol, SKY,      smoothstep(0.74, 0.92, tBand));
+            clayCol = mix(clayCol, ICE,      smoothstep(0.92, 0.99, tBand));
+
             // cobalt slip lines between laminae, softened like fired clay
             float vein = smoothstep(0.955, 1.0, abs(band));
             clayCol = mix(clayCol, COBALT, vein * 0.55);
-            // --- slab view: blues stacked in flat depth zones, like a bathymetric chart ---
-            float slab = 1.0 - uMorph;                     // 1 on the vessel -> 0 at sea
-            float levels = 7.0;
-            float zone = floor(tBand * levels) / levels;   // quantized "depth soundings"
-            vec3 zoneCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.3, zone));
-            zoneCol = mix(zoneCol, CERULEAN, smoothstep(0.3, 0.58, zone));
-            zoneCol = mix(zoneCol, SKY,      smoothstep(0.58, 0.8, zone));
-            zoneCol = mix(zoneCol, ICE,      smoothstep(0.8, 0.96, zone));
-            clayCol = mix(clayCol, zoneCol, 0.45 * slab);
-            // hairline isolines between zones, pale over deep water, cobalt over shallows
-            float iso = fract(tBand * levels);
-            float isoLine = 1.0 - smoothstep(0.03, 0.1, min(iso, 1.0 - iso));
-            clayCol = mix(clayCol, mix(ICE, COBALT, tBand), isoLine * 0.22 * slab);
-            // richer pigment in the slab view
-            float grey = dot(clayCol, vec3(0.299, 0.587, 0.114));
-            clayCol = clamp(mix(vec3(grey), clayCol, 1.0 + 0.4 * slab), 0.0, 1.0);
-            clayCol *= 1.0 - 0.06 * slab;   // a touch more ink density
-            // mycelium up close: ridged noise -> pale branching filaments (hyphae)
-            // threading the strata, strongest over deep water
-            float ridgeA = 1.0 - abs(snoise(pc * 0.9 + 5.1));
-            float ridgeB = 1.0 - abs(snoise(pc * 2.3 + 17.3));
-            float hyphae = pow(ridgeA, 10.0) + 0.6 * pow(ridgeB, 14.0);
-            hyphae *= 0.25 + 0.75 * (1.0 - tBand);
-            hyphae = clamp(hyphae, 0.0, 1.0) * (0.15 + 0.85 * slab);
-            clayCol = mix(clayCol, ICE, hyphae * 0.5);
+
             // unglazed porcelain foot ring
             float footMask = (1.0 - smoothstep(-10.65, -10.25, vPattern.y)) * (1.0 - uMorph);
             clayCol = mix(clayCol, vec3(0.93, 0.915, 0.89), footMask);
+
             // sea foam
             float foam = smoothstep(1.1, 2.4, vCrest) * uFoam;
             foam += smoothstep(0.6, 0.0, abs(snoise(vWorldPos2 * 0.5 + uTime * 0.2))) * 0.12 * uFoam;
             foam = clamp(foam, 0.0, 1.0);
             clayCol = mix(clayCol, ICE, foam);
+
             diffuseColor.rgb = pow(clayCol, vec3(2.2));   // sRGB palette -> linear
         `);
+
         shader.fragmentShader = shader.fragmentShader.replace('#include <roughnessmap_fragment>', `
             float glossF = clamp((uGloss - 0.6) / 0.8, 0.0, 1.0);
-            float roughnessFactor = mix(0.68, 0.28, glossF);        // matte slab -> wet sea
+            float roughnessFactor = mix(0.62, 0.28, glossF);        // satin clay -> wet sea
             roughnessFactor += snoise(vPattern * 26.0) * 0.05;      // fired-surface micro variation
             roughnessFactor += tBand * 0.05 - 0.02;                 // pale laminae read slightly drier
-            // glimmer: micro-glints that twinkle as the wheel turns,
-            // concentrated along the hyphal filaments
-            float grain = snoise(vPattern * 55.0);
-            float pulse = 0.55 + 0.45 * sin(uTime * 1.6 + grain * 43.0);
-            float glint = smoothstep(0.8, 0.97, grain) * pulse;
-            roughnessFactor -= (glint * 0.3 + hyphae * pulse * 0.25) * (1.0 - uMorph);
             roughnessFactor = mix(roughnessFactor, 0.9, footMask);  // raw unglazed foot
             roughnessFactor -= foam * 0.2;
             roughnessFactor = clamp(roughnessFactor, 0.08, 1.0);
         `);
+
         shader.fragmentShader = shader.fragmentShader.replace('#include <lights_physical_fragment>', `
             #include <lights_physical_fragment>
             material.clearcoat = uClear * (1.0 - footMask);
             material.clearcoatRoughness = mix(0.42, 0.16, glossF);
-            // sheer veil: fabric-like sheen instead of glaze, brightest along
-            // the filaments and over the deep blues; fades away at sea
-            material.sheenColor *= (0.35 + 0.65 * (1.0 - tBand)) * (0.6 + 0.8 * hyphae) * (1.0 - uMorph);
         `);
     };
+
     const vessel = new THREE.Mesh(vaseGeo, clayMaterial);
     scene.add(vessel);
+
     function makeShadowTexture() {
         const c = document.createElement('canvas');
         c.width = c.height = 256;
@@ -655,6 +1368,7 @@
     contactShadow.rotation.x = -Math.PI / 2;
     contactShadow.position.set(2.0, -11.03, -1.0);
     scene.add(contactShadow);
+
     // ---------- STAIN ON SLAB ----------
     const SPRAY_N = 600;
     const sprayGeo = new THREE.BufferGeometry();
@@ -675,6 +1389,7 @@
     sprayGeo.setAttribute('position', new THREE.BufferAttribute(pVase, 3));
     sprayGeo.setAttribute('aSea', new THREE.BufferAttribute(pSea, 3));
     sprayGeo.setAttribute('aPhase', new THREE.BufferAttribute(pPhase, 1));
+
     const sprayMat = new THREE.ShaderMaterial({
         uniforms: { uTime: { value: 0 }, uMorph: { value: 0 } },
         vertexShader: `
@@ -704,35 +1419,37 @@
         transparent: true, blending: THREE.NormalBlending, depthWrite: false
     });
     scene.add(new THREE.Points(sprayGeo, sprayMat));
+
     // ---------- STATES: vessel -> unfurling -> current ----------
     const config = [
         {
-            label: "vessel", color: "#2D6BD8",   // cobalt
-            morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.62, foam: 0.0, drift: 0.0, clear: 0.0,
-            rotate: 0.5, camY: 14, camDist: 54
+            label: "vessel", color: "#2D6BD8",   // cobalt — satin, unglazed-rich blues
+            morph: 0.0, swirl: 0.0, wave: 0.15, gloss: 0.82, foam: 0.0, drift: 0.0, clear: 0.16,
+            rotate: 0.5, camY: 14, camDist: 54, hold: 19000
         },
         {
-            label: "unfurling", color: "#3E7CB1",   // cerulean
-            morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02, clear: 0.3,
-            rotate: 1.6, camY: 30, camDist: 78
+            label: "unfurling", color: "#3E7CB1",   // cerulean — the glaze begins to pour
+            morph: 0.55, swirl: 1.4, wave: 0.7, gloss: 0.6, foam: 0.25, drift: 0.02, clear: 0.42,
+            rotate: 1.6, camY: 30, camDist: 78, hold: 11000
         },
         {
-            label: "current", color: "#1B3A5C",   // prussian
+            label: "current", color: "#1B3A5C",   // prussian — fully wet
             morph: 1.0, swirl: 0.0, wave: 1.0, gloss: 1.4, foam: 1.0, drift: 0.06, clear: 1.0,
-            rotate: 0.25, camY: 11, camDist: 85
+            rotate: 0.25, camY: 11, camDist: 85, hold: 11000
         }
     ];
-    // ---------- SOLID: ----------
+
+    // ---------- SOLID:----------
     const [stateIdx, setStateIdx] = createSignal(0);
     const heroState = () => config[stateIdx()];
     const camControl = { distance: 54 };
+
     let firstRun = true;
     createEffect(() => {
         const s = heroState();
-        if (firstRun) { firstRun = false; return; }   // scene already starts in state 0
+        if (firstRun) { firstRun = false; return; }
         const u = clayUniforms;
-        // reduced motion: jump straight to the new state instead of the 4.5s morph
-        const tl = gsap.timeline({ defaults: { duration: reducedMotion ? 0 : 4.5, ease: "power2.inOut" } });
+        const tl = gsap.timeline({ defaults: { duration: 4.5, ease: "power2.inOut" } });
         tl.to(u.uMorph, { value: s.morph }, 0);
         tl.to(u.uSwirl, { value: s.swirl }, 0);
         tl.to(u.uWave,  { value: s.wave },  0);
@@ -742,201 +1459,107 @@
         tl.to(u.uClear, { value: s.clear }, 0);
         tl.to(sprayMat.uniforms.uMorph, { value: s.morph }, 0);
         tl.to(shadowMat, { opacity: 1.0 - s.morph }, 0);
-        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0);  // throwing rings vanish at sea
+        tl.to(clayMaterial, { bumpScale: 0.8 * (1.0 - s.morph) }, 0);  
         tl.to(controls, { autoRotateSpeed: s.rotate }, 0);
         tl.to(camera.position, { y: s.camY }, 0);
         tl.to(camControl, { distance: s.camDist }, 0);
     });
+
     function turnWheel() {
         setStateIdx(i => (i + 1) % config.length);
     }
-    // adding a project: { title, tags, blurb, image? }
-    // give a piece image: "screenshots/my-project.png" to hang a real screenshot;
-    // leave image off and a marbled study is painted for it instead.
+
+    // ---------- SOLID UI:  ----------
+    render(() => html`
+        <p class="eyebrow" style=${() => `color: ${heroState().color}`}>
+            A study in marbled clay — ${() => heroState().label}
+        </p>
+    `, document.getElementById('eyebrow-mount'));
+
     const projects = [
         {
-            title: "Let's Not",
-            tags: ["Snakes"],
-            blurb: "Beep."
+            title: "Let's Not Boil the Ocean",
+            tags: ["Python", "Geospatial", "Time series"],
+            blurb: "FISHING FOR ANSWERS"
         },
         {
-            title: "Samples",
+            title: "SQL & Python Analysis Samples",
             tags: ["SQL", "pandas", "Statistics"],
-            blurb: "Boop."
+            blurb: "YOU ARE NOW READING THE HOTTEST THING IN DATA SCIENCE."
         },
         {
             title: "Program Case Studies",
             tags: ["Strategy", "Enablement"],
-            blurb: "I wish I had a hammer."
+            blurb: "Seven years of content strategy and program development, AND NOW IT'S ALL NAVY."
         }
     ];
-    // ---------- MARBLED STUDIES: seeded canvas art for pieces without screenshots ----------
-    function mulberry32(a) {
-        return function() {
-            a |= 0; a = a + 0x6D2B79F5 | 0;
-            let t = Math.imul(a ^ a >>> 15, 1 | a);
-            t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-            return ((t ^ t >>> 14) >>> 0) / 4294967296;
-        };
-    }
-    function paintPiece(canvas, seed) {
-        const W = canvas.width = 640, H = canvas.height = 800;
-        const g = canvas.getContext('2d');
-        const rnd = mulberry32(seed * 7919 + 13);
-        const strata = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30'];  // ice -> abyss
-        const cyc = [0, 1, 2, 3, 4, 3, 2, 1];   // ping-pong through the palette, like the vase banding
-        g.fillStyle = strata[0];
-        g.fillRect(0, 0, W, H);
-        // laminae: wavy strata drifting across the piece
-        const waves = Array.from({ length: 3 }, () => ({
-            a: 10 + rnd() * 24, f: 0.004 + rnd() * 0.011, p: rnd() * Math.PI * 2
-        }));
-        const BANDS = 26;
-        for (let i = 1; i < BANDS; i++) {
-            g.fillStyle = strata[cyc[i % 8]];
-            const y0 = -30 + (i / (BANDS - 1)) * (H + 60);
-            const tilt = Math.sin(i * 1.7 + seed * 2.3) * 26;
-            g.beginPath();
-            let started = false;
-            for (let x = -4; x <= W + 4; x += 8) {
-                let y = y0 + tilt * (x / W - 0.5);
-                for (const w of waves) y += Math.sin(x * w.f + w.p + i * 0.55) * w.a;
-                if (!started) { g.moveTo(x, y); started = true; }
-                else g.lineTo(x, y);
-            }
-            g.lineTo(W + 4, H + 4);
-            g.lineTo(-4, H + 4);
-            g.closePath();
-            g.fill();
-        }
-        // cobalt slip veins between laminae
-        g.strokeStyle = '#2D6BD8';
-        for (let v = 0; v < 7; v++) {
-            const yv = rnd() * H;
-            const ph = rnd() * Math.PI * 2;
-            g.lineWidth = 0.8 + rnd() * 1.1;
-            g.globalAlpha = 0.28 + rnd() * 0.35;
-            g.beginPath();
-            for (let x = -4; x <= W + 4; x += 6) {
-                let y = yv;
-                for (const w of waves) y += Math.sin(x * w.f + w.p + ph) * w.a;
-                x === -4 ? g.moveTo(x, y) : g.lineTo(x, y);
-            }
-            g.stroke();
-        }
-        // hyphae: pale filaments wandering through the strata
-        g.strokeStyle = strata[0];
-        for (let h = 0; h < 22; h++) {
-            let x = rnd() * W, y = rnd() * H, ang = rnd() * Math.PI * 2;
-            g.lineWidth = 0.5 + rnd() * 0.9;
-            g.globalAlpha = 0.2 + rnd() * 0.4;
-            g.beginPath();
-            g.moveTo(x, y);
-            const steps = 24 + Math.floor(rnd() * 56);
-            for (let s = 0; s < steps; s++) {
-                ang += (rnd() - 0.5) * 0.8;
-                x += Math.cos(ang) * 7;
-                y += Math.sin(ang) * 7;
-                g.lineTo(x, y);
-            }
-            g.stroke();
-        }
-        g.globalAlpha = 1;
-        // ink motes and a soft vignette for depth
-        for (let d = 0; d < 700; d++) {
-            g.fillStyle = 'rgba(14,30,48,' + (0.02 + rnd() * 0.07).toFixed(3) + ')';
-            g.fillRect(rnd() * W, rnd() * H, 1.3, 1.3);
-        }
-        const vg = g.createRadialGradient(W / 2, H * 0.42, H * 0.18, W / 2, H / 2, H * 0.78);
-        vg.addColorStop(0, 'rgba(250,251,252,0)');
-        vg.addColorStop(1, 'rgba(14,30,48,0.16)');
-        g.fillStyle = vg;
-        g.fillRect(0, 0, W, H);
-    }
-    // ---------- SOLID UI: the gallery walk ----------
+
     render(() => html`
-        <div class="gallery-wrap">
-            <div class="walk-hint" aria-hidden="true">walk the gallery ⟶</div>
-            <div class="gallery" tabindex="0" role="region" aria-label="Project gallery">
-                <${For} each=${projects}>${(p, i) => html`
-                    <article class="piece">
-                        <div class="frame">
-                            ${p.image
-                                ? html`<img src=${p.image} alt=${p.title} loading="lazy">`
-                                : html`<canvas role="img" aria-label=${'Marbled study for ' + p.title}></canvas>`}
-                        </div>
-                        <div class="plaque">
-                            <h3>${p.title}</h3>
-                            <p>${p.blurb}</p>
-                            <div class="materials">${p.tags.join(' · ')}</div>
-                        </div>
-                    </article>
-                `}<//>
-            </div>
+        <div class="cards">
+            <${For} each=${projects}>${(p) => html`
+                <article class="card">
+                    <h3>${p.title}</h3>
+                    <p>${p.blurb}</p>
+                    <div class="tags">${p.tags.map(t => html`<span class="tag">${t}</span>`)}</div>
+                </article>
+            `}<//>
         </div>
-    `, document.getElementById('gallery-mount'));
-    document.querySelectorAll('#gallery-mount canvas').forEach((c, i) => paintPiece(c, i + 1));
+    `, document.getElementById('cards-mount'));
+
     let cycle = null;
+    function scheduleTurn() {
+        cycle = setTimeout(() => { turnWheel(); scheduleTurn(); }, heroState().hold);
+    }
     function startCycle() {
-        if (!cycle && !reducedMotion) cycle = setInterval(turnWheel, 12000);
+        if (!cycle && !reducedMotion) scheduleTurn();
     }
     function stopCycle() {
-        if (cycle) { clearInterval(cycle); cycle = null; }
+        if (cycle) { clearTimeout(cycle); cycle = null; }
     }
     startCycle();
-    // click anywhere on the hero to turn the wheel
-    document.getElementById('hero').addEventListener('click', (e) => {
-        if (e.target.closest('a')) return;
-        stopCycle();
-        turnWheel();
-        startCycle();
-    });
+
     // ---------- RENDER LOOP: ----------
     let heroVisible = true;
     let rafId = null;
     const clock = new THREE.Clock();
-    let shaderTime = 0;
+
     function animate() {
         rafId = null;
         if (!heroVisible || document.hidden) return;
-        // accumulate clamped deltas so waves don't leap forward after a hidden tab
-        shaderTime += Math.min(clock.getDelta(), 0.1);
-        clayUniforms.uTime.value = shaderTime;
-        sprayMat.uniforms.uTime.value = shaderTime;
+        const time = clock.getElapsedTime();
+        clayUniforms.uTime.value = time;
+        sprayMat.uniforms.uTime.value = time;
         const currentDir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
-        camera.position.x = controls.target.x + currentDir.x * camControl.distance * distScale;
-        camera.position.z = controls.target.z + currentDir.z * camControl.distance * distScale;
+        camera.position.x = controls.target.x + currentDir.x * camControl.distance;
+        camera.position.z = controls.target.z + currentDir.z * camControl.distance;
         controls.update();
         renderer.render(scene, camera);
         rafId = requestAnimationFrame(animate);
     }
+
     function resumeIfNeeded() {
         if (heroVisible && !document.hidden && rafId === null) {
             clock.getDelta();
             rafId = requestAnimationFrame(animate);
         }
     }
+
     new IntersectionObserver(([entry]) => {
         heroVisible = entry.isIntersecting;
         if (heroVisible) { startCycle(); resumeIfNeeded(); }
         else stopCycle();
     }, { threshold: 0.05 }).observe(document.getElementById('hero'));
+
     document.addEventListener('visibilitychange', resumeIfNeeded);
-    // portrait phones: ease the camera back a touch so the busiest
-    // marbling sits behind less of the type
-    let distScale = 1;
-    function fitCamera() {
-        distScale = camera.aspect < 0.72 ? 1.22 : 1.0;
-    }
-    fitCamera();
+
     new ResizeObserver(() => {
         const w = container.clientWidth, h = container.clientHeight;
         if (w === 0 || h === 0) return;
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
-        fitCamera();
     }).observe(container);
+
     resumeIfNeeded();
 </script>
 </body>
