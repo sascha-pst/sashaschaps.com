@@ -29,7 +29,7 @@
     line-height:1.7;
   }
   .mono{font-family:'Roboto Mono',monospace}
-  /* ---------- NAV NOT YET NINJA'D : ---------- */
+  /* ---------- NAV : ---------- */
   nav{
     position:absolute;top:0;left:0;right:0;z-index:5;
     display:flex;justify-content:space-between;align-items:center;
@@ -224,7 +224,7 @@
     <h2>Through and <em>through</em>.</h2>
     <div class="about-grid">
       <div>
-        <p>I'm Sasha — a Bay Area native and aspiring data scientist inspired by natural ordered networks and colored clay.</p>
+        <p>I'm Sasha — a Bay Area native and aspiring data scientist inspired by nature's self organizing networks, anarchy and colored clay.</p>
         <p>Current project: <a href="https://observablehq.com/d/43405b7a594c53cf"><em>Let's Not Boil the Ocean</em></a>, specifically the bit on <a href="https://github.com/thfrawley/California_State_CVA">Climate Vulnerability of select species</a>. Not really, that was done by a partnership between a lab, the fisheries department and NOAA.</p>
         <p>Off the keyboard, I'm spinning my wheels.</p>
       </div>
@@ -354,7 +354,7 @@
     initAudio();
     if (audio.ctx && audio.ctx.state === 'suspended') audio.ctx.resume();
   }
-
+  // browsers only allow sound after a real gesture (click / tap / key)
   ['pointerdown','keydown','touchend'].forEach(ev =>
     document.addEventListener(ev, unlockAudio, { once: true, passive: true }));
   function scheduleCrunch(intensity){
@@ -371,14 +371,14 @@
       const g = audio.ctx.createGain();
       const at = t0 + Math.random() * 0.07;
       const dur = 0.03 + Math.random() * 0.07 + intensity * 0.05;
-      const peak = (0.01 + Math.random() * 0.025) * (0.4 + intensity);   /
+      const peak = (0.01 + Math.random() * 0.025) * (0.4 + intensity);   // deliberately quiet
       g.gain.setValueAtTime(0, at);
       g.gain.linearRampToValueAtTime(peak, at + 0.006);
       g.gain.exponentialRampToValueAtTime(0.0005, at + dur);
       src.connect(bp).connect(g).connect(audio.ctx.destination);
       src.start(at, Math.random() * 0.8, dur + 0.05);
     }
-    if (intensity > 0.8){   // squish noise
+    if (intensity > 0.8){   // re-wedge: a low squish underneath the crackle
       const o = audio.ctx.createOscillator();
       o.type = 'sine';
       o.frequency.setValueAtTime(120, t0);
@@ -401,20 +401,19 @@
   function maybeCrunch(dy){
     const now = performance.now();
     const speed = Math.abs(dy);
-    if (speed < 3 || now - audio.lastGrain < 90) return; 
+    if (speed < 3 || now - audio.lastGrain < 90) return;   // throttle: crackle, not static
     audio.lastGrain = now;
     crunch(Math.min(1, speed / 26) * 0.7);
   }
   document.getElementById('rewedge').addEventListener('click', () => { unlockAudio(); crunch(1); });
-  
-  // --- nerikomi slice: ---------------
+  // --- nerikomi slice: flick it like a banding wheel ---------------
   const sliceBtn = document.getElementById('slice');
   const sliceMark = sliceBtn.querySelector('.slice-mark');
   sliceBtn.addEventListener('click', () => {
     unlockAudio();
     crunch(0.6);
     sliceMark.classList.remove('spinning');
-    void sliceMark.offsetWidth;   
+    void sliceMark.offsetWidth;   // restart the animation on repeat clicks
     sliceMark.classList.add('spinning');
   });
   sliceMark.addEventListener('animationend', () => sliceMark.classList.remove('spinning'));
