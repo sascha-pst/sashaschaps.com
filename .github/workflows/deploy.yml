@@ -1,0 +1,110 @@
+# .github/workflows/deploy.yml
+# Replaces encrypt-and-deploy.yml. Deploys the site password-protected via
+# staticrypt (AES-256, decrypted in the visitor's browser). Verified locally:
+# the import map, module scripts, and WebGL hero all boot after decryption.
+#
+# Requires the SITE_PASSWORD repository secret (Settings → Secrets and
+# variables → Actions). This workflow FAILS LOUDLY if it's missing — the old
+# pipeline's silent-failure mode is what left a ghost deploy running.
+#
+# To make the site public again later: delete the "Encrypt", "Keep link
+# previews", and "Copy public assets" steps, and change the upload path
+# from ./dist to ./
+
+name: Deploy site (password protected)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      # The smoke detector: a page whose inline script can't parse never ships.
+      # (This is the guard that would have caught the unclosed /* comments.)
+      - name: Parse-check inline scripts in every HTML file
+        run: |
+          node -e '
+            const fs = require("fs");
+            let fail = 0;
+            for (const f of fs.readdirSync(".").filter(f => f.endsWith(".html"))) {
+              const html = fs.readFileSync(f, "utf8");
+              for (const [, js] of html.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+                try { new Function(js); }
+                catch (e) { console.error(`${f}: ${e.message}`); fail = 1; }
+              }
+            }
+            if (fail) process.exit(1);
+            console.log("inline scripts parse OK");
+          '
+
+      - name: Encrypt the site with staticrypt
+        env:
+          STATICRYPT_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+        run: |
+          if [ -z "$STATICRYPT_PASSWORD" ]; then
+            echo "::error::SITE_PASSWORD secret is not set — refusing to deploy an unlocked or broken build."
+            exit 1
+          fi
+          npx --yes staticrypt index.html -d dist --short --remember 7 \
+            --template-title "sashaschaps.com" \
+            --template-instructions "This studio is password protected. Enter the password to come in." \
+            --template-button "Come in" \
+            --template-placeholder "Password" \
+            --template-color-primary "#2D6BD8" \
+            --template-color-secondary "#FAFBFC"
+
+      # The gate page has no metadata of its own — re-add the social card and
+      # favicon so a shared link still previews the moon jar.
+      - name: Keep link previews working on the gate page
+        run: |
+          node -e '
+            const fs = require("fs");
+            const p = "dist/index.html";
+            const inject = [
+              `<meta name="description" content="Sasha Schaps — data science and marbled porcelain.">`,
+              `<meta property="og:title" content="Sasha Schaps — Data Science">`,
+              `<meta property="og:description" content="Clay & code: data science projects and marbled porcelain.">`,
+              `<meta property="og:image" content="https://sashaschaps.com/og-card.jpg">`,
+              `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`,
+              `<meta name="twitter:card" content="summary_large_image">`,
+              `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\x27http://www.w3.org/2000/svg\x27 viewBox=\x270 0 64 64\x27%3E%3Ccircle cx=\x2745\x27 cy=\x2718\x27 r=\x276\x27 fill=\x27%238FBFE0\x27/%3E%3Cpath d=\x27M6 41c8-9 17-9 25-2s17 7 27-2\x27 fill=\x27none\x27 stroke=\x27%232D6BD8\x27 stroke-width=\x275\x27 stroke-linecap=\x27round\x27/%3E%3C/svg%3E">`,
+              `</head>`
+            ].join("\n");
+            fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace("</head>", inject));
+            console.log("OG tags + favicon injected into gate page");
+          '
+
+      # Images stay unencrypted on purpose: og-card feeds link previews, and
+      # hero-poster is needed by the page after unlock.
+      - name: Copy public assets
+        run: cp og-card.jpg hero-poster.jpg dist/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
