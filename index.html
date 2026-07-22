@@ -5,12 +5,12 @@
 <script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sasha Schaps — Data Science</title>
-<meta name="description" content="Sasha Schaps - Content Strategist, Program Manager and now aspiring Data Scientist.">
+<meta name="description" content="Sasha Schaps — data scientist in training at UC Berkeley MIDS, former program manager. Projects in Python and JS, plus marbled clay.">
 <meta name="theme-color" content="#FAFBFC">
 
-<meta property="og:title" content="Sasha Schaps - Aspiring Data Scientist">
-<meta property="og:description" content="Former program manager and clay enthusiast.">
-<meta property="og:image" content="https://sashaschaps.com/og-card.jpg">
+<meta property="og:title" content="Sasha Schaps — Data Science">
+<meta property="og:description" content="Berkeley MIDS · Python, SQL, statistics · program execution · marbled play">
+<meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://sashaschaps.com">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
     :root {
@@ -53,6 +53,7 @@
         font-size: 1rem;
         line-height: 1.62;
     }
+    p { font-weight: 300; }
     ::selection { background: var(--cobalt); color: #fff; }
     a { color: inherit; }
     a:focus-visible, button:focus-visible {
@@ -377,6 +378,10 @@
         gap: clamp(40px, 6vw, 90px);
         margin-top: 8px;
     }
+    .lead {
+        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+        line-height: 1.55;
+    }
 
     /* ============ CONTACT + FOOTER ============ */
     #contact { padding-bottom: 90px; }
@@ -488,19 +493,19 @@
 
 <header id="hero">
     <div class="hero-stage" id="hero-stage">
-        <img class="hero-poster" src="hero-poster.jpg" width="560" height="648"
-             alt="A wheel-thrown moon jar in marbled blue porcelain — abyss and ivory bands swirling like ocean strata."
+        <img class="hero-poster" src="heroposter.jpg" width="560" height="648"
              fetchpriority="high">
         <div id="hero-canvas" aria-hidden="true"></div>
         <div class="hero-scrim" aria-hidden="true"></div>
     </div>
 
     <div class="hero-content">
-        <p class="eyebrow">Student &amp; Program Manager</p>
+        <p class="eyebrow">Data Science · UC Berkeley MIDS</p>
         <h1>Building neural <em>hyphae</em>.</h1>
         <p class="sub">
-            I'm Sasha — a Bay Area native and aspiring data scientist,
-            inspired by nature's self-organizing networks.
+            I'm Sasha — a data scientist in training at Berkeley's MIDS program
+            and a former program manager, inspired by nature's self-organizing
+            networks.
         </p>
     </div>
 </header>
@@ -510,15 +515,16 @@
     <section id="notes">
         <div class="split">
             <div>
-                <p class="kicker rv">About Me</p>
-                <p class="statement rv">If you haven't heard</p>
-<p class="rv">Preview</p>
+                <p class="kicker rv">Studio notes</p>
+                <p class="statement rv">I came to data science the long way — through <em>programs, projects and content stratefy</em>.</p>
+<p class="rv">Now I'm building the technical depth to run the analysis from pipeline building to data visualization. All work in progress at UC Berkeley's Master of Information and Data Science.</p>
                 <span class="sig rv">— Sasha Tejada Schaps</span>
             </div>
             <dl class="details rv">
                 <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
                 <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS</dd></div>
-                <div class="row"><dt>Studio</dt><dd>garbagio</dd></div>
+                <div class="row"><dt>Toolkit</dt><dd>Python · SQL · pandas · statistics</dd></div>
+                <div class="row"><dt>Studio</dt><dd>Firing in Progress</dd></div>
                 <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
             </dl>
         </div>
@@ -529,10 +535,10 @@
         <div class="band-head">
             <p class="kicker rv">From the wheel</p>
             <h2 class="rv">Gallery</h2>
-            <p class="rv">studio library.</p>
+            <p class="rv">Wheel-thrown porcelain, marbled in cobalt and ivory.</p>
         </div>
         <div class="grid" id="vessel-grid"></div>
-        <p class="gallery-note rv">font type</p>
+        <p class="gallery-note rv">These vessels are drawn in code — each one is generated by a seeded canvas sketch, no image files attached. View source if you're curious.</p>
     </section>
 
     <!-- ======== INTERLUDE ======== -->
@@ -545,20 +551,23 @@
         <p class="kicker rv">Selected work</p>
         <h2 class="rv">Projects</h2>
         <div class="cards">
+            <!-- TODO(Sasha): point each card at a specific repo and add one line of
+                 concrete results (dataset, method, what you found). Named projects
+                 with outcomes read far stronger to hiring managers than categories. -->
             <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst">Links to github</a></h3>
-                <p>Description.</p>
+                <h3><a href="https://github.com/sascha-pst">Geospatial &amp; Time-Series Work</a></h3>
+                <p>Forecasting and mapping projects built on public datasets — feature engineering, model selection, and honest error analysis, documented end to end.</p>
                 <p class="meta-line">Python · geospatial · time series</p>
             </article>
             <article class="card rv">
                 <h3><a href="https://github.com/sascha-pst">SQL &amp; Python Analysis Samples</a></h3>
-                <p>Notebooks.</p>
+                <p>Reproducible notebooks that start with a question and end with a decision: joins and window functions in SQL, exploratory analysis and hypothesis tests in pandas.</p>
                 <p class="meta-line">SQL · pandas · statistics</p>
             </article>
             <article class="card rv">
                 <h3><a href="https://github.com/sascha-pst">Program Case Studies</a></h3>
-                <p>White papers only.</p>
-                <p class="meta-line">Strategy · enablement</p>
+                <p>Writing from my program-management years — scoping ambiguous problems, aligning stakeholders, and shipping. The same muscle I now point at data problems.</p>
+                <p class="meta-line">Strategy · communication · enablement</p>
             </article>
         </div>
     </section>
@@ -568,7 +577,19 @@
         <p class="kicker rv">Background</p>
         <h2 class="rv">Field notes</h2>
         <div class="about-grid">
-<p class="lead rv">lorem ipsum</p>
+            <div>
+                <p class="lead rv">I spent my career making complicated programs legible — as a content strategist and program manager, translating between engineers, executives, and everyone in between.</p>
+                <p class="rv">Somewhere along the way I stopped wanting to narrate the analysis and started wanting to run it. So I'm at UC Berkeley's Master of Information and Data Science, building the foundations properly — statistics, machine learning, experiment design, and the engineering to put them into production.</p>
+                <p class="rv">Off hours I'm throwing pottery and wedging clay. Learning to trust the process over any single result, and accept that most good work is with <em>revision</em>.</p>
+            </div>
+            <dl class="details rv">
+                <!-- TODO(Sasha): adjust these rows to match your actual coursework
+                     and add your undergrad / prior roles if you want them here. -->
+                <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science (MIDS)</dd></div>
+                <div class="row"><dt>Focus areas</dt><dd>Statistics · machine learning · data visualization</dd></div>
+                <div class="row"><dt>Before this</dt><dd>Program management &amp; content strategy</dd></div>
+                <div class="row"><dt>Elsewhere</dt><dd><a href="https://github.com/sascha-pst">GitHub</a></dd></div>
+            </dl>
         </div>
     </section>
 
@@ -591,7 +612,6 @@
         <a href="#gallery">Gallery</a>
         <a href="#work">Selected work</a>
         <a href="#about">Background</a>
-        <a href="https://linkedin.com/in/sashaschaps">LinkedIn</a>
         <a href="https://github.com/sascha-pst">GitHub</a>
     </div>
     <p class="signoff">Can't wait to get the wheel spinning.<br>© Sasha Schaps ✌︎</p>
@@ -853,7 +873,7 @@
     // ---------- HERO:  ----------
     const stage = document.getElementById('hero-stage');
     const mount = document.getElementById('hero-canvas');
-    const stateLabel = document.getElementById('state-label'); /
+    const stateLabel = document.getElementById('state-label');
 
     const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = (navigator.connection && navigator.connection.saveData) ||
