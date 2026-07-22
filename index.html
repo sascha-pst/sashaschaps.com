@@ -5,7 +5,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sasha Schaps — Data Science</title>
-<meta name="description" content="Sasha Schaps - Content Strategist, Program Manager and now aspiring Data Scientist. Projects in geospatial analysis, SQL/Python, and time series - plus work from the studio.">
+<meta name="description" content="Sasha Schaps - Content Strategist, Program Manager and now aspiring Data Scientist.">
 <meta name="theme-color" content="#FAFBFC">
 
 <meta property="og:title" content="Sasha Schaps - Aspiring Data Scientist">
@@ -35,7 +35,7 @@
         --icy:      #E6EFF6;
         --cobalt:   #2D6BD8;
         --hyphy:   #F1ECE3;
-        --thizz:    #EDF0F4; 
+        --thizz:    #EDF0F4;
         --quiet:    #545E6B;
 
         --rail: max(24px, calc((100vw - 1080px) / 2));
@@ -47,8 +47,8 @@
     html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     body {
         margin: 0;
-        background: var(--paper);
-        color: var(--ink);
+        background: var(--wifey);
+        color: var(--noir);
         font-family: var(--body);
         font-size: 1rem;
         line-height: 1.62;
@@ -66,15 +66,14 @@
         left: -9999px;
         top: 12px;
         z-index: 100;
-        background: var(--ink);
-        color: var(--paper);
+        background: var(--noir);
+        color: var(--wifey);
         font-family: var(--mono);
         font-size: 0.8rem;
         padding: 10px 16px;
         text-decoration: none;
     }
     .skip:focus { left: 12px; }
-
     .kicker {
         font-family: var(--mono);
         font-size: 0.75rem;              
@@ -105,10 +104,10 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: color-mix(in srgb, var(--paper) 82%, transparent);
+        background: color-mix(in srgb, var(--wifey) 82%, transparent);
         -webkit-backdrop-filter: blur(14px);
         backdrop-filter: blur(14px);
-        border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--noir) 8%, transparent);
         opacity: 0;
         transition: opacity 0.4s ease;
         pointer-events: none;
@@ -129,9 +128,9 @@
         letter-spacing: 0.22em;
         text-transform: uppercase;
         text-decoration: none;
-        color: var(--ink);
+        color: var(--noir);
         opacity: 0.74;
-        padding: 14px 9px;             
+        padding: 14px 9px;              
         display: inline-block;
         transition: opacity 0.25s, color 0.25s;
     }
@@ -175,8 +174,8 @@
         left: 0; top: 0; bottom: 0;
         width: min(62vw, 780px);
         background: linear-gradient(to right,
-            color-mix(in srgb, var(--paper) 96%, transparent) 38%,
-            color-mix(in srgb, var(--paper) 70%, transparent) 70%,
+            color-mix(in srgb, var(--wifey) 96%, transparent) 38%,
+            color-mix(in srgb, var(--wifey) 70%, transparent) 70%,
             transparent 100%);
         pointer-events: none;
     }
@@ -198,13 +197,14 @@
         margin: 0 0 20px;
         text-wrap: balance;
     }
-    h1 em, .statement em, .lead em { font-style: italic; font-weight: 500; color: var(--cerulean); }
+    h1 em, .statement em, .lead em { font-style: italic; font-weight: 500; color: var(--cruelaen); }
     .sub {
         font-size: clamp(1rem, 1.25vw, 1.12rem);
         line-height: 1.6;
         max-width: 46ch;
         margin: 0 0 30px;
     }
+    .hero-stage.live { cursor: pointer; }
 
     /* ============ SECTIONS ============ */
     section { padding: 110px var(--rail); }
@@ -246,9 +246,9 @@
     .details { margin: 0; }
     .details .row {
         padding: 15px 0 13px;
-        border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+        border-top: 1px solid color-mix(in srgb, var(--noir) 14%, transparent);
     }
-    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--noir) 14%, transparent); }
     .details dt {
         font-family: var(--mono);
         font-size: 0.72rem;
@@ -259,8 +259,8 @@
     }
     .details dd { margin: 0; font-size: 0.97rem; line-height: 1.55; }
 
-    /* ============ GALLERY — still, matted grid ============ */
-    #gallery { background: var(--shelf); }
+    /* ============ GALLERY ============ */
+    #gallery { background: var(--thizz); }
     .band-head { text-align: center; margin-bottom: 54px; }
     .band-head .kicker { margin-bottom: 16px; }
     .band-head p { margin-inline: auto; }
@@ -273,8 +273,8 @@
     }
     .mat {
         margin: 0;
-        background: var(--paper);
-        border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+        background: var(--wifey);
+        border: 1px solid color-mix(in srgb, var(--noir) 8%, transparent);
         border-radius: 6px;
         padding: 13px 13px 15px;
         box-shadow: 0 14px 34px -26px rgba(14, 30, 48, 0.5);
@@ -300,13 +300,12 @@
         color: var(--quiet);
         font-size: 0.95rem;
     }
-    /* cobalt/cerulean only clear 4.5:1 on pure paper — tinted bands get prussian */
     #gallery .kicker, #about .kicker { color: var(--prussian); }
     #about em { color: var(--prussian); }
 
-    /* ============ INTERLUDE — the one dark room ============ */
+    /* ============ INTERLUDE ============ */
     #interlude {
-        background: var(--ink);
+        background: var(--noir);
         color: var(--icy);
         min-height: 52vh;
         display: grid;
@@ -348,14 +347,14 @@
     }
     .card {
         position: relative;
-        border: 1px solid color-mix(in srgb, var(--ink) 13%, transparent);
+        border: 1px solid color-mix(in srgb, var(--noir) 13%, transparent);
         border-radius: 8px;
         padding: 28px 26px;
         background: #fff;
         transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
     .card:hover, .card:focus-within {
-        border-color: var(--cerulean);
+        border-color: var(--cruelaen);
         transform: translateY(-3px);
         box-shadow: 0 16px 34px -24px rgba(27, 58, 92, 0.4);
     }
@@ -368,10 +367,10 @@
     }
     .card h3 a { color: inherit; text-decoration: none; }
     .card h3 a::after { content: ''; position: absolute; inset: 0; }
-    .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--ink) 84%, transparent); }
+    .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--noir) 84%, transparent); }
 
-    /* ============ ABOUT — the one warm room ============ */
-    #about { background: var(--bisque); }
+    /* ============ ABOUT ============ */
+    #about { background: var(--hyphy); }
     .about-grid {
         display: grid;
         grid-template-columns: 1.35fr 1fr;
@@ -386,7 +385,7 @@
         font-weight: 500;
         font-size: clamp(1.25rem, 2.1vw, 1.6rem);
         letter-spacing: -0.01em;
-        color: var(--ink);
+        color: var(--noir);
         text-decoration-thickness: 1px;
         text-underline-offset: 7px;
     }
@@ -408,7 +407,7 @@
     }
     .foot-rule {
         border: none;
-        border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+        border-top: 1px solid color-mix(in srgb, var(--noir) 14%, transparent);
         margin: 0 0 40px;
     }
     .foot-nav a {
@@ -436,7 +435,7 @@
         line-height: 2.1;
     }
 
-    /* ============ REVEALS — visible by default, JS adds the fade ============ */
+    /* ============ REVEALS ============ */
     .js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .js .rv.in { opacity: 1; transform: none; }
 
@@ -446,7 +445,7 @@
         .hero-poster, #hero-canvas { transition: none; }
     }
 
-    /* ============ SMALL SCREENS — text never sits on the marble ============ */
+    /* ============ SMALL SCREENS  ============ */
     @media (max-width: 920px) {
         body { font-size: 0.98rem; }
         nav { padding: 6px 16px; gap: 10px; }
@@ -489,16 +488,18 @@
 
 <header id="hero">
     <div class="hero-stage" id="hero-stage">
-        <img class="hero-poster" src="hero-poster.jpg" width="560" height="648">
+        <img class="hero-poster" src="hero-poster.jpg" width="560" height="648"
+             alt="A wheel-thrown moon jar in marbled blue porcelain — abyss and ivory bands swirling like ocean strata."
+             fetchpriority="high">
         <div id="hero-canvas" aria-hidden="true"></div>
         <div class="hero-scrim" aria-hidden="true"></div>
     </div>
 
     <div class="hero-content">
-        <p class="eyebrow">Student & Program Manager</p>
+        <p class="eyebrow">Student &amp; Program Manager</p>
         <h1>Building neural <em>hyphae</em>.</h1>
         <p class="sub">
-            I'm Sasha- a Bay Area native and aspiring data scientist,
+            I'm Sasha — a Bay Area native and aspiring data scientist,
             inspired by nature's self-organizing networks.
         </p>
     </div>
@@ -511,12 +512,12 @@
             <div>
                 <p class="kicker rv">About Me</p>
                 <p class="statement rv">If you haven't heard</p>
-                <p class="rv">Preview</p>
+<p class="rv">Preview</p>
                 <span class="sig rv">— Sasha Tejada Schaps</span>
             </div>
             <dl class="details rv">
                 <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
-                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS </dd></div>
+                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS</dd></div>
                 <div class="row"><dt>Studio</dt><dd>garbagio</dd></div>
                 <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
             </dl>
@@ -556,7 +557,7 @@
             </article>
             <article class="card rv">
                 <h3><a href="https://github.com/sascha-pst">Program Case Studies</a></h3>
-                <p>SWhite papers only.</p>
+                <p>White papers only.</p>
                 <p class="meta-line">Strategy · enablement</p>
             </article>
         </div>
@@ -567,7 +568,7 @@
         <p class="kicker rv">Background</p>
         <h2 class="rv">Field notes</h2>
         <div class="about-grid">
-            <p class="lead rv">lorem ipsum</p>
+<p class="lead rv">lorem ipsum</p>
         </div>
     </section>
 
@@ -610,6 +611,7 @@
     'use strict';
     var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // ---------- nav blur: ----------
     var navEl = document.querySelector('nav');
     var sentinel = document.createElement('div');
     sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
@@ -621,6 +623,8 @@
     } else {
         navEl.classList.add('scrolled');
     }
+
+    // ---------- reveals: ----------
     var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
     if ('IntersectionObserver' in window && motionOK) {
         var io = new IntersectionObserver(function (entries) {
@@ -633,10 +637,10 @@
         rvs.forEach(function (el) { el.classList.add('in'); });
     }
 
-    // ---------- gallery: six vessels ----------
+    // ---------- gallery: ----------
     var pieces = [
         { t: 'Tidepool cup',       m: 'Marbled porcelain · sea-glass glaze', shape: 'cup' },
-        { t: 'Moon jar, overcast', m: 'Coil & paddle · cobalt slip',         shape: 'moonjar' },
+        { t: 'Moon jar', m: 'Coil & paddle · cobalt slip',         shape: 'moonjar' },
         { t: 'Seafoam bowl',       m: 'Marbled stoneware · clear glaze',     shape: 'bowl' },
         { t: 'Bathymetry vase',    m: 'Layered porcelain · cobalt inlay',    shape: 'vase' },
         { t: 'Slipstream bottle',  m: 'Wheel-thrown · raw, sanded',          shape: 'bottle' },
@@ -664,6 +668,7 @@
         }
         return pts[pts.length - 1][1];
     }
+
     function makeRnd(seed) {
         var s = seed;
         return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
@@ -845,12 +850,10 @@
 </script>
 
 <script type="module">
-    // ---------- HERO:----------
+    // ---------- HERO:  ----------
     const stage = document.getElementById('hero-stage');
     const mount = document.getElementById('hero-canvas');
-    const stateLabel = document.getElementById('state-label');
-    const wheelBtn = document.getElementById('wheel-btn');
-    const wheelNote = document.getElementById('wheel-note');
+    const stateLabel = document.getElementById('state-label'); /
 
     const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = (navigator.connection && navigator.connection.saveData) ||
@@ -859,12 +862,8 @@
     const probe = document.createElement('canvas');
     const webglOK = !!(probe.getContext('webgl2') || probe.getContext('webgl'));
 
-    if (saveData || lowMem || !webglOK) {
-        // The poster IS the hero. Retire the button gracefully.
-        wheelBtn.hidden = true;
-        wheelNote.textContent = 'a still from the studio';
-    } else {
-        init().catch(() => { wheelBtn.hidden = true; });
+    if (!saveData && !lowMem && webglOK) {
+        init().catch(() => {});
     }
 
     async function init() {
@@ -1235,9 +1234,11 @@
             }
         }
 
-        const DUR = 4200;
-        function turnWheel() {
-            stateIdx = (stateIdx + 1) % config.length;
+        const DUR = 3600;
+        function setState(i) {
+            if (i === stateIdx) return;
+            stateIdx = i;
+            TWEENS.length = 0;
             const s = config[stateIdx];
             const u = clayUniforms;
             tween(() => u.uMorph.value, v => u.uMorph.value = v, s.morph, DUR);
@@ -1253,11 +1254,24 @@
             tween(() => controls.autoRotateSpeed, v => controls.autoRotateSpeed = v, s.rotate, DUR);
             tween(() => camera.position.y, v => camera.position.y = v, s.camY, DUR);
             tween(() => camControl.distance, v => camControl.distance = v, s.camDist, DUR);
-            stateLabel.textContent = s.label;
+            if (stateLabel) stateLabel.textContent = s.label;
             renderUntil = performance.now() + DUR + 600;
             resume();
         }
-        wheelBtn.addEventListener('click', turnWheel);
+
+        stage.addEventListener('click', () => setState((stateIdx + 1) % config.length));
+
+        if (motionOK) {
+            let lastScrollState = 0;
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY, h = window.innerHeight;
+                const s = y < h * 0.18 ? 0 : y < h * 0.5 ? 1 : 2;
+                if (s !== lastScrollState) {
+                    lastScrollState = s;
+                    setState(s);
+                }
+            }, { passive: true });
+        }
 
         let heroVisible = true;
         let rafId = null;
@@ -1300,7 +1314,6 @@
         }, { threshold: 0.05 }).observe(stage);
         document.addEventListener('visibilitychange', resume);
 
-        // desktop: nudge the jar right of the text column
         function layout() {
             const w = stage.clientWidth, h = stage.clientHeight;
             if (w === 0 || h === 0) return;
