@@ -1,16 +1,3 @@
-# .github/workflows/deploy.yml
-# Replaces encrypt-and-deploy.yml. Deploys the site password-protected via
-# staticrypt (AES-256, decrypted in the visitor's browser). Verified locally:
-# the import map, module scripts, and WebGL hero all boot after decryption.
-#
-# Requires the SITE_PASSWORD repository secret (Settings → Secrets and
-# variables → Actions). This workflow FAILS LOUDLY if it's missing — the old
-# pipeline's silent-failure mode is what left a ghost deploy running.
-#
-# To make the site public again later: delete the "Encrypt", "Keep link
-# previews", and "Copy public assets" steps, and change the upload path
-# from ./dist to ./
-
 name: Deploy site (password protected)
 
 on:
@@ -37,8 +24,6 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
-      # The smoke detector: a page whose inline script can't parse never ships.
-      # (This is the guard that would have caught the unclosed /* comments.)
       - name: Parse-check inline scripts in every HTML file
         run: |
           node -e '
@@ -71,8 +56,6 @@ jobs:
             --template-color-primary "#2D6BD8" \
             --template-color-secondary "#FAFBFC"
 
-      # The gate page has no metadata of its own — re-add the social card and
-      # favicon so a shared link still previews the moon jar.
       - name: Keep link previews working on the gate page
         run: |
           node -e '
@@ -92,8 +75,6 @@ jobs:
             console.log("OG tags + favicon injected into gate page");
           '
 
-      # Images stay unencrypted on purpose: og-card feeds link previews, and
-      # hero-poster is needed by the page after unlock.
       - name: Copy public assets
         run: cp og-card.jpg hero-poster.jpg dist/
 
