@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#FAFBFC">
 
 <meta property="og:title" content="Sasha Schaps — Data Science">
-<meta property="og:description" content="Berkeley MIDS · Python, SQL · program execution · marbled clay">
+<meta property="og:description" content="Berkeley MIDS &middot; Python, SQL &middot; program execution &middot; marbled clay">
 <meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,17 +26,17 @@
 
 <style>
     :root {
-        /* ===== PALETTE  ===== */
-        --myelin:   #FAFBFC; 
-        --abyss:    #0E1E30;  
-        --undertow: #1B3A5C;  
-        --current:  #3E7CB1;  
-        --shallows: #8FBFE0;  
-        --seaglass: #E6EFF6;  
-        --synapse:  #2D6BD8;  
-        --sandbar:  #F1ECE3;  
-        --seafoam:  #EDF0F4; 
-        --fog:      #545E6B;
+        /* ===== PALETTE ===== */
+        --myelin:    #FAFBFC;
+        --abyss:      #0E1E30;
+        --undertow: #1B3A5C;
+        --current: #3E7CB1;
+        --shallows:      #8FBFE0;
+        --seaglass:      #E6EFF6;
+        --synapse:   #2D6BD8;
+        --sandbar:   #F1ECE3;
+        --seafoam:    #EDF0F4;
+        --fog:    #545E6B;
 
         --rail: max(24px, calc((100vw - 1080px) / 2));
         --display: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
@@ -75,6 +75,17 @@
         text-decoration: none;
     }
     .skip:focus { left: 12px; }
+
+    .kicker::before, .eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 18px;
+        height: 1px;
+        background: currentColor;
+        margin-right: 10px;
+        vertical-align: middle;
+        opacity: 0.7;
+    }
     .kicker {
         font-family: var(--mono);
         font-size: 0.75rem;              
@@ -86,7 +97,7 @@
     }
     .meta-line {
         font-family: var(--mono);
-        font-size: 0.72rem;              
+        font-size: 0.72rem;             
         letter-spacing: 0.04em;
         color: var(--fog);
     }
@@ -105,10 +116,11 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: color-mix(in srgb, var(--myelin) 82%, transparent);
-        -webkit-backdrop-filter: blur(14px);
-        backdrop-filter: blur(14px);
+        background: color-mix(in srgb, var(--myelin) 72%, transparent);
+        -webkit-backdrop-filter: blur(18px) saturate(1.35);
+        backdrop-filter: blur(18px) saturate(1.35);
         border-bottom: 1px solid color-mix(in srgb, var(--abyss) 8%, transparent);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
         opacity: 0;
         transition: opacity 0.4s ease;
         pointer-events: none;
@@ -131,7 +143,7 @@
         text-decoration: none;
         color: var(--abyss);
         opacity: 0.74;
-        padding: 14px 9px;              
+        padding: 14px 9px;               
         display: inline-block;
         transition: opacity 0.25s, color 0.25s;
     }
@@ -209,6 +221,22 @@
 
     /* ============ SECTIONS ============ */
     section { padding: 110px var(--rail); }
+    #notes, #work, #contact { position: relative; }
+    #notes::before, #work::before, #contact::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+            radial-gradient(420px 300px at 12% 18%, color-mix(in srgb, var(--shallows) 16%, transparent), transparent 70%),
+            radial-gradient(560px 400px at 88% 74%, color-mix(in srgb, var(--seaglass) 60%, transparent), transparent 72%),
+            radial-gradient(320px 260px at 68% 6%, color-mix(in srgb, var(--current) 9%, transparent), transparent 70%);
+    }
+    #work::before { transform: scaleX(-1); }
+    /* liquid edges between the rooms */
+    .edge { display: block; height: 64px; }
+    .edge svg { display: block; width: 100%; height: 100%; }
     h2 {
         font-family: var(--display);
         font-weight: 600;
@@ -229,6 +257,65 @@
         max-width: 26ch;
         text-wrap: balance;
     }
+    /* ---- the dictionary entry ---- */
+    .define { margin: 26px 0 6px; max-width: 54ch; }
+    .def-head { margin: 0; }
+    .define .word {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 1.5rem;
+        letter-spacing: -0.02em;
+    }
+    .define .pron {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        color: var(--fog);
+        margin-left: 12px;
+    }
+    .define .pos {
+        font-style: italic;
+        font-size: 0.92rem;
+        color: var(--fog);
+        margin-left: 8px;
+    }
+    .define ol {
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: sense;
+    }
+    .define li {
+        counter-increment: sense;
+        position: relative;
+        padding: 11px 0 11px 32px;
+        border-top: 1px solid color-mix(in srgb, var(--abyss) 10%, transparent);
+        font-size: 0.97rem;
+        line-height: 1.55;
+    }
+    .define li::before {
+        content: counter(sense, decimal-leading-zero);
+        position: absolute;
+        left: 0;
+        top: 13px;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--fog);
+    }
+    .define .field { font-style: italic; color: var(--undertow); }
+    .define .ety {
+        margin: 12px 0 0;
+        font-size: 0.88rem;
+        font-style: italic;
+        color: var(--fog);
+    }
+    h1 em a {
+        color: inherit;
+        text-decoration: underline dotted 1.5px;
+        text-decoration-color: color-mix(in srgb, var(--current) 55%, transparent);
+        text-underline-offset: 7px;
+    }
+    h1 em a:hover, h1 em a:focus-visible { text-decoration-style: solid; text-decoration-color: var(--current); }
     .sig {
         font-family: var(--display);
         font-style: italic;
@@ -260,34 +347,47 @@
     }
     .details dd { margin: 0; font-size: 0.97rem; line-height: 1.55; }
 
-    /* ============ GALLERY ============ */
-    #gallery { background: var(--seafoam); }
+    /* ============ GALLERY  ============ */
+    #gallery { background-color: var(--seafoam); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
     .band-head { text-align: center; margin-bottom: 54px; }
     .band-head .kicker { margin-bottom: 16px; }
     .band-head p { margin-inline: auto; }
     .grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-        max-width: 1080px;
+        gap: 44px 34px;
+        max-width: 1020px;
         margin: 0 auto;
     }
     .mat {
         margin: 0;
-        background: var(--myelin);
-        border: 1px solid color-mix(in srgb, var(--abyss) 8%, transparent);
-        border-radius: 6px;
-        padding: 13px 13px 15px;
-        box-shadow: 0 14px 34px -26px rgba(14, 30, 48, 0.5);
+        text-align: center;
     }
     .art {
-        aspect-ratio: 4 / 5;
-        border-radius: 3px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
         overflow: hidden;
         background: var(--seaglass);
+        position: relative;
+        border: 1px solid color-mix(in srgb, var(--abyss) 16%, transparent);
+        box-shadow:
+            inset 0 12px 26px -14px rgba(14, 30, 48, 0.4),
+            0 20px 34px -24px rgba(14, 30, 48, 0.55);
+    }
+    .art::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow:
+            inset 0 0 0 7px color-mix(in srgb, #fff 45%, transparent),
+            inset 0 -16px 30px -18px rgba(255, 255, 255, 0.75);
     }
     .art canvas, .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .mat figcaption { padding: 13px 4px 2px; }
+    .mat figcaption { padding: 15px 4px 2px; }
+    .mat .meta-line { display: block; }
+    .dish-no { margin-bottom: 4px; opacity: 0.75; }
     .mat h3 {
         font-family: var(--display);
         font-weight: 500;
@@ -303,8 +403,13 @@
     }
     #gallery .kicker, #about .kicker { color: var(--undertow); }
     #about em { color: var(--undertow); }
+    #about a { color: var(--undertow); }
+    .lead {
+        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+        line-height: 1.55;
+    }
 
-    /* ============ INTERLUDE ============ */
+    /* ============ INTERLUDE — the one dark room ============ */
     #interlude {
         background: var(--abyss);
         color: var(--seaglass);
@@ -316,16 +421,16 @@
         overflow: hidden;
         padding: 130px var(--rail);
     }
-    #interlude::before {
-        content: '';
+    .heatfield {
         position: absolute;
-        inset: -30%;
-        background: repeating-radial-gradient(
-            circle at 50% 140%,
-            rgba(230, 239, 246, 0.05) 0 1px,
-            transparent 1px 84px
-        );
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        image-rendering: pixelated;
+        opacity: 0.28;
         pointer-events: none;
+        -webkit-mask-image: radial-gradient(120% 95% at 50% 55%, #000 22%, transparent 80%);
+        mask-image: radial-gradient(120% 95% at 50% 55%, #000 22%, transparent 80%);
     }
     #interlude blockquote {
         position: relative;
@@ -358,10 +463,15 @@
     }
     .card {
         position: relative;
-        border: 1px solid color-mix(in srgb, var(--abyss) 13%, transparent);
-        border-radius: 8px;
+        border: 1px solid color-mix(in srgb, #fff 70%, transparent);
+        border-radius: 12px;
         padding: 28px 26px;
-        background: #fff;
+        background: color-mix(in srgb, #fff 58%, transparent);
+        -webkit-backdrop-filter: blur(10px) saturate(1.25);
+        backdrop-filter: blur(10px) saturate(1.25);
+        box-shadow:
+            0 12px 32px -26px rgba(14, 30, 48, 0.45),
+            inset 0 1px 0 rgba(255, 255, 255, 0.75);
         transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
     .card:hover, .card:focus-within {
@@ -381,16 +491,19 @@
     .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--abyss) 84%, transparent); }
 
     /* ============ ABOUT ============ */
-    #about { background: var(--sandbar); }
+    #about {
+        background-color: var(--sandbar);
+        background-image:
+            radial-gradient(circle at 82% 24%, transparent 118px, color-mix(in srgb, var(--abyss) 5%, transparent) 119px, transparent 121px),
+            radial-gradient(circle at 86% 30%, transparent 74px, color-mix(in srgb, var(--abyss) 4%, transparent) 75px, transparent 77px),
+            radial-gradient(circle at 10% 82%, transparent 92px, color-mix(in srgb, var(--abyss) 4%, transparent) 93px, transparent 95px),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
     .about-grid {
         display: grid;
         grid-template-columns: 1.35fr 1fr;
         gap: clamp(40px, 6vw, 90px);
         margin-top: 8px;
-    }
-    .lead {
-        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
-        line-height: 1.55;
     }
 
     /* ============ CONTACT + FOOTER ============ */
@@ -450,7 +563,7 @@
         line-height: 2.1;
     }
 
-    /* ============ REVEALS ============ */
+    /* ============ REVEALS  ============ */
     .js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .js .rv.in { opacity: 1; transform: none; }
 
@@ -460,7 +573,7 @@
         .hero-poster, #hero-canvas { transition: none; }
     }
 
-    /* ============ SMALL SCREENS  ============ */
+    /* ============ SMALL SCREENS ============ */
     @media (max-width: 920px) {
         body { font-size: 0.98rem; }
         nav { padding: 6px 16px; gap: 10px; }
@@ -477,6 +590,7 @@
             padding: 34px 18px 10px;
         }
         section { padding: 78px 18px; }
+        .edge { height: 36px; }
         .split, .about-grid { grid-template-columns: 1fr; gap: 40px; }
         .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
         #interlude { min-height: 40vh; padding: 90px 18px; }
@@ -510,8 +624,8 @@
     </div>
 
     <div class="hero-content">
-        <p class="eyebrow">Data Science · Program Management · Content Strategy</p>
-        <h1>Building neural <em>hyphae</em>.</h1>
+        <p class="eyebrow">Data Science &middot; Program Management &middot; Content Strategy</p>
+        <h1>Building neural <em><a href="#hyphae">hyphae</a></em>.</h1>
         <p class="sub">
             I'm Sasha. I'm an aspiring data scientist and program manager, inspired by
             nature's self organizing networks.
@@ -525,19 +639,42 @@
         <div class="split">
             <div>
                 <p class="kicker rv">Studio notes</p>
-                <p class="statement rv">I took the scenic route to data science — five years across programs, launches, and the fine art of making complicated things intelligible.</p>
-<p class="rv">Now I'm building the depth to run the analysis myself, pipeline to final chart. All of it happily in progress at UC Berkeley's Master of Information and Data Science.</p>
+                <p class="statement rv">I took the scenic route to data science &mdash; five years across programs, launches, and the fine art of making complicated things intelligible.</p>
+                <p class="rv">Now I'm building the depth to run the analysis myself, pipeline to final chart. All of it happily in progress at UC Berkeley's Master of Information and Data Science.</p>
+                <div class="define rv" id="hyphae">
+                    <p class="def-head">
+                        <span class="word">hy&middot;phae</span>
+                        <span class="pron">/&#712;ha&#618;-fee/ &mdash; yes, like that</span>
+                        <span class="pos">pl. noun</span>
+                    </p>
+                    <ol>
+                        <li><span class="field">mycology.</span> The fine branching filaments a fungus
+                        lives through &mdash; feeding, sensing, connecting. One thread is a hypha;
+                        the network is the organism.</li>
+                        <li><span class="field">Bay Area.</span> See <em>hyphy</em>: a heightened,
+                        highly productive state of going dumb &mdash; native to the Yay, and
+                        pronounced the same on purpose.</li>
+                        <li><span class="field">reinforcement learning.</span> The pathways an agent
+                        thickens every time a reward lands &mdash; a policy, grown like mycelium.</li>
+                        <li><span class="field">neuroplasticity.</span> What the brain grows in
+                        response to whatever it's fed &mdash; yes, even brain rot builds connections.
+                        Choose your training data.</li>
+                    </ol>
+                    <p class="ety">from Greek <em>hyph&#275;</em>, &ldquo;web.&rdquo;</p>
+                </div>
+                <span class="sig rv">— Sasha Tejada Schaps</span>
             </div>
             <dl class="details rv">
                 <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
-                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS </dd></div>
-                <div class="row"><dt>Toolkit</dt><dd>Python · SQL · pandas </dd></div>
+                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS</dd></div>
+                <div class="row"><dt>Toolkit</dt><dd>Python &middot; SQL &middot; pandas</dd></div>
                 <div class="row"><dt>Studio</dt><dd>Firing in Progress</dd></div>
                 <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
             </dl>
         </div>
     </section>
 
+    <div class="edge" aria-hidden="true" style="background:var(--myelin)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--seafoam)" d="M0,64 L0,40 C220,10 470,56 720,34 C960,14 1210,52 1440,26 L1440,64 Z"/></svg></div>
     <!-- ======== GALLERY ======== -->
     <section id="gallery">
         <div class="band-head">
@@ -546,16 +683,19 @@
             <p class="rv">Wheel-thrown porcelain, marbled in cobalt and ivory. The kiln has opinions; these are the pieces it approved.</p>
         </div>
         <div class="grid" id="vessel-grid"></div>
-        <p class="gallery-note rv">These vessels are drawn in code — each one a seeded canvas sketch, no image files harmed. View source if you don't believe me.</p>
+        <p class="gallery-note rv">These vessels are drawn in code &mdash; each one a seeded canvas sketch, no image files harmed. View source if you don't believe me.</p>
     </section>
 
+    <div class="edge" aria-hidden="true" style="background:var(--seafoam)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--abyss)" d="M0,64 L0,30 C260,54 500,12 760,38 C1000,60 1240,18 1440,42 L1440,64 Z"/></svg></div>
     <!-- ======== INTERLUDE ======== -->
     <section id="interlude">
+        <canvas class="heatfield" width="72" height="40" aria-hidden="true"></canvas>
         <blockquote class="rv">&ldquo;Just as there are several solitudes,
         so there are several <strong>silences</strong>.&rdquo;</blockquote>
-        <p class="attrib rv">— Frédéric Gros, <cite>A Philosophy of Walking</cite></p>
+        <p class="attrib rv">&mdash; Fr&eacute;d&eacute;ric Gros, <cite>A Philosophy of Walking</cite></p>
     </section>
 
+    <div class="edge" aria-hidden="true" style="background:var(--abyss)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--myelin)" d="M0,64 L0,46 C180,16 420,50 700,28 C980,8 1240,48 1440,34 L1440,64 Z"/></svg></div>
     <!-- ======== SELECTED WORK ======== -->
     <section id="work">
         <p class="kicker rv">Selected work</p>
@@ -564,59 +704,60 @@
             <article class="card rv">
                 <h3><a href="glaze-kiln.html">Glaze Kiln</a></h3>
                 <p>Where the pottery habit and the code habit stop pretending they're separate hobbies.</p>
-                <p class="meta-line">HTML · JavaScript · interactive</p>
+                <p class="meta-line">HTML &middot; JavaScript &middot; interactive</p>
             </article>
             <article class="card rv">
                 <h3><a href="bullish-on-sharks.html">Bullish on Sharks</a></h3>
-                <p>The data on shark–human encounters, minus the theme music. Base rates, real risk, and why the ocean is still mostly fine with you.</p>
-                <p class="meta-line">Python · pandas · data viz</p>
+                <p>The data on shark&ndash;human encounters, minus the theme music. Base rates, real risk, and why the ocean is still mostly fine with you.</p>
+                <p class="meta-line">Python &middot; pandas &middot; data viz</p>
             </article>
             <article class="card rv">
                 <h3><a href="boil-the-ocean.html">Let's Not Boil the Ocean</a></h3>
-                <p>An Observable notebook you can actually poke — live cells, right in the browser. Exploration you do, not just read about.</p>
-                <p class="meta-line">Observable · D3 · interactive viz</p>
+                <p>An Observable notebook you can actually poke &mdash; live cells, right in the browser. Exploration you do, not just read about.</p>
+                <p class="meta-line">Observable &middot; D3 &middot; interactive viz</p>
             </article>
             <article class="card rv">
-                <!-- TODO(Sasha): replace href with the actual flashcard repo URL. -->
-                <h3><a href="https://github.com/sascha-pst">Chinese Flashcard App</a></h3>
-                <p>A study habit from my Shanghai master's days, rebuilt as a tool. Made to fix my own review routine; kept because it worked.</p>
-                <p class="meta-line">JavaScript · app · language learning</p>
+                <h3><a href="https://github.com/sascha-pst">HSK2 (Chinese) App</a></h3>
+                <p>A study habit from my Shanghai master's days, rebuilt to help my mom learn Mandarin before duolingo takes all my inheritance. Made to fix my own review routine; kept because it worked.</p>
+                <p class="meta-line">JavaScript &middot; app &middot; language learning</p>
             </article>
             <article class="card rv">
                 <h3><a href="https://github.com/sascha-pst/McCombs-DSBA">McCombs DSBA Notebooks</a></h3>
-                <p>The coursework under everything else — notebooks from my UT Austin certificate, documented like someone will actually read them. You're someone.</p>
-                <p class="meta-line">Python · Jupyter · ML</p>
+                <p>The coursework under everything else &mdash; notebooks from my UT Austin certificate, documented like someone will actually read them. You're someone.</p>
+                <p class="meta-line">Python &middot; Jupyter &middot; ML</p>
             </article>
         </div>
     </section>
 
+    <div class="edge" aria-hidden="true" style="background:var(--myelin)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--sandbar)" d="M0,64 L0,40 C220,10 470,56 720,34 C960,14 1210,52 1440,26 L1440,64 Z"/></svg></div>
     <!-- ======== BACKGROUND ======== -->
     <section id="about">
         <p class="kicker rv">Background</p>
         <h2 class="rv">Field notes</h2>
         <div class="about-grid">
             <div>
-                <p class="lead rv">My career has taken different turns. From making complicated programs legible — running enablement for 50,000+ creators across eight international markets, translating between engineers, executives, to building tools to enable better pottery outcomes.</p>
-                <p class="rv">At some point I stopped wanting to narrate the analysis and started wanting to run it. So: Berkeley's Master of Information and Data Science, foundations built properly — statistics, machine learning, experiment design, and the engineering to ship them.</p>
-                <p class="rv">Off hours I'm at the wheel or in the water — wedging clay, logging dives — re-learning the same lesson on repeat: trust the process, love the <em>revision</em>, and it's always ok to do it all over again.</p>
+                <p class="lead rv">My career has taken different turns. From making complicated programs legible &mdash; running enablement for 50,000+ creators across eight international markets, translating between engineers, executives, to building tools to enable better pottery outcomes.</p>
+                <p class="rv">At some point I stopped wanting to narrate the analysis and started wanting to run it. So: Berkeley's Master of Information and Data Science, foundations built properly &mdash; statistics, machine learning, experiment design, and the engineering to ship them.</p>
+                <p class="rv">Off hours I'm at the wheel or in the water &mdash; wedging clay, logging dives &mdash; re-learning the same lesson on repeat (not all at the same time): trust the process, love the <em>revision</em>, and it's always ok to do it all over again.</p>
             </div>
             <dl class="details rv">
-                <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science </dd></div>
-                <div class="row"><dt>Also</dt><dd>Masters in International Business, Shanghai University of Finance and Economics</dd></div>
+                <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science</dd></div>
+                <div class="row"><dt>Also</dt><dd>Masters in International Business, Shanghai University of Finance and Economics 财大</dd></div>
                 <div class="row"><dt>Certificate</dt><dd>Data Science &amp; Business Analytics, UT Austin McCombs</dd></div>
-                <div class="row"><dt>Undergrad</dt><dd>B.A. Global Studies, UC Santa Barbara · Dean's Honors</dd></div>
-                <div class="row"><dt>Before this</dt><dd>Meta — content strategy, program development, scaled enablement</dd></div>
-                <div class="row"><dt>In the water</dt><dd>Advanced diver · swim safety certified · rescue diver in progress</dd></div>
+                <div class="row"><dt>Undergrad</dt><dd>B.A. Global Studies, UC Santa Barbara &middot; Dean's Honors</dd></div>
+                <div class="row"><dt>Before this</dt><dd>Meta &mdash; content strategy, program development, scaled enablement</dd></div>
+                <div class="row"><dt>In the water</dt><dd>Advanced diver &middot; swim safety certified &middot; rescue diver in progress</dd></div>
                 <div class="row"><dt>Elsewhere</dt><dd><a href="https://github.com/sascha-pst">GitHub</a></dd></div>
             </dl>
         </div>
     </section>
 
+    <div class="edge" aria-hidden="true" style="background:var(--sandbar)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--myelin)" d="M0,64 L0,30 C260,54 500,12 760,38 C1000,60 1240,18 1440,42 L1440,64 Z"/></svg></div>
     <!-- ======== CONTACT ======== -->
     <section id="contact">
         <p class="kicker rv">Correspondence</p>
         <h2 class="rv">Say hello.</h2>
-        <p class="rv">Roles, collaborations, or just talking shop — I read everything.</p>
+        <p class="rv">Roles, collaborations, or just talking shop &mdash; I read everything.</p>
         <p class="rv"><a class="bigmail" href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></p>
         <div class="alt-links rv">
             <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley mail</a>
@@ -650,8 +791,6 @@
 (function () {
     'use strict';
     var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // ---------- nav blur: ----------
     var navEl = document.querySelector('nav');
     var sentinel = document.createElement('div');
     sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
@@ -664,7 +803,6 @@
         navEl.classList.add('scrolled');
     }
 
-    // ---------- reveals: ----------
     var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
     if ('IntersectionObserver' in window && motionOK) {
         var io = new IntersectionObserver(function (entries) {
@@ -677,10 +815,10 @@
         rvs.forEach(function (el) { el.classList.add('in'); });
     }
 
-    // ---------- gallery: ----------
+    // ---------- gallery: six vessels----------
     var pieces = [
         { t: 'Tidepool cup',       m: 'Marbled porcelain · sea-glass glaze', shape: 'cup' },
-        { t: 'Moon jar', m: 'Coil & paddle · cobalt slip',         shape: 'moonjar' },
+        { t: '"Moon" jar', m: 'Coil & paddle · cobalt slip',         shape: 'moonjar' },
         { t: 'Seafoam bowl',       m: 'Marbled stoneware · clear glaze',     shape: 'bowl' },
         { t: 'Bathymetry vase',    m: 'Layered porcelain · cobalt inlay',    shape: 'vase' },
         { t: 'Slipstream bottle',  m: 'Wheel-thrown · raw, sanded',          shape: 'bottle' },
@@ -865,6 +1003,10 @@
         art.appendChild(cv);
         drawVessel(cv, i, p.shape);
         var cap = document.createElement('figcaption');
+        var no = document.createElement('span');
+        no.className = 'meta-line dish-no';
+        no.textContent = 'no. 0' + (i + 1);
+        cap.appendChild(no);
         var h = document.createElement('h3');
         h.textContent = p.t;
         var meta = document.createElement('span');
@@ -886,14 +1028,42 @@
             fig.classList.add('in');
         }
     });
+    var hf = document.querySelector('.heatfield');
+    if (hf && hf.getContext) {
+        var hx = hf.getContext('2d'), HW = hf.width, HH = hf.height;
+        var hrnd = makeRnd(4242);
+        var blobs = [];
+        for (var hb = 0; hb < 9; hb++) {
+            blobs.push({ x: hrnd() * HW, y: hrnd() * HH, a: 0.35 + hrnd() * 0.75, s: 3 + hrnd() * 9 });
+        }
+        var stops = [[27, 58, 92], [62, 124, 177], [143, 191, 224], [230, 239, 246]];
+        for (var hy = 0; hy < HH; hy++) {
+            for (var hxp = 0; hxp < HW; hxp++) {
+                var dsum = 0;
+                for (var hb2 = 0; hb2 < blobs.length; hb2++) {
+                    var bb = blobs[hb2], dx2 = hxp - bb.x, dy2 = hy - bb.y;
+                    dsum += bb.a * Math.exp(-(dx2 * dx2 + dy2 * dy2) / (2 * bb.s * bb.s));
+                }
+                dsum += hrnd() * 0.08;
+                var dv = Math.min(1, dsum);
+                var seg = Math.min(2.999, dv * 3), si = Math.floor(seg), sf = seg - si;
+                var c0 = stops[si], c1 = stops[Math.min(3, si + 1)];
+                hx.fillStyle = 'rgba(' + Math.round(c0[0] + (c1[0] - c0[0]) * sf) + ',' +
+                    Math.round(c0[1] + (c1[1] - c0[1]) * sf) + ',' +
+                    Math.round(c0[2] + (c1[2] - c0[2]) * sf) + ',' +
+                    (0.12 + dv * 0.88).toFixed(3) + ')';
+                hx.fillRect(hxp, hy, 1, 1);
+            }
+        }
+    }
 })();
 </script>
 
 <script type="module">
-    // ---------- HERO:  ----------
+
     const stage = document.getElementById('hero-stage');
     const mount = document.getElementById('hero-canvas');
-    const stateLabel = document.getElementById('state-label');
+    const stateLabel = document.getElementById('state-label'); 
 
     const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = (navigator.connection && navigator.connection.saveData) ||
@@ -995,6 +1165,7 @@
             const vec3 ABYSS    = vec3(0.055, 0.118, 0.188);
         `;
 
+        // ---------- moon jar profile ----------
         function smoothstepJS(a, b, x) {
             const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
             return t * t * (3 - 2 * t);
@@ -1199,6 +1370,7 @@
         contactShadow.position.set(2.0, -11.03, -1.0);
         scene.add(contactShadow);
 
+        // ---------- ink motes:  ----------
         const SPRAY_N = 400;
         const sprayGeo = new THREE.BufferGeometry();
         const pVase = new Float32Array(SPRAY_N * 3);
@@ -1246,6 +1418,7 @@
         });
         scene.add(new THREE.Points(sprayGeo, sprayMat));
 
+        // ---------- states: ----------
         const config = [
             { label: 'vessel',
               morph: 0.0,  swirl: 0.0, wave: 0.15, gloss: 0.82, foam: 0.0,  drift: 0.0,  clear: 0.16,
@@ -1298,8 +1471,8 @@
             renderUntil = performance.now() + DUR + 600;
             resume();
         }
-
         stage.addEventListener('click', () => setState((stateIdx + 1) % config.length));
+
 
         if (motionOK) {
             let lastScrollState = 0;
