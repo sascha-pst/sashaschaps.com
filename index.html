@@ -26,17 +26,17 @@
 
 <style>
     :root {
-        /* ===== PALETTE — where the brain meets the sea ===== */
-        --myelin:   #FAFBFC;  /* the white everything rests on */
-        --abyss:    #0E1E30;  /* deepest ink — text, the dark interlude */
-        --undertow: #1B3A5C;  /* deep pull — headings, quiet emphasis */
-        --current:  #3E7CB1;  /* ocean current, electrical current — mid blue */
-        --shallows: #8FBFE0;  /* sunlit water — highlights on dark */
-        --seaglass: #E6EFF6;  /* soft frosted blue — light fills */
-        --synapse:  #2D6BD8;  /* the firing color — links, hover, focus */
-        --sandbar:  #F1ECE3;  /* warm sand — the about section */
-        --seafoam:  #EDF0F4;  /* cool wash — the gallery band */
-        --fog:      #545E6B;  /* marine layer — captions and meta text */
+        /* ===== PALETTE  ===== */
+        --myelin:   #FAFBFC; 
+        --abyss:    #0E1E30;  
+        --undertow: #1B3A5C;  
+        --current:  #3E7CB1;  
+        --shallows: #8FBFE0;  
+        --seaglass: #E6EFF6;  
+        --synapse:  #2D6BD8;  
+        --sandbar:  #F1ECE3;  
+        --seafoam:  #EDF0F4; 
+        --fog:      #545E6B;  
 
         --rail: max(24px, calc((100vw - 1080px) / 2));
         --display: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
@@ -338,6 +338,16 @@
         max-width: 21ch;
     }
     #interlude strong { font-weight: 700; color: var(--shallows); }
+    #interlude .attrib {
+        position: relative;
+        margin: 26px 0 0;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--shallows);
+    }
+    #interlude .attrib cite { font-style: normal; }
 
     /* ============ WORK ============ */
     .cards {
@@ -543,7 +553,9 @@
 
     <!-- ======== INTERLUDE ======== -->
     <section id="interlude">
-        <blockquote class="rv">&ldquo;There are <strong>layers</strong> to it.&rdquo;</blockquote>
+        <blockquote class="rv">&ldquo;Just as there are several solitudes,
+        so there are several <strong>silences</strong>.&rdquo;</blockquote>
+        <p class="attrib rv">— Frédéric Gros, <cite>A Philosophy of Walking</cite></p>
     </section>
 
     <!-- ======== SELECTED WORK ======== -->
@@ -567,8 +579,7 @@
                 <p class="meta-line">Observable · D3 · interactive viz</p>
             </article>
             <article class="card rv">
-                <!-- TODO(Sasha): replace href with the actual flashcard repo URL.
-                     Also confirm the Shanghai framing is accurate to when/why you built it. -->
+                <!-- TODO(Sasha): replace href with the actual flashcard repo URL. -->
                 <h3><a href="https://github.com/sascha-pst">Chinese Flashcard App</a></h3>
                 <p>A study habit from my Shanghai master's days, rebuilt as a tool. Made to fix my own review routine; kept because it worked.</p>
                 <p class="meta-line">JavaScript · app · language learning</p>
