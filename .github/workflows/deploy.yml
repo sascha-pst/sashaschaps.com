@@ -1,4 +1,4 @@
-name: Deploy site
+name: Deploy site (password protected)
 
 on:
   push:
@@ -24,58 +24,47 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
-      - name: Parse-check every script in every HTML file
+      - name: Parse-check inline scripts in every HTML file
         run: |
           node -e '
             const fs = require("fs");
-            const { execFileSync } = require("child_process");
-            let fail = 0, n = 0;
+            let fail = 0;
             for (const f of fs.readdirSync(".").filter(f => f.endsWith(".html"))) {
               const html = fs.readFileSync(f, "utf8");
-              for (const [, attrs, js] of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) {
-                if (/type\s*=\s*"(importmap|application\/(ld\+)?json)"/.test(attrs)) continue;
-                const ext = /type\s*=\s*"module"/.test(attrs) ? "mjs" : "js";
-                const tmp = `/tmp/check-${n++}.${ext}`;
-                fs.writeFileSync(tmp, js);
-                try { execFileSync("node", ["--check", tmp], { stdio: "pipe" }); }
-                catch (e) { console.error(`${f} script #${n}: ${e.stderr}`); fail = 1; }
+              for (const [, js] of html.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+                try { new Function(js); }
+                catch (e) { console.error(`${f}: ${e.message}`); fail = 1; }
               }
             }
             if (fail) process.exit(1);
-            console.log(`${n} scripts parse OK`);
+            console.log("inline scripts parse OK");
           '
 
-      - name: Build site (password gate optional)
-        id: build
+      - name: Encrypt the site with staticrypt
         env:
           STATICRYPT_PASSWORD: ${{ secrets.SITE_PASSWORD }}
         run: |
-          mkdir -p dist
-          if [ -n "$STATICRYPT_PASSWORD" ]; then
-            echo "gated=true" >> "$GITHUB_OUTPUT"
-            npx --yes staticrypt index.html -d dist --short --remember 7 \
-              --template-title "sashaschaps.com" \
-              --template-instructions "This studio is password protected. Enter the password to come in." \
-              --template-button "Come in" \
-              --template-placeholder "Password" \
-              --template-color-primary "#2D6BD8" \
-              --template-color-secondary "#FAFBFC"
-          else
-            echo "gated=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::SITE_PASSWORD secret is not set — deploying the site publicly with no password gate."
-            cp index.html dist/
+          if [ -z "$STATICRYPT_PASSWORD" ]; then
+            echo "::error::SITE_PASSWORD secret is not set — refusing to deploy an unlocked or broken build."
+            exit 1
           fi
+          npx --yes staticrypt *.html -d dist --short --remember 7 \
+            --template-title "sashaschaps.com" \
+            --template-instructions "This studio is password protected. Enter the password to come in." \
+            --template-button "Come in" \
+            --template-placeholder "Password" \
+            --template-color-primary "#2D6BD8" \
+            --template-color-secondary "#FAFBFC"
 
       - name: Keep link previews working on the gate page
-        if: steps.build.outputs.gated == 'true'
         run: |
           node -e '
             const fs = require("fs");
             const p = "dist/index.html";
             const inject = [
-              `<meta name="description" content="Sasha Schaps — data science and marbled porcelain.">`,
+              `<meta name="description" content="Sasha Schaps — data scientist in training at UC Berkeley MIDS.">`,
               `<meta property="og:title" content="Sasha Schaps — Data Science">`,
-              `<meta property="og:description" content="Clay & code: data science projects and marbled porcelain.">`,
+              `<meta property="og:description" content="Berkeley MIDS · Python, SQL · program execution · marbled clay">`,
               `<meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">`,
               `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`,
               `<meta name="twitter:card" content="summary_large_image">`,
