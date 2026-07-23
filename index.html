@@ -26,17 +26,17 @@
 
 <style>
     :root {
-        /* ===== PALETTE ===== */
-        --paper:    #FAFBFC;
-        --abyss:      #0E1E30;
-        --prussian: #1B3A5C;
-        --cerulean: #3E7CB1;
-        --sky:      #8FBFE0;
-        --icy:      #E6EFF6;
-        --cobalt:   #2D6BD8;
-        --hyphy:   #F1ECE3;
-        --clear:    #EDF0F4;
-        --quiet:    #545E6B;
+        /* ===== PALETTE — where the brain meets the sea ===== */
+        --myelin:   #FAFBFC;  /* the white everything rests on */
+        --abyss:    #0E1E30;  /* deepest ink — text, the dark interlude */
+        --undertow: #1B3A5C;  /* deep pull — headings, quiet emphasis */
+        --current:  #3E7CB1;  /* ocean current, electrical current — mid blue */
+        --shallows: #8FBFE0;  /* sunlit water — highlights on dark */
+        --seaglass: #E6EFF6;  /* soft frosted blue — light fills */
+        --synapse:  #2D6BD8;  /* the firing color — links, hover, focus */
+        --sandbar:  #F1ECE3;  /* warm sand — the about section */
+        --seafoam:  #EDF0F4;  /* cool wash — the gallery band */
+        --fog:      #545E6B;  /* marine layer — captions and meta text */
 
         --rail: max(24px, calc((100vw - 1080px) / 2));
         --display: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
@@ -47,17 +47,17 @@
     html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     body {
         margin: 0;
-        background: var(--wifey);
-        color: var(--noir);
+        background: var(--myelin);
+        color: var(--abyss);
         font-family: var(--body);
         font-size: 1rem;
         line-height: 1.62;
     }
     p { font-weight: 300; }
-    ::selection { background: var(--cobalt); color: #fff; }
+    ::selection { background: var(--synapse); color: #fff; }
     a { color: inherit; }
     a:focus-visible, button:focus-visible {
-        outline: 2px solid var(--cobalt);
+        outline: 2px solid var(--synapse);
         outline-offset: 3px;
         border-radius: 2px;
     }
@@ -67,8 +67,8 @@
         left: -9999px;
         top: 12px;
         z-index: 100;
-        background: var(--noir);
-        color: var(--wifey);
+        background: var(--abyss);
+        color: var(--myelin);
         font-family: var(--mono);
         font-size: 0.8rem;
         padding: 10px 16px;
@@ -81,14 +81,14 @@
         font-weight: 500;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: var(--cobalt);
+        color: var(--synapse);
         margin: 0 0 22px;
     }
     .meta-line {
         font-family: var(--mono);
         font-size: 0.72rem;              
         letter-spacing: 0.04em;
-        color: var(--quiet);
+        color: var(--fog);
     }
 
     /* ============ NAV ============ */
@@ -105,10 +105,10 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: color-mix(in srgb, var(--wifey) 82%, transparent);
+        background: color-mix(in srgb, var(--myelin) 82%, transparent);
         -webkit-backdrop-filter: blur(14px);
         backdrop-filter: blur(14px);
-        border-bottom: 1px solid color-mix(in srgb, var(--noir) 8%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--abyss) 8%, transparent);
         opacity: 0;
         transition: opacity 0.4s ease;
         pointer-events: none;
@@ -129,13 +129,13 @@
         letter-spacing: 0.22em;
         text-transform: uppercase;
         text-decoration: none;
-        color: var(--noir);
+        color: var(--abyss);
         opacity: 0.74;
         padding: 14px 9px;              
         display: inline-block;
         transition: opacity 0.25s, color 0.25s;
     }
-    nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--cobalt); }
+    nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--synapse); }
 
     /* ============ HERO ============ */
     #hero { position: relative; }
@@ -175,8 +175,8 @@
         left: 0; top: 0; bottom: 0;
         width: min(62vw, 780px);
         background: linear-gradient(to right,
-            color-mix(in srgb, var(--wifey) 96%, transparent) 38%,
-            color-mix(in srgb, var(--wifey) 70%, transparent) 70%,
+            color-mix(in srgb, var(--myelin) 96%, transparent) 38%,
+            color-mix(in srgb, var(--myelin) 70%, transparent) 70%,
             transparent 100%);
         pointer-events: none;
     }
@@ -186,7 +186,7 @@
         font-weight: 500;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: var(--prussian);
+        color: var(--undertow);
         margin: 0 0 20px;
     }
     h1 {
@@ -198,7 +198,7 @@
         margin: 0 0 20px;
         text-wrap: balance;
     }
-    h1 em, .statement em, .lead em { font-style: italic; font-weight: 500; color: var(--cruelaen); }
+    h1 em, .statement em, .lead em { font-style: italic; font-weight: 500; color: var(--current); }
     .sub {
         font-size: clamp(1rem, 1.25vw, 1.12rem);
         line-height: 1.6;
@@ -217,7 +217,7 @@
         margin: 0 0 16px;
     }
     section p { max-width: 60ch; }
-    section a { color: var(--cobalt); }
+    section a { color: var(--synapse); }
 
     .statement {
         font-family: var(--display);
@@ -234,7 +234,7 @@
         font-style: italic;
         font-weight: 500;
         font-size: 1.02rem;
-        color: var(--prussian);
+        color: var(--undertow);
         display: inline-block;
         margin-top: 14px;
     }
@@ -247,21 +247,21 @@
     .details { margin: 0; }
     .details .row {
         padding: 15px 0 13px;
-        border-top: 1px solid color-mix(in srgb, var(--noir) 14%, transparent);
+        border-top: 1px solid color-mix(in srgb, var(--abyss) 14%, transparent);
     }
-    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--noir) 14%, transparent); }
+    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--abyss) 14%, transparent); }
     .details dt {
         font-family: var(--mono);
         font-size: 0.72rem;
         font-weight: 500;
         letter-spacing: 0.1em;
-        color: var(--prussian);
+        color: var(--undertow);
         margin: 0 0 5px;
     }
     .details dd { margin: 0; font-size: 0.97rem; line-height: 1.55; }
 
     /* ============ GALLERY ============ */
-    #gallery { background: var(--thizz); }
+    #gallery { background: var(--seafoam); }
     .band-head { text-align: center; margin-bottom: 54px; }
     .band-head .kicker { margin-bottom: 16px; }
     .band-head p { margin-inline: auto; }
@@ -274,8 +274,8 @@
     }
     .mat {
         margin: 0;
-        background: var(--wifey);
-        border: 1px solid color-mix(in srgb, var(--noir) 8%, transparent);
+        background: var(--myelin);
+        border: 1px solid color-mix(in srgb, var(--abyss) 8%, transparent);
         border-radius: 6px;
         padding: 13px 13px 15px;
         box-shadow: 0 14px 34px -26px rgba(14, 30, 48, 0.5);
@@ -284,7 +284,7 @@
         aspect-ratio: 4 / 5;
         border-radius: 3px;
         overflow: hidden;
-        background: var(--icy);
+        background: var(--seaglass);
     }
     .art canvas, .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .mat figcaption { padding: 13px 4px 2px; }
@@ -298,16 +298,16 @@
         text-align: center;
         margin: 44px auto 0;
         font-style: italic;
-        color: var(--quiet);
+        color: var(--fog);
         font-size: 0.95rem;
     }
-    #gallery .kicker, #about .kicker { color: var(--prussian); }
-    #about em { color: var(--prussian); }
+    #gallery .kicker, #about .kicker { color: var(--undertow); }
+    #about em { color: var(--undertow); }
 
     /* ============ INTERLUDE ============ */
     #interlude {
-        background: var(--noir);
-        color: var(--icy);
+        background: var(--abyss);
+        color: var(--seaglass);
         min-height: 52vh;
         display: grid;
         place-items: center;
@@ -337,7 +337,7 @@
         margin: 0;
         max-width: 21ch;
     }
-    #interlude strong { font-weight: 700; color: var(--sky); }
+    #interlude strong { font-weight: 700; color: var(--shallows); }
 
     /* ============ WORK ============ */
     .cards {
@@ -348,14 +348,14 @@
     }
     .card {
         position: relative;
-        border: 1px solid color-mix(in srgb, var(--noir) 13%, transparent);
+        border: 1px solid color-mix(in srgb, var(--abyss) 13%, transparent);
         border-radius: 8px;
         padding: 28px 26px;
         background: #fff;
         transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
     .card:hover, .card:focus-within {
-        border-color: var(--cruelaen);
+        border-color: var(--current);
         transform: translateY(-3px);
         box-shadow: 0 16px 34px -24px rgba(27, 58, 92, 0.4);
     }
@@ -368,10 +368,10 @@
     }
     .card h3 a { color: inherit; text-decoration: none; }
     .card h3 a::after { content: ''; position: absolute; inset: 0; }
-    .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--noir) 84%, transparent); }
+    .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--abyss) 84%, transparent); }
 
     /* ============ ABOUT ============ */
-    #about { background: var(--hyphy); }
+    #about { background: var(--sandbar); }
     .about-grid {
         display: grid;
         grid-template-columns: 1.35fr 1fr;
@@ -390,7 +390,7 @@
         font-weight: 500;
         font-size: clamp(1.25rem, 2.1vw, 1.6rem);
         letter-spacing: -0.01em;
-        color: var(--noir);
+        color: var(--abyss);
         text-decoration-thickness: 1px;
         text-underline-offset: 7px;
     }
@@ -399,12 +399,12 @@
         font-family: var(--mono);
         font-size: 0.75rem;
         letter-spacing: 0.14em;
-        color: var(--quiet);
+        color: var(--fog);
         text-decoration: none;
         display: inline-block;
         padding: 10px 16px 10px 0;
     }
-    .alt-links a:hover, .alt-links a:focus-visible { color: var(--cobalt); }
+    .alt-links a:hover, .alt-links a:focus-visible { color: var(--synapse); }
 
     footer {
         padding: 0 var(--rail) 54px;
@@ -412,31 +412,31 @@
     }
     .foot-rule {
         border: none;
-        border-top: 1px solid color-mix(in srgb, var(--noir) 14%, transparent);
+        border-top: 1px solid color-mix(in srgb, var(--abyss) 14%, transparent);
         margin: 0 0 40px;
     }
     .foot-nav a {
         font-family: var(--mono);
         font-size: 0.75rem;
         letter-spacing: 0.12em;
-        color: var(--quiet);
+        color: var(--fog);
         text-decoration: none;
         display: inline-block;
         padding: 10px 12px;
     }
-    .foot-nav a:hover, .foot-nav a:focus-visible { color: var(--cobalt); }
+    .foot-nav a:hover, .foot-nav a:focus-visible { color: var(--synapse); }
     .colophon {
         max-width: 52ch;
         margin: 22px auto;
         font-size: 0.92rem;
         font-style: italic;
-        color: var(--quiet);
+        color: var(--fog);
     }
     .signoff {
         font-family: var(--mono);
         font-size: 0.72rem;
         letter-spacing: 0.06em;
-        color: var(--quiet);
+        color: var(--fog);
         line-height: 2.1;
     }
 
@@ -493,7 +493,7 @@
 
 <header id="hero">
     <div class="hero-stage" id="hero-stage">
-        <img class="hero-poster" src="heroposter.jpg" width="560" height="648"
+        <img class="hero-poster" src="heroposter.jpg" width="560" height="648" alt=""
              fetchpriority="high">
         <div id="hero-canvas" aria-hidden="true"></div>
         <div class="hero-scrim" aria-hidden="true"></div>
@@ -503,8 +503,9 @@
         <p class="eyebrow">Data Science · Program Management · Content Strategy</p>
         <h1>Building neural <em>hyphae</em>.</h1>
         <p class="sub">
-            I'm Sasha — an aspiring data scientist and program manager, inspired by nature's self-organizing
-            networks.
+            I'm Sasha. I build the way nature does — layered, connected, and
+            a little unruly on purpose. Currently sharpening the technical
+            craft at Berkeley MIDS. (The vase is clickable. Go on.)
         </p>
     </div>
 </header>
@@ -515,13 +516,13 @@
         <div class="split">
             <div>
                 <p class="kicker rv">Studio notes</p>
-                <p class="statement rv">I came to data science the long way — through <em>programs, projects and content strategy</em>.</p>
-<p class="rv">Now I'm building the technical depth to run the analysis from pipeline building to data visualization. All work in progress at UC Berkeley's Master of Information and Data Science.</p>
+                <p class="statement rv">I took the scenic route to data science — <em>seven years at Meta</em>, programs, launches, and the fine art of making complicated things legible.</p>
+<p class="rv">Now I'm building the depth to run the analysis myself, pipeline to final chart. All of it happily in progress at UC Berkeley's Master of Information and Data Science.</p>
                 <span class="sig rv">— Sasha Tejada Schaps</span>
             </div>
             <dl class="details rv">
                 <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
-                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS</dd></div>
+                <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS · 4.0 GPA</dd></div>
                 <div class="row"><dt>Toolkit</dt><dd>Python · SQL · pandas · statistics</dd></div>
                 <div class="row"><dt>Studio</dt><dd>Firing in Progress</dd></div>
                 <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
@@ -534,10 +535,10 @@
         <div class="band-head">
             <p class="kicker rv">From the wheel</p>
             <h2 class="rv">Gallery</h2>
-            <p class="rv">Wheel-thrown porcelain, marbled in cobalt and ivory.</p>
+            <p class="rv">Wheel-thrown porcelain, marbled in cobalt and ivory. The kiln has opinions; these are the pieces it approved.</p>
         </div>
         <div class="grid" id="vessel-grid"></div>
-        <p class="gallery-note rv">These vessels are drawn in code — each one is generated by a seeded canvas sketch, no image files attached. View source if you're curious.</p>
+        <p class="gallery-note rv">These vessels are drawn in code — each one a seeded canvas sketch, no image files harmed. View source if you don't believe me.</p>
     </section>
 
     <!-- ======== INTERLUDE ======== -->
@@ -550,23 +551,32 @@
         <p class="kicker rv">Selected work</p>
         <h2 class="rv">Projects</h2>
         <div class="cards">
-            <!-- TODO(Sasha): point each card at a specific repo and add one line of
-                 concrete results (dataset, method, what you found). Named projects
-                 with outcomes read far stronger to hiring managers than categories. -->
             <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst">Geospatial &amp; Time-Series Work</a></h3>
-                <p>Forecasting and mapping projects built on public datasets — feature engineering, model selection, and honest error analysis, documented end to end.</p>
-                <p class="meta-line">Python · geospatial · time series</p>
+                <h3><a href="glaze-kiln.html">Glaze Kiln</a></h3>
+                <p>Where the pottery habit and the code habit stop pretending they're separate hobbies.</p>
+                <p class="meta-line">HTML · JavaScript · interactive</p>
             </article>
             <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst">SQL &amp; Python Analysis Samples</a></h3>
-                <p>Reproducible notebooks that start with a question and end with a decision: joins and window functions in SQL, exploratory analysis and hypothesis tests in pandas.</p>
-                <p class="meta-line">SQL · pandas · statistics</p>
+                <h3><a href="bullish-on-sharks.html">Bullish on Sharks</a></h3>
+                <p>The data on shark–human encounters, minus the theme music. Base rates, real risk, and why the ocean is still mostly fine with you.</p>
+                <p class="meta-line">Python · pandas · data viz</p>
             </article>
             <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst">Program Case Studies</a></h3>
-                <p>Writing from my program-management years — scoping ambiguous problems, aligning stakeholders, and shipping. The same muscle I now point at data problems.</p>
-                <p class="meta-line">Strategy · communication · enablement</p>
+                <h3><a href="boil-the-ocean.html">Let's Not Boil the Ocean</a></h3>
+                <p>An Observable notebook you can actually poke — live cells, right in the browser. Exploration you do, not just read about.</p>
+                <p class="meta-line">Observable · D3 · interactive viz</p>
+            </article>
+            <article class="card rv">
+                <!-- TODO(Sasha): replace href with the actual flashcard repo URL.
+                     Also confirm the Shanghai framing is accurate to when/why you built it. -->
+                <h3><a href="https://github.com/sascha-pst">Chinese Flashcard App</a></h3>
+                <p>A study habit from my Shanghai master's days, rebuilt as a tool. Made to fix my own review routine; kept because it worked.</p>
+                <p class="meta-line">JavaScript · app · language learning</p>
+            </article>
+            <article class="card rv">
+                <h3><a href="https://github.com/sascha-pst/McCombs-DSBA">McCombs DSBA Notebooks</a></h3>
+                <p>The coursework under everything else — notebooks from my UT Austin certificate, documented like someone will actually read them. You're someone.</p>
+                <p class="meta-line">Python · Jupyter · statistics &amp; ML</p>
             </article>
         </div>
     </section>
@@ -577,16 +587,16 @@
         <h2 class="rv">Field notes</h2>
         <div class="about-grid">
             <div>
-                <p class="lead rv">I spent my career making complicated programs legible — as a content strategist and program manager, translating between engineers, executives, and everyone in between.</p>
-                <p class="rv">Somewhere along the way I stopped wanting to narrate the analysis and started wanting to run it. So I'm at UC Berkeley's Master of Information and Data Science, building the foundations properly — statistics, machine learning, experiment design, and the engineering to put them into production.</p>
-                <p class="rv">Off hours I'm throwing pottery and wedging clay. Learning to trust the process over any single result, and accept that most good work is with <em>revision</em>.</p>
+                <p class="lead rv">I spent seven years at Meta making complicated programs legible — running enablement for 50,000+ creators across eight international markets, translating between engineers, executives, and everyone caught in between.</p>
+                <p class="rv">At some point I stopped wanting to narrate the analysis and started wanting to run it. So: Berkeley's Master of Information and Data Science, foundations built properly — statistics, machine learning, experiment design, and the engineering to ship them.</p>
+                <p class="rv">Off hours I'm at the wheel, wedging clay and re-learning the same lesson on repeat: trust the process, love the <em>revision</em>, and let the kiln have the last word.</p>
             </div>
             <dl class="details rv">
-                <!-- TODO(Sasha): adjust these rows to match your actual coursework
-                     and add your undergrad / prior roles if you want them here. -->
-                <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science (MIDS)</dd></div>
-                <div class="row"><dt>Focus areas</dt><dd>Statistics · machine learning · data visualization</dd></div>
-                <div class="row"><dt>Before this</dt><dd>Program management &amp; content strategy</dd></div>
+                <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science · 4.0 GPA</dd></div>
+                <div class="row"><dt>Also</dt><dd>M.A. International Business, Shanghai University of Finance and Economics · top of class</dd></div>
+                <div class="row"><dt>Certificate</dt><dd>Data Science &amp; Business Analytics, UT Austin McCombs</dd></div>
+                <div class="row"><dt>Undergrad</dt><dd>B.A. Global Studies, UC Santa Barbara · Dean's Honors</dd></div>
+                <div class="row"><dt>Before this</dt><dd>Meta — content strategy, program development, scaled enablement</dd></div>
                 <div class="row"><dt>Elsewhere</dt><dd><a href="https://github.com/sascha-pst">GitHub</a></dd></div>
             </dl>
         </div>
@@ -596,6 +606,7 @@
     <section id="contact">
         <p class="kicker rv">Correspondence</p>
         <h2 class="rv">Say hello.</h2>
+        <p class="rv">Roles, collaborations, or just talking shop — I read everything.</p>
         <p class="rv"><a class="bigmail" href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></p>
         <div class="alt-links rv">
             <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley mail</a>
