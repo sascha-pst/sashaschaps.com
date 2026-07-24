@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sasha Schaps — Data Science</title>
-<meta name="description" content="Sasha Schaps — data scientist in training at UC Berkeley MIDS, former program manager. Projects in Python and JS, plus marbled clay.">
+<title>Sasha Schaps &#8212; Data Science</title>
+<meta name="description" content="Sasha Schaps &#8212; data scientist in training at UC Berkeley MIDS, former program manager. Projects plus marbled clay.">
 <meta name="theme-color" content="#FAFBFC">
 
-<meta property="og:title" content="Sasha Schaps — Data Science">
-<meta property="og:description" content="Berkeley MIDS &middot; Python, SQL &middot; program execution &middot; marbled clay">
+<meta property="og:title" content="Sasha Schaps &#8212; Data Science">
+<meta property="og:description" content="Berkeley MIDS &#183; Python, SQL &#183; program execution &#183; marbled clay">
 <meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -76,16 +76,6 @@
     }
     .skip:focus { left: 12px; }
 
-    .kicker::before, .eyebrow::before {
-        content: '';
-        display: inline-block;
-        width: 18px;
-        height: 1px;
-        background: currentColor;
-        margin-right: 10px;
-        vertical-align: middle;
-        opacity: 0.7;
-    }
     .kicker {
         font-family: var(--mono);
         font-size: 0.75rem;              
@@ -97,7 +87,7 @@
     }
     .meta-line {
         font-family: var(--mono);
-        font-size: 0.72rem;             
+        font-size: 0.72rem;              
         letter-spacing: 0.04em;
         color: var(--fog);
     }
@@ -143,7 +133,7 @@
         text-decoration: none;
         color: var(--abyss);
         opacity: 0.74;
-        padding: 14px 9px;               
+        padding: 14px 9px;              
         display: inline-block;
         transition: opacity 0.25s, color 0.25s;
     }
@@ -234,7 +224,7 @@
             radial-gradient(320px 260px at 68% 6%, color-mix(in srgb, var(--current) 9%, transparent), transparent 70%);
     }
     #work::before { transform: scaleX(-1); }
-    /* liquid edges between the rooms */
+
     .edge { display: block; height: 64px; }
     .edge svg { display: block; width: 100%; height: 100%; }
     h2 {
@@ -257,7 +247,6 @@
         max-width: 26ch;
         text-wrap: balance;
     }
-    /* ---- the dictionary entry ---- */
     .define { margin: 26px 0 6px; max-width: 54ch; }
     .def-head { margin: 0; }
     .define .word {
@@ -285,7 +274,7 @@
         list-style: none;
         counter-reset: sense;
     }
-    .define li {
+    .define ol li {
         counter-increment: sense;
         position: relative;
         padding: 11px 0 11px 32px;
@@ -293,7 +282,7 @@
         font-size: 0.97rem;
         line-height: 1.55;
     }
-    .define li::before {
+    .define ol li::before {
         content: counter(sense, decimal-leading-zero);
         position: absolute;
         left: 0;
@@ -309,6 +298,38 @@
         font-style: italic;
         color: var(--fog);
     }
+    .define .ref { font-family: var(--mono); font-size: 0.8em; white-space: nowrap; }
+    .define .aside { color: var(--fog); }
+    .define .ref a, .cites a {
+        color: var(--undertow);
+        text-decoration: none;
+        border-bottom: 1px solid color-mix(in srgb, var(--undertow) 32%, transparent);
+    }
+    .define .ref a:hover, .cites a:hover { color: var(--synapse); border-bottom-color: var(--synapse); }
+    .cites {
+        margin: 20px 0 0;
+        padding: 16px 0 0;
+        border-top: 1px solid color-mix(in srgb, var(--abyss) 10%, transparent);
+        list-style: none;
+    }
+    .cites .cites-head {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--fog);
+        margin: 0 0 12px;
+    }
+    .cites li {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        line-height: 1.6;
+        color: var(--fog);
+        margin: 0 0 9px;
+        padding-left: 20px;
+        text-indent: -20px;
+    }
+    .cites .cite-field { color: var(--undertow); font-style: normal; }
     h1 em a {
         color: inherit;
         text-decoration: underline dotted 1.5px;
@@ -359,6 +380,7 @@
         max-width: 1020px;
         margin: 0 auto;
     }
+
     .mat {
         margin: 0;
         text-align: center;
@@ -401,6 +423,7 @@
         color: var(--fog);
         font-size: 0.95rem;
     }
+
     #gallery .kicker, #about .kicker { color: var(--undertow); }
     #about em { color: var(--undertow); }
     #about a { color: var(--undertow); }
@@ -409,7 +432,6 @@
         line-height: 1.55;
     }
 
-    /* ============ INTERLUDE — the one dark room ============ */
     #interlude {
         background: var(--abyss);
         color: var(--seaglass);
@@ -490,7 +512,6 @@
     .card h3 a::after { content: ''; position: absolute; inset: 0; }
     .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--abyss) 84%, transparent); }
 
-    /* ============ ABOUT ============ */
     #about {
         background-color: var(--sandbar);
         background-image:
@@ -563,7 +584,6 @@
         line-height: 2.1;
     }
 
-    /* ============ REVEALS  ============ */
     .js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .js .rv.in { opacity: 1; transform: none; }
 
@@ -573,7 +593,6 @@
         .hero-poster, #hero-canvas { transition: none; }
     }
 
-    /* ============ SMALL SCREENS ============ */
     @media (max-width: 920px) {
         body { font-size: 0.98rem; }
         nav { padding: 6px 16px; gap: 10px; }
@@ -624,11 +643,11 @@
     </div>
 
     <div class="hero-content">
-        <p class="eyebrow">Data Science &middot; Program Management &middot; Content Strategy</p>
+        <p class="eyebrow">Data Science · Program Management · Content Strategy</p>
         <h1>Building neural <em><a href="#hyphae">hyphae</a></em>.</h1>
         <p class="sub">
-            I'm Sasha. I'm an aspiring data scientist and program manager, inspired by
-            nature's self organizing networks.
+            I'm Sasha. I'm fascinated by how intelligence self-organizes; in mycelium, in
+            neurons, in the things we build to imitate both.
         </p>
     </div>
 </header>
@@ -639,32 +658,47 @@
         <div class="split">
             <div>
                 <p class="kicker rv">Studio notes</p>
-                <p class="statement rv">I took the scenic route to data science &mdash; five years across programs, launches, and the fine art of making complicated things intelligible.</p>
-                <p class="rv">Now I'm building the depth to run the analysis myself, pipeline to final chart. All of it happily in progress at UC Berkeley's Master of Information and Data Science.</p>
+                <p class="statement rv">The scenic route to data science — five years spent making complicated things legible.</p>
+                <p class="rv">Now I'm learning to run it myself — pipeline to final chart. Berkeley MIDS, in progress.</p>
                 <div class="define rv" id="hyphae">
                     <p class="def-head">
-                        <span class="word">hy&middot;phae</span>
-                        <span class="pron">/&#712;ha&#618;-fee/ &mdash; yes, like that</span>
+                        <span class="word">hy·phae</span>
+                        <span class="pron">/ˈhaɪ-fee/</span>
                         <span class="pos">pl. noun</span>
                     </p>
                     <ol>
-                        <li><span class="field">mycology.</span> The fine branching filaments a fungus
-                        lives through &mdash; feeding, sensing, connecting. One thread is a hypha;
-                        the network is the organism.</li>
-                        <li><span class="field">Bay Area.</span> See <em>hyphy</em>: a heightened,
-                        highly productive state of going dumb &mdash; native to the Bay Area, and
-                        pronounced the same on purpose.</li>
+                        <li><span class="field">mycology.</span> The branching filaments a fungus lives
+                        through, fused into one mycelial network. Adamatzky <span class="ref">(<a href="https://doi.org/10.1098/rsos.211926">2022</a>)</span>
+                        recorded electrical spikes travelling those filaments in trains structured enough
+                        to analyze like a language. <span class="aside">The popular "wood-wide web," though,
+                        is contested <span class="ref">(<a href="https://doi.org/10.1038/s41559-023-01986-1">Karst et al. 2023</a>)</span> —
+                        a standing lesson in overinterpreted effect sizes.</span></li>
+                        <li><span class="field">Bay Area.</span> See <em>hyphy</em>: a heightened, highly
+                        productive state of going dumb — native to the Bay, pronounced the same on purpose.</li>
                         <li><span class="field">reinforcement learning.</span> The pathways an agent
-                        thickens every time a reward lands.</li>
-                        <li><span class="field">neuroplasticity.</span> What the brain grows in
-                        response to whatever it's fed &mdash; yes, there is fungi growth after brain rot.</li>
+                        reinforces as reward arrives. Dabney et al. <span class="ref">(<a href="https://doi.org/10.1038/s41586-019-1924-6">2020</a>)</span>
+                        found dopamine neurons encode a full <em>distribution</em> of expected reward, not a
+                        single average — biology running distributional RL.</li>
+                        <li><span class="field">neuroplasticity.</span> The brain rewires with use: London
+                        taxi drivers grow measurably larger posterior hippocampi from learning the city
+                        <span class="ref">(<a href="https://doi.org/10.1073/pnas.070039597">Maguire et al. 2000</a>)</span>.
+                        You are your training data.</li>
                     </ol>
+                    <p class="ety">from Greek <em>hyphē</em>, "web."</p>
+                    <ul class="cites">
+                        <li class="cites-head" aria-hidden="true">Selected reading</li>
+                        <li>Tero, A. et al. <a href="https://doi.org/10.1126/science.1177894">(2010)</a>. Rules for biologically inspired adaptive network design. <span class="cite-field">Science 327</span> — a slime mould rebuilds the Tokyo rail map.</li>
+                        <li>Adamatzky, A. <a href="https://doi.org/10.1098/rsos.211926">(2022)</a>. Language of fungi derived from their electrical spiking activity. <span class="cite-field">R. Soc. Open Sci. 9</span>.</li>
+                        <li>Dabney, W. et al. <a href="https://doi.org/10.1038/s41586-019-1924-6">(2020)</a>. A distributional code for value in dopamine-based reinforcement learning. <span class="cite-field">Nature 577</span>.</li>
+                        <li>Maguire, E. A. et al. <a href="https://doi.org/10.1073/pnas.070039597">(2000)</a>. Navigation-related structural change in the hippocampi of taxi drivers. <span class="cite-field">PNAS 97</span>.</li>
+                        <li>Karst, J., Jones, M. D. &amp; Hoeksema, J. D. <a href="https://doi.org/10.1038/s41559-023-01986-1">(2023)</a>. Positive citation bias and overinterpreted results lead to misinformation on common mycorrhizal networks in forests. <span class="cite-field">Nat. Ecol. Evol. 7</span>.</li>
+                    </ul>
                 </div>
             </div>
             <dl class="details rv">
                 <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
                 <div class="row"><dt>Currently</dt><dd>UC Berkeley MIDS</dd></div>
-                <div class="row"><dt>Toolkit</dt><dd>Python &middot; SQL &middot; pandas</dd></div>
+                <div class="row"><dt>Toolkit</dt><dd>Python · SQL · pandas</dd></div>
                 <div class="row"><dt>Studio</dt><dd>Firing in Progress</dd></div>
                 <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
             </dl>
@@ -680,16 +714,16 @@
             <p class="rv">Wheel-thrown porcelain, marbled in cobalt and ivory. The kiln has opinions; these are the pieces it approved.</p>
         </div>
         <div class="grid" id="vessel-grid"></div>
-        <p class="gallery-note rv">These vessels are drawn in code &mdash; each one a seeded canvas sketch, no image files harmed. View source if you don't believe me.</p>
+        <p class="gallery-note rv">Every vessel here is drawn in code. No photographs. view-source, if you're curious.</p>
     </section>
 
     <div class="edge" aria-hidden="true" style="background:var(--seafoam)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--abyss)" d="M0,64 L0,30 C260,54 500,12 760,38 C1000,60 1240,18 1440,42 L1440,64 Z"/></svg></div>
     <!-- ======== INTERLUDE ======== -->
     <section id="interlude">
         <canvas class="heatfield" width="72" height="40" aria-hidden="true"></canvas>
-        <blockquote class="rv">&ldquo;Just as there are several solitudes,
-        so there are several <strong>silences</strong>.&rdquo;</blockquote>
-        <p class="attrib rv">&mdash; Fr&eacute;d&eacute;ric Gros, <cite>A Philosophy of Walking</cite></p>
+        <blockquote class="rv">“Just as there are several solitudes,
+        so there are several <strong>silences</strong>.”</blockquote>
+        <p class="attrib rv">— Frédéric Gros, <cite>A Philosophy of Walking</cite></p>
     </section>
 
     <div class="edge" aria-hidden="true" style="background:var(--abyss)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--myelin)" d="M0,64 L0,46 C180,16 420,50 700,28 C980,8 1240,48 1440,34 L1440,64 Z"/></svg></div>
@@ -701,27 +735,28 @@
             <article class="card rv">
                 <h3><a href="glaze-kiln.html">Glaze Kiln</a></h3>
                 <p>Where the pottery habit and the code habit stop pretending they're separate hobbies.</p>
-                <p class="meta-line">HTML &middot; JavaScript &middot; interactive</p>
+                <p class="meta-line">HTML · JavaScript · interactive</p>
             </article>
             <article class="card rv">
                 <h3><a href="bullish-on-sharks.html">Bullish on Sharks</a></h3>
-                <p>The data on shark&ndash;human encounters, minus the theme music. Base rates, real risk, and why the ocean is still mostly fine with you.</p>
-                <p class="meta-line">Python &middot; pandas &middot; data viz</p>
+                <p>The data on shark–human encounters, minus the theme music. Base rates, real risk, and why the ocean is still mostly fine with you.</p>
+                <p class="meta-line">Python · pandas · data viz</p>
             </article>
             <article class="card rv">
                 <h3><a href="boil-the-ocean.html">Let's Not Boil the Ocean</a></h3>
-                <p>An Observable notebook you can actually poke &mdash; live cells, right in the browser. Exploration you do, not just read about.</p>
-                <p class="meta-line">Observable &middot; D3 &middot; interactive viz</p>
+                <p>An Observable notebook you can actually poke — live cells, right in the browser. Exploration you do, not just read about.</p>
+                <p class="meta-line">Observable · D3 · interactive viz</p>
             </article>
             <article class="card rv">
+                <!-- TODO(Sasha): replace href with the actual flashcard repo URL. -->
                 <h3><a href="https://github.com/sascha-pst">HSK2 (Chinese) App</a></h3>
-                <p>A study habit from my Shanghai master's days, rebuilt to help my mom learn Mandarin before duolingo takes all my inheritance. Made to fix my own review routine; kept because it worked.</p>
-                <p class="meta-line">JavaScript &middot; app &middot; language learning</p>
+                <p>A study habit from my Shanghai master's days, rebuilt to help my mom learn Mandarin before Duolingo takes the whole inheritance. Made to fix my own review routine; kept because it worked.</p>
+                <p class="meta-line">JavaScript · app · spaced repetition</p>
             </article>
             <article class="card rv">
                 <h3><a href="https://github.com/sascha-pst/McCombs-DSBA">McCombs DSBA Notebooks</a></h3>
-                <p>The coursework under everything else &mdash; notebooks from my UT Austin certificate, documented like someone will actually read them. You're someone.</p>
-                <p class="meta-line">Python &middot; Jupyter &middot; ML</p>
+                <p>The coursework under everything else — notebooks from my UT Austin certificate, documented like someone will actually read them. You're someone.</p>
+                <p class="meta-line">Python · Jupyter · ML</p>
             </article>
         </div>
     </section>
@@ -733,17 +768,18 @@
         <h2 class="rv">Field notes</h2>
         <div class="about-grid">
             <div>
-                <p class="lead rv">My career has taken different turns. From making complicated programs legible &mdash; running enablement for 50,000+ creators across eight international markets, translating between engineers, executives, to building tools to enable better pottery outcomes.</p>
-                <p class="rv">At some point I stopped wanting to narrate the analysis and started wanting to run it. So: Berkeley's Master of Information and Data Science, foundations built properly &mdash; statistics, machine learning, experiment design, and the engineering to ship them.</p>
-                <p class="rv">Off hours I'm at the wheel or in the water &mdash; wedging clay, logging dives &mdash; re-learning the same lesson on repeat (not all at the same time): trust the process, love the <em>revision</em>, and it's always ok to do it all over again.</p>
+                <p class="lead rv">My career's taken a few turns. I ran enablement for 50,000+ creators across eight markets — translating between engineers, execs, and everyone in between — then started building the tools instead of describing them.</p>
+                <p class="rv">At some point I stopped narrating the analysis and started running it. Berkeley MIDS: statistics, machine learning, experiment design, and the engineering to ship it.</p>
+                <p class="rv">Off hours I'm at the wheel, in the water, or out walking — throwing clay, logging dives, and following Gros and Solnit down the argument that walking is a form of thinking (not all at the same time). Same lesson every way in: trust the process, love the <em>revision</em>, and it's always ok to begin the piece again.</p>
             </div>
             <dl class="details rv">
                 <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science</dd></div>
                 <div class="row"><dt>Also</dt><dd>Masters in International Business, Shanghai University of Finance and Economics 财大</dd></div>
                 <div class="row"><dt>Certificate</dt><dd>Data Science &amp; Business Analytics, UT Austin McCombs</dd></div>
-                <div class="row"><dt>Undergrad</dt><dd>B.A. Global Studies, UC Santa Barbara &middot; Dean's Honors</dd></div>
-                <div class="row"><dt>Before this</dt><dd>Meta &mdash; content strategy, program development, scaled enablement</dd></div>
-                <div class="row"><dt>In the water</dt><dd>Advanced diver &middot; swim safety certified &middot; rescue diver in progress</dd></div>
+                <div class="row"><dt>Undergrad</dt><dd>B.A. Global Studies, UC Santa Barbara · Dean's Honors</dd></div>
+                <div class="row"><dt>Before this</dt><dd>Meta — content strategy, program development, scaled enablement</dd></div>
+                <div class="row"><dt>In the water</dt><dd>Advanced diver · swim safety certified · rescue diver in progress</dd></div>
+                <div class="row"><dt>In the margins</dt><dd>Fungal computing, distributional RL, and the philosophy of walking</dd></div>
                 <div class="row"><dt>Elsewhere</dt><dd><a href="https://github.com/sascha-pst">GitHub</a></dd></div>
             </dl>
         </div>
@@ -754,7 +790,7 @@
     <section id="contact">
         <p class="kicker rv">Correspondence</p>
         <h2 class="rv">Say hello.</h2>
-        <p class="rv">Roles, collaborations, or just talking shop &mdash; I read everything.</p>
+        <p class="rv">Roles, collaborations, or something stranger. I read everything.</p>
         <p class="rv"><a class="bigmail" href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></p>
         <div class="alt-links rv">
             <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley mail</a>
@@ -787,7 +823,9 @@
 <script>
 (function () {
     'use strict';
+
     var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     var navEl = document.querySelector('nav');
     var sentinel = document.createElement('div');
     sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
@@ -812,10 +850,10 @@
         rvs.forEach(function (el) { el.classList.add('in'); });
     }
 
-    // ---------- gallery: six vessels----------
+
     var pieces = [
         { t: 'Tidepool cup',       m: 'Marbled porcelain · sea-glass glaze', shape: 'cup' },
-        { t: '"Moon" jar', m: 'Coil & paddle · cobalt slip',         shape: 'moonjar' },
+        { t: '"Moon" jar', m: 'Coil & paddle · cobalt slip',      shape: 'moonjar' },
         { t: 'Seafoam bowl',       m: 'Marbled stoneware · clear glaze',     shape: 'bowl' },
         { t: 'Bathymetry vase',    m: 'Layered porcelain · cobalt inlay',    shape: 'vase' },
         { t: 'Slipstream bottle',  m: 'Wheel-thrown · raw, sanded',          shape: 'bottle' },
@@ -1057,10 +1095,9 @@
 </script>
 
 <script type="module">
-
     const stage = document.getElementById('hero-stage');
     const mount = document.getElementById('hero-canvas');
-    const stateLabel = document.getElementById('state-label'); 
+    const stateLabel = document.getElementById('state-label'); // optional — null-safe
 
     const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = (navigator.connection && navigator.connection.saveData) ||
@@ -1367,7 +1404,7 @@
         contactShadow.position.set(2.0, -11.03, -1.0);
         scene.add(contactShadow);
 
-        // ---------- ink motes:  ----------
+        // ---------- ink motes: fewer, fainter, no twinkle strobing ----------
         const SPRAY_N = 400;
         const sprayGeo = new THREE.BufferGeometry();
         const pVase = new Float32Array(SPRAY_N * 3);
@@ -1415,7 +1452,6 @@
         });
         scene.add(new THREE.Points(sprayGeo, sprayMat));
 
-        // ---------- states: ----------
         const config = [
             { label: 'vessel',
               morph: 0.0,  swirl: 0.0, wave: 0.15, gloss: 0.82, foam: 0.0,  drift: 0.0,  clear: 0.16,
@@ -1468,8 +1504,8 @@
             renderUntil = performance.now() + DUR + 600;
             resume();
         }
-        stage.addEventListener('click', () => setState((stateIdx + 1) % config.length));
 
+        stage.addEventListener('click', () => setState((stateIdx + 1) % config.length));
 
         if (motionOK) {
             let lastScrollState = 0;
@@ -1483,6 +1519,7 @@
             }, { passive: true });
         }
 
+        // ---------- polite render loop: 30 fps cap, stops when it can ----------
         let heroVisible = true;
         let rafId = null;
         let lastFrame = 0;
