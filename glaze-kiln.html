@@ -3,17 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glaze Kiln — Test Tiles</title>
+<title>Glaze Kiln — Sasha Schaps</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F2E4'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2399ABA6'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%23ACB090'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%236F6C43'/%3E%3C/g%3E%3C/svg%3E">
+<meta name="description" content="An interactive glaze test tile: swab a stroke, fire the kiln, and watch thickness become color.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Roboto+Mono:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#FAFBFC; --ink:#0E1E30; --prussian:#1B3A5C;
-    --pale-sage:#D8DFCB; --celadon:#A9C2A3; --moss:#6E8A66; --pine:#3E5C46;
+    --bone:#F0EAD8; --steel:#99ABA6; --olive:#6F6C43;
+    --pine:#2F3830; --slate:#5C6E68; --wire:#C0CCC6;
+    --lily:#D9E0DB; --water:#B3C2BC; --moss:#ACB090;
+    --sprout:#C9C49E; --cream:#F6F2E4;
+    --paper:var(--bone); --ink:var(--pine);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
-    font-family:'Roboto',-apple-system,sans-serif;font-weight:300;
+    font-family:'Inter',-apple-system,sans-serif;font-weight:300;
     background:var(--paper);color:var(--ink);
     display:flex;justify-content:center;padding:2.2rem 1rem 3rem;
   }
@@ -21,55 +26,82 @@
   header{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.4rem}
   h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
   .pyro{
-    font-family:'Roboto Mono',monospace;font-size:.62rem;letter-spacing:.14em;
+    font-family:'Inter', system-ui, sans-serif,monospace;font-size:.62rem;letter-spacing:.14em;
     text-transform:uppercase;color:var(--pine);text-align:right;white-space:nowrap;
   }
   .pyro b{font-weight:500;color:var(--ink)}
   .sub{
-    font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.18em;
+    font-family:'Inter', system-ui, sans-serif,monospace;font-size:.6rem;letter-spacing:.18em;
     text-transform:uppercase;opacity:.55;margin-bottom:1.1rem;
   }
-  .tile-wrap{position:relative;border-radius:6px}
+  .tile-wrap{position:relative}
   canvas#tile{
-    display:block;width:100%;border-radius:6px;cursor:crosshair;touch-action:none;
-    box-shadow:0 18px 40px -22px rgba(14,30,48,.45), 0 2px 6px rgba(14,30,48,.12);
+    display:block;width:100%;cursor:crosshair;touch-action:none;
+    box-shadow:0 18px 40px -22px rgba(47,56,48,.45), 0 2px 6px rgba(47,56,48,.12);
   }
   body[data-phase="ramping"] canvas#tile,
   body[data-phase="soaking"] canvas#tile,
   body[data-phase="cooling"] canvas#tile{cursor:progress}
   .controls{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:1rem}
   .chip,.btn{
-    font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.14em;
-    text-transform:uppercase;border-radius:999px;cursor:pointer;
+    font-family:'Inter', system-ui, sans-serif,monospace;font-size:.6rem;letter-spacing:.14em;
+    text-transform:uppercase;cursor:pointer;
     padding:.5rem .95rem;transition:background .2s,color .2s,border-color .2s;
   }
-  .chip{background:none;border:1px solid rgba(14,30,48,.25);color:var(--ink)}
-  .chip:hover{border-color:var(--moss);color:var(--pine)}
+  .chip{background:none;border:1px solid rgba(47,56,48,.25);color:var(--ink)}
+  .chip:hover{border-color:var(--olive);color:var(--pine)}
   .btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper)}
   .btn:hover{background:var(--pine);border-color:var(--pine)}
   .btn:disabled{opacity:.45;cursor:default}
-  .chip:focus-visible,.btn:focus-visible{outline:2px solid var(--moss);outline-offset:2px}
+  .chip:focus-visible,.btn:focus-visible{outline:2px solid var(--olive);outline-offset:2px}
   .spacer{flex:1}
   .glazes{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
   .gchip{display:inline-flex;align-items:center;gap:.45rem}
   .gchip .dot{width:.55rem;height:.55rem;border-radius:50%;background:var(--c);display:inline-block;flex:none}
   .gchip[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .hint{
-    font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.12em;
+    font-family:'Inter', system-ui, sans-serif,monospace;font-size:.58rem;letter-spacing:.12em;
     text-transform:uppercase;opacity:.5;margin-top:.7rem;
   }
   .section-box{margin-top:1.4rem}
   .section-label{
-    font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.2em;
-    text-transform:uppercase;color:var(--moss);margin-bottom:.4rem;
+    font-family:'Inter', system-ui, sans-serif,monospace;font-size:.58rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--olive);margin-bottom:.4rem;
   }
-  canvas#section{display:block;width:100%;border:1px solid rgba(14,30,48,.12);border-radius:4px;background:#fff}
+  canvas#section{display:block;width:100%;border:1px solid rgba(47,56,48,.14);background:var(--cream)}
   .foot{
     margin-top:1.6rem;font-size:.8rem;line-height:1.6;opacity:.6;max-width:60ch;
   }
+
+  .site-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:0 0 26px;margin-bottom:26px;border-bottom:1px solid rgba(47,56,48,.16)}
+  .site-nav .brand{display:inline-flex;align-items:center;gap:10px;
+    font-size:19px;font-weight:500;letter-spacing:-.04em;color:var(--pine);text-decoration:none}
+  .site-nav .brand svg{width:22px;height:22px;flex:none;display:block}
+  .site-nav .back{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(47,56,48,.3);padding-bottom:3px}
+  .site-nav .back:hover{color:var(--olive);border-bottom-color:var(--olive)}
+  .site-foot{display:flex;flex-wrap:wrap;gap:22px;
+    margin-top:34px;padding-top:18px;border-top:1px solid rgba(47,56,48,.16)}
+  .site-foot a{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(47,56,48,.6);text-decoration:none}
+  .site-foot a:hover{color:var(--olive)}
 </style>
 </head>
 <body data-phase="raw">
+<nav class="site-nav">
+  <a class="brand" href="/">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <g fill="none" stroke-width="3.4">
+        <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#99ABA6"/>
+        <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#ACB090"/>
+        <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#6F6C43"/>
+      </g>
+    </svg>
+    Sasha Schaps
+  </a>
+  <a class="back" href="/#work">&larr; All work</a>
+</nav>
 <div class="bench">
   <header>
     <h1 id="titleline">Celadon over alabaster, swabbed &amp; fired</h1>
@@ -105,24 +137,29 @@
     with depth for celadon and gloss, thin-flashes-orange / thick-goes-cream for shino,
     opaque micro-crystalline for matte. Real answers still come from test tiles.
   </p>
+  <footer class="site-foot">
+    <a href="/#work">Selected work</a>
+    <a href="/about.html">About</a>
+    <a href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub</a>
+  </footer>
 </div>
 <script>
 (() => {
-  // ---------- grid ----------
+
   const GW = 200, GH = 260, N = GW * GH;
   const alab = new Float32Array(N);     
   const cel  = new Float32Array(N);     
-  const mat  = new Float32Array(N);     // per-cell maturity: 0 raw -> 1 fully melted
+  const mat  = new Float32Array(N);     
   const htot = new Float32Array(N);
   const bn   = new Float32Array(N);
-  const hole = new Uint8Array(N);       // punched hanging hole
+  const hole = new Uint8Array(N);       
   const nA = new Float32Array(N), nC = new Float32Array(N); 
   const idx = (x, y) => y * GW + x;
 
   const FAST = /[?&]fast/.test(location.search) ? 3 : 1;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const fn = new Float32Array(N);            // (shino pinholes)
+  const fn = new Float32Array(N);           
   (function makeNoise(){
     for (let i = 0; i < N; i++){ bn[i] = Math.random(); fn[i] = Math.random(); }
     const tmp = new Float32Array(N);
@@ -141,13 +178,11 @@
     }
   })();
 
-  // ---------- kiln state ----------
-  let phase = 'raw';          // raw | ramping | soaking | cooling | fired
+  let phase = 'raw';         
   let temp = 70, phaseT = 0;
   let mob = 0;                
   let sampleRow = Math.floor(GH * 0.55);
 
-  // ---------- glazes  ----------
   const GLAZES = {
     celadon: { label:'Celadon', peak:2232, runny:1.20, rawCol:[196,206,196], rawK:1.05,
                specMul:1.0,
@@ -179,7 +214,6 @@
     }
   }
 
-  // ---------- swabbing ----------
   const SWAB_R = 11;
   function stamp(x, y, amp, dirx, diry, seed){
     const r = SWAB_R, s2 = 2 * (r*0.55) * (r*0.55);
@@ -269,7 +303,7 @@
     if (mob < 0.004) return;
     for (let i = 0; i < N; i++) htot[i] = alab[i] + cel[i];
     nA.set(alab); nC.set(cel);
-    const layers = [[alab, nA, 0.85], [cel, nC, GLAZES[glazeKey].runny]];   // overglaze runniness varies by family
+    const layers = [[alab, nA, 0.85], [cel, nC, GLAZES[glazeKey].runny]];   
     for (const [h, nh, runny] of layers){
       for (let y = 1; y < GH-1; y++){
         for (let x = 1; x < GW-1; x++){
@@ -277,8 +311,8 @@
           if (hole[i]) continue;
           const hL = h[i]; if (hL < 0.003) continue;
           const ht = Math.min(htot[i], 5.5);
-          const coef = mob * runny * ht * ht;          // flux ~ h^3 overall
-          // gravity: material creeps down the tile
+          const coef = mob * runny * ht * ht;          //flux
+          // gravity
           if (y < GH-2 && !hole[i+GW]){
             const dn = Math.min(hL * 0.24, coef * hL * 0.0062);
             nh[i] -= dn; nh[i+GW] += dn;
@@ -292,7 +326,7 @@
     }
   }
 
-  // ---------- firing schedule ----------
+  // firing
   const fireBtn = document.getElementById('fire');
   const pyro = document.getElementById('pyro');
   function fire(){
@@ -341,7 +375,6 @@
     pyro.innerHTML = `${label}${cone ? ' · ' + cone : ''} · <b>${Math.round(temp)}°F</b>`;
   }
 
-  // ---------- render ----------
   const tileC = document.getElementById('tile');
   const tctx = tileC.getContext('2d');
   const off = document.createElement('canvas');
@@ -357,15 +390,12 @@
       for (let x = 0; x < GW; x++){
         const i = idx(x, y), o = i * 4;
         const M = mat[i];
-        // clay body (inside the hanging hole you see bare body too)
         const bb = 236 + bn[i] * 14;
         let r = bb + 4, g = bb, b = bb - 8;
         if (!hole[i]){
-          // alabaster: soft white; chalk raw -> silky fired
           const cA = 1 - Math.exp(-1.15 * alab[i]);
           const aw = [250 - 3*M, 249 - 4*M, 245 - 8*M];
           r += (aw[0] - r) * cA; g += (aw[1] - g) * cA; b += (aw[2] - b) * cA;
-          // raw overglaze: chalky opaque coat in the family's unfired color
           const rawC = (1 - Math.exp(-G.rawK * cel[i])) * (1 - M);
           r += (G.rawCol[0] - r) * rawC; g += (G.rawCol[1] - g) * rawC; b += (G.rawCol[2] - b) * rawC;
           const dEff = cel[i] * M;
@@ -373,34 +403,29 @@
           const gy = htot[idx(x,Math.max(0,y-1))] - htot[idx(x,Math.min(GH-1,y+1))];
           if (dEff > 0.002){
             if (glazeKey === 'celadon'){
-              // translucent: Beer-Lambert — depth becomes jade
               r *= Math.exp(-0.70 * dEff);
               g *= Math.exp(-0.16 * dEff);
               b *= Math.exp(-0.26 * dEff);
             } else if (glazeKey === 'gloss'){
-              // cobalt gloss: Beer-Lambert, transmits blue, pools ink-dark
               r *= Math.exp(-1.05 * dEff);
               g *= Math.exp(-0.52 * dEff);
               b *= Math.exp(-0.10 * dEff);
             } else if (glazeKey === 'shino'){
-              // thin flashes iron-orange over the body; thick goes creamy white
               const cov = 1 - Math.exp(-0.95 * dEff);
               const th  = 1 - Math.exp(-0.50 * dEff);
               const tr = 212 + (247 - 212) * th;
               const tg = 122 + (238 - 122) * th;
               const tb =  62 + (219 -  62) * th;
               r += (tr - r) * cov; g += (tg - g) * cov; b += (tb - b) * cov;
-              // carbon-trap speckle where the coat is thickest
               if (dEff > 1.5 && bn[i] > 0.60){
                 const sp = Math.min(1, (bn[i] - 0.60) * 2.2) * Math.min(1, dEff - 1.5) * 0.34;
                 r *= 1 - sp; g *= 1 - sp * 0.95; b *= 1 - sp * 0.85;
               }
-              // pinholes: tiny bare-body pores in the mature coat
               if (M > 0.75 && dEff > 0.6 && fn[i] > 0.992){
                 const bare = 232 + bn[i] * 12;
                 r = r * 0.25 + (bare + 6) * 0.75; g = g * 0.25 + (bare - 6) * 0.75; b = b * 0.25 + (bare - 22) * 0.75;
               }
-            } else { // matte: opaque stone-sage micro-crystal, breaks warm over edges
+            } else { // matte
               const cov = 1 - Math.exp(-1.35 * dEff);
               const dep = Math.min(1, dEff * 0.35);
               let mr = 174 - 28 * dep, mg = 178 - 24 * dep, mb = 160 - 26 * dep;
@@ -409,12 +434,10 @@
               r += (mr - r) * cov; g += (mg - g) * cov; b += (mb - b) * cov;
             }
           }
-          // relief lighting: crisp raw strokes, soft melted surface
           const S = 0.085 * (1 - 0.45 * M);
           let shade = 1 + (gx + gy) * S;
           shade = Math.max(0.72, Math.min(1.28, shade));
           r *= shade; g *= shade; b *= shade;
-          // glassy specular in melted, smooth, thick spots
           if (M > 0.5){
             const smoothness = Math.max(0, 1 - (Math.abs(gx) + Math.abs(gy)) * 1.6);
             const spec = (M - 0.5) * 2 * Math.pow(smoothness, 4)
@@ -423,7 +446,7 @@
             r += spec; g += spec; b += spec;
           }
         } else {
-          const e = 0.88; r *= e; g *= e; b *= e;   // hole shadow
+          const e = 0.88; r *= e; g *= e; b *= e;   
         }
         d[o]   = Math.max(0, Math.min(255, r));
         d[o+1] = Math.max(0, Math.min(255, g));
@@ -437,17 +460,15 @@
     tctx.imageSmoothingQuality = 'high';
     tctx.clearRect(0, 0, W, H);
     tctx.drawImage(off, 0, 0, W, H);
-    // section indicator
     tctx.save();
     tctx.setLineDash([5, 6]);
-    tctx.strokeStyle = 'rgba(14,30,48,0.35)';
+    tctx.strokeStyle = 'rgba(47,56,48,0.35)';
     tctx.lineWidth = 1;
     const sy = sampleRow / GH * H;
     tctx.beginPath(); tctx.moveTo(0, sy); tctx.lineTo(W, sy); tctx.stroke();
     tctx.restore();
   }
 
-  // ---------- cross-section strip ----------
   const secC = document.getElementById('section');
   const sctx = secC.getContext('2d');
   let secW = 560, secDPR = 1;
@@ -456,14 +477,12 @@
     const W = secW, H = 110;
     sctx.clearRect(0, 0, W, H);
     const baseY = H - 22, scale = 26;
-    // clay body slab
     sctx.fillStyle = '#EBE5D8';
     sctx.fillRect(0, baseY, W, 22);
-    sctx.strokeStyle = 'rgba(14,30,48,0.5)';
+    sctx.strokeStyle = 'rgba(47,56,48,0.5)';
     sctx.lineWidth = 1;
     sctx.beginPath(); sctx.moveTo(0, baseY); sctx.lineTo(W, baseY); sctx.stroke();
     const row = sampleRow;
-    // alabaster area
     sctx.beginPath();
     sctx.moveTo(0, baseY);
     for (let x = 0; x < GW; x++){
@@ -472,8 +491,7 @@
     }
     sctx.lineTo(W, baseY); sctx.closePath();
     sctx.fillStyle = '#F5F2E9'; sctx.fill();
-    sctx.strokeStyle = 'rgba(14,30,48,0.45)'; sctx.stroke();
-    // celadon area stacked on top
+    sctx.strokeStyle = 'rgba(47,56,48,0.45)'; sctx.stroke();
     let anyCel = false;
     sctx.beginPath();
     sctx.moveTo(0, baseY - alab[idx(0,row)] * scale);
@@ -491,10 +509,9 @@
     const Mavg = mat[idx(GW>>1, row)];
     sctx.fillStyle = Mavg > 0.5 ? Gs.secFired : Gs.secRaw;
     sctx.fill();
-    sctx.strokeStyle = 'rgba(14,30,48,0.45)'; sctx.stroke();
-    // direct labels — ink, never the series color
-    sctx.font = '500 9px "Roboto Mono", monospace';
-    sctx.fillStyle = 'rgba(14,30,48,0.75)';
+    sctx.strokeStyle = 'rgba(47,56,48,0.45)'; sctx.stroke();
+    sctx.font = '500 9px "Inter", monospace';
+    sctx.fillStyle = 'rgba(47,56,48,0.75)';
     sctx.fillText('BODY', 8, H - 9);
     sctx.fillText('ALABASTER', 8, baseY - 6);
     if (anyCel){
@@ -503,7 +520,6 @@
     }
   }
 
-  // ---------- input ----------
   function toGrid(e){
     const rct = tileC.getBoundingClientRect();
     return [ (e.clientX - rct.left) / rct.width * GW,
@@ -531,7 +547,7 @@
   const titleline = document.getElementById('titleline');
   document.querySelectorAll('.gchip').forEach(ch =>
     ch.addEventListener('click', () => {
-      if (!canPaint()) return;                      // no swapping buckets mid-fire
+      if (!canPaint()) return;                    
       glazeKey = ch.dataset.glaze;
       document.querySelectorAll('.gchip').forEach(c =>
         c.setAttribute('aria-checked', c === ch ? 'true' : 'false'));
@@ -547,8 +563,6 @@
     if (phase === 'raw' || phase === 'fired'){ newTile(); fireBtn.textContent = 'Fire the kiln ▸'; }
   });
   fireBtn.addEventListener('click', fire);
-
-  // ---------- sizing + main loop ----------
   function resize(){
     const w = Math.min(560, tileC.parentElement.clientWidth || 560);
     const dpr = Math.min(devicePixelRatio || 1, 2);
@@ -564,7 +578,7 @@
   resize();
 
   newTile();
-  presets.horizontal();   // start with something on the tile
+  presets.horizontal(); 
 
   let prev = performance.now();
   function frame(now){
