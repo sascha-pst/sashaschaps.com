@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
+
     --bone:#F0EAD8; --steel:#99ABA6; --olive:#6F6C43;
     --pine:#2F3830; --slate:#5C6E68; --wire:#C0CCC6;
     --lily:#D9E0DB; --water:#B3C2BC; --moss:#ACB090;
@@ -86,6 +87,14 @@
   .site-foot a{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
     color:rgba(47,56,48,.6);text-decoration:none}
   .site-foot a:hover{color:var(--olive)}
+
+  @media (max-width:480px){
+    body{padding:1.1rem .8rem 2rem}
+    header{flex-wrap:wrap;row-gap:.2rem}
+    .pyro{white-space:normal;text-align:left}
+    .site-nav{flex-wrap:wrap;row-gap:8px}
+    .controls .btn{flex:1 1 100%;text-align:center}
+  }
 </style>
 </head>
 <body data-phase="raw">
@@ -139,7 +148,7 @@
   </p>
   <footer class="site-foot">
     <a href="/#work">Selected work</a>
-    <a href="/about.html">About</a>
+    <a href="/about">About</a>
     <a href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub</a>
   </footer>
 </div>
@@ -147,19 +156,19 @@
 (() => {
 
   const GW = 200, GH = 260, N = GW * GH;
-  const alab = new Float32Array(N);     
-  const cel  = new Float32Array(N);     
-  const mat  = new Float32Array(N);     
+  const alab = new Float32Array(N);
+  const cel  = new Float32Array(N);
+  const mat  = new Float32Array(N);
   const htot = new Float32Array(N);
   const bn   = new Float32Array(N);
-  const hole = new Uint8Array(N);       
-  const nA = new Float32Array(N), nC = new Float32Array(N); 
+  const hole = new Uint8Array(N);
+  const nA = new Float32Array(N), nC = new Float32Array(N);
   const idx = (x, y) => y * GW + x;
 
   const FAST = /[?&]fast/.test(location.search) ? 3 : 1;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const fn = new Float32Array(N);           
+  const fn = new Float32Array(N);
   (function makeNoise(){
     for (let i = 0; i < N; i++){ bn[i] = Math.random(); fn[i] = Math.random(); }
     const tmp = new Float32Array(N);
@@ -178,9 +187,9 @@
     }
   })();
 
-  let phase = 'raw';         
+  let phase = 'raw';
   let temp = 70, phaseT = 0;
-  let mob = 0;                
+  let mob = 0;
   let sampleRow = Math.floor(GH * 0.55);
 
   const GLAZES = {
@@ -198,7 +207,7 @@
                secFired:'rgba(46,74,122,0.8)',  secRaw:'rgba(211,197,209,0.95)' },
   };
   let glazeKey = 'celadon';
-  let firedPeak = 2232;  
+  let firedPeak = 2232;
 
   const DUR = { ramp: 9/FAST, soak: 6/FAST, cool: 11/FAST };
   if (reduceMotion){ DUR.ramp = 1.2; DUR.soak = 0.9; DUR.cool = 1.4; }
@@ -217,7 +226,7 @@
   const SWAB_R = 11;
   function stamp(x, y, amp, dirx, diry, seed){
     const r = SWAB_R, s2 = 2 * (r*0.55) * (r*0.55);
-    const px = -diry, py = dirx;   
+    const px = -diry, py = dirx;
     for (let dy = -r; dy <= r; dy++){
       const yy = y + dy; if (yy < 1 || yy >= GH-1) continue;
       for (let dx = -r; dx <= r; dx++){
@@ -303,7 +312,7 @@
     if (mob < 0.004) return;
     for (let i = 0; i < N; i++) htot[i] = alab[i] + cel[i];
     nA.set(alab); nC.set(cel);
-    const layers = [[alab, nA, 0.85], [cel, nC, GLAZES[glazeKey].runny]];   
+    const layers = [[alab, nA, 0.85], [cel, nC, GLAZES[glazeKey].runny]];
     for (const [h, nh, runny] of layers){
       for (let y = 1; y < GH-1; y++){
         for (let x = 1; x < GW-1; x++){
@@ -311,8 +320,8 @@
           if (hole[i]) continue;
           const hL = h[i]; if (hL < 0.003) continue;
           const ht = Math.min(htot[i], 5.5);
-          const coef = mob * runny * ht * ht;          //flux
-          // gravity
+          const coef = mob * runny * ht * ht;
+
           if (y < GH-2 && !hole[i+GW]){
             const dn = Math.min(hL * 0.24, coef * hL * 0.0062);
             nh[i] -= dn; nh[i+GW] += dn;
@@ -326,7 +335,6 @@
     }
   }
 
-  // firing
   const fireBtn = document.getElementById('fire');
   const pyro = document.getElementById('pyro');
   function fire(){
@@ -390,12 +398,15 @@
       for (let x = 0; x < GW; x++){
         const i = idx(x, y), o = i * 4;
         const M = mat[i];
+
         const bb = 236 + bn[i] * 14;
         let r = bb + 4, g = bb, b = bb - 8;
         if (!hole[i]){
+
           const cA = 1 - Math.exp(-1.15 * alab[i]);
           const aw = [250 - 3*M, 249 - 4*M, 245 - 8*M];
           r += (aw[0] - r) * cA; g += (aw[1] - g) * cA; b += (aw[2] - b) * cA;
+
           const rawC = (1 - Math.exp(-G.rawK * cel[i])) * (1 - M);
           r += (G.rawCol[0] - r) * rawC; g += (G.rawCol[1] - g) * rawC; b += (G.rawCol[2] - b) * rawC;
           const dEff = cel[i] * M;
@@ -403,29 +414,34 @@
           const gy = htot[idx(x,Math.max(0,y-1))] - htot[idx(x,Math.min(GH-1,y+1))];
           if (dEff > 0.002){
             if (glazeKey === 'celadon'){
+
               r *= Math.exp(-0.70 * dEff);
               g *= Math.exp(-0.16 * dEff);
               b *= Math.exp(-0.26 * dEff);
             } else if (glazeKey === 'gloss'){
+
               r *= Math.exp(-1.05 * dEff);
               g *= Math.exp(-0.52 * dEff);
               b *= Math.exp(-0.10 * dEff);
             } else if (glazeKey === 'shino'){
+
               const cov = 1 - Math.exp(-0.95 * dEff);
               const th  = 1 - Math.exp(-0.50 * dEff);
               const tr = 212 + (247 - 212) * th;
               const tg = 122 + (238 - 122) * th;
               const tb =  62 + (219 -  62) * th;
               r += (tr - r) * cov; g += (tg - g) * cov; b += (tb - b) * cov;
+
               if (dEff > 1.5 && bn[i] > 0.60){
                 const sp = Math.min(1, (bn[i] - 0.60) * 2.2) * Math.min(1, dEff - 1.5) * 0.34;
                 r *= 1 - sp; g *= 1 - sp * 0.95; b *= 1 - sp * 0.85;
               }
+
               if (M > 0.75 && dEff > 0.6 && fn[i] > 0.992){
                 const bare = 232 + bn[i] * 12;
                 r = r * 0.25 + (bare + 6) * 0.75; g = g * 0.25 + (bare - 6) * 0.75; b = b * 0.25 + (bare - 22) * 0.75;
               }
-            } else { // matte
+            } else {
               const cov = 1 - Math.exp(-1.35 * dEff);
               const dep = Math.min(1, dEff * 0.35);
               let mr = 174 - 28 * dep, mg = 178 - 24 * dep, mb = 160 - 26 * dep;
@@ -434,10 +450,12 @@
               r += (mr - r) * cov; g += (mg - g) * cov; b += (mb - b) * cov;
             }
           }
+
           const S = 0.085 * (1 - 0.45 * M);
           let shade = 1 + (gx + gy) * S;
           shade = Math.max(0.72, Math.min(1.28, shade));
           r *= shade; g *= shade; b *= shade;
+
           if (M > 0.5){
             const smoothness = Math.max(0, 1 - (Math.abs(gx) + Math.abs(gy)) * 1.6);
             const spec = (M - 0.5) * 2 * Math.pow(smoothness, 4)
@@ -446,7 +464,7 @@
             r += spec; g += spec; b += spec;
           }
         } else {
-          const e = 0.88; r *= e; g *= e; b *= e;   
+          const e = 0.88; r *= e; g *= e; b *= e;
         }
         d[o]   = Math.max(0, Math.min(255, r));
         d[o+1] = Math.max(0, Math.min(255, g));
@@ -460,6 +478,7 @@
     tctx.imageSmoothingQuality = 'high';
     tctx.clearRect(0, 0, W, H);
     tctx.drawImage(off, 0, 0, W, H);
+
     tctx.save();
     tctx.setLineDash([5, 6]);
     tctx.strokeStyle = 'rgba(47,56,48,0.35)';
@@ -477,12 +496,14 @@
     const W = secW, H = 110;
     sctx.clearRect(0, 0, W, H);
     const baseY = H - 22, scale = 26;
+
     sctx.fillStyle = '#EBE5D8';
     sctx.fillRect(0, baseY, W, 22);
     sctx.strokeStyle = 'rgba(47,56,48,0.5)';
     sctx.lineWidth = 1;
     sctx.beginPath(); sctx.moveTo(0, baseY); sctx.lineTo(W, baseY); sctx.stroke();
     const row = sampleRow;
+
     sctx.beginPath();
     sctx.moveTo(0, baseY);
     for (let x = 0; x < GW; x++){
@@ -492,6 +513,7 @@
     sctx.lineTo(W, baseY); sctx.closePath();
     sctx.fillStyle = '#F5F2E9'; sctx.fill();
     sctx.strokeStyle = 'rgba(47,56,48,0.45)'; sctx.stroke();
+
     let anyCel = false;
     sctx.beginPath();
     sctx.moveTo(0, baseY - alab[idx(0,row)] * scale);
@@ -510,6 +532,7 @@
     sctx.fillStyle = Mavg > 0.5 ? Gs.secFired : Gs.secRaw;
     sctx.fill();
     sctx.strokeStyle = 'rgba(47,56,48,0.45)'; sctx.stroke();
+
     sctx.font = '500 9px "Inter", monospace';
     sctx.fillStyle = 'rgba(47,56,48,0.75)';
     sctx.fillText('BODY', 8, H - 9);
@@ -547,7 +570,7 @@
   const titleline = document.getElementById('titleline');
   document.querySelectorAll('.gchip').forEach(ch =>
     ch.addEventListener('click', () => {
-      if (!canPaint()) return;                    
+      if (!canPaint()) return;
       glazeKey = ch.dataset.glaze;
       document.querySelectorAll('.gchip').forEach(c =>
         c.setAttribute('aria-checked', c === ch ? 'true' : 'false'));
@@ -563,6 +586,7 @@
     if (phase === 'raw' || phase === 'fired'){ newTile(); fireBtn.textContent = 'Fire the kiln ▸'; }
   });
   fireBtn.addEventListener('click', fire);
+
   function resize(){
     const w = Math.min(560, tileC.parentElement.clientWidth || 560);
     const dpr = Math.min(devicePixelRatio || 1, 2);
@@ -578,7 +602,7 @@
   resize();
 
   newTile();
-  presets.horizontal(); 
+  presets.horizontal();
 
   let prev = performance.now();
   function frame(now){
