@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sasha Schaps — data scientist</title>
+<title>Sasha Schaps &middot; Data Scientist</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E2DCD0'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2394A5B3'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%2371713B'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%232C3A38'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F2E4'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2399ABA6'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%23ACB090'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%236F6C43'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +13,19 @@
 <style>
 
 :root{
-  --bone:#E2DCD0;        /* ground */
-  --steel:#94A5B3;       /* cool blue-grey */
-  --olive:#71713B;       /* dusty olive — the accent */
-  --pine:#2C3A38;        /* ink, deep blue-green */
-  --slate:#4A5D68;       /* hero base, steel taken deep */
-  --wire:#B9C6CE;        /* pale steel hairlines */
+  --bone:#F0EAD8;
+  --steel:#99ABA6;
+  --olive:#6F6C43;
+  --pine:#2F3830;
+  --slate:#5C6E68;
+  --wire:#C0CCC6;
+  --ochre:#D2BF81;
+
+  --lily:#D9E0DB;
+  --water:#B3C2BC;
+  --moss:#ACB090;
+  --sprout:#C9C49E;
+  --cream:#F6F2E4;
 
   --ink:var(--pine);
   --ground:var(--bone);
@@ -72,11 +79,10 @@ a{color:inherit;text-decoration:none}
   margin:0;
 }
 
-
 .pill{
   display:inline-block;
-  background:var(--olive);
-  color:var(--bone);
+  background:var(--moss);
+  color:var(--pine);
   font-size:12px;
   font-weight:500;
   letter-spacing:0.06em;
@@ -84,13 +90,13 @@ a{color:inherit;text-decoration:none}
   padding:13px 26px;
   transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s;
 }
-.pill:hover{transform:translateY(-2px);background:#5D5D2F}
+.pill:hover{transform:translateY(-2px);background:#969A78}
 .pill--ghost{
   background:transparent;
-  color:var(--bone);
-  box-shadow:inset 0 0 0 1px rgba(226,220,208,.45);
+  color:var(--pine);
+  box-shadow:inset 0 0 0 1px rgba(47,56,48,.4);
 }
-.pill--ghost:hover{background:rgba(226,220,208,.12)}
+.pill--ghost:hover{background:rgba(47,56,48,.07)}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
 
@@ -103,19 +109,19 @@ a{color:inherit;text-decoration:none}
 }
 .mark{
   display:flex;align-items:center;gap:10px;
-  color:var(--bone);
+  color:var(--pine);
   font-size:22px;font-weight:500;letter-spacing:-0.04em;
 }
 .mark svg{width:26px;height:26px;flex:none}
 .nav-links{
   display:flex;gap:2px;
-  background:rgba(226,220,208,.14);
+  background:rgba(246,242,228,.55);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
   padding:4px;
 }
 .nav-links a{
-  color:var(--bone);
+  color:var(--pine);
   font-size:11px;
   font-weight:500;
   letter-spacing:0.14em;
@@ -123,36 +129,47 @@ a{color:inherit;text-decoration:none}
   padding:10px 18px;
   transition:background .2s,color .2s;
 }
-.nav-links a:hover{background:rgba(226,220,208,.16)}
-.nav-links a[aria-current]{background:var(--bone);color:var(--pine)}
+.nav-links a:hover{background:rgba(47,56,48,.08)}
+.nav-links a[aria-current]{background:var(--pine);color:var(--bone)}
 
 .hero{
   position:relative;
   overflow:hidden;
   min-height:min(86vh,760px);
-  display:flex;align-items:flex-end;
-  background:var(--pine);
+  background:var(--lily);
 }
-.hero-art{position:absolute;inset:0;width:100%;height:100%}
-.hero-art svg{width:100%;height:100%}
+.hero-art{position:absolute;inset:0;width:100%;height:100%;
+
+  background:linear-gradient(180deg,#E9ECE2 0%,#C3D0CA 42%,#BFC4A9 78%,#EFE9D6 100%);
+}
+.hero-art canvas{width:100%;height:100%;display:block;touch-action:pan-y}
 .hero-veil{
   position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(44,58,56,.6) 0%,rgba(44,58,56,.1) 40%,rgba(44,58,56,.62) 100%);
+  background:linear-gradient(180deg,rgba(246,242,228,.4) 0%,rgba(246,242,228,0) 30%,rgba(246,242,228,0) 72%,rgba(246,242,228,.55) 100%);
 }
 .hero-inner{
   position:relative;z-index:10;
-  width:100%;max-width:var(--maxw);margin:0 auto;
-  padding:0 var(--pad) clamp(48px,7vw,88px);
-  display:grid;
-  grid-template-columns:1.35fr .95fr;
-  gap:clamp(24px,5vw,72px);
-  align-items:end;
-  color:var(--bone);
+  max-width:720px;margin:0 auto;
+  padding:clamp(110px,17vh,170px) var(--pad) clamp(48px,7vw,88px);
+  text-align:center;
+  color:var(--pine);
 }
-.hero .display{text-wrap:balance}
-.hero-body{max-width:44ch;color:rgba(226,220,208,.9)}
-.hero-body .eyebrow{color:var(--steel);margin-bottom:14px}
-.hero-cta{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+
+.glass{
+  padding:clamp(30px,5vw,52px) clamp(22px,4vw,48px);
+  background:linear-gradient(180deg,rgba(246,242,228,.4),rgba(246,242,228,.18));
+  backdrop-filter:blur(11px) saturate(1.35);
+  -webkit-backdrop-filter:blur(11px) saturate(1.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    inset 0 0 0 1px rgba(255,255,255,.28),
+    0 30px 60px -34px rgba(47,56,48,.4);
+}
+.hero .display{text-wrap:balance;font-size:clamp(34px,5.4vw,64px)}
+.hero-body{max-width:52ch;margin:0 auto;color:rgba(47,56,48,.85)}
+.hero .eyebrow{color:var(--olive);margin-bottom:16px}
+.hero .lede{margin-top:18px}
+.hero-cta{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
 .strip{padding:clamp(40px,6vw,76px) 0}
 .strip ul{
@@ -163,17 +180,17 @@ a{color:inherit;text-decoration:none}
 .strip li{
   font-size:11px;font-weight:600;
   letter-spacing:0.2em;text-transform:uppercase;
-  color:rgba(44,58,56,.5);
+  color:rgba(47,56,48,.5);
 }
 
 .showcase{padding-bottom:clamp(48px,7vw,96px)}
 .showcase-card{
   overflow:hidden;
-  background:#EDE9E1;
-  box-shadow:0 24px 60px -34px rgba(44,58,56,.4);
+  background:#F2EDE0;
+  box-shadow:0 24px 60px -34px rgba(47,56,48,.4);
 }
 .showcase-art{position:relative;aspect-ratio:16/9;background:var(--pine)}
-.showcase-art svg{position:absolute;inset:0;width:100%;height:100%}
+.showcase-art canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
 .showcase-label{
   position:absolute;inset:0;z-index:2;
   display:grid;place-items:center;
@@ -182,7 +199,7 @@ a{color:inherit;text-decoration:none}
   letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--bone);
-  text-shadow:0 2px 24px rgba(44,58,56,.55);
+  text-shadow:0 2px 24px rgba(47,56,48,.55);
 }
 .showcase-foot{
   display:grid;
@@ -191,7 +208,7 @@ a{color:inherit;text-decoration:none}
   padding:clamp(26px,4vw,44px);
 }
 .showcase-foot .pill{margin-top:22px}
-.showcase-foot p{margin:0;color:rgba(44,58,56,.82)}
+.showcase-foot p{margin:0;color:rgba(47,56,48,.82)}
 
 .work{padding-bottom:clamp(48px,7vw,96px)}
 .section-head{
@@ -200,7 +217,7 @@ a{color:inherit;text-decoration:none}
   align-items:end;
   padding-bottom:clamp(24px,3.5vw,44px);
 }
-.section-head p{margin:0;color:rgba(44,58,56,.78)}
+.section-head p{margin:0;color:rgba(47,56,48,.78)}
 .section-head .eyebrow{color:var(--olive);margin-bottom:12px}
 
 .project{
@@ -209,10 +226,10 @@ a{color:inherit;text-decoration:none}
   gap:clamp(18px,3vw,40px);
   align-items:center;
   padding:26px 0;
-  border-top:1px solid rgba(44,58,56,.18);
+  border-top:1px solid rgba(47,56,48,.18);
   transition:padding-left .3s cubic-bezier(.2,.8,.2,1);
 }
-.project:last-of-type{border-bottom:1px solid rgba(44,58,56,.18)}
+.project:last-of-type{border-bottom:1px solid rgba(47,56,48,.18)}
 .project:hover{padding-left:12px}
 .project-thumb{
   position:relative;
@@ -222,18 +239,18 @@ a{color:inherit;text-decoration:none}
 }
 .project-thumb svg{position:absolute;inset:0;width:100%;height:100%}
 .project h3{margin:0 0 6px}
-.project p{margin:0 0 10px;color:rgba(44,58,56,.75);font-size:15px;max-width:56ch}
+.project p{margin:0 0 10px;color:rgba(47,56,48,.75);font-size:15px;max-width:56ch}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{
   font-size:10px;font-weight:500;
   letter-spacing:0.16em;text-transform:uppercase;
-  color:rgba(44,58,56,.62);
-  box-shadow:inset 0 0 0 1px rgba(44,58,56,.22);
+  color:rgba(47,56,48,.62);
+  box-shadow:inset 0 0 0 1px rgba(47,56,48,.22);
   padding:5px 11px;
 }
 .meta-note{
   font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--bone);background:var(--olive);
+  color:var(--pine);background:var(--moss);
   padding:4px 8px;margin-left:10px;vertical-align:3px;
 }
 .work-more{
@@ -241,7 +258,7 @@ a{color:inherit;text-decoration:none}
   font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
 }
 .work-more a{
-  border-bottom:1px solid rgba(44,58,56,.3);padding-bottom:3px;
+  border-bottom:1px solid rgba(47,56,48,.3);padding-bottom:3px;
   transition:color .2s,border-color .2s;
 }
 .work-more a:hover{color:var(--olive);border-bottom-color:var(--olive)}
@@ -251,9 +268,6 @@ a{color:inherit;text-decoration:none}
 }
 .project:hover .arrow{transform:translateX(6px)}
 
-/* ============================================================
-   SHELF — loud band, carried over from the bookshelf build
-   ============================================================ */
 .shelf-band{
   background:var(--pine);
   color:var(--bone);
@@ -262,7 +276,7 @@ a{color:inherit;text-decoration:none}
 }
 .shelf-band .eyebrow{color:var(--steel);margin-bottom:12px}
 .shelf-band .h2{max-width:20ch}
-.shelf-band .lede{color:rgba(226,220,208,.75);max-width:46ch}
+.shelf-band .lede{color:rgba(240,234,216,.75);max-width:46ch}
 .shelf-head{
   display:grid;grid-template-columns:1fr 1fr;
   gap:clamp(20px,4vw,56px);align-items:end;
@@ -274,7 +288,7 @@ a{color:inherit;text-decoration:none}
   cursor:pointer;
   transition:transform .35s cubic-bezier(.2,.8,.2,1);
   display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:14px;
+  padding:20px 0 14px;
 }
 .bk:hover,.bk:focus-visible{transform:translateY(-14px)}
 .bk .spine{
@@ -291,13 +305,13 @@ a{color:inherit;text-decoration:none}
 .bk--steel{background:var(--steel)}   .bk--steel .spine{color:var(--pine)}
 .bk--bone{background:var(--bone)}     .bk--bone .spine{color:var(--pine)}
 .bk--slate{background:var(--slate)}   .bk--slate .spine{color:var(--bone)}
-.bk--deep{background:#1E2B29}         .bk--deep .spine{color:var(--steel)}
+.bk--deep{background:#232A24}         .bk--deep .spine{color:var(--steel)}
 .shelf-board{
-  height:12px;background:#1E2B29;
+  height:12px;background:#232A24;
   box-shadow:0 6px 18px -6px rgba(0,0,0,.55);
 }
 
-.foot{padding:clamp(56px,8vw,110px) 0 48px}
+.foot{padding:clamp(44px,6vw,84px) 0 40px}
 .foot-grid{
   display:grid;grid-template-columns:1.4fr 1fr;
   gap:clamp(24px,5vw,64px);align-items:end;
@@ -306,19 +320,19 @@ a{color:inherit;text-decoration:none}
 .foot-links{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .foot-links a{
   font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
-  border-bottom:1px solid rgba(44,58,56,.3);
+  border-bottom:1px solid rgba(47,56,48,.3);
   padding-bottom:3px;
   transition:color .2s,border-color .2s;
 }
 .foot-links a:hover{color:var(--olive);border-bottom-color:var(--olive)}
 .foot-rule{
-  border:0;border-top:1px solid rgba(44,58,56,.2);
+  border:0;border-top:1px solid rgba(47,56,48,.2);
   margin:clamp(32px,5vw,56px) 0 18px;
 }
 .colophon{
   font-size:10px;font-weight:500;
   letter-spacing:0.18em;text-transform:uppercase;
-  color:rgba(44,58,56,.45);
+  color:rgba(47,56,48,.45);
   display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
 }
 .colophon svg{width:16px;height:16px;display:inline-block;vertical-align:-3px;margin-right:8px}
@@ -345,8 +359,7 @@ a{color:inherit;text-decoration:none}
 
 @media (max-width:900px){
   .nav-links{display:none}
-  .hero-inner,.showcase-foot,.section-head,.shelf-head,.foot-grid{grid-template-columns:1fr}
-  .hero-inner{gap:24px}
+  .showcase-foot,.section-head,.shelf-head,.foot-grid{grid-template-columns:1fr}
   .project{grid-template-columns:120px 1fr;align-items:start}
   .arrow{display:none}
 }
@@ -370,13 +383,12 @@ a{color:inherit;text-decoration:none}
       <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/>
       <feGaussianBlur stdDeviation="7"/>
     </filter>
-
     <pattern id="crawl" width="34" height="34" patternUnits="userSpaceOnUse">
-      <circle cx="9" cy="9" r="2.6" fill="#E2DCD0" opacity=".24"/>
-      <circle cx="26" cy="24" r="1.5" fill="#E2DCD0" opacity=".16"/>
+      <circle cx="9" cy="9" r="2.6" fill="#F0EAD8" opacity=".24"/>
+      <circle cx="26" cy="24" r="1.5" fill="#F0EAD8" opacity=".16"/>
     </pattern>
 
-    <g id="wires" fill="none" stroke="#B9C6CE" stroke-width="1.1" opacity=".45">
+    <g id="wires" fill="none" stroke="#C0CCC6" stroke-width="1.1" opacity=".45">
       <path d="M-40 300 C 200 200, 330 430, 560 350 S 940 210, 1240 320"/>
       <path d="M-40 430 C 240 360, 380 560, 640 470 S 980 350, 1240 450"/>
       <path d="M180 -40 C 240 180, 140 320, 250 520 S 320 700, 280 780"/>
@@ -384,22 +396,21 @@ a{color:inherit;text-decoration:none}
     </g>
 
     <g id="wavemark" fill="none" stroke-width="3.4">
-      <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#94A5B3"/>
-      <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#71713B"/>
-      <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#E2DCD0"/>
+      <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#99ABA6"/>
+      <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#6F6C43"/>
+      <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#F0EAD8"/>
     </g>
     <g id="wavemark-light" fill="none" stroke-width="3.4">
-      <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#94A5B3"/>
-      <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#71713B"/>
-      <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#2C3A38"/>
+      <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#99ABA6"/>
+      <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#6F6C43"/>
+      <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#2F3830"/>
     </g>
   </defs>
 </svg>
 
-<!-- ============================================================ NAV -->
 <nav class="nav">
   <a class="mark" href="#top">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wavemark"/></svg>
+    <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wavemark-light"/></svg>
     Sasha Schaps
   </a>
   <div class="nav-links">
@@ -411,103 +422,77 @@ a{color:inherit;text-decoration:none}
   <a class="pill" href="#about">Get in touch</a>
 </nav>
 
-<!-- ============================================================ HERO -->
 <header class="hero" id="top">
   <div class="hero-art" aria-hidden="true">
-    <svg viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice">
-      <rect width="1200" height="760" fill="#2C3A38"/>
-      <g class="pour" filter="url(#warp)">
-        <ellipse cx="330" cy="300" rx="330" ry="230" fill="#4A5D68"/>
-        <ellipse cx="760" cy="250" rx="290" ry="180" fill="#94A5B3" opacity=".8"/>
-        <ellipse cx="980" cy="470" rx="300" ry="210" fill="#71713B" opacity=".85"/>
-      </g>
-      <g class="pour pour--b" filter="url(#warp)">
-        <ellipse cx="520" cy="520" rx="340" ry="200" fill="#71713B" opacity=".55"/>
-        <ellipse cx="180" cy="620" rx="240" ry="170" fill="#94A5B3" opacity=".42"/>
-        <ellipse cx="700" cy="130" rx="200" ry="130" fill="#E2DCD0" opacity=".22"/>
-      </g>
-      <use href="#wires"/>
-      <rect width="1200" height="760" fill="url(#crawl)"/>
-    </svg>
+    <canvas id="heroCanvas"></canvas>
   </div>
   <div class="hero-veil" aria-hidden="true"></div>
 
   <div class="hero-inner">
-    <h1 class="display rise">Bearish on hype.<br>Bullish on evidence.</h1>
-    <div class="hero-body rise rise--2">
-      <p class="eyebrow">Sasha Schaps &middot; Data scientist &middot; Bay Area</p>
-      <p class="lede">I'm a Bay Area native and data scientist drawn to natural ordered networks and colored clay. I build analysis the way nerikomi is built &mdash; the pattern runs through the whole body, not painted on at the end. Currently at UC Berkeley's School of Information.</p>
+    <div class="glass rise">
+      <p class="eyebrow">Sasha Schaps &middot; Data scientist & program enablement &middot; Bay Area</p>
+      <h1 class="display">Part-time potter.<br>Full-time data scientist.</h1>
+      <div class="hero-body">
+        <p class="lede">Bay Area native, drawn to natural ordered networks and colored clay. I build analysis like nerikomi: the pattern runs through the body, not painted on at the end. Currently at UC Berkeley's School of Information.</p>
+      </div>
       <div class="hero-cta">
-        <a class="pill" href="#work">See the work</a>
-        <a class="pill pill--ghost" href="/about.html">More about me</a>
+        <a class="pill" href="#work">Selected work</a>
+        <a class="pill pill--ghost" href="/about.html">About me</a>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ============================================================ PROOF STRIP -->
 <section class="strip">
   <div class="wrap">
     <ul>
       <li>UC Berkeley I School</li>
-      <li>UT Austin McCombs</li>
       <li>R &middot; Python &middot; SQL</li>
       <li>Regression &amp; EDA</li>
       <li>Bay Area native</li>
-      <li>Mandarin</li>
     </ul>
   </div>
 </section>
 
-<!-- ============================================================ SHOWCASE CARD -->
 <section class="showcase">
   <div class="wrap">
     <div class="showcase-card">
       <div class="showcase-art">
-        <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="1200" height="675" fill="#4A5D68"/>
-          <g filter="url(#warp)">
-            <ellipse cx="300" cy="240" rx="320" ry="210" fill="#94A5B3" opacity=".9"/>
-            <ellipse cx="880" cy="400" rx="330" ry="220" fill="#71713B" opacity=".85"/>
-            <ellipse cx="600" cy="600" rx="300" ry="180" fill="#2C3A38" opacity=".7"/>
-          </g>
-          <use href="#wires" opacity=".3"/>
-          <rect width="1200" height="675" fill="url(#crawl)" opacity=".7"/>
-        </svg>
+        <canvas id="showcaseCanvas"></canvas>
         <p class="showcase-label">Through and through</p>
       </div>
       <div class="showcase-foot">
         <div>
-          <h2 class="h2">Patterned through,<br>not painted on</h2>
           <a class="pill" href="#work">See the work</a>
         </div>
-        <p>Nerikomi builds its pattern into the body of the clay, so a cross-section shows the same design as the surface. Analysis should hold up the same way &mdash; state the assumption, test it, name the confound that could undo it, then report what the data actually said. Every project below documents its own limitations.</p>
+        <p>Nerikomi carries its pattern through the body of the clay, so a cross-section shows the same design as the surface. Analysis should hold up the same way: state the assumption, test it, name the confound, report what the data said.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================ WORK -->
 <section class="work" id="work">
   <div class="wrap">
     <div class="section-head">
       <div>
         <p class="eyebrow">Selected work</p>
+      </div>
+    </div>
 
     <a class="project" href="https://observablehq.com/d/43405b7a594c53cf" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2C3A38"/>
+          <rect width="500" height="300" fill="#2F3830"/>
           <g filter="url(#warp-sm)">
-            <ellipse cx="150" cy="120" rx="150" ry="110" fill="#4A5D68"/>
-            <ellipse cx="380" cy="200" rx="140" ry="100" fill="#94A5B3" opacity=".9"/>
+            <ellipse cx="150" cy="120" rx="150" ry="110" fill="#5C6E68"/>
+            <ellipse cx="380" cy="200" rx="140" ry="100" fill="#99ABA6" opacity=".9"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
         <h3 class="h3">Let&#8217;s Not Boil the Ocean <span class="meta-note">Current</span></h3>
-        <p>An Observable notebook visualizing climate vulnerability across selected California fishery species. The underlying assessment is the work of a lab, state fisheries, and NOAA &mdash; my contribution is the analysis layer that makes it readable.</p>
+        <p>Climate vulnerability across California fishery species, visualized in Observable. The assessment belongs to a lab, state fisheries, and NOAA. The readable layer is mine.</p>
         <div class="tags"><span class="tag">Observable</span><span class="tag">D3</span><span class="tag">Climate data</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
@@ -516,17 +501,17 @@ a{color:inherit;text-decoration:none}
     <a class="project" href="https://sashaschaps.com/bullish-on-sharks" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2C3A38"/>
+          <rect width="500" height="300" fill="#2F3830"/>
           <g filter="url(#warp-sm)">
-            <ellipse cx="180" cy="200" rx="160" ry="110" fill="#94A5B3"/>
-            <ellipse cx="370" cy="90" rx="140" ry="95" fill="#4A5D68" opacity=".9"/>
+            <ellipse cx="180" cy="200" rx="160" ry="110" fill="#99ABA6"/>
+            <ellipse cx="370" cy="90" rx="140" ry="95" fill="#5C6E68" opacity=".9"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
         <h3 class="h3">Bullish on Sharks</h3>
-        <p>A global exploratory analysis of shark-human encounters from the Global Shark Attack File, asking how patterns shift across geography, activity, and time &mdash; and which factors associate with fatal outcomes. Reporting bias is the dominant confound, read at your own risk.</p>
+        <p>Exploratory analysis of the Global Shark Attack File: geography, activity, time, and what associates with fatal outcomes. Reporting bias is the dominant confound; read at your own risk.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">EDA</span><span class="tag">Data cleaning</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
@@ -535,17 +520,17 @@ a{color:inherit;text-decoration:none}
     <a class="project" href="https://github.com/sascha-pst/dozed-and-confused" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2C3A38"/>
+          <rect width="500" height="300" fill="#2F3830"/>
           <g filter="url(#warp-sm)">
-            <ellipse cx="140" cy="90" rx="150" ry="100" fill="#71713B" opacity=".95"/>
-            <ellipse cx="360" cy="220" rx="150" ry="110" fill="#4A5D68" opacity=".9"/>
+            <ellipse cx="140" cy="90" rx="150" ry="100" fill="#6F6C43" opacity=".95"/>
+            <ellipse cx="360" cy="220" rx="150" ry="110" fill="#5C6E68" opacity=".9"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
         <h3 class="h3">Dozed and Confused</h3>
-        <p>Regression modeling on a synthetic wellbeing dataset of 3,000 students, testing how sleep and screen time relate to academic performance. Synthetic data means the coefficients are a modeling exercise, not a finding about real students.</p>
+        <p>Regression on a synthetic dataset of 3,000 students: sleep, screen time, and grades. Synthetic data, so a modeling exercise, not a finding about real students.</p>
         <div class="tags"><span class="tag">R</span><span class="tag">Regression</span><span class="tag">Diagnostics</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
@@ -554,17 +539,17 @@ a{color:inherit;text-decoration:none}
     <a class="project" href="https://github.com/sascha-pst/hsk3-tutor" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2C3A38"/>
+          <rect width="500" height="300" fill="#2F3830"/>
           <g filter="url(#warp-sm)">
-            <ellipse cx="160" cy="180" rx="150" ry="105" fill="#71713B"/>
-            <ellipse cx="370" cy="110" rx="150" ry="105" fill="#94A5B3" opacity=".8"/>
+            <ellipse cx="160" cy="180" rx="150" ry="105" fill="#6F6C43"/>
+            <ellipse cx="370" cy="110" rx="150" ry="105" fill="#99ABA6" opacity=".8"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
         <h3 class="h3">HSK 3 Tutor</h3>
-        <p>An interactive drill app for the HSK 3 Chinese vocabulary list, built in React. Written so my mom knows I'm still using my previous masters.</p>
+        <p>A React drill app for the HSK 3 vocabulary list. Proof for my mom that the first master's still gets used.</p>
         <div class="tags"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">Mandarin</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
@@ -574,7 +559,6 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
-<!-- ============================================================ SHELF -->
 <section class="shelf-band" id="reading">
   <div class="wrap">
     <div class="shelf-head">
@@ -582,33 +566,47 @@ a{color:inherit;text-decoration:none}
         <p class="eyebrow">The shelf</p>
         <h2 class="h2">What's shaping the thinking</h2>
       </div>
-      <p class="lede">Spine colors map to subject &mdash; olive for AI and power, steel for economics, bone for fiction.</p>
+      <p class="lede">Spine colors map to subject: bone for memoir and fiction, olive for philosophy, steel for minds and math, slate for advice, deep for ecology and place.</p>
     </div>
     <div class="shelf">
-      <div class="bk bk--olive" tabindex="0" style="height:172px;width:32px"><span class="spine">Weapons of Math Destruction</span></div>
-      <div class="bk bk--steel" tabindex="0" style="height:196px;width:26px"><span class="spine">Poor Economics</span></div>
-      <div class="bk bk--bone" tabindex="0" style="height:158px;width:36px"><span class="spine">Severance</span></div>
-      <div class="bk bk--deep" tabindex="0" style="height:210px;width:28px"><span class="spine">Atlas of AI</span></div>
-      <div class="bk bk--slate" tabindex="0" style="height:180px;width:34px"><span class="spine">The Unknown Craftsman</span></div>
-      <div class="bk bk--steel" tabindex="0" style="height:164px;width:24px"><span class="spine">Doughnut Economics</span></div>
-      <div class="bk bk--olive" tabindex="0" style="height:202px;width:30px"><span class="spine">Algorithms of Oppression</span></div>
-      <div class="bk bk--bone" tabindex="0" style="height:150px;width:28px"><span class="spine">Convenience Store Woman</span></div>
+      <div class="bk bk--bone" tabindex="0" style="width:30px"><span class="spine">Stay True</span></div>
+      <div class="bk bk--deep" tabindex="0" style="width:26px;padding-top:26px"><span class="spine">A Sand County Almanac</span></div>
+      <div class="bk bk--olive" tabindex="0" style="width:26px;padding-top:34px"><span class="spine">A Philosophy of Walking</span></div>
+      <div class="bk bk--steel" tabindex="0" style="width:30px;padding-top:24px"><span class="spine">Algorithms to Live By</span></div>
+      <div class="bk bk--bone" tabindex="0" style="width:28px;padding-top:22px"><span class="spine">The Correspondent</span></div>
+      <div class="bk bk--olive" tabindex="0" style="width:22px"><span class="spine">Meditations</span></div>
+      <div class="bk bk--slate" tabindex="0" style="width:38px;padding-top:30px"><span class="spine">Principles</span></div>
+      <div class="bk bk--deep" tabindex="0" style="width:24px;padding-top:18px"><span class="spine">Being Ecological</span></div>
+      <div class="bk bk--bone" tabindex="0" style="width:32px;padding-top:26px"><span class="spine">Know My Name</span></div>
+      <div class="bk bk--olive" tabindex="0" style="width:20px"><span class="spine">Think</span></div>
+      <div class="bk bk--steel" tabindex="0" style="width:42px;padding-top:44px"><span class="spine">G&ouml;del, Escher, Bach</span></div>
+      <div class="bk bk--slate" tabindex="0" style="width:22px;padding-top:14px"><span class="spine">Ikigai</span></div>
+      <div class="bk bk--bone" tabindex="0" style="width:28px"><span class="spine">Crying in H Mart</span></div>
+      <div class="bk bk--deep" tabindex="0" style="width:40px;padding-top:40px"><span class="spine">The Atlas of Vanishing Places</span></div>
+      <div class="bk bk--olive" tabindex="0" style="width:28px;padding-top:22px"><span class="spine">Ethics in the Real World</span></div>
+      <div class="bk bk--bone" tabindex="0" style="width:26px"><span class="spine">Down the Drain</span></div>
+      <div class="bk bk--slate" tabindex="0" style="width:26px;padding-top:20px"><span class="spine">Tiny Experiments</span></div>
+      <div class="bk bk--deep" tabindex="0" style="width:40px;padding-top:36px"><span class="spine">The Silk Roads</span></div>
+      <div class="bk bk--bone" tabindex="0" style="width:36px;padding-top:46px"><span class="spine">The Odyssey</span></div>
+      <div class="bk bk--olive" tabindex="0" style="width:26px;padding-top:28px"><span class="spine">Letters from Sartre</span></div>
+      <div class="bk bk--slate" tabindex="0" style="width:30px;padding-top:18px"><span class="spine">The Happiness Advantage</span></div>
+      <div class="bk bk--deep" tabindex="0" style="width:24px;padding-top:16px"><span class="spine">Climate Optimism</span></div>
+      <div class="bk bk--slate" tabindex="0" style="width:28px;padding-top:20px"><span class="spine">The Inflammation Code</span></div>
     </div>
     <div class="shelf-board"></div>
   </div>
 </section>
 
-<!-- ============================================================ FOOTER -->
 <footer class="foot" id="about">
   <div class="wrap">
     <div class="foot-grid">
       <div>
         <p class="eyebrow">Contact</p>
-        <h2 class="h2">Off the keyboard, I'm spinning my wheels.<br>On it, I'm looking for the next hard problem.</h2>
+        <h2 class="h2">The pattern runs all the way through.<br>Bring me your hardest data problem.</h2>
       </div>
       <div class="foot-links">
         <a href="mailto:sasha.schaps@gmail.com">Email</a>
-        <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley email</a>
+        <a href="/resume.pdf">Resume</a>
         <a href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub</a>
         <a href="/about.html">About</a>
       </div>
@@ -616,11 +614,331 @@ a{color:inherit;text-decoration:none}
     <hr class="foot-rule">
     <div class="colophon">
       <span><svg viewBox="0 0 32 32" aria-hidden="true" style="width:16px;height:16px"><use href="#wavemark-light"/></svg>Sasha Schaps</span>
-      <span>Let's get the wheel spinning</span>
+      <span>Berkeley, California</span>
       <span>Set in Inter &middot; Built with Jekyll</span>
     </div>
   </div>
 </footer>
 
+<script>
+
+(function(){
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MAX_DROPS = 12;
+
+  const F = n => { const t = String(n); return (t.includes('.')||t.includes('e')) ? t : t + '.0'; };
+  const C = c => 'vec3(' + c.map(x => (x/255).toFixed(4)).join(',') + ')';
+
+  const BASE = {
+    sim: 192, propagation: 0.245, damping: 0.996, edgeWidth: 0.045, edgeDamp: 0.9, clampH: 1.6,
+    simRate: 60, maxSub: 4,
+    dprCap: 1, renderFps: 30, hotFps: 60, hotFor: 1.5,
+    brushRadius: 0.032, brushBase: 0.012, brushGain: 0.9, brushMax: 0.09,
+    clickStrength: 0.22, clickRadius: 0.05,
+    ambientCount: 4, ambientStrength: 0.018, ambientRate: 1, idle: 2.2, drivenMult: 0.45,
+    causticA: 9, detFloor: 0.06, clamp1: 6, contrast: 1.22, clamp2: 8,
+    floorBase: 0.34, causticGain: 0.3, veinThresh: 1, veinGain: 0.1,
+    baseDepth: 1.05, depthScale: 1.4, depthNoise: 2, depthNoiseAmp: 0.25, absorbScale: 1.7, deepGain: 0.3,
+    parallax: 2.4, nScale: 8.5,
+    sun1: [0.3, 0.45, 0.82], sun2: [-0.5, 0.15, 0.78],
+    spec1: 150, spec2: 70, spec2Gain: 0.35, glintGain: 0.85,
+    fresnelPow: 4, fresnelGain: 0.22,
+    rippleScale: 6.5, warpScale: 3, warp: 0.6, bandFreq: 9, bandSkew: 4, bandGain: 0.06,
+    grainScale: 240, grainAmp: 0.045,
+    octaves: 3, lacunarity: 2.03, gain: 0.5,
+    exposure: 1.55, grain: 0.022, gamma: 0.4545,
+    vigOuter: 1.28, vigInner: 0.32, vigDark: 0.6, vigBright: 1.05
+  };
+
+  const VERT = `#version 300 es
+  out vec2 vUv;
+  void main(){ vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2)); vUv=p; gl_Position=vec4(p*2.0-1.0,0.0,1.0); }`;
+
+  function updateSrc(P){ return `#version 300 es
+  precision highp float;
+  uniform sampler2D uState; uniform vec2 uTexel; uniform float uAspect;
+  uniform int uDropCount; uniform vec4 uDrops[${MAX_DROPS}];
+  in vec2 vUv; out vec4 o;
+  void main(){
+    vec2 uv=vUv; float c=texture(uState,uv).r, p=texture(uState,uv).g;
+    float l=texture(uState,uv-vec2(uTexel.x,0.0)).r, r=texture(uState,uv+vec2(uTexel.x,0.0)).r;
+    float u=texture(uState,uv+vec2(0.0,uTexel.y)).r, d=texture(uState,uv-vec2(0.0,uTexel.y)).r;
+    float nv=(2.0*c-p)+(l+r+u+d-4.0*c)*${F(P.propagation)}; nv*=${F(P.damping)};
+    for(int i=0;i<${MAX_DROPS};i++){ if(i>=uDropCount)break;
+      vec2 dp=uv-uDrops[i].xy; dp.x*=uAspect; float rr=uDrops[i].w;
+      nv+=uDrops[i].z*exp(-dot(dp,dp)/(rr*rr)); }
+    vec2 e=min(uv,1.0-uv);
+    nv*=mix(${F(P.edgeDamp)},1.0,smoothstep(0.0,${F(P.edgeWidth)},min(e.x,e.y)));
+    o=vec4(clamp(nv,-${F(P.clampH)},${F(P.clampH)}),c,0.0,1.0);
+  }`; }
+
+  function renderSrc(P){ return `#version 300 es
+  precision highp float;
+  uniform sampler2D uState; uniform vec2 uTexel; uniform vec2 uResolution; uniform float uTime; uniform float uAspect;
+  in vec2 vUv; out vec4 frag;
+  float hash(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+  float vnoise(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.0-2.0*f);
+    float a=hash(i),b=hash(i+vec2(1.0,0.0)),c=hash(i+vec2(0.0,1.0)),d=hash(i+vec2(1.0,1.0));
+    return mix(mix(a,b,f.x),mix(c,d,f.x),f.y); }
+  float fbm(vec2 p){ float s=0.0,a=0.5; for(int i=0;i<${P.octaves};i++){ s+=a*vnoise(p); p*=${F(P.lacunarity)}; a*=${F(P.gain)}; } return s; }
+  vec3 sand(vec2 uv){ vec2 p=uv*vec2(uAspect,1.0);
+    float rip=fbm(p*${F(P.rippleScale)}+fbm(p*${F(P.warpScale)})*${F(P.warp)});
+    float band=0.5+0.5*sin(rip*${F(P.bandFreq)}+p.x*${F(P.bandSkew)});
+    vec3 b=mix(${C(P.sandHi)},${C(P.sandLo)},rip); b=mix(b,b*(1.0+${F(P.bandGain)}),band);
+    return b+(vnoise(p*${F(P.grainScale)})-0.5)*${F(P.grainAmp)}; }
+  void main(){
+    vec2 uv=vUv,t=uTexel;
+    float hc=texture(uState,uv).r;
+    float hl=texture(uState,uv-vec2(t.x,0.0)).r, hr=texture(uState,uv+vec2(t.x,0.0)).r;
+    float hu=texture(uState,uv+vec2(0.0,t.y)).r, hd=texture(uState,uv-vec2(0.0,t.y)).r;
+    float hpp=texture(uState,uv+t).r, hmm=texture(uState,uv-t).r;
+    float hpm=texture(uState,uv+vec2(t.x,-t.y)).r, hmp=texture(uState,uv+vec2(-t.x,t.y)).r;
+    float hx=(hr-hl)*0.5, hy=(hu-hd)*0.5;
+    float hxx=hr-2.0*hc+hl, hyy=hu-2.0*hc+hd, hxy=(hpp-hpm-hmp+hmm)*0.25;
+    float jxx=1.0-${F(P.causticA)}*hxx, jyy=1.0-${F(P.causticA)}*hyy, jxy=-${F(P.causticA)}*hxy;
+    float det=jxx*jyy-jxy*jxy;
+    float ca=clamp(1.0/max(abs(det),${F(P.detFloor)}),0.0,${F(P.clamp1)});
+    ca=clamp(pow(ca,${F(P.contrast)}),0.0,${F(P.clamp2)});
+    vec2 land=uv+vec2(hx,hy)*${F(P.parallax)};
+    vec3 col=sand(land)*(${F(P.floorBase)}+ca*${F(P.causticGain)});
+    col+=${C(P.veinColor)}*max(ca-${F(P.veinThresh)},0.0)*${F(P.veinGain)};
+    float depth=clamp(${F(P.baseDepth)}-hc*${F(P.depthScale)}+fbm(land*${F(P.depthNoise)})*${F(P.depthNoiseAmp)},0.2,3.0);
+    col*=exp(-${C(P.absorb)}*depth*${F(P.absorbScale)});
+    col+=${C(P.deepColor)}*depth*${F(P.deepGain)};
+    vec3 N=normalize(vec3(-hx*${F(P.nScale)},-hy*${F(P.nScale)},1.0)), V=vec3(0.0,0.0,1.0);
+    vec3 s1=normalize(vec3(${F(P.sun1[0])},${F(P.sun1[1])},${F(P.sun1[2])}));
+    vec3 s2=normalize(vec3(${F(P.sun2[0])},${F(P.sun2[1])},${F(P.sun2[2])}));
+    float sp=pow(max(dot(N,normalize(s1+V)),0.0),${F(P.spec1)})+pow(max(dot(N,normalize(s2+V)),0.0),${F(P.spec2)})*${F(P.spec2Gain)};
+    col+=sp*${C(P.glintColor)}*${F(P.glintGain)};
+    col=mix(col,${C(P.skyColor)},pow(1.0-N.z,${F(P.fresnelPow)})*${F(P.fresnelGain)});
+    col*=mix(${F(P.vigDark)},${F(P.vigBright)},smoothstep(${F(P.vigOuter)},${F(P.vigInner)},length((uv-0.5)*vec2(uAspect,1.0))));
+    col=vec3(1.0)-exp(-col*${F(P.exposure)});
+    col+=(hash(uv*uResolution+fract(uTime))-0.5)*${F(P.grain)};
+    frag=vec4(pow(max(col,vec3(0.0)),vec3(${F(P.gamma)})),1.0);
+  }`; }
+
+  function ripple(canvasId, hostSel, cfg){
+    const P = Object.assign({}, BASE, cfg);
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl2', { antialias:false, alpha:false, depth:false, powerPreference:'low-power' });
+    if (!gl) return;
+    if (!gl.getExtension('EXT_color_buffer_float') && !gl.getExtension('EXT_color_buffer_half_float')) return;
+    gl.getExtension('OES_texture_half_float_linear');
+
+    function sh(type, src){
+      const o = gl.createShader(type);
+      gl.shaderSource(o, src); gl.compileShader(o);
+      if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)){ console.error(gl.getShaderInfoLog(o)); return null; }
+      return o;
+    }
+    function prog(vs, fs){
+      const p = gl.createProgram();
+      const a = sh(gl.VERTEX_SHADER, vs), b = sh(gl.FRAGMENT_SHADER, fs);
+      if (!a || !b) return null;
+      gl.attachShader(p, a); gl.attachShader(p, b); gl.linkProgram(p);
+      if (!gl.getProgramParameter(p, gl.LINK_STATUS)){ console.error(gl.getProgramInfoLog(p)); return null; }
+      return p;
+    }
+    const updateP = prog(VERT, updateSrc(P));
+    const renderP = prog(VERT, renderSrc(P));
+    if (!updateP || !renderP) return;
+
+    const sim = P.sim;
+    function target(){
+      const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, sim, sim, 0, gl.RGBA, gl.HALF_FLOAT, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      const fbo = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+      return { tex, fbo };
+    }
+    const targets = [target(), target()];
+    if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) return;
+    let read = 0;
+    for (const t of targets){
+      gl.bindFramebuffer(gl.FRAMEBUFFER, t.fbo); gl.viewport(0, 0, sim, sim);
+      gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    const vao = gl.createVertexArray();
+
+    const uL = {
+      state: gl.getUniformLocation(updateP, 'uState'),
+      texel: gl.getUniformLocation(updateP, 'uTexel'),
+      aspect: gl.getUniformLocation(updateP, 'uAspect'),
+      count: gl.getUniformLocation(updateP, 'uDropCount'),
+      drops: gl.getUniformLocation(updateP, 'uDrops')
+    };
+    const rL = {
+      state: gl.getUniformLocation(renderP, 'uState'),
+      texel: gl.getUniformLocation(renderP, 'uTexel'),
+      res: gl.getUniformLocation(renderP, 'uResolution'),
+      time: gl.getUniformLocation(renderP, 'uTime'),
+      aspect: gl.getUniformLocation(renderP, 'uAspect')
+    };
+
+    let cw = 1, ch = 1, sizeDirty = true;
+    new ResizeObserver(function(en){
+      const r = en[0].contentRect;
+      cw = Math.max(1, r.width); ch = Math.max(1, r.height);
+      sizeDirty = true;
+    }).observe(canvas);
+    function resize(){
+      if (!sizeDirty) return;
+      sizeDirty = false;
+      const dpr = Math.min(window.devicePixelRatio || 1, P.dprCap);
+      const w = Math.max(1, Math.floor(cw * dpr));
+      const h = Math.max(1, Math.floor(ch * dpr));
+      if (canvas.width !== w || canvas.height !== h){ canvas.width = w; canvas.height = h; }
+    }
+
+    const dropData = new Float32Array(MAX_DROPS * 4);
+    let pending = [];
+    const queueDrop = (x, y, st, r) => { if (pending.length < MAX_DROPS) pending.push([x, y, st, r]); };
+    function uploadDrops(){
+      const n = Math.min(pending.length, MAX_DROPS);
+      for (let k = 0; k < n; k++) dropData.set(pending[k], k * 4);
+      pending = []; return n;
+    }
+
+    let sources = [];
+    for (let k = 0; k < P.ambientCount; k++) sources.push({
+      px: 0.2 + 0.6*Math.random(), py: 0.2 + 0.6*Math.random(),
+      ax: 0.1 + 0.1*Math.random(), ay: 0.1 + 0.1*Math.random(),
+      sx: 0.05 + 0.08*Math.random(), sy: 0.05 + 0.08*Math.random(),
+      phx: Math.random()*6.28, phy: Math.random()*6.28,
+      next: Math.random()*1.2, period: 0.7 + Math.random()*1.1
+    });
+    const t0 = performance.now();
+    const now = () => (performance.now() - t0) / 1000;
+    let px = .5, py = .5, has = false, lastI = -1e9;
+
+    function collectAmbient(t, step){
+      const idle = t - lastI > P.idle;
+      for (const src of sources){
+        src.next -= step;
+        if (src.next <= 0){
+          src.next = (src.period / Math.max(P.ambientRate, 0.05)) * (0.7 + Math.random()*0.6);
+          const x = Math.min(Math.max(src.px + src.ax*Math.sin(t*src.sx*6.28 + src.phx), 0.06), 0.94);
+          const y = Math.min(Math.max(src.py + src.ay*Math.cos(t*src.sy*6.28 + src.phy), 0.06), 0.94);
+          queueDrop(x, y, P.ambientStrength * (idle ? 1 : P.drivenMult), 0.03 + Math.random()*0.02);
+        }
+      }
+    }
+
+    function simStep(step){
+      collectAmbient(now(), step);
+      const cnt = uploadDrops();
+      const src = targets[read], dst = targets[read ^ 1];
+      gl.useProgram(updateP); gl.bindVertexArray(vao);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, dst.fbo); gl.viewport(0, 0, sim, sim);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, src.tex);
+      gl.uniform1i(uL.state, 0); gl.uniform2f(uL.texel, 1/sim, 1/sim);
+      gl.uniform1f(uL.aspect, cw / ch);
+      gl.uniform1i(uL.count, cnt); gl.uniform4fv(uL.drops, dropData);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      read ^= 1;
+    }
+    function render(){
+      gl.useProgram(renderP); gl.bindVertexArray(vao);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, targets[read].tex);
+      gl.uniform1i(rL.state, 0); gl.uniform2f(rL.texel, 1/sim, 1/sim);
+      gl.uniform2f(rL.res, canvas.width, canvas.height);
+      gl.uniform1f(rL.time, now());
+      gl.uniform1f(rL.aspect, cw / ch);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    if (still){
+      cw = Math.max(1, canvas.clientWidth); ch = Math.max(1, canvas.clientHeight);
+      resize();
+      queueDrop(.3, .6, .3, .06); queueDrop(.7, .4, .25, .05); queueDrop(.55, .75, .2, .05);
+      for (let i = 0; i < 46; i++) simStep(1/60);
+      render();
+      window.addEventListener('resize', function(){ resize(); render(); });
+      return;
+    }
+
+    let raf = null, running = true, last = performance.now(), accum = 0, lastDraw = 0;
+    function frame(t){
+      if (running) raf = requestAnimationFrame(frame);
+
+      const hot = now() - lastI < P.hotFor;
+      if (t - lastDraw < 1000 / (hot ? P.hotFps : P.renderFps)) return;
+      lastDraw = t;
+      let dt = (t - last) / 1000; if (dt > 0.25) dt = 0.25; last = t;
+      resize();
+      const step = 1 / P.simRate;
+      accum += dt; let n = 0;
+      while (accum >= step && n < P.maxSub){ simStep(step); accum -= step; n++; }
+      if (n === 0){ simStep(step); accum = 0; }
+      render();
+    }
+    function setRunning(on){
+      running = on;
+      if (on && raf === null){ last = performance.now(); lastDraw = 0; accum = 0; raf = requestAnimationFrame(frame); }
+      if (!on && raf !== null){ cancelAnimationFrame(raf); raf = null; }
+    }
+    new IntersectionObserver(function(en){ setRunning(en[0].isIntersecting && !document.hidden); }).observe(canvas);
+    document.addEventListener('visibilitychange', function(){
+      if (document.hidden) setRunning(false);
+      else if (running || raf === null) setRunning(true);
+    });
+
+    const host = canvas.closest(hostSel) || canvas;
+    function toUv(e){
+      const r = canvas.getBoundingClientRect();
+      return [
+        Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1),
+        Math.min(Math.max(1 - (e.clientY - r.top) / r.height, 0), 1)
+      ];
+    }
+    host.addEventListener('pointermove', function(e){
+      const u = toUv(e);
+      if (has) queueDrop(u[0], u[1],
+        Math.min(P.brushBase + Math.hypot(u[0]-px, u[1]-py) * P.brushGain, P.brushMax), P.brushRadius);
+      px = u[0]; py = u[1]; has = true; lastI = now();
+    });
+    host.addEventListener('pointerdown', function(e){
+      const u = toUv(e);
+      queueDrop(u[0], u[1], P.clickStrength, P.clickRadius);
+      px = u[0]; py = u[1]; has = true; lastI = now();
+    });
+    host.addEventListener('pointerleave', function(){ has = false; });
+
+    raf = requestAnimationFrame(frame);
+  }
+
+  ripple('heroCanvas', '.hero', {
+    sandHi: [240,234,216], sandLo: [154,156,122],
+    absorb: [110,58,32], absorbScale: 1.2,
+    deepColor: [92,110,104], deepGain: 0.18,
+    veinColor: [246,242,228], veinGain: 0.12,
+    skyColor: [153,171,166], fresnelGain: 0.18,
+    glintColor: [210,191,129], glintGain: 0.9,
+    baseDepth: 0.75, depthScale: 1.2,
+    floorBase: 0.4, causticGain: 0.34,
+    exposure: 1.7, vigDark: 0.85
+  });
+
+  ripple('showcaseCanvas', '.showcase-art', {
+    sandHi: [122,120,88], sandLo: [46,52,44],
+    absorb: [125,70,40], absorbScale: 2.3,
+    deepColor: [35,42,36], deepGain: 0.5,
+    veinColor: [196,206,200], veinGain: 0.14,
+    skyColor: [92,110,104], fresnelGain: 0.26,
+    glintColor: [210,191,129], glintGain: 1.1,
+    baseDepth: 1.5, depthScale: 1.8,
+    floorBase: 0.24, causticGain: 0.3,
+    exposure: 1.4, grain: 0.03,
+    ambientCount: 3
+  });
+})();
+</script>
 </body>
 </html>
