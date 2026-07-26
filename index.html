@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sasha Tejada Schaps — data scientist</title>
+<title>Sasha Schaps — data scientist</title>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E2DCD0'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2394A5B3'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%2371713B'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%232C3A38'/%3E%3C/g%3E%3C/svg%3E">
 
@@ -13,12 +13,12 @@
 <style>
 
 :root{
-  --bone:#E2DCD0;        
-  --steel:#94A5B3;       
-  --olive:#71713B;       
-  --pine:#2C3A38;       
-  --slate:#4A5D68;     
-  --wire:#B9C6CE;        
+  --bone:#E2DCD0;        /* ground */
+  --steel:#94A5B3;       /* cool blue-grey */
+  --olive:#71713B;       /* dusty olive — the accent */
+  --pine:#2C3A38;        /* ink, deep blue-green */
+  --slate:#4A5D68;       /* hero base, steel taken deep */
+  --wire:#B9C6CE;        /* pale steel hairlines */
 
   --ink:var(--pine);
   --ground:var(--bone);
@@ -62,7 +62,7 @@ a{color:inherit;text-decoration:none}
 }
 .h3{font-size:20px;font-weight:500;letter-spacing:-0.015em;margin:0}
 .lede{font-size:clamp(15px,1.4vw,17px);line-height:1.6;font-weight:300;margin:0}
-/* Utility role: Inter at small size, heavy tracking, all caps */
+
 .eyebrow{
   font-size:10px;
   font-weight:600;
@@ -71,6 +71,7 @@ a{color:inherit;text-decoration:none}
   font-variant-numeric:tabular-nums;
   margin:0;
 }
+
 
 .pill{
   display:inline-block;
@@ -230,12 +231,29 @@ a{color:inherit;text-decoration:none}
   box-shadow:inset 0 0 0 1px rgba(44,58,56,.22);
   padding:5px 11px;
 }
+.meta-note{
+  font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bone);background:var(--olive);
+  padding:4px 8px;margin-left:10px;vertical-align:3px;
+}
+.work-more{
+  margin:26px 0 0;
+  font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+}
+.work-more a{
+  border-bottom:1px solid rgba(44,58,56,.3);padding-bottom:3px;
+  transition:color .2s,border-color .2s;
+}
+.work-more a:hover{color:var(--olive);border-bottom-color:var(--olive)}
 .arrow{
   font-size:22px;color:var(--olive);
   transition:transform .3s cubic-bezier(.2,.8,.2,1);
 }
 .project:hover .arrow{transform:translateX(6px)}
 
+/* ============================================================
+   SHELF — loud band, carried over from the bookshelf build
+   ============================================================ */
 .shelf-band{
   background:var(--pine);
   color:var(--bone);
@@ -365,7 +383,6 @@ a{color:inherit;text-decoration:none}
       <path d="M820 -40 C 880 200, 760 340, 890 540 S 960 700, 920 780"/>
     </g>
 
-
     <g id="wavemark" fill="none" stroke-width="3.4">
       <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#94A5B3"/>
       <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#71713B"/>
@@ -383,7 +400,7 @@ a{color:inherit;text-decoration:none}
 <nav class="nav">
   <a class="mark" href="#top">
     <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wavemark"/></svg>
-    sasha
+    Sasha Schaps
   </a>
   <div class="nav-links">
     <a href="#top" aria-current="page">Home</a>
@@ -418,11 +435,11 @@ a{color:inherit;text-decoration:none}
   <div class="hero-inner">
     <h1 class="display rise">Bearish on hype.<br>Bullish on evidence.</h1>
     <div class="hero-body rise rise--2">
-      <p class="eyebrow">Data scientist &middot; SF &#8596; NYC</p>
-      <p class="lede">I'm Sasha. I work on algorithmic fairness, economic empowerment, and the unglamorous data plumbing that makes either of them possible. Six years at Meta, currently finishing a master's at UC Berkeley.</p>
+      <p class="eyebrow">Sasha Schaps &middot; Data scientist &middot; Bay Area</p>
+      <p class="lede">I'm a Bay Area native and data scientist drawn to natural ordered networks and colored clay. I build analysis the way nerikomi is built &mdash; the pattern runs through the whole body, not painted on at the end. Currently at UC Berkeley's School of Information.</p>
       <div class="hero-cta">
-        <a class="pill" href="#work">See selected work</a>
-        <a class="pill pill--ghost" href="#about">Read the long version</a>
+        <a class="pill" href="#work">See the work</a>
+        <a class="pill pill--ghost" href="/about.html">More about me</a>
       </div>
     </div>
   </div>
@@ -432,12 +449,12 @@ a{color:inherit;text-decoration:none}
 <section class="strip">
   <div class="wrap">
     <ul>
-      <li>UC Berkeley MIDS</li>
-      <li>Meta &mdash; 6 years</li>
-      <li>Algorithmic fairness</li>
-      <li>Python &middot; R &middot; SQL</li>
-      <li>Causal inference</li>
-      <li>Mandarin &middot; Italian</li>
+      <li>UC Berkeley I School</li>
+      <li>UT Austin McCombs</li>
+      <li>R &middot; Python &middot; SQL</li>
+      <li>Regression &amp; EDA</li>
+      <li>Bay Area native</li>
+      <li>Mandarin</li>
     </ul>
   </div>
 </section>
@@ -457,14 +474,14 @@ a{color:inherit;text-decoration:none}
           <use href="#wires" opacity=".3"/>
           <rect width="1200" height="675" fill="url(#crawl)" opacity=".7"/>
         </svg>
-        <p class="showcase-label">Evidence over vibes</p>
+        <p class="showcase-label">Through and through</p>
       </div>
       <div class="showcase-foot">
         <div>
-          <h2 class="h2">Models that hold up<br>outside the notebook</h2>
-          <a class="pill" href="#work">See selected work</a>
+          <h2 class="h2">Patterned through,<br>not painted on</h2>
+          <a class="pill" href="#work">See the work</a>
         </div>
-        <p>Fairness audits, housing affordability research, and one deeply committed satirical plant-survival engine. Different subjects, same discipline &mdash; name the assumption, test it, then report what actually happened rather than what you hoped would.</p>
+        <p>Nerikomi builds its pattern into the body of the clay, so a cross-section shows the same design as the surface. Analysis should hold up the same way &mdash; state the assumption, test it, name the confound that could undo it, then report what the data actually said. Every project below documents its own limitations.</p>
       </div>
     </div>
   </div>
@@ -476,67 +493,84 @@ a{color:inherit;text-decoration:none}
     <div class="section-head">
       <div>
         <p class="eyebrow">Selected work</p>
-        <h2 class="h2">Three projects, one method</h2>
-      </div>
-      <p>Each of these started as a question I couldn't answer from the existing literature, and ended somewhere more complicated than where it began.</p>
-    </div>
 
-    <a class="project" href="#">
+    <a class="project" href="https://observablehq.com/d/43405b7a594c53cf" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <rect width="500" height="300" fill="#2C3A38"/>
           <g filter="url(#warp-sm)">
-            <ellipse cx="150" cy="120" rx="150" ry="110" fill="#71713B"/>
-            <ellipse cx="380" cy="200" rx="140" ry="100" fill="#4A5D68"/>
+            <ellipse cx="150" cy="120" rx="150" ry="110" fill="#4A5D68"/>
+            <ellipse cx="380" cy="200" rx="140" ry="100" fill="#94A5B3" opacity=".9"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
-        <h3 class="h3">EquiScan</h3>
-        <p>An audit of AI mammography screening models across demographic subgroups &mdash; tracing where sensitivity quietly drops off and who ends up absorbing the cost of that gap.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">Fairness metrics</span><span class="tag">Healthcare</span></div>
+        <h3 class="h3">Let&#8217;s Not Boil the Ocean <span class="meta-note">Current</span></h3>
+        <p>An Observable notebook visualizing climate vulnerability across selected California fishery species. The underlying assessment is the work of a lab, state fisheries, and NOAA &mdash; my contribution is the analysis layer that makes it readable.</p>
+        <div class="tags"><span class="tag">Observable</span><span class="tag">D3</span><span class="tag">Climate data</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
-    <a class="project" href="#">
+    <a class="project" href="https://sashaschaps.com/bullish-on-sharks" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <rect width="500" height="300" fill="#2C3A38"/>
           <g filter="url(#warp-sm)">
             <ellipse cx="180" cy="200" rx="160" ry="110" fill="#94A5B3"/>
-            <ellipse cx="370" cy="90" rx="140" ry="95" fill="#71713B" opacity=".9"/>
+            <ellipse cx="370" cy="90" rx="140" ry="95" fill="#4A5D68" opacity=".9"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
-        <h3 class="h3">The rent-burden panel</h3>
-        <p>Rent burden across 40 metro areas modeled against wage growth and permit volume, to test whether supply-side explanations actually survive contact with the panel data.</p>
-        <div class="tags"><span class="tag">R</span><span class="tag">Panel data</span><span class="tag">Housing policy</span></div>
+        <h3 class="h3">Bullish on Sharks</h3>
+        <p>A global exploratory analysis of shark-human encounters from the Global Shark Attack File, asking how patterns shift across geography, activity, and time &mdash; and which factors associate with fatal outcomes. Reporting bias is the dominant confound, read at your own risk.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">EDA</span><span class="tag">Data cleaning</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
-    <a class="project" href="#">
+    <a class="project" href="https://github.com/sascha-pst/dozed-and-confused" target="_blank" rel="noopener">
       <div class="project-thumb">
         <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <rect width="500" height="300" fill="#2C3A38"/>
           <g filter="url(#warp-sm)">
             <ellipse cx="140" cy="90" rx="150" ry="100" fill="#71713B" opacity=".95"/>
-            <ellipse cx="360" cy="220" rx="150" ry="110" fill="#94A5B3" opacity=".85"/>
+            <ellipse cx="360" cy="220" rx="150" ry="110" fill="#4A5D68" opacity=".9"/>
           </g>
           <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
         </svg>
       </div>
       <div>
-        <h3 class="h3">Will It Houseplant?</h3>
-        <p>A deadpan field guide scoring 80 tropical species against the light, humidity, and substrate reality of an actual North American apartment. The answer is usually no.</p>
-        <div class="tags"><span class="tag">Pydantic</span><span class="tag">SVG</span><span class="tag">Field guide</span></div>
+        <h3 class="h3">Dozed and Confused</h3>
+        <p>Regression modeling on a synthetic wellbeing dataset of 3,000 students, testing how sleep and screen time relate to academic performance. Synthetic data means the coefficients are a modeling exercise, not a finding about real students.</p>
+        <div class="tags"><span class="tag">R</span><span class="tag">Regression</span><span class="tag">Diagnostics</span></div>
       </div>
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
+
+    <a class="project" href="https://github.com/sascha-pst/hsk3-tutor" target="_blank" rel="noopener">
+      <div class="project-thumb">
+        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="500" height="300" fill="#2C3A38"/>
+          <g filter="url(#warp-sm)">
+            <ellipse cx="160" cy="180" rx="150" ry="105" fill="#71713B"/>
+            <ellipse cx="370" cy="110" rx="150" ry="105" fill="#94A5B3" opacity=".8"/>
+          </g>
+          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 class="h3">HSK 3 Tutor</h3>
+        <p>An interactive drill app for the HSK 3 Chinese vocabulary list, built in React. Written so my mom knows I'm still using my previous masters.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">Mandarin</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+
+    <p class="work-more"><a href="https://github.com/sascha-pst" target="_blank" rel="noopener">Coursework and everything else on GitHub &rarr;</a></p>
   </div>
 </section>
 
@@ -569,21 +603,21 @@ a{color:inherit;text-decoration:none}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <p class="eyebrow">Currently</p>
-        <h2 class="h2">Finishing a master's, throwing pots,<br>and looking for the next hard problem.</h2>
+        <p class="eyebrow">Contact</p>
+        <h2 class="h2">Off the keyboard, I'm spinning my wheels.<br>On it, I'm looking for the next hard problem.</h2>
       </div>
       <div class="foot-links">
-        <a href="mailto:hello@example.com">Email</a>
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Resume &#8595;</a>
+        <a href="mailto:sasha.schaps@gmail.com">Email</a>
+        <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley email</a>
+        <a href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub</a>
+        <a href="/about.html">About</a>
       </div>
     </div>
     <hr class="foot-rule">
     <div class="colophon">
-      <span><svg viewBox="0 0 32 32" aria-hidden="true" style="width:16px;height:16px"><use href="#wavemark-light"/></svg>Sasha Tejada Schaps</span>
-      <span>Set in Inter</span>
-      <span>Built with Jekyll</span>
+      <span><svg viewBox="0 0 32 32" aria-hidden="true" style="width:16px;height:16px"><use href="#wavemark-light"/></svg>Sasha Schaps</span>
+      <span>Let's get the wheel spinning</span>
+      <span>Set in Inter &middot; Built with Jekyll</span>
     </div>
   </div>
 </footer>
