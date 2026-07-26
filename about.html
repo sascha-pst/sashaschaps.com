@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Sasha Schaps</title>
+<meta name="description" content="About Sasha Schaps — data scientist in training at UC Berkeley MIDS, former program manager, potter at the wheel.">
+<meta name="theme-color" content="#F0EAD8">
+
+<meta property="og:title" content="About — Sasha Schaps">
+<meta property="og:description" content="Berkeley MIDS · the maker behind the marbled porcelain.">
+<meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://sashaschaps.com/about.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F2E4'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2399ABA6'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%23ACB090'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%236F6C43'/%3E%3C/g%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bone:   #F0EAD8;
+        --steel:  #99ABA6;
+        --olive:  #6F6C43;
+        --pine:   #2F3830;
+        --slate:  #5C6E68;
+        --wire:   #C0CCC6;
+        --ochre:  #D2BF81;
+
+        --lily:   #D9E0DB;
+        --water:  #B3C2BC;
+        --moss:   #ACB090;
+        --sprout: #C9C49E;
+        --cream:  #F6F2E4;
+
+        --ink:    var(--pine);
+        --ground: var(--bone);
+        --accent: var(--olive);
+
+        --rail: max(24px, calc((100vw - 1080px) / 2));
+        --display: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --mono:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+        margin: 0;
+        background: var(--bone);
+        color: var(--pine);
+        font-family: var(--body);
+        font-size: 1rem;
+        line-height: 1.62;
+    }
+    p { font-weight: 300; }
+    ::selection { background: var(--olive); color: #fff; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--olive);
+        outline-offset: 3px;
+    }
+
+    .skip {
+        position: absolute;
+        left: -9999px;
+        top: 12px;
+        z-index: 100;
+        background: var(--pine);
+        color: var(--cream);
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        padding: 10px 16px;
+        text-decoration: none;
+    }
+    .skip:focus { left: 12px; }
+    .kicker {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--olive);
+        margin: 0 0 22px;
+    }
+
+    .brand { display: inline-flex; align-items: center; gap: 10px; }
+    .brandmark { width: 22px; height: 22px; flex: none; display: block; }
+
+    nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 50;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px var(--rail);
+    }
+    nav::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--cream) 82%, transparent);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid color-mix(in srgb, var(--pine) 8%, transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+    nav.scrolled::before { opacity: 1; }
+    nav .brand, nav .links { position: relative; }
+    nav .brand {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 0.88rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+    nav .links a {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        text-decoration: none;
+        opacity: 0.74;
+        padding: 14px 9px;
+        display: inline-block;
+        transition: opacity 0.25s, color 0.25s, text-shadow 0.25s;
+    }
+    nav .brand, nav .links a {
+        color: var(--cream);
+        text-shadow: 0 1px 2px rgba(47,56,48,0.55), 0 2px 10px rgba(47,56,48,0.4);
+    }
+    nav.scrolled .brand, nav.scrolled .links a {
+        color: var(--pine);
+        text-shadow: none;
+    }
+    nav .links a[aria-current] { opacity: 1; }
+    nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--water); }
+    nav.scrolled .links a:hover, nav.scrolled .links a:focus-visible { color: var(--olive); }
+
+    .hero {
+        position: relative;
+        height: clamp(420px, 62svh, 640px);
+        overflow: hidden;
+    }
+    canvas#slab {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        cursor: crosshair;
+        touch-action: pan-y;
+    }
+    .glaze-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+            linear-gradient(100deg, rgba(47,56,48,0.55), rgba(47,56,48,0.18) 45%, transparent 70%),
+            linear-gradient(180deg, rgba(47,56,48,0.35), transparent 30%, transparent 75%, rgba(47,56,48,0.28) 100%);
+    }
+    .hero-inner {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 var(--rail);
+    }
+    .eyebrow {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--cream);
+        opacity: 0.9;
+        margin: 0 0 20px;
+        text-shadow: 0 1px 3px rgba(47,56,48,0.7), 0 2px 12px rgba(47,56,48,0.6);
+    }
+    h1 {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(2.15rem, 4.5vw, 3.7rem);
+        line-height: 1.06;
+        letter-spacing: -0.03em;
+        margin: 0;
+        max-width: 16ch;
+        text-wrap: balance;
+        color: var(--cream);
+        text-shadow: 0 1px 3px rgba(47,56,48,0.7), 0 3px 12px rgba(47,56,48,0.55), 0 8px 30px rgba(47,56,48,0.45);
+    }
+    h1 em, h2 em, .lead em { font-style: italic; font-weight: 500; }
+    h1 em { color: var(--water); }
+    h2 em, .lead em { color: var(--steel); }
+    .hero-hint {
+        font-family: var(--mono);
+        font-weight: 600;
+        margin: 1.4rem 0 0;
+        color: var(--cream);
+        opacity: 0.85;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-shadow: 0 1px 3px rgba(47,56,48,0.7), 0 2px 12px rgba(47,56,48,0.6);
+    }
+    .hero-hint::before {
+        content: "";
+        width: 2.2rem;
+        height: 1px;
+        background: var(--cream);
+        opacity: 0.7;
+    }
+    .hero-actions {
+        position: absolute;
+        right: var(--rail);
+        bottom: 2rem;
+        display: flex;
+        gap: 0.75rem;
+    }
+    .hero-actions button {
+        pointer-events: auto;
+        font-family: var(--mono);
+        font-size: 0.64rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0.7rem 1.3rem;
+        border: 1px solid rgba(246,242,228,0.55);
+        background: rgba(47,56,48,0.3);
+        color: var(--cream);
+        cursor: pointer;
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        transition: background 0.25s;
+    }
+    .hero-actions button:hover { background: rgba(47,56,48,0.55); }
+
+    section { padding: 110px var(--rail); }
+    h2 {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+        letter-spacing: -0.02em;
+        margin: 0 0 16px;
+    }
+    section p { max-width: 60ch; }
+    section a { color: var(--olive); }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        gap: clamp(40px, 6vw, 90px);
+        margin-top: 8px;
+    }
+    .lead {
+        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+        line-height: 1.55;
+    }
+    .about-aside {
+        display: grid;
+        gap: 44px;
+        align-content: start;
+        justify-items: start;
+    }
+
+    .details { margin: 0; width: 100%; }
+    .details .row {
+        display: grid;
+        grid-template-columns: 108px 1fr;
+        gap: 18px;
+        padding: 13px 0;
+        border-top: 1px solid color-mix(in srgb, var(--pine) 14%, transparent);
+    }
+    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--pine) 14%, transparent); }
+    .details dt {
+        font-family: var(--mono);
+        font-size: 0.63rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--slate);
+        padding-top: 3px;
+    }
+    .details dd { margin: 0; font-size: 0.97rem; line-height: 1.55; }
+
+    .slice-btn {
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .slice-btn:focus-visible { outline: 2px solid var(--olive); outline-offset: 6px; }
+    .slice-mark {
+        width: min(220px, 40vw);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+            repeating-radial-gradient(circle at 42% 46%,
+                var(--cream) 0 9px, var(--lily) 9px 17px,
+                var(--moss) 17px 24px, var(--slate) 24px 30px);
+        box-shadow: inset 0 0 0 6px var(--cream), 0 14px 34px rgba(47,56,48,0.28);
+        transition: transform 0.35s ease;
+    }
+    .slice-btn:hover .slice-mark { transform: rotate(10deg); }
+    @keyframes spin-slice { to { transform: rotate(720deg); } }
+    .slice-mark.spinning { animation: spin-slice 1.5s cubic-bezier(0.12, 0.68, 0.16, 0.99); }
+
+    #contact { padding-bottom: 90px; }
+    .bigmail {
+        font-family: var(--display);
+        font-weight: 500;
+        font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+        letter-spacing: -0.01em;
+        color: var(--pine);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 7px;
+    }
+    .alt-links { margin-top: 22px; }
+    .alt-links a {
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--slate);
+        text-decoration: none;
+        display: inline-block;
+        padding: 10px 16px 10px 0;
+    }
+    .alt-links a:hover, .alt-links a:focus-visible { color: var(--olive); }
+
+    footer {
+        padding: 0 var(--rail) 54px;
+        text-align: center;
+    }
+    .foot-rule {
+        border: none;
+        border-top: 1px solid color-mix(in srgb, var(--pine) 14%, transparent);
+        margin: 0 0 40px;
+    }
+    .foot-nav a {
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--slate);
+        text-decoration: none;
+        display: inline-block;
+        padding: 10px 12px;
+    }
+    .foot-nav a:hover, .foot-nav a:focus-visible { color: var(--olive); }
+    .signoff {
+        font-family: var(--mono);
+        font-size: 0.63rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--slate);
+        line-height: 2.1;
+    }
+
+    .js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .js .rv.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .js .rv { opacity: 1; transform: none; transition: none; }
+        .slice-mark { transition: none; }
+        .slice-mark.spinning { animation: none; }
+        .hero-actions button { transition: none; }
+    }
+
+    @media (max-width: 920px) {
+        body { font-size: 0.98rem; }
+        nav { padding: 6px 16px; gap: 10px; }
+        nav .brand { font-size: 0.92rem; white-space: nowrap; letter-spacing: 0.1em; }
+        nav .links { display: flex; flex-wrap: wrap; justify-content: flex-end; row-gap: 0; }
+        nav .links a { padding: 11px 7px; font-size: 0.72rem; letter-spacing: 0.12em; }
+        .hero { height: clamp(420px, 72svh, 640px); }
+        .hero-inner { padding: 0 18px 4.5rem; justify-content: flex-end; }
+        .hero-actions { right: 1.2rem; bottom: 1.4rem; }
+        .glaze-overlay {
+            background:
+                linear-gradient(180deg, rgba(47,56,48,0.5), rgba(47,56,48,0.16) 32%, rgba(47,56,48,0.16) 60%, rgba(47,56,48,0.55) 100%),
+                linear-gradient(100deg, rgba(47,56,48,0.4), transparent 75%);
+        }
+        section { padding: 78px 18px; }
+        .about-grid { grid-template-columns: 1fr; gap: 40px; }
+        .about-aside { justify-items: start; }
+    }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#maker">Skip to content</a>
+
+<nav aria-label="Site">
+    <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true" class="brandmark">
+            <g fill="none" stroke-width="3.4">
+                <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#99ABA6"/>
+                <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#ACB090"/>
+                <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#6F6C43"/>
+            </g>
+        </svg>
+        Sasha Schaps
+    </a>
+    <div class="links">
+        <a href="/#work">Work</a>
+        <a href="/#reading">Reading</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<header class="hero">
+    <canvas id="slab" aria-label="Interactive marbled clay in ocean blues. Drag to deform the layers."></canvas>
+    <div class="glaze-overlay" aria-hidden="true"></div>
+    <div class="hero-inner">
+        <p class="eyebrow">About</p>
+        <h1>Wedged out of <em>words</em>.</h1>
+        <p class="hero-hint">Drag to shape the clay</p>
+    </div>
+    <div class="hero-actions">
+        <button id="rewedge" type="button">Re-wedge</button>
+    </div>
+</header>
+
+<main>
+    <section id="maker">
+        <p class="kicker rv">The maker</p>
+        <h2 class="rv">Through and <em>through</em>.</h2>
+        <div class="about-grid">
+            <div>
+                <p class="lead rv">I'm Sasha — a Bay Area native and aspiring data scientist inspired by natural ordered networks and colored clay.</p>
+                <p class="rv">Current project: <a href="https://observablehq.com/d/43405b7a594c53cf"><em>Let's Not Boil the Ocean</em></a> — an Observable notebook exploring the <a href="https://github.com/thfrawley/California_State_CVA">climate vulnerability assessments</a> of California marine species, building on research from a partnership between an academic lab, the state fisheries department, and NOAA.</p>
+                <p class="rv">Off the keyboard, I'm spinning my wheels.</p>
+            </div>
+            <div class="about-aside">
+                <button class="slice-btn rv" id="slice" type="button" aria-label="A nerikomi cross-section of concentric blue clay rings — press to give it a spin">
+                    <div class="slice-mark" aria-hidden="true"></div>
+                </button>
+                <dl class="details rv">
+                    <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science (MIDS)</dd></div>
+                    <div class="row"><dt>Focus areas</dt><dd>Statistics · machine learning · data visualization</dd></div>
+                    <div class="row"><dt>Before this</dt><dd>Program management &amp; content strategy</dd></div>
+                    <div class="row"><dt>Elsewhere</dt><dd><a href="https://github.com/sascha-pst">GitHub</a></dd></div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <p class="kicker rv">Correspondence</p>
+        <h2 class="rv">Say hello.</h2>
+        <p class="rv"><a class="bigmail" href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></p>
+        <div class="alt-links rv">
+            <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley mail</a>
+            <a href="https://github.com/sascha-pst">GitHub</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <hr class="foot-rule">
+    <div class="foot-nav">
+        <a href="/#work">Selected work</a>
+        <a href="/#reading">Reading</a>
+        <a href="/dozed-and-confused">Dozed and Confused</a>
+        <a href="/bullish-on-sharks">Bullish on Sharks</a>
+        <a href="https://linkedin.com/in/sashaschaps">LinkedIn</a>
+        <a href="https://github.com/sascha-pst">GitHub</a>
+    </div>
+    <p class="signoff">Can't wait to get the wheel spinning.<br>© Sasha Schaps ✌︎</p>
+</footer>
+
+<script>
+(function () {
+    'use strict';
+    var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var navEl = document.querySelector('nav');
+    var sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
+    document.body.prepend(sentinel);
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+            navEl.classList.toggle('scrolled', !entries[0].isIntersecting);
+        }).observe(sentinel);
+    } else {
+        navEl.classList.add('scrolled');
+    }
+
+    var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+    if ('IntersectionObserver' in window && motionOK) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        rvs.forEach(function (el) { io.observe(el); });
+    } else {
+        rvs.forEach(function (el) { el.classList.add('in'); });
+    }
+})();
+</script>
+
+<script>
+(() => {
+  const canvas = document.getElementById('slab');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PALETTE = ['#F6F2E4', '#D9E0DB', '#B3C2BC', '#ACB090', '#5C6E68', '#2F3830'];
+  const STEP = 8;
+  const N_BOUND = 11;
+  let W = 0, H = 0, DPR = 1, COLS = 0;
+  let base = [];
+  let disp = [];
+  let grain = null;
+  let t = 0;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    COLS = Math.ceil(W / STEP) + 2;
+    initField();
+    makeGrain();
+  }
+  function initField(){
+    base = []; disp = [];
+    for (let b = 0; b < N_BOUND; b++){
+      base.push((b + 1) / (N_BOUND + 1) * H);
+      const row = new Float32Array(COLS);
+      const amp = 6 + Math.random() * 10;
+      const freq = 0.008 + Math.random() * 0.01;
+      const phase = Math.random() * Math.PI * 2;
+      for (let c = 0; c < COLS; c++){
+        row[c] = Math.sin(c * STEP * freq + phase) * amp;
+      }
+      disp.push(row);
+    }
+  }
+  function makeGrain(){
+    grain = document.createElement('canvas');
+    grain.width = 160; grain.height = 160;
+    const g = grain.getContext('2d');
+    const img = g.createImageData(160,160);
+    for (let i = 0; i < img.data.length; i += 4){
+      const v = 200 + Math.random() * 55;
+      img.data[i] = img.data[i+1] = img.data[i+2] = v;
+      img.data[i+3] = Math.random() * 18;
+    }
+    g.putImageData(img,0,0);
+  }
+  let last = null;
+  function pull(x, y, dy){
+    const sigX = 75, sigY = 80;
+    const maxPull = 20;
+    const d = Math.max(-maxPull, Math.min(maxPull, dy));
+    const c0 = Math.max(0, Math.floor((x - sigX*2)/STEP));
+    const c1 = Math.min(COLS-1, Math.ceil((x + sigX*2)/STEP));
+    for (let b = 0; b < N_BOUND; b++){
+      const by = base[b];
+      const fy = Math.exp(-((by - y)**2) / (2 * sigY * sigY));
+      if (fy < 0.02) continue;
+      const row = disp[b];
+      for (let c = c0; c <= c1; c++){
+        const fx = Math.exp(-((c*STEP - x)**2) / (2 * sigX * sigX));
+        row[c] += d * fx * fy;
+      }
+    }
+  }
+  function pointerMove(x, y){
+    if (last){
+      const dy = y - last.y;
+      pull(x, y, dy);
+      maybeCrunch(dy);
+    }
+    last = {x, y};
+  }
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    pointerMove(e.clientX - r.left, e.clientY - r.top);
+  });
+  canvas.addEventListener('mouseleave', () => last = null);
+  canvas.addEventListener('touchstart', e => {
+    const r = canvas.getBoundingClientRect();
+    const tch = e.touches[0];
+    last = {x: tch.clientX - r.left, y: tch.clientY - r.top};
+  }, {passive:true});
+  canvas.addEventListener('touchmove', e => {
+    const r = canvas.getBoundingClientRect();
+    const tch = e.touches[0];
+    pointerMove(tch.clientX - r.left, tch.clientY - r.top);
+  }, {passive:true});
+  canvas.addEventListener('touchend', () => last = null);
+  document.getElementById('rewedge').addEventListener('click', initField);
+  const audio = { ctx: null, noise: null, lastGrain: 0 };
+  function initAudio(){
+    if (audio.ctx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    audio.ctx = new AC();
+    const len = audio.ctx.sampleRate;
+    audio.noise = audio.ctx.createBuffer(1, len, audio.ctx.sampleRate);
+    const d = audio.noise.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  }
+  function unlockAudio(){
+    initAudio();
+    if (audio.ctx && audio.ctx.state === 'suspended') audio.ctx.resume();
+  }
+  ['pointerdown','keydown','touchend'].forEach(ev =>
+    document.addEventListener(ev, unlockAudio, { once: true, passive: true }));
+  function scheduleCrunch(intensity){
+    const t0 = audio.ctx.currentTime;
+    const grains = 2 + Math.round(intensity * 5);
+    for (let i = 0; i < grains; i++){
+      const src = audio.ctx.createBufferSource();
+      src.buffer = audio.noise;
+      src.playbackRate.value = 0.7 + Math.random() * 0.8;
+      const bp = audio.ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.value = 350 + Math.random() * 1400;
+      bp.Q.value = 0.8 + Math.random() * 1.4;
+      const g = audio.ctx.createGain();
+      const at = t0 + Math.random() * 0.07;
+      const dur = 0.03 + Math.random() * 0.07 + intensity * 0.05;
+      const peak = (0.01 + Math.random() * 0.025) * (0.4 + intensity);
+      g.gain.setValueAtTime(0, at);
+      g.gain.linearRampToValueAtTime(peak, at + 0.006);
+      g.gain.exponentialRampToValueAtTime(0.0005, at + dur);
+      src.connect(bp).connect(g).connect(audio.ctx.destination);
+      src.start(at, Math.random() * 0.8, dur + 0.05);
+    }
+    if (intensity > 0.8){
+      const o = audio.ctx.createOscillator();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(120, t0);
+      o.frequency.exponentialRampToValueAtTime(45, t0 + 0.18);
+      const og = audio.ctx.createGain();
+      og.gain.setValueAtTime(0.1, t0);
+      og.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
+      o.connect(og).connect(audio.ctx.destination);
+      o.start(t0); o.stop(t0 + 0.25);
+    }
+  }
+  function crunch(intensity){
+    if (!audio.ctx) return;
+    if (audio.ctx.state === 'suspended'){
+      audio.ctx.resume().then(() => scheduleCrunch(intensity));
+      return;
+    }
+    scheduleCrunch(intensity);
+  }
+  function maybeCrunch(dy){
+    const now = performance.now();
+    const speed = Math.abs(dy);
+    if (speed < 3 || now - audio.lastGrain < 90) return;
+    audio.lastGrain = now;
+    crunch(Math.min(1, speed / 26) * 0.7);
+  }
+  document.getElementById('rewedge').addEventListener('click', () => { unlockAudio(); crunch(1); });
+
+  const sliceBtn = document.getElementById('slice');
+  const sliceMark = sliceBtn.querySelector('.slice-mark');
+  sliceBtn.addEventListener('click', () => {
+    unlockAudio();
+    crunch(0.6);
+    sliceMark.classList.remove('spinning');
+    void sliceMark.offsetWidth;
+    sliceMark.classList.add('spinning');
+  });
+  sliceMark.addEventListener('animationend', () => sliceMark.classList.remove('spinning'));
+  function smooth(){
+    for (let b = 0; b < N_BOUND; b++){
+      const row = disp[b];
+      let prev = row[0];
+      for (let c = 1; c < COLS - 1; c++){
+        const cur = row[c];
+        row[c] = cur * 0.9 + (prev + row[c+1]) * 0.05;
+        prev = cur;
+      }
+    }
+    for (let b = 1; b < N_BOUND; b++){
+      const a = disp[b-1], r = disp[b];
+      for (let c = 0; c < COLS; c++){
+        const m = (a[c] + r[c]) * 0.5;
+        a[c] += (m - a[c]) * 0.015;
+        r[c] += (m - r[c]) * 0.015;
+      }
+    }
+  }
+  function boundaryY(b, c){
+    let y = base[b] + disp[b][c];
+    if (!reduceMotion){
+      y += Math.sin(t * 0.0006 + b * 1.7 + c * STEP * 0.004) * 2.5;
+    }
+    return y;
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for (let band = 0; band <= N_BOUND; band++){
+      ctx.beginPath();
+      if (band === 0){
+        ctx.moveTo(0,0); ctx.lineTo(W,0);
+      } else {
+        const b = band - 1;
+        ctx.moveTo(0, boundaryY(b,0));
+        for (let c = 1; c < COLS; c++) ctx.lineTo(c*STEP, boundaryY(b,c));
+      }
+      if (band === N_BOUND){
+        ctx.lineTo(W,H); ctx.lineTo(0,H);
+      } else {
+        for (let c = COLS-1; c >= 0; c--) ctx.lineTo(c*STEP, boundaryY(band,c));
+      }
+      ctx.closePath();
+      ctx.fillStyle = PALETTE[band % PALETTE.length];
+      ctx.fill();
+    }
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = ctx.createPattern(grain,'repeat');
+    ctx.fillRect(0,0,W,H);
+    ctx.restore();
+  }
+  function loop(now){
+    t = now;
+    smooth();
+    draw();
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  if (reduceMotion){
+    draw();
+    const redraw = () => { smooth(); draw(); };
+    canvas.addEventListener('mousemove', redraw);
+    canvas.addEventListener('touchmove', redraw, {passive:true});
+    document.getElementById('rewedge').addEventListener('click', draw);
+  } else {
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
