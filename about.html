@@ -25,7 +25,7 @@
 
 <style>
     :root {
-        /* ===== PALETTE — matches index.html ===== */
+
         --bone:   #F0EAD8;
         --steel:  #99ABA6;
         --olive:  #6F6C43;
@@ -93,7 +93,6 @@
     .brand { display: inline-flex; align-items: center; gap: 10px; }
     .brandmark { width: 22px; height: 22px; flex: none; display: block; }
 
-    /* ============ NAV ============ */
     nav {
         position: fixed;
         top: 0; left: 0; right: 0;
@@ -148,7 +147,6 @@
     nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--water); }
     nav.scrolled .links a:hover, nav.scrolled .links a:focus-visible { color: var(--olive); }
 
-    /* ============ HERO : the slab ============ */
     .hero {
         position: relative;
         height: clamp(420px, 62svh, 640px);
@@ -252,7 +250,6 @@
     }
     .hero-actions button:hover { background: rgba(47,56,48,0.55); }
 
-    /* ============ SECTIONS (matches index) ============ */
     section { padding: 110px var(--rail); }
     h2 {
         font-family: var(--display);
@@ -324,7 +321,6 @@
     @keyframes spin-slice { to { transform: rotate(720deg); } }
     .slice-mark.spinning { animation: spin-slice 1.5s cubic-bezier(0.12, 0.68, 0.16, 0.99); }
 
-    /* ============ CONTACT + FOOTER (matches index) ============ */
     #contact { padding-bottom: 90px; }
     .bigmail {
         font-family: var(--display);
@@ -380,7 +376,6 @@
         line-height: 2.1;
     }
 
-    /* ============ REVEALS (matches index) ============ */
     .js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .js .rv.in { opacity: 1; transform: none; }
 
@@ -392,7 +387,6 @@
         .hero-actions button { transition: none; }
     }
 
-    /* ============ SMALL SCREENS (matches index) ============ */
     @media (max-width: 920px) {
         body { font-size: 0.98rem; }
         nav { padding: 6px 16px; gap: 10px; }
@@ -431,7 +425,7 @@
     <div class="links">
         <a href="/#work">Work</a>
         <a href="/#reading">Reading</a>
-        <a href="about.html" aria-current="page">About</a>
+        <a href="/about" aria-current="page">About</a>
         <a href="#contact">Contact</a>
     </div>
 </nav>
@@ -456,7 +450,7 @@
         <div class="about-grid">
             <div>
                 <p class="lead rv">I'm Sasha — a Bay Area native and aspiring data scientist inspired by natural ordered networks and colored clay.</p>
-                <p class="rv">Current project: <a href="https://observablehq.com/d/43405b7a594c53cf"><em>Let's Not Boil the Ocean</em></a> — an Observable notebook exploring the <a href="https://github.com/thfrawley/California_State_CVA">climate vulnerability assessments</a> of California marine species, building a way to visaulize research done by some pretty awesome marine biology work.</p>
+                <p class="rv">Current project: <a href="https://observablehq.com/d/43405b7a594c53cf"><em>Let's Not Boil the Ocean</em></a> — an Observable notebook exploring the <a href="https://github.com/thfrawley/California_State_CVA">climate vulnerability assessments</a> of California marine species, building on research from a partnership between an academic lab, the state fisheries department, and NOAA.</p>
                 <p class="rv">Off the keyboard, I'm spinning my wheels.</p>
             </div>
             <div class="about-aside">
@@ -502,7 +496,6 @@
     'use strict';
     var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ---------- nav blur ----------
     var navEl = document.querySelector('nav');
     var sentinel = document.createElement('div');
     sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
@@ -515,7 +508,6 @@
         navEl.classList.add('scrolled');
     }
 
-    // ---------- reveals ----------
     var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
     if ('IntersectionObserver' in window && motionOK) {
         var io = new IntersectionObserver(function (entries) {
@@ -535,7 +527,7 @@
   const canvas = document.getElementById('slab');
   const ctx = canvas.getContext('2d');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // lily-pond bands — same tokens as the homepage
+
   const PALETTE = ['#F6F2E4', '#D9E0DB', '#B3C2BC', '#ACB090', '#5C6E68', '#2F3830'];
   const STEP = 8;
   const N_BOUND = 11;
@@ -579,7 +571,7 @@
     }
     g.putImageData(img,0,0);
   }
-  // --- interaction -----------------
+
   let last = null;
   function pull(x, y, dy){
     const sigX = 75, sigY = 80;
@@ -623,7 +615,7 @@
   }, {passive:true});
   canvas.addEventListener('touchend', () => last = null);
   document.getElementById('rewedge').addEventListener('click', initField);
-  // --- clay crunch: --------------------
+
   const audio = { ctx: null, noise: null, lastGrain: 0 };
   function initAudio(){
     if (audio.ctx) return;
@@ -690,7 +682,7 @@
     crunch(Math.min(1, speed / 26) * 0.7);
   }
   document.getElementById('rewedge').addEventListener('click', () => { unlockAudio(); crunch(1); });
-  // --- nerikomi slice: ---------------
+
   const sliceBtn = document.getElementById('slice');
   const sliceMark = sliceBtn.querySelector('.slice-mark');
   sliceBtn.addEventListener('click', () => {
@@ -701,7 +693,7 @@
     sliceMark.classList.add('spinning');
   });
   sliceMark.addEventListener('animationend', () => sliceMark.classList.remove('spinning'));
-  // --- simulation + draw ------------------------------------------
+
   function smooth(){
     for (let b = 0; b < N_BOUND; b++){
       const row = disp[b];
