@@ -244,6 +244,13 @@ a{color:inherit;text-decoration:none}
   background:var(--pine);
 }
 .project-thumb svg{position:absolute;inset:0;width:100%;height:100%}
+.project-thumb img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.project:hover .project-thumb img{transform:scale(1.04)}
+@media (prefers-reduced-motion:reduce){.project:hover .project-thumb img{transform:none}}
 .project h3{margin:0 0 6px}
 .project p{margin:0 0 10px;color:rgba(47,56,48,.75);font-size:15px;max-width:56ch}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
@@ -511,14 +518,7 @@ a{color:inherit;text-decoration:none}
 
     <a class="project" href="https://observablehq.com/d/43405b7a594c53cf" target="_blank" rel="noopener">
       <div class="project-thumb">
-        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2F3830"/>
-          <g filter="url(#warp-sm)">
-            <ellipse cx="150" cy="120" rx="150" ry="110" fill="#5C6E68"/>
-            <ellipse cx="380" cy="200" rx="140" ry="100" fill="#99ABA6" opacity=".9"/>
-          </g>
-          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
-        </svg>
+        <img src="/thumb-ocean.jpg" alt="A rusted fishing ship stranded on the dry bed of the Aral Sea" loading="lazy" width="1000" height="600">
       </div>
       <div>
         <h3 class="h3">Let&#8217;s Not Boil the Ocean <span class="meta-note">Current</span></h3>
@@ -530,14 +530,7 @@ a{color:inherit;text-decoration:none}
 
     <a class="project" href="/bullish-on-sharks">
       <div class="project-thumb">
-        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2F3830"/>
-          <g filter="url(#warp-sm)">
-            <ellipse cx="180" cy="200" rx="160" ry="110" fill="#99ABA6"/>
-            <ellipse cx="370" cy="90" rx="140" ry="95" fill="#5C6E68" opacity=".9"/>
-          </g>
-          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
-        </svg>
+        <img src="/thumb-sharks.jpg" alt="High-desert scrub and sandstone at dusk under a pastel sky" loading="lazy" width="1000" height="600">
       </div>
       <div>
         <h3 class="h3">Bullish on Sharks</h3>
@@ -549,14 +542,7 @@ a{color:inherit;text-decoration:none}
 
     <a class="project" href="/dozed-and-confused">
       <div class="project-thumb">
-        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2F3830"/>
-          <g filter="url(#warp-sm)">
-            <ellipse cx="140" cy="90" rx="150" ry="100" fill="#6F6C43" opacity=".95"/>
-            <ellipse cx="360" cy="220" rx="150" ry="110" fill="#5C6E68" opacity=".9"/>
-          </g>
-          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
-        </svg>
+        <img src="/thumb-dozed.jpg" alt="A bernedoodle sprawled in the grass with a plush football, tongue out" loading="lazy" width="1000" height="600">
       </div>
       <div>
         <h3 class="h3">Dozed and Confused <span class="meta-note">Writeup</span></h3>
@@ -566,19 +552,12 @@ a{color:inherit;text-decoration:none}
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
 
-    <a class="project" href="https://github.com/sascha-pst/hsk3-tutor" target="_blank" rel="noopener">
+    <a class="project" href="/hsk3-tutor">
       <div class="project-thumb">
-        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2F3830"/>
-          <g filter="url(#warp-sm)">
-            <ellipse cx="160" cy="180" rx="150" ry="105" fill="#6F6C43"/>
-            <ellipse cx="370" cy="110" rx="150" ry="105" fill="#99ABA6" opacity=".8"/>
-          </g>
-          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
-        </svg>
+        <img src="/thumb-hsk.jpg" alt="Hand-thrown marbled nerikomi cups and bowls resting in the grass" loading="lazy" width="1000" height="600">
       </div>
       <div>
-        <h3 class="h3">HSK 3 Tutor</h3>
+        <h3 class="h3">HSK 3 Tutor <span class="meta-note">Interactive</span></h3>
         <p>A React drill app for the HSK 3 vocabulary list. Proof for my mom that the first master's still gets used.</p>
         <div class="tags"><span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">Mandarin</span></div>
       </div>
@@ -587,15 +566,7 @@ a{color:inherit;text-decoration:none}
 
     <a class="project" href="/glaze-kiln">
       <div class="project-thumb">
-        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="500" height="300" fill="#2F3830"/>
-          <g filter="url(#warp-sm)">
-            <ellipse cx="130" cy="210" rx="155" ry="105" fill="#ACB090"/>
-            <ellipse cx="360" cy="100" rx="150" ry="105" fill="#B3C2BC" opacity=".9"/>
-            <ellipse cx="270" cy="180" rx="110" ry="80" fill="#6F6C43" opacity=".55"/>
-          </g>
-          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
-        </svg>
+        <img src="/thumb-glaze.jpg" alt="A freshly thrown clay vase on a ware board, still unfired" loading="lazy" width="1000" height="600">
       </div>
       <div>
         <h3 class="h3">Glaze Kiln <span class="meta-note">Interactive</span></h3>
