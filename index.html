@@ -618,7 +618,6 @@
 <nav aria-label="Site">
     <a class="brand" href="#hero">Sasha Schaps</a>
     <div class="links">
-        <a href="#notes">Notes</a>
         <a href="#gallery">Gallery</a>
         <a href="#work">Work</a>
         <a href="about.html">About</a>
@@ -643,46 +642,6 @@
     </div>
 </header>
 
-<main>
-    <!-- ======== STUDIO NOTES ======== -->
-    <section id="notes">
-        <div class="split">
-            <div>
-                <p class="kicker rv">Studio notes</p>
-                <div class="define rv" id="hyphae">
-                    <p class="def-head">
-                        <span class="word">hy·phae</span>
-                        <span class="pron">/ˈhaɪ-fee/</span>
-                        <span class="pos">pl. noun</span>
-                    </p>
-                    <ol>
-                        <li><span class="field">mycology.</span> The study of fungi. Adamatzky <span class="ref">(<a href="https://doi.org/10.1098/rsos.211926">2022</a>)</span>
-                        recorded electrical spikes travelling those filaments in trains structured enough
-                        to analyze like a language. <span class="aside">The popular "wood-wide web," though,
-                        is contested <span class="ref">(<a href="https://doi.org/10.1038/s41559-023-01986-1">Karst et al. 2023</a>)</span> —
-                        a standing lesson in overinterpreted effect sizes.</span></li>
-                        <li><span class="field">Bay Area.</span> See <em>hyphy</em>: a heightened, highly
-                        productive state of hyperactivity — native to the Bay.</li>
-                        <li><span class="field">neuroplasticity.</span> The brain rewires with use; such that in the years of working on brain rot, there can be new growth with new training data. In computational neuroscience, the brain's dopamine system operated very similarly to TD learning in reinforcement learning.</li>
-                    </ol>
-                    <ul class="cites">
-                        <li class="cites-head" aria-hidden="true">Selected reading</li>
-                        <li>Tero, A. et al. <a href="https://doi.org/10.1126/science.1177894">(2010)</a>. Rules for biologically inspired adaptive network design. <span class="cite-field">Science 327</span> — a slime mould rebuilds the Tokyo rail map.</li>
-                        <li>Adamatzky, A. <a href="https://doi.org/10.1098/rsos.211926">(2022)</a>. Language of fungi derived from their electrical spiking activity. <span class="cite-field">R. Soc. Open Sci. 9</span>.</li>
-                        <li>Dabney, W. et al. <a href="https://doi.org/10.1038/s41586-019-1924-6">(2020)</a>. A distributional code for value in dopamine-based reinforcement learning. <span class="cite-field">Nature 577</span>.</li>
-                        <li>Maguire, E. A. et al. <a href="https://doi.org/10.1073/pnas.070039597">(2000)</a>. Navigation-related structural change in the hippocampi of taxi drivers. <span class="cite-field">PNAS 97</span>.</li>
-                        <li>Karst, J., Jones, M. D. &amp; Hoeksema, J. D. <a href="https://doi.org/10.1038/s41559-023-01986-1">(2023)</a>. Positive citation bias and overinterpreted results lead to misinformation on common mycorrhizal networks in forests. <span class="cite-field">Nat. Ecol. Evol. 7</span>.</li>
-                    </ul>
-                </div>
-            </div>
-            <dl class="details rv">
-                <div class="row"><dt>Location</dt><dd>Bay Area, California</dd></div>
-                <div class="row"><dt>Toolkit</dt><dd>Python · SQL · pandas</dd></div>
-                <div class="row"><dt>Studio</dt><dd>Firing in Progress</dd></div>
-                <div class="row"><dt>Status</dt><dd>Open to opportunities, collaborations, and conversations</dd></div>
-            </dl>
-        </div>
-    </section>
 
     <div class="edge" aria-hidden="true" style="background:var(--myelin)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--seafoam)" d="M0,64 L0,40 C220,10 470,56 720,34 C960,14 1210,52 1440,26 L1440,64 Z"/></svg></div>
     <!-- ======== GALLERY ======== -->
@@ -722,14 +681,18 @@
                 <p class="meta-line">Python · pandas · data viz</p>
             </article>
             <article class="card rv">
+                <h3><a href="https://github.com/sascha-pst/dozed-and-confused">Dozed and Confused</a></h3>
+                <p>Does sleep predict GPA? The regression ran clean. The dataset is synthetic.</p>
+                <p class="meta-line">R · tidyverse · regression diagnostics</p>
+            </article>
+            <article class="card rv">
                 <h3><a href="boil-the-ocean.html">Let's Not Boil the Ocean</a></h3>
                 <p>In Progress</p>
                 <p class="meta-line">Observable · D3 · interactive viz</p>
             </article>
             <article class="card rv">
-                <!-- TODO(Sasha): replace href with the actual flashcard repo URL. -->
                 <h3><a href="https://github.com/sascha-pst">HSK2 (Chinese) App</a></h3>
-                <p>A study habit from China, rebuilt to help my mom learn Mandarin before Duolingo takes my whole inheritance.</p>
+                <p>A study habit from China, Duolingo has more psychology layered in.</p>
                 <p class="meta-line">JavaScript · app · spaced repetition</p>
             </article>
             <article class="card rv">
@@ -1173,7 +1136,6 @@
             const vec3 ABYSS    = vec3(0.055, 0.118, 0.188);
         `;
 
-        // ---------- moon jar profile ----------
         function smoothstepJS(a, b, x) {
             const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
             return t * t * (3 - 2 * t);
@@ -1378,7 +1340,6 @@
         contactShadow.position.set(2.0, -11.03, -1.0);
         scene.add(contactShadow);
 
-        // ---------- ink motes: fewer, fainter, no twinkle strobing ----------
         const SPRAY_N = 400;
         const sprayGeo = new THREE.BufferGeometry();
         const pVase = new Float32Array(SPRAY_N * 3);
@@ -1493,7 +1454,6 @@
             }, { passive: true });
         }
 
-        // ---------- polite render loop: 30 fps cap, stops when it can ----------
         let heroVisible = true;
         let rafId = null;
         let lastFrame = 0;
