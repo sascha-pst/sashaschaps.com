@@ -1,1519 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<script>document.documentElement.classList.add('js');</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sasha Schaps &#8212; Data Science</title>
-<meta name="description" content="Sasha Schaps &#8212; data scientist in training, former program manager. Projects plus marbled clay.">
-<meta name="theme-color" content="#FAFBFC">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sasha Tejada Schaps — data scientist</title>
 
-<meta property="og:title" content="Sasha Schaps &#8212; Data Science">
-<meta property="og:description" content="portfolio website">
-<meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://sashaschaps.com">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='45' cy='18' r='6' fill='%238FBFE0'/%3E%3Cpath d='M6 41c8-9 17-9 25-2s17 7 27-2' fill='none' stroke='%232D6BD8' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E2DCD0'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2394A5B3'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%2371713B'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%232C3A38'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-    :root {
-        /* ===== PALETTE ===== */
-        --myelin:    #FAFBFC;
-        --abyss:      #0E1E30;
-        --undertow: #1B3A5C;
-        --current: #3E7CB1;
-        --shallows:      #8FBFE0;
-        --seaglass:      #E6EFF6;
-        --synapse:   #2D6BD8;
-        --sandbar:   #F1ECE3;
-        --seafoam:    #EDF0F4;
-        --fog:    #545E6B;
 
-        --rail: max(24px, calc((100vw - 1080px) / 2));
-        --display: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-        --body: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
-        --mono:  'IBM Plex Mono', ui-monospace, monospace;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-    body {
-        margin: 0;
-        background: var(--myelin);
-        color: var(--abyss);
-        font-family: var(--body);
-        font-size: 1rem;
-        line-height: 1.62;
-    }
-    p { font-weight: 300; }
-    ::selection { background: var(--synapse); color: #fff; }
-    a { color: inherit; }
-    a:focus-visible, button:focus-visible {
-        outline: 2px solid var(--synapse);
-        outline-offset: 3px;
-        border-radius: 2px;
-    }
+:root{
+  --bone:#E2DCD0;        
+  --steel:#94A5B3;       
+  --olive:#71713B;       
+  --pine:#2C3A38;       
+  --slate:#4A5D68;     
+  --wire:#B9C6CE;        
 
-    .skip {
-        position: absolute;
-        left: -9999px;
-        top: 12px;
-        z-index: 100;
-        background: var(--abyss);
-        color: var(--myelin);
-        font-family: var(--mono);
-        font-size: 0.8rem;
-        padding: 10px 16px;
-        text-decoration: none;
-    }
-    .skip:focus { left: 12px; }
+  --ink:var(--pine);
+  --ground:var(--bone);
+  --accent:var(--olive);
 
-    .kicker {
-        font-family: var(--mono);
-        font-size: 0.75rem;              
-        font-weight: 500;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: var(--synapse);
-        margin: 0 0 22px;
-    }
-    .meta-line {
-        font-family: var(--mono);
-        font-size: 0.72rem;              
-        letter-spacing: 0.04em;
-        color: var(--fog);
-    }
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
 
-    /* ============ NAV ============ */
-    nav {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 50;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px var(--rail);
-    }
-    nav::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: color-mix(in srgb, var(--myelin) 72%, transparent);
-        -webkit-backdrop-filter: blur(18px) saturate(1.35);
-        backdrop-filter: blur(18px) saturate(1.35);
-        border-bottom: 1px solid color-mix(in srgb, var(--abyss) 8%, transparent);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        pointer-events: none;
-    }
-    nav.scrolled::before { opacity: 1; }
-    nav .brand, nav .links { position: relative; }
-    nav .brand {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: 0.88rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        text-decoration: none;
-    }
-    nav .links a {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: var(--abyss);
-        opacity: 0.74;
-        padding: 14px 9px;              
-        display: inline-block;
-        transition: opacity 0.25s, color 0.25s;
-    }
-    nav .links a:hover, nav .links a:focus-visible { opacity: 1; color: var(--synapse); }
+  --pad:clamp(20px,5vw,64px);
+  --maxw:1240px;
+}
 
-    /* ============ HERO ============ */
-    #hero { position: relative; }
-    .hero-stage {
-        position: relative;
-        height: 100svh;
-        min-height: 620px;
-        overflow: hidden;
-    }
-    .hero-poster, #hero-canvas {
-        position: absolute;
-        inset: 0;
-    }
-    .hero-poster {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: 68% 58%;
-        transition: opacity 1.2s ease;
-    }
-    #hero-canvas canvas { display: block; }
-    #hero-canvas { opacity: 0; transition: opacity 1.2s ease; }
-    .hero-stage.live #hero-canvas { opacity: 1; }
-    .hero-stage.live .hero-poster { opacity: 0; }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--font);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--olive);outline-offset:3px}
 
-    .hero-content {
-        position: absolute;
-        z-index: 3;
-        left: var(--rail);
-        top: 50%;
-        transform: translateY(-46%);
-        max-width: 560px;
-    }
-    .hero-scrim {
-        position: absolute;
-        z-index: 2;
-        left: 0; top: 0; bottom: 0;
-        width: min(62vw, 780px);
-        background: linear-gradient(to right,
-            color-mix(in srgb, var(--myelin) 96%, transparent) 38%,
-            color-mix(in srgb, var(--myelin) 70%, transparent) 70%,
-            transparent 100%);
-        pointer-events: none;
-    }
-    .eyebrow {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        font-weight: 500;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: var(--undertow);
-        margin: 0 0 20px;
-    }
-    h1 {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: clamp(2.15rem, 4.5vw, 3.7rem);
-        line-height: 1.06;
-        letter-spacing: -0.03em;
-        margin: 0 0 20px;
-        text-wrap: balance;
-    }
-    h1 em, .statement em, .lead em { font-style: italic; font-weight: 500; color: var(--current); }
-    .sub {
-        font-size: clamp(1rem, 1.25vw, 1.12rem);
-        line-height: 1.6;
-        max-width: 46ch;
-        margin: 0 0 30px;
-    }
-    .hero-stage.live { cursor: pointer; }
+.display{
+  font-size:clamp(38px,6.4vw,84px);
+  font-weight:300;
+  letter-spacing:-0.045em;
+  line-height:0.98;
+  margin:0;
+}
+.h2{
+  font-size:clamp(26px,3.4vw,40px);
+  font-weight:400;
+  letter-spacing:-0.03em;
+  line-height:1.08;
+  margin:0;
+}
+.h3{font-size:20px;font-weight:500;letter-spacing:-0.015em;margin:0}
+.lede{font-size:clamp(15px,1.4vw,17px);line-height:1.6;font-weight:300;margin:0}
+/* Utility role: Inter at small size, heavy tracking, all caps */
+.eyebrow{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+  margin:0;
+}
 
-    /* ============ SECTIONS ============ */
-    section { padding: 110px var(--rail); }
-    #notes, #work, #contact { position: relative; }
-    #notes::before, #work::before, #contact::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        background:
-            radial-gradient(420px 300px at 12% 18%, color-mix(in srgb, var(--shallows) 16%, transparent), transparent 70%),
-            radial-gradient(560px 400px at 88% 74%, color-mix(in srgb, var(--seaglass) 60%, transparent), transparent 72%),
-            radial-gradient(320px 260px at 68% 6%, color-mix(in srgb, var(--current) 9%, transparent), transparent 70%);
-    }
-    #work::before { transform: scaleX(-1); }
+.pill{
+  display:inline-block;
+  background:var(--olive);
+  color:var(--bone);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  padding:13px 26px;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s;
+}
+.pill:hover{transform:translateY(-2px);background:#5D5D2F}
+.pill--ghost{
+  background:transparent;
+  color:var(--bone);
+  box-shadow:inset 0 0 0 1px rgba(226,220,208,.45);
+}
+.pill--ghost:hover{background:rgba(226,220,208,.12)}
 
-    .edge { display: block; height: 64px; }
-    .edge svg { display: block; width: 100%; height: 100%; }
-    h2 {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: clamp(1.55rem, 2.5vw, 2.15rem);
-        letter-spacing: -0.02em;
-        margin: 0 0 16px;
-    }
-    section p { max-width: 60ch; }
-    section a { color: var(--synapse); }
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
 
-    .statement {
-        font-family: var(--display);
-        font-weight: 500;
-        font-size: clamp(1.5rem, 2.1vw, 1.95rem);
-        line-height: 1.32;
-        letter-spacing: -0.02em;
-        margin: 0 0 24px;
-        max-width: 26ch;
-        text-wrap: balance;
-    }
-    .define { margin: 26px 0 6px; max-width: 54ch; }
-    .def-head { margin: 0; }
-    .define .word {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: 1.5rem;
-        letter-spacing: -0.02em;
-    }
-    .define .pron {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        letter-spacing: 0.04em;
-        color: var(--fog);
-        margin-left: 12px;
-    }
-    .define .pos {
-        font-style: italic;
-        font-size: 0.92rem;
-        color: var(--fog);
-        margin-left: 8px;
-    }
-    .define ol {
-        margin: 14px 0 0;
-        padding: 0;
-        list-style: none;
-        counter-reset: sense;
-    }
-    .define ol li {
-        counter-increment: sense;
-        position: relative;
-        padding: 11px 0 11px 32px;
-        border-top: 1px solid color-mix(in srgb, var(--abyss) 10%, transparent);
-        font-size: 0.97rem;
-        line-height: 1.55;
-    }
-    .define ol li::before {
-        content: counter(sense, decimal-leading-zero);
-        position: absolute;
-        left: 0;
-        top: 13px;
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        color: var(--fog);
-    }
-    .define .field { font-style: italic; color: var(--undertow); }
-    .define .ety {
-        margin: 12px 0 0;
-        font-size: 0.88rem;
-        font-style: italic;
-        color: var(--fog);
-    }
-    .define .ref { font-family: var(--mono); font-size: 0.8em; white-space: nowrap; }
-    .define .aside { color: var(--fog); }
-    .define .ref a, .cites a {
-        color: var(--undertow);
-        text-decoration: none;
-        border-bottom: 1px solid color-mix(in srgb, var(--undertow) 32%, transparent);
-    }
-    .define .ref a:hover, .cites a:hover { color: var(--synapse); border-bottom-color: var(--synapse); }
-    .cites {
-        margin: 20px 0 0;
-        padding: 16px 0 0;
-        border-top: 1px solid color-mix(in srgb, var(--abyss) 10%, transparent);
-        list-style: none;
-    }
-    .cites .cites-head {
-        font-family: var(--mono);
-        font-size: 0.62rem;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: var(--fog);
-        margin: 0 0 12px;
-    }
-    .cites li {
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        line-height: 1.6;
-        color: var(--fog);
-        margin: 0 0 9px;
-        padding-left: 20px;
-        text-indent: -20px;
-    }
-    .cites .cite-field { color: var(--undertow); font-style: normal; }
-    h1 em a {
-        color: inherit;
-        text-decoration: underline dotted 1.5px;
-        text-decoration-color: color-mix(in srgb, var(--current) 55%, transparent);
-        text-underline-offset: 7px;
-    }
-    h1 em a:hover, h1 em a:focus-visible { text-decoration-style: solid; text-decoration-color: var(--current); }
-    .sig {
-        font-family: var(--display);
-        font-style: italic;
-        font-weight: 500;
-        font-size: 1.02rem;
-        color: var(--undertow);
-        display: inline-block;
-        margin-top: 14px;
-    }
-    .split {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: clamp(40px, 6vw, 90px);
-        align-items: start;
-    }
-    .details { margin: 0; }
-    .details .row {
-        padding: 15px 0 13px;
-        border-top: 1px solid color-mix(in srgb, var(--abyss) 14%, transparent);
-    }
-    .details .row:last-child { border-bottom: 1px solid color-mix(in srgb, var(--abyss) 14%, transparent); }
-    .details dt {
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-        color: var(--undertow);
-        margin: 0 0 5px;
-    }
-    .details dd { margin: 0; font-size: 0.97rem; line-height: 1.55; }
+.nav{
+  position:absolute;top:0;left:0;right:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding:22px var(--pad);
+  max-width:var(--maxw);margin:0 auto;
+}
+.mark{
+  display:flex;align-items:center;gap:10px;
+  color:var(--bone);
+  font-size:22px;font-weight:500;letter-spacing:-0.04em;
+}
+.mark svg{width:26px;height:26px;flex:none}
+.nav-links{
+  display:flex;gap:2px;
+  background:rgba(226,220,208,.14);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:4px;
+}
+.nav-links a{
+  color:var(--bone);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  padding:10px 18px;
+  transition:background .2s,color .2s;
+}
+.nav-links a:hover{background:rgba(226,220,208,.16)}
+.nav-links a[aria-current]{background:var(--bone);color:var(--pine)}
 
-    /* ============ GALLERY  ============ */
-    #gallery { background-color: var(--seafoam); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
-    .band-head { text-align: center; margin-bottom: 54px; }
-    .band-head .kicker { margin-bottom: 16px; }
-    .band-head p { margin-inline: auto; }
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 44px 34px;
-        max-width: 1020px;
-        margin: 0 auto;
-    }
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:min(86vh,760px);
+  display:flex;align-items:flex-end;
+  background:var(--pine);
+}
+.hero-art{position:absolute;inset:0;width:100%;height:100%}
+.hero-art svg{width:100%;height:100%}
+.hero-veil{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(44,58,56,.6) 0%,rgba(44,58,56,.1) 40%,rgba(44,58,56,.62) 100%);
+}
+.hero-inner{
+  position:relative;z-index:10;
+  width:100%;max-width:var(--maxw);margin:0 auto;
+  padding:0 var(--pad) clamp(48px,7vw,88px);
+  display:grid;
+  grid-template-columns:1.35fr .95fr;
+  gap:clamp(24px,5vw,72px);
+  align-items:end;
+  color:var(--bone);
+}
+.hero .display{text-wrap:balance}
+.hero-body{max-width:44ch;color:rgba(226,220,208,.9)}
+.hero-body .eyebrow{color:var(--steel);margin-bottom:14px}
+.hero-cta{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
 
-    .mat {
-        margin: 0;
-        text-align: center;
-    }
-    .art {
-        aspect-ratio: 1 / 1;
-        border-radius: 50%;
-        overflow: hidden;
-        background: var(--seaglass);
-        position: relative;
-        border: 1px solid color-mix(in srgb, var(--abyss) 16%, transparent);
-        box-shadow:
-            inset 0 12px 26px -14px rgba(14, 30, 48, 0.4),
-            0 20px 34px -24px rgba(14, 30, 48, 0.55);
-    }
-    .art::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        pointer-events: none;
-        box-shadow:
-            inset 0 0 0 7px color-mix(in srgb, #fff 45%, transparent),
-            inset 0 -16px 30px -18px rgba(255, 255, 255, 0.75);
-    }
-    .art canvas, .art img { width: 100%; heht: 100%; object-fit: cover; display: block; 
-    }
-    .gallery-note {
-        text-align: center;
-        margin: 44px auto 0;
-        font-style: italic;
-        color: var(--fog);
-        font-size: 0.95rem;
-    }
+.strip{padding:clamp(40px,6vw,76px) 0}
+.strip ul{
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-wrap:wrap;justify-content:space-between;
+  gap:20px 36px;
+}
+.strip li{
+  font-size:11px;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(44,58,56,.5);
+}
 
-    #gallery .kicker, #about .kicker { color: var(--undertow); }
-    #about em { color: var(--undertow); }
-    #about a { color: var(--undertow); }
-    .lead {
-        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
-        line-height: 1.55;
-    }
+.showcase{padding-bottom:clamp(48px,7vw,96px)}
+.showcase-card{
+  overflow:hidden;
+  background:#EDE9E1;
+  box-shadow:0 24px 60px -34px rgba(44,58,56,.4);
+}
+.showcase-art{position:relative;aspect-ratio:16/9;background:var(--pine)}
+.showcase-art svg{position:absolute;inset:0;width:100%;height:100%}
+.showcase-label{
+  position:absolute;inset:0;z-index:2;
+  display:grid;place-items:center;
+  font-size:clamp(20px,3vw,38px);
+  font-weight:300;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--bone);
+  text-shadow:0 2px 24px rgba(44,58,56,.55);
+}
+.showcase-foot{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(20px,4vw,56px);
+  padding:clamp(26px,4vw,44px);
+}
+.showcase-foot .pill{margin-top:22px}
+.showcase-foot p{margin:0;color:rgba(44,58,56,.82)}
 
-    #interlude {
-        background: var(--abyss);
-        color: var(--seaglass);
-        min-height: 52vh;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        padding: 130px var(--rail);
-    }
-    .heatfield {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        image-rendering: pixelated;
-        opacity: 0.28;
-        pointer-events: none;
-        -webkit-mask-image: radial-gradient(120% 95% at 50% 55%, #000 22%, transparent 80%);
-        mask-image: radial-gradient(120% 95% at 50% 55%, #000 22%, transparent 80%);
-    }
-    #interlude blockquote {
-        position: relative;
-        font-family: var(--display);
-        font-weight: 500;
-        font-size: clamp(1.6rem, 3.2vw, 2.5rem);
-        line-height: 1.22;
-        letter-spacing: -0.02em;
-        margin: 0;
-        max-width: 21ch;
-    }
-    #interlude strong { font-weight: 700; color: var(--shallows); }
-    #interlude .attrib {
-        position: relative;
-        margin: 26px 0 0;
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--shallows);
-    }
-    #interlude .attrib cite { font-style: normal; }
+.work{padding-bottom:clamp(48px,7vw,96px)}
+.section-head{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(20px,4vw,56px);
+  align-items:end;
+  padding-bottom:clamp(24px,3.5vw,44px);
+}
+.section-head p{margin:0;color:rgba(44,58,56,.78)}
+.section-head .eyebrow{color:var(--olive);margin-bottom:12px}
 
-    /* ============ WORK ============ */
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 22px;
-        margin-top: 40px;
-    }
-    .card {
-        position: relative;
-        border: 1px solid color-mix(in srgb, #fff 70%, transparent);
-        border-radius: 12px;
-        padding: 28px 26px;
-        background: color-mix(in srgb, #fff 58%, transparent);
-        -webkit-backdrop-filter: blur(10px) saturate(1.25);
-        backdrop-filter: blur(10px) saturate(1.25);
-        box-shadow:
-            0 12px 32px -26px rgba(14, 30, 48, 0.45),
-            inset 0 1px 0 rgba(255, 255, 255, 0.75);
-        transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover, .card:focus-within {
-        border-color: var(--current);
-        transform: translateY(-3px);
-        box-shadow: 0 16px 34px -24px rgba(27, 58, 92, 0.4);
-    }
-    .card h3 {
-        font-family: var(--display);
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin: 0 0 10px;
-        line-height: 1.2;
-    }
-    .card h3 a { color: inherit; text-decoration: none; }
-    .card h3 a::after { content: ''; position: absolute; inset: 0; }
-    .card p { font-size: 0.95rem; line-height: 1.55; margin: 0 0 16px; color: color-mix(in srgb, var(--abyss) 84%, transparent); }
+.project{
+  display:grid;
+  grid-template-columns:200px 1fr auto;
+  gap:clamp(18px,3vw,40px);
+  align-items:center;
+  padding:26px 0;
+  border-top:1px solid rgba(44,58,56,.18);
+  transition:padding-left .3s cubic-bezier(.2,.8,.2,1);
+}
+.project:last-of-type{border-bottom:1px solid rgba(44,58,56,.18)}
+.project:hover{padding-left:12px}
+.project-thumb{
+  position:relative;
+  aspect-ratio:5/3;
+  overflow:hidden;
+  background:var(--pine);
+}
+.project-thumb svg{position:absolute;inset:0;width:100%;height:100%}
+.project h3{margin:0 0 6px}
+.project p{margin:0 0 10px;color:rgba(44,58,56,.75);font-size:15px;max-width:56ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(44,58,56,.62);
+  box-shadow:inset 0 0 0 1px rgba(44,58,56,.22);
+  padding:5px 11px;
+}
+.arrow{
+  font-size:22px;color:var(--olive);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.project:hover .arrow{transform:translateX(6px)}
 
-    #about {
-        background-color: var(--sandbar);
-        background-image:
-            radial-gradient(circle at 82% 24%, transparent 118px, color-mix(in srgb, var(--abyss) 5%, transparent) 119px, transparent 121px),
-            radial-gradient(circle at 86% 30%, transparent 74px, color-mix(in srgb, var(--abyss) 4%, transparent) 75px, transparent 77px),
-            radial-gradient(circle at 10% 82%, transparent 92px, color-mix(in srgb, var(--abyss) 4%, transparent) 93px, transparent 95px),
-            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-    .about-grid {
-        display: grid;
-        grid-template-columns: 1.35fr 1fr;
-        gap: clamp(40px, 6vw, 90px);
-        margin-top: 8px;
-    }
+.shelf-band{
+  background:var(--pine);
+  color:var(--bone);
+  padding:clamp(40px,6vw,72px) 0;
+  overflow:hidden;
+}
+.shelf-band .eyebrow{color:var(--steel);margin-bottom:12px}
+.shelf-band .h2{max-width:20ch}
+.shelf-band .lede{color:rgba(226,220,208,.75);max-width:46ch}
+.shelf-head{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(20px,4vw,56px);align-items:end;
+  padding-bottom:clamp(28px,4vw,48px);
+}
+.shelf{display:flex;align-items:flex-end;gap:5px;flex-wrap:wrap}
+.bk{
+  position:relative;
+  cursor:pointer;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:14px;
+}
+.bk:hover,.bk:focus-visible{transform:translateY(-14px)}
+.bk .spine{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  padding-bottom:4px;
+}
+.bk--olive{background:var(--olive)}   .bk--olive .spine{color:var(--bone)}
+.bk--steel{background:var(--steel)}   .bk--steel .spine{color:var(--pine)}
+.bk--bone{background:var(--bone)}     .bk--bone .spine{color:var(--pine)}
+.bk--slate{background:var(--slate)}   .bk--slate .spine{color:var(--bone)}
+.bk--deep{background:#1E2B29}         .bk--deep .spine{color:var(--steel)}
+.shelf-board{
+  height:12px;background:#1E2B29;
+  box-shadow:0 6px 18px -6px rgba(0,0,0,.55);
+}
 
-    /* ============ CONTACT + FOOTER ============ */
-    #contact { padding-bottom: 90px; }
-    .bigmail {
-        font-family: var(--display);
-        font-weight: 500;
-        font-size: clamp(1.25rem, 2.1vw, 1.6rem);
-        letter-spacing: -0.01em;
-        color: var(--abyss);
-        text-decoration-thickness: 1px;
-        text-underline-offset: 7px;
-    }
-    .alt-links { margin-top: 22px; }
-    .alt-links a {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        letter-spacing: 0.14em;
-        color: var(--fog);
-        text-decoration: none;
-        display: inline-block;
-        padding: 10px 16px 10px 0;
-    }
-    .alt-links a:hover, .alt-links a:focus-visible { color: var(--synapse); }
+.foot{padding:clamp(56px,8vw,110px) 0 48px}
+.foot-grid{
+  display:grid;grid-template-columns:1.4fr 1fr;
+  gap:clamp(24px,5vw,64px);align-items:end;
+}
+.foot .eyebrow{color:var(--olive);margin-bottom:14px}
+.foot-links{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.foot-links a{
+  font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+  border-bottom:1px solid rgba(44,58,56,.3);
+  padding-bottom:3px;
+  transition:color .2s,border-color .2s;
+}
+.foot-links a:hover{color:var(--olive);border-bottom-color:var(--olive)}
+.foot-rule{
+  border:0;border-top:1px solid rgba(44,58,56,.2);
+  margin:clamp(32px,5vw,56px) 0 18px;
+}
+.colophon{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(44,58,56,.45);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.colophon svg{width:16px;height:16px;display:inline-block;vertical-align:-3px;margin-right:8px}
 
-    footer {
-        padding: 0 var(--rail) 54px;
-        text-align: center;
-    }
-    .foot-rule {
-        border: none;
-        border-top: 1px solid color-mix(in srgb, var(--abyss) 14%, transparent);
-        margin: 0 0 40px;
-    }
-    .foot-nav a {
-        font-family: var(--mono);
-        font-size: 0.75rem;
-        letter-spacing: 0.12em;
-        color: var(--fog);
-        text-decoration: none;
-        display: inline-block;
-        padding: 10px 12px;
-    }
-    .foot-nav a:hover, .foot-nav a:focus-visible { color: var(--synapse); }
-    .colophon {
-        max-width: 52ch;
-        margin: 22px auto;
-        font-size: 0.92rem;
-        font-style: italic;
-        color: var(--fog);
-    }
-    .signoff {
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.06em;
-        color: var(--fog);
-        line-height: 2.1;
-    }
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1.06)}
+  50%{transform:translate(-1.8%,1.2%) scale(1.1)}
+  100%{transform:translate(0,0) scale(1.06)}
+}
+.pour{animation:drift 34s ease-in-out infinite;transform-origin:center}
+.pour--b{animation-duration:46s;animation-direction:reverse}
 
-    .js .rv { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .js .rv.in { opacity: 1; transform: none; }
+@keyframes rise{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.rise--2{animation-delay:.12s}
 
-    @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
-        .js .rv { opacity: 1; transform: none; transition: none; }
-        .hero-poster, #hero-canvas { transition: none; }
-    }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
 
-    @media (max-width: 920px) {
-        body { font-size: 0.98rem; }
-        nav { padding: 6px 16px; gap: 10px; }
-        nav .brand { font-size: 0.92rem; white-space: nowrap; letter-spacing: 0.1em; }
-        nav .links { display: flex; flex-wrap: wrap; justify-content: flex-end; row-gap: 0; }
-        nav .links a { padding: 11px 7px; font-size: 0.72rem; letter-spacing: 0.12em; }
-        .hero-stage { height: 50svh; min-height: 360px; }
-        .hero-scrim { display: none; }
-        .hero-poster { object-position: center 60%; }
-        .hero-content {
-            position: static;
-            transform: none;
-            max-width: none;
-            padding: 34px 18px 10px;
-        }
-        section { padding: 78px 18px; }
-        .edge { height: 36px; }
-        .split, .about-grid { grid-template-columns: 1fr; gap: 40px; }
-        .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-        #interlude { min-height: 40vh; padding: 90px 18px; }
-    }
-    @media (max-width: 560px) {
-        .grid { grid-template-columns: 1fr; max-width: 420px; }
-    }
+@media (max-width:900px){
+  .nav-links{display:none}
+  .hero-inner,.showcase-foot,.section-head,.shelf-head,.foot-grid{grid-template-columns:1fr}
+  .hero-inner{gap:24px}
+  .project{grid-template-columns:120px 1fr;align-items:start}
+  .arrow{display:none}
+}
+@media (max-width:560px){
+  .project{grid-template-columns:1fr}
+  .project-thumb{aspect-ratio:16/7}
+}
 </style>
 </head>
 <body>
 
-<a class="skip" href="#notes">Skip to content</a>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <filter id="warp" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.009 0.014" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="52" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="warp-sm" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.03" numOctaves="3" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
 
-<nav aria-label="Site">
-    <a class="brand" href="#hero">Sasha Schaps</a>
-    <div class="links">
-        <a href="#gallery">Gallery</a>
-        <a href="#work">Work</a>
-        <a href="about.html">About</a>
-        <a href="#contact">Contact</a>
-    </div>
+    <pattern id="crawl" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="9" cy="9" r="2.6" fill="#E2DCD0" opacity=".24"/>
+      <circle cx="26" cy="24" r="1.5" fill="#E2DCD0" opacity=".16"/>
+    </pattern>
+
+    <g id="wires" fill="none" stroke="#B9C6CE" stroke-width="1.1" opacity=".45">
+      <path d="M-40 300 C 200 200, 330 430, 560 350 S 940 210, 1240 320"/>
+      <path d="M-40 430 C 240 360, 380 560, 640 470 S 980 350, 1240 450"/>
+      <path d="M180 -40 C 240 180, 140 320, 250 520 S 320 700, 280 780"/>
+      <path d="M820 -40 C 880 200, 760 340, 890 540 S 960 700, 920 780"/>
+    </g>
+
+
+    <g id="wavemark" fill="none" stroke-width="3.4">
+      <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#94A5B3"/>
+      <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#71713B"/>
+      <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#E2DCD0"/>
+    </g>
+    <g id="wavemark-light" fill="none" stroke-width="3.4">
+      <path d="M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9" stroke="#94A5B3"/>
+      <path d="M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17" stroke="#71713B"/>
+      <path d="M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25" stroke="#2C3A38"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ============================================================ NAV -->
+<nav class="nav">
+  <a class="mark" href="#top">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wavemark"/></svg>
+    sasha
+  </a>
+  <div class="nav-links">
+    <a href="#top" aria-current="page">Home</a>
+    <a href="#work">Work</a>
+    <a href="#reading">Reading</a>
+    <a href="#about">About</a>
+  </div>
+  <a class="pill" href="#about">Get in touch</a>
 </nav>
 
-<header id="hero">
-    <div class="hero-stage" id="hero-stage">
-        <img class="hero-poster" src="heroposter.jpg" width="560" height="648" alt=""
-             fetchpriority="high">
-        <div id="hero-canvas" aria-hidden="true"></div>
-        <div class="hero-scrim" aria-hidden="true"></div>
-    </div>
+<!-- ============================================================ HERO -->
+<header class="hero" id="top">
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="760" fill="#2C3A38"/>
+      <g class="pour" filter="url(#warp)">
+        <ellipse cx="330" cy="300" rx="330" ry="230" fill="#4A5D68"/>
+        <ellipse cx="760" cy="250" rx="290" ry="180" fill="#94A5B3" opacity=".8"/>
+        <ellipse cx="980" cy="470" rx="300" ry="210" fill="#71713B" opacity=".85"/>
+      </g>
+      <g class="pour pour--b" filter="url(#warp)">
+        <ellipse cx="520" cy="520" rx="340" ry="200" fill="#71713B" opacity=".55"/>
+        <ellipse cx="180" cy="620" rx="240" ry="170" fill="#94A5B3" opacity=".42"/>
+        <ellipse cx="700" cy="130" rx="200" ry="130" fill="#E2DCD0" opacity=".22"/>
+      </g>
+      <use href="#wires"/>
+      <rect width="1200" height="760" fill="url(#crawl)"/>
+    </svg>
+  </div>
+  <div class="hero-veil" aria-hidden="true"></div>
 
-    <div class="hero-content">
-        <p class="eyebrow">Data Science · Program Management · Content Strategy</p>
-        <h1>Building neural <em><a href="#hyphae">hyphae</a></em>.</h1>
-        <p class="sub">
-            I'm Sasha. I'm inspired by how neural and mycelial networks coordinate with no single node in charge. I run cross-functional programs the same way, plus the data.
-        </p>
+  <div class="hero-inner">
+    <h1 class="display rise">Bearish on hype.<br>Bullish on evidence.</h1>
+    <div class="hero-body rise rise--2">
+      <p class="eyebrow">Data scientist &middot; SF &#8596; NYC</p>
+      <p class="lede">I'm Sasha. I work on algorithmic fairness, economic empowerment, and the unglamorous data plumbing that makes either of them possible. Six years at Meta, currently finishing a master's at UC Berkeley.</p>
+      <div class="hero-cta">
+        <a class="pill" href="#work">See selected work</a>
+        <a class="pill pill--ghost" href="#about">Read the long version</a>
+      </div>
     </div>
+  </div>
 </header>
 
+<!-- ============================================================ PROOF STRIP -->
+<section class="strip">
+  <div class="wrap">
+    <ul>
+      <li>UC Berkeley MIDS</li>
+      <li>Meta &mdash; 6 years</li>
+      <li>Algorithmic fairness</li>
+      <li>Python &middot; R &middot; SQL</li>
+      <li>Causal inference</li>
+      <li>Mandarin &middot; Italian</li>
+    </ul>
+  </div>
+</section>
 
-    <div class="edge" aria-hidden="true" style="background:var(--myelin)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--seafoam)" d="M0,64 L0,40 C220,10 470,56 720,34 C960,14 1210,52 1440,26 L1440,64 Z"/></svg></div>
-    <!-- ======== GALLERY ======== -->
-    <section id="gallery">
-        <div class="band-head">
-            <p class="kicker rv">From the wheel</p>
-            <h2 class="rv">Gallery</h2>
-            <p class="rv">Wheel-thrown clay, marbled in cobalt and ivory. The kiln has opinions; these are the pieces it approved.</p>
+<!-- ============================================================ SHOWCASE CARD -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="showcase-card">
+      <div class="showcase-art">
+        <svg viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="1200" height="675" fill="#4A5D68"/>
+          <g filter="url(#warp)">
+            <ellipse cx="300" cy="240" rx="320" ry="210" fill="#94A5B3" opacity=".9"/>
+            <ellipse cx="880" cy="400" rx="330" ry="220" fill="#71713B" opacity=".85"/>
+            <ellipse cx="600" cy="600" rx="300" ry="180" fill="#2C3A38" opacity=".7"/>
+          </g>
+          <use href="#wires" opacity=".3"/>
+          <rect width="1200" height="675" fill="url(#crawl)" opacity=".7"/>
+        </svg>
+        <p class="showcase-label">Evidence over vibes</p>
+      </div>
+      <div class="showcase-foot">
+        <div>
+          <h2 class="h2">Models that hold up<br>outside the notebook</h2>
+          <a class="pill" href="#work">See selected work</a>
         </div>
-        <div class="grid" id="vessel-grid"></div>
-        <p class="gallery-note rv">IG baddie -> SVG.</p>
-    </section>
-
-    <div class="edge" aria-hidden="true" style="background:var(--seafoam)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--abyss)" d="M0,64 L0,30 C260,54 500,12 760,38 C1000,60 1240,18 1440,42 L1440,64 Z"/></svg></div>
-    <!-- ======== INTERLUDE ======== -->
-    <section id="interlude">
-        <canvas class="heatfield" width="72" height="40" aria-hidden="true"></canvas>
-        <blockquote class="rv">“Just as there are several solitudes,
-        so there are several <strong>silences</strong>.”</blockquote>
-        <p class="attrib rv">— Frédéric Gros, <cite>A Philosophy of Walking</cite></p>
-    </section>
-
-    <div class="edge" aria-hidden="true" style="background:var(--abyss)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--myelin)" d="M0,64 L0,46 C180,16 420,50 700,28 C980,8 1240,48 1440,34 L1440,64 Z"/></svg></div>
-    <!-- ======== SELECTED WORK ======== -->
-    <section id="work">
-        <p class="kicker rv">Selected work</p>
-        <h2 class="rv">Projects</h2>
-        <div class="cards">
-            <article class="card rv">
-                <h3><a href="glaze-kiln.html">Glaze Kiln</a></h3>
-                <p>Works in progress! Trying to model glaze interactions after spending 200$ at the pottery store finding the perfect muted glaze.</p>
-                <p class="meta-line">HTML · JavaScript · interactive</p>
-            </article>
-            <article class="card rv">
-                <h3><a href="bullish-on-sharks.html">Bullish on Sharks</a></h3>
-                <p>Data on shark–human encounters, minus the theme music. Read at your own risk.</p>
-                <p class="meta-line">Python · pandas · data viz</p>
-            </article>
-            <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst/dozed-and-confused">Dozed and Confused</a></h3>
-                <p>Does sleep predict GPA? Linear regression model on a synthetic dataset.</p>
-                <p class="meta-line">R · tidyverse · regression diagnostics</p>
-            </article>
-            <article class="card rv">
-                <h3><a href="boil-the-ocean.html">Let's Not Boil the Ocean</a></h3>
-                <p>In Progress</p>
-                <p class="meta-line">Observable · D3 · interactive viz</p>
-            </article>
-            <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst">HSK3 (Chinese) App</a></h3>
-                <p>A study habit from China, Duolingo has more psychology layered in.</p>
-                <p class="meta-line">JavaScript · app · spaced repetition</p>
-            </article>
-            <article class="card rv">
-                <h3><a href="https://github.com/sascha-pst/McCombs-DSBA">McCombs DSBA Notebooks</a></h3>
-                <p>Notebooks from UT Austin certificate.</p>
-                <p class="meta-line">Python · Jupyter · ML</p>
-            </article>
-        </div>
-    </section>
-
-    <div class="edge" aria-hidden="true" style="background:var(--myelin)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--sandbar)" d="M0,64 L0,40 C220,10 470,56 720,34 C960,14 1210,52 1440,26 L1440,64 Z"/></svg></div>
-    <!-- ======== BACKGROUND ======== -->
-    <section id="about">
-        <p class="kicker rv">Background</p>
-        <h2 class="rv">About Me</h2>
-        <div class="about-grid">
-            <div>
-                <p class="lead rv">I previously worked on programs that enabled 50,000+ creators across eight markets, translating between engineers, executives, and everyone in between.</p>
-            </div>
-            <dl class="details rv">
-                <div class="row"><dt>Education</dt><dd>UC Berkeley, Master of Information and Data Science</dd></div>
-                <div class="row"><dt>Also</dt><dd>Masters in International Business, Shanghai University of Finance and Economics 财大</dd></div>
-                <div class="row"><dt>Certificate</dt><dd>Data Science &amp; Business Analytics, UT Austin McCombs</dd></div>
-                <div class="row"><dt>Undergrad</dt><dd>B.A. Global Studies, UC Santa Barbara · Dean's Honors</dd></div>
-                <div class="row"><dt>Elsewhere</dt><dd><a href="https://github.com/sascha-pst">GitHub</a></dd></div>
-            </dl>
-        </div>
-    </section>
-
-    <div class="edge" aria-hidden="true" style="background:var(--sandbar)"><svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path fill="var(--myelin)" d="M0,64 L0,30 C260,54 500,12 760,38 C1000,60 1240,18 1440,42 L1440,64 Z"/></svg></div>
-    <!-- ======== CONTACT ======== -->
-    <section id="contact">
-        <p class="kicker rv">Correspondence</p>
-        <h2 class="rv">Say hello.</h2>
-        <p class="rv"><a class="bigmail" href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></p>
-        <div class="alt-links rv">
-            <a href="mailto:sashaschaps@ischool.berkeley.edu">Berkeley mail</a>
-            <a href="https://github.com/sascha-pst">GitHub</a>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <hr class="foot-rule">
-    <div class="foot-nav">
-        <a href="#gallery">Gallery</a>
-        <a href="#work">Selected work</a>
-        <a href="about.html">About</a>
-        <a href="https://github.com/sascha-pst">GitHub</a>
+        <p>Fairness audits, housing affordability research, and one deeply committed satirical plant-survival engine. Different subjects, same discipline &mdash; name the assumption, test it, then report what actually happened rather than what you hoped would.</p>
+      </div>
     </div>
-    <p class="signoff">Can't wait to get the wheel spinning.<br>© Sasha Schaps ✌︎</p>
+  </div>
+</section>
+
+<!-- ============================================================ WORK -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 class="h2">Three projects, one method</h2>
+      </div>
+      <p>Each of these started as a question I couldn't answer from the existing literature, and ended somewhere more complicated than where it began.</p>
+    </div>
+
+    <a class="project" href="#">
+      <div class="project-thumb">
+        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="500" height="300" fill="#2C3A38"/>
+          <g filter="url(#warp-sm)">
+            <ellipse cx="150" cy="120" rx="150" ry="110" fill="#71713B"/>
+            <ellipse cx="380" cy="200" rx="140" ry="100" fill="#4A5D68"/>
+          </g>
+          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 class="h3">EquiScan</h3>
+        <p>An audit of AI mammography screening models across demographic subgroups &mdash; tracing where sensitivity quietly drops off and who ends up absorbing the cost of that gap.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Fairness metrics</span><span class="tag">Healthcare</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+
+    <a class="project" href="#">
+      <div class="project-thumb">
+        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="500" height="300" fill="#2C3A38"/>
+          <g filter="url(#warp-sm)">
+            <ellipse cx="180" cy="200" rx="160" ry="110" fill="#94A5B3"/>
+            <ellipse cx="370" cy="90" rx="140" ry="95" fill="#71713B" opacity=".9"/>
+          </g>
+          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 class="h3">The rent-burden panel</h3>
+        <p>Rent burden across 40 metro areas modeled against wage growth and permit volume, to test whether supply-side explanations actually survive contact with the panel data.</p>
+        <div class="tags"><span class="tag">R</span><span class="tag">Panel data</span><span class="tag">Housing policy</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+
+    <a class="project" href="#">
+      <div class="project-thumb">
+        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="500" height="300" fill="#2C3A38"/>
+          <g filter="url(#warp-sm)">
+            <ellipse cx="140" cy="90" rx="150" ry="100" fill="#71713B" opacity=".95"/>
+            <ellipse cx="360" cy="220" rx="150" ry="110" fill="#94A5B3" opacity=".85"/>
+          </g>
+          <rect width="500" height="300" fill="url(#crawl)" opacity=".5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 class="h3">Will It Houseplant?</h3>
+        <p>A deadpan field guide scoring 80 tropical species against the light, humidity, and substrate reality of an actual North American apartment. The answer is usually no.</p>
+        <div class="tags"><span class="tag">Pydantic</span><span class="tag">SVG</span><span class="tag">Field guide</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================ SHELF -->
+<section class="shelf-band" id="reading">
+  <div class="wrap">
+    <div class="shelf-head">
+      <div>
+        <p class="eyebrow">The shelf</p>
+        <h2 class="h2">What's shaping the thinking</h2>
+      </div>
+      <p class="lede">Spine colors map to subject &mdash; olive for AI and power, steel for economics, bone for fiction.</p>
+    </div>
+    <div class="shelf">
+      <div class="bk bk--olive" tabindex="0" style="height:172px;width:32px"><span class="spine">Weapons of Math Destruction</span></div>
+      <div class="bk bk--steel" tabindex="0" style="height:196px;width:26px"><span class="spine">Poor Economics</span></div>
+      <div class="bk bk--bone" tabindex="0" style="height:158px;width:36px"><span class="spine">Severance</span></div>
+      <div class="bk bk--deep" tabindex="0" style="height:210px;width:28px"><span class="spine">Atlas of AI</span></div>
+      <div class="bk bk--slate" tabindex="0" style="height:180px;width:34px"><span class="spine">The Unknown Craftsman</span></div>
+      <div class="bk bk--steel" tabindex="0" style="height:164px;width:24px"><span class="spine">Doughnut Economics</span></div>
+      <div class="bk bk--olive" tabindex="0" style="height:202px;width:30px"><span class="spine">Algorithms of Oppression</span></div>
+      <div class="bk bk--bone" tabindex="0" style="height:150px;width:28px"><span class="spine">Convenience Store Woman</span></div>
+    </div>
+    <div class="shelf-board"></div>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER -->
+<footer class="foot" id="about">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="eyebrow">Currently</p>
+        <h2 class="h2">Finishing a master's, throwing pots,<br>and looking for the next hard problem.</h2>
+      </div>
+      <div class="foot-links">
+        <a href="mailto:hello@example.com">Email</a>
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Resume &#8595;</a>
+      </div>
+    </div>
+    <hr class="foot-rule">
+    <div class="colophon">
+      <span><svg viewBox="0 0 32 32" aria-hidden="true" style="width:16px;height:16px"><use href="#wavemark-light"/></svg>Sasha Tejada Schaps</span>
+      <span>Set in Inter</span>
+      <span>Built with Jekyll</span>
+    </div>
+  </div>
 </footer>
 
-<script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-        }
-    }
-</script>
-
-<script>
-(function () {
-    'use strict';
-
-    var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    var navEl = document.querySelector('nav');
-    var sentinel = document.createElement('div');
-    sentinel.style.cssText = 'position:absolute;top:0;height:60px;width:1px;pointer-events:none;';
-    document.body.prepend(sentinel);
-    if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-            navEl.classList.toggle('scrolled', !entries[0].isIntersecting);
-        }).observe(sentinel);
-    } else {
-        navEl.classList.add('scrolled');
-    }
-
-    var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
-    if ('IntersectionObserver' in window && motionOK) {
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-                if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-        rvs.forEach(function (el) { io.observe(el); });
-    } else {
-        rvs.forEach(function (el) { el.classList.add('in'); });
-    }
-
-
-    var pieces = [
-        { t: 'Tidepool cup',       m: 'Marbled porcelain · sea-glass glaze', shape: 'cup' },
-        { t: '"Moon" jar', m: 'Coil & paddle · cobalt slip',      shape: 'moonjar' },
-        { t: 'Seafoam bowl',       m: 'Marbled stoneware · clear glaze',     shape: 'bowl' },
-        { t: 'Bathymetry vase',    m: 'Layered porcelain · cobalt inlay',    shape: 'vase' },
-        { t: 'Slipstream bottle',  m: 'Wheel-thrown · raw, sanded',          shape: 'bottle' },
-        { t: 'Undertow plate',     m: 'Slab & inlay',                        shape: 'plate' }
-    ];
-    var PAL = ['#E6EFF6', '#8FBFE0', '#3E7CB1', '#1B3A5C', '#0E1E30'];
-    var PROFILES = {
-        cup:     { h: 0.46, pts: [[0, 0.28], [0.06, 0.34], [0.45, 0.41], [0.80, 0.395], [1, 0.37]] },
-        moonjar: { h: 0.60, pts: [[0, 0.17], [0.05, 0.29], [0.42, 0.46], [0.78, 0.31], [0.92, 0.16], [1, 0.18]] },
-        bowl:    { h: 0.36, pts: [[0, 0.12], [0.12, 0.22], [0.55, 0.42], [0.88, 0.50], [1, 0.52]] },
-        vase:    { h: 0.66, pts: [[0, 0.20], [0.08, 0.30], [0.38, 0.43], [0.62, 0.31], [0.84, 0.15], [1, 0.21]] },
-        bottle:  { h: 0.64, pts: [[0, 0.17], [0.14, 0.29], [0.42, 0.325], [0.62, 0.17], [0.82, 0.085], [1, 0.095]] }
-    };
-
-    function smoothstep(a, b, x) {
-        var t = Math.min(Math.max((x - a) / (b - a), 0), 1);
-        return t * t * (3 - 2 * t);
-    }
-    function profileR(pts, t) {
-        for (var i = 0; i < pts.length - 1; i++) {
-            if (t <= pts[i + 1][0]) {
-                var s = smoothstep(pts[i][0], pts[i + 1][0], t);
-                return pts[i][1] + (pts[i + 1][1] - pts[i][1]) * s;
-            }
-        }
-        return pts[pts.length - 1][1];
-    }
-
-    function makeRnd(seed) {
-        var s = seed;
-        return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
-    }
-
-    function drawVessel(canvas, idx, shape) {
-        var DPR = 2, W = 360, H = 450;
-        canvas.width = W * DPR; canvas.height = H * DPR;
-        var x = canvas.getContext('2d');
-        x.scale(DPR, DPR);
-        var rnd = makeRnd(1234 + idx * 777);
-
-        var bgG = x.createLinearGradient(0, 0, 0, H);
-        bgG.addColorStop(0, '#F6F9FC');
-        bgG.addColorStop(1, '#E9EFF5');
-        x.fillStyle = bgG; x.fillRect(0, 0, W, H);
-
-        var baseY = H - 62;
-
-        x.save();
-        x.translate(W / 2, baseY + 10);
-        x.scale(1.55, 0.28);
-        var sh = x.createRadialGradient(0, 0, 4, 0, 0, 74);
-        sh.addColorStop(0, 'rgba(14,30,48,0.26)');
-        sh.addColorStop(1, 'rgba(14,30,48,0)');
-        x.fillStyle = sh;
-        x.beginPath(); x.arc(0, 0, 74, 0, Math.PI * 2); x.fill();
-        x.restore();
-
-        if (shape === 'plate') {
-            var cx = W / 2, cy = H * 0.5, Rx = W * 0.375, Ry = Rx * 0.9, last = -1;
-            var r = 1.0;
-            while (r > 0.05) {
-                var pi = Math.floor(rnd() * PAL.length);
-                if (pi === last) pi = (pi + 1) % PAL.length;
-                last = pi;
-                x.fillStyle = PAL[pi];
-                x.beginPath();
-                x.ellipse(cx + (rnd() - 0.5) * 5, cy + (rnd() - 0.5) * 5, Rx * r, Ry * r, (rnd() - 0.5) * 0.16, 0, Math.PI * 2);
-                x.fill();
-                if (rnd() < 0.45) {
-                    x.strokeStyle = 'rgba(45,107,216,0.5)';
-                    x.lineWidth = 1.1;
-                    x.stroke();
-                }
-                r -= 0.055 + rnd() * 0.11;
-            }
-            x.strokeStyle = 'rgba(14,30,48,0.45)';
-            x.lineWidth = 1.4;
-            x.beginPath(); x.ellipse(cx, cy, Rx, Ry, 0, 0, Math.PI * 2); x.stroke();
-            x.strokeStyle = 'rgba(14,30,48,0.06)';
-            x.lineWidth = 0.6;
-            for (var rr2 = 0.08; rr2 < 1; rr2 += 0.045) {
-                x.beginPath(); x.ellipse(cx, cy, Rx * rr2, Ry * rr2, 0, 0, Math.PI * 2); x.stroke();
-            }
-            return;
-        }
-
-        var prof = PROFILES[shape] || PROFILES.vase;
-        var Hpx = H * prof.h, top = baseY - Hpx, cx2 = W / 2;
-
-        function silhouette() {
-            x.beginPath();
-            var t, i;
-            x.moveTo(cx2 - profileR(prof.pts, 0) * W, baseY);
-            for (i = 0; i <= 50; i++) {
-                t = i / 50;
-                x.lineTo(cx2 - profileR(prof.pts, t) * W, baseY - t * Hpx);
-            }
-            for (i = 50; i >= 0; i--) {
-                t = i / 50;
-                x.lineTo(cx2 + profileR(prof.pts, t) * W, baseY - t * Hpx);
-            }
-            x.closePath();
-        }
-
-        x.save();
-        silhouette();
-        x.clip();
-
-        var N = 61, step = W / (N - 1) * 1.05, xs = [];
-        for (var i2 = 0; i2 < N; i2++) xs.push(-4 + i2 * step);
-
-        var prev = xs.map(function () { return top - 10; });
-        var yCur = top - 10, lastCol = -1;
-        while (yCur < baseY + 6) {
-            var bandH = 11 + rnd() * 20;
-            var A1 = 3 + rnd() * 6, f1 = 0.012 + rnd() * 0.02, p1 = rnd() * 6.28;
-            var A2 = 1 + rnd() * 3, f2 = 0.05 + rnd() * 0.06, p2 = rnd() * 6.28;
-            var curve = xs.map(function (px) {
-                return yCur + bandH + A1 * Math.sin(px * f1 + p1) + A2 * Math.sin(px * f2 + p2);
-            });
-            var ci = Math.floor(rnd() * PAL.length);
-            if (ci === lastCol) ci = (ci + 1) % PAL.length;
-            lastCol = ci;
-            x.fillStyle = PAL[ci];
-            x.beginPath();
-            x.moveTo(xs[0], prev[0]);
-            for (var j = 1; j < N; j++) x.lineTo(xs[j], prev[j]);
-            for (var j2 = N - 1; j2 >= 0; j2--) x.lineTo(xs[j2], curve[j2]);
-            x.closePath();
-            x.fill();
-            if (rnd() < 0.5) {
-                x.strokeStyle = 'rgba(45,107,216,0.55)';
-                x.lineWidth = 1.1;
-                x.beginPath();
-                x.moveTo(xs[0], curve[0]);
-                for (var j3 = 1; j3 < N; j3++) x.lineTo(xs[j3], curve[j3]);
-                x.stroke();
-            }
-            prev = curve;
-            yCur += bandH;
-        }
-
-        for (var yy = top; yy < baseY; yy += 4.5) {
-            x.strokeStyle = 'rgba(14,30,48,' + ((yy - top) % 23 < 4.5 ? 0.09 : 0.04) + ')';
-            x.lineWidth = 0.6;
-            x.beginPath(); x.moveTo(-4, yy); x.lineTo(W + 4, yy); x.stroke();
-        }
-        for (var g = 0; g < 240; g++) {
-            x.fillStyle = g % 2 ? 'rgba(14,30,48,0.05)' : 'rgba(250,251,252,0.08)';
-            x.fillRect(rnd() * W, top + rnd() * Hpx, 1.1, 1.1);
-        }
-        x.fillStyle = 'rgba(237,233,227,0.95)';
-        x.fillRect(0, baseY - 7, W, 9);
-        x.strokeStyle = 'rgba(14,30,48,0.25)';
-        x.lineWidth = 0.8;
-        x.beginPath(); x.moveTo(0, baseY - 7); x.lineTo(W, baseY - 7); x.stroke();
-        x.restore();
-
-        silhouette();
-        x.strokeStyle = 'rgba(14,30,48,0.5)';
-        x.lineWidth = 1.4;
-        x.stroke();
-        var rM = profileR(prof.pts, 1) * W;
-        x.fillStyle = 'rgba(8,19,31,0.92)';
-        x.beginPath();
-        x.ellipse(cx2, top, rM * 0.96, Math.max(4.5, rM * 0.2), 0, 0, Math.PI * 2);
-        x.fill();
-        x.strokeStyle = 'rgba(230,239,246,0.55)';
-        x.lineWidth = 1;
-        x.stroke();
-    }
-
-    var grid = document.getElementById('vessel-grid');
-    pieces.forEach(function (p, i) {
-        var fig = document.createElement('figure');
-        fig.className = 'mat rv';
-        var art = document.createElement('div');
-        art.className = 'art';
-        var cv = document.createElement('canvas');
-        cv.setAttribute('role', 'img');
-        cv.setAttribute('aria-label', p.t + ' — drawn stand-in');
-        art.appendChild(cv);
-        drawVessel(cv, i, p.shape);
-        var cap = document.createElement('figcaption');
-        var no = document.createElement('span');
-        no.className = 'meta-line dish-no';
-        no.textContent = 'no. 0' + (i + 1);
-        cap.appendChild(no);
-        var h = document.createElement('h3');
-        h.textContent = p.t;
-        var meta = document.createElement('span');
-        meta.className = 'meta-line';
-        meta.textContent = p.m;
-        cap.appendChild(h);
-        cap.appendChild(meta);
-        fig.appendChild(art);
-        fig.appendChild(cap);
-        grid.appendChild(fig);
-        if ('IntersectionObserver' in window && motionOK) {
-            var io2 = new IntersectionObserver(function (entries) {
-                entries.forEach(function (e) {
-                    if (e.isIntersecting) { e.target.classList.add('in'); io2.unobserve(e.target); }
-                });
-            }, { threshold: 0.12 });
-            io2.observe(fig);
-        } else {
-            fig.classList.add('in');
-        }
-    });
-    var hf = document.querySelector('.heatfield');
-    if (hf && hf.getContext) {
-        var hx = hf.getContext('2d'), HW = hf.width, HH = hf.height;
-        var hrnd = makeRnd(4242);
-        var blobs = [];
-        for (var hb = 0; hb < 9; hb++) {
-            blobs.push({ x: hrnd() * HW, y: hrnd() * HH, a: 0.35 + hrnd() * 0.75, s: 3 + hrnd() * 9 });
-        }
-        var stops = [[27, 58, 92], [62, 124, 177], [143, 191, 224], [230, 239, 246]];
-        for (var hy = 0; hy < HH; hy++) {
-            for (var hxp = 0; hxp < HW; hxp++) {
-                var dsum = 0;
-                for (var hb2 = 0; hb2 < blobs.length; hb2++) {
-                    var bb = blobs[hb2], dx2 = hxp - bb.x, dy2 = hy - bb.y;
-                    dsum += bb.a * Math.exp(-(dx2 * dx2 + dy2 * dy2) / (2 * bb.s * bb.s));
-                }
-                dsum += hrnd() * 0.08;
-                var dv = Math.min(1, dsum);
-                var seg = Math.min(2.999, dv * 3), si = Math.floor(seg), sf = seg - si;
-                var c0 = stops[si], c1 = stops[Math.min(3, si + 1)];
-                hx.fillStyle = 'rgba(' + Math.round(c0[0] + (c1[0] - c0[0]) * sf) + ',' +
-                    Math.round(c0[1] + (c1[1] - c0[1]) * sf) + ',' +
-                    Math.round(c0[2] + (c1[2] - c0[2]) * sf) + ',' +
-                    (0.12 + dv * 0.88).toFixed(3) + ')';
-                hx.fillRect(hxp, hy, 1, 1);
-            }
-        }
-    }
-})();
-</script>
-
-<script type="module">
-    const stage = document.getElementById('hero-stage');
-    const mount = document.getElementById('hero-canvas');
-    const stateLabel = document.getElementById('state-label'); // optional — null-safe
-
-    const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = (navigator.connection && navigator.connection.saveData) ||
-        (window.matchMedia('(prefers-reduced-data: reduce)').matches);
-    const lowMem = navigator.deviceMemory !== undefined && navigator.deviceMemory <= 2;
-    const probe = document.createElement('canvas');
-    const webglOK = !!(probe.getContext('webgl2') || probe.getContext('webgl'));
-
-    if (!saveData && !lowMem && webglOK) {
-        init().catch(() => {});
-    }
-
-    async function init() {
-        const THREE = await import('three');
-        const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
-        const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
-        camera.position.set(38, 14, 38);
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'low-power' });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.1;
-        renderer.setClearColor(0xFAFBFC);
-        mount.appendChild(renderer.domElement);
-
-        const pmrem = new THREE.PMREMGenerator(renderer);
-        scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-        scene.fog = new THREE.Fog(0xFAFBFC, 60, 150);
-
-        const keyLight = new THREE.DirectionalLight(0xfff2e2, 1.4);
-        keyLight.position.set(-18, 30, 24);
-        scene.add(keyLight);
-        const fillLight = new THREE.DirectionalLight(0xdfeaff, 0.45);
-        fillLight.position.set(26, 8, -12);
-        scene.add(fillLight);
-
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enabled = false;
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.03;
-        controls.autoRotate = motionOK;
-        controls.autoRotateSpeed = 0.4;
-        controls.target.set(0, 2, 0);
-
-        const noiseChunk = `
-            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-            vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
-            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-            float snoise(vec3 v) {
-                const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
-                const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
-                vec3 i  = floor(v + dot(v, C.yyy) );
-                vec3 x0 = v - i + dot(i, C.xxx) ;
-                vec3 g = step(x0.yzx, x0.xyz);
-                vec3 l = 1.0 - g;
-                vec3 i1 = min( g.xyz, l.zxy );
-                vec3 i2 = max( g.xyz, l.zxy );
-                vec3 x1 = x0 - i1 + C.xxx;
-                vec3 x2 = x0 - i2 + C.yyy;
-                vec3 x3 = x0 - D.yyy;
-                i = mod289(i);
-                vec4 p = permute( permute( permute( i.z + vec4(0.0, i1.z, i2.z, 1.0 )) + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
-                float n_ = 0.142857142857;
-                vec3  ns = n_ * D.wyz - D.xzx;
-                vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-                vec4 x_ = floor(j * ns.z);
-                vec4 y_ = floor(j - 7.0 * x_ );
-                vec4 x = x_ *ns.x + ns.yyyy;
-                vec4 y = y_ *ns.x + ns.yyyy;
-                vec4 h = 1.0 - abs(x) - abs(y);
-                vec4 b0 = vec4( x.xy, y.xy );
-                vec4 b1 = vec4( x.zw, y.zw );
-                vec4 s0 = floor(b0)*2.0 + 1.0;
-                vec4 s1 = floor(b1)*2.0 + 1.0;
-                vec4 sh = -step(h, vec4(0.0));
-                vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
-                vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
-                vec3 p0 = vec3(a0.xy,h.x);
-                vec3 p1 = vec3(a0.zw,h.y);
-                vec3 p2 = vec3(a1.xy,h.z);
-                vec3 p3 = vec3(a1.zw,h.w);
-                vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
-                p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-                vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-                m = m * m;
-                return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
-            }
-        `;
-        const paletteChunk = `
-            const vec3 PRUSSIAN = vec3(0.106, 0.227, 0.361);
-            const vec3 CERULEAN = vec3(0.243, 0.486, 0.694);
-            const vec3 SKY      = vec3(0.561, 0.749, 0.878);
-            const vec3 ICE      = vec3(0.902, 0.937, 0.965);
-            const vec3 COBALT   = vec3(0.176, 0.420, 0.847);
-            const vec3 ABYSS    = vec3(0.055, 0.118, 0.188);
-        `;
-
-        function smoothstepJS(a, b, x) {
-            const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
-            return t * t * (3 - 2 * t);
-        }
-        function profileRadius(t) {
-            const s = -0.96 + t * 1.86;
-            let r = 0.6 + 10.4 * Math.sqrt(Math.max(0.0, 1.0 - s * s));
-            r -= 1.15 * smoothstepJS(0.93, 0.995, t);
-            r += 0.7 * Math.pow(smoothstepJS(0.975, 1.0, t), 1.6);
-            r += 0.5 * (1.0 - smoothstepJS(0.0, 0.05, t));
-            return Math.max(r, 0.7);
-        }
-        const VASE_H = 24;
-        const profilePts = [];
-        const P_SEG = 160;
-        for (let i = 0; i <= P_SEG; i++) {
-            const t = i / P_SEG;
-            profilePts.push(new THREE.Vector2(profileRadius(t), t * VASE_H - 11));
-        }
-        const vaseGeo = new THREE.LatheGeometry(profilePts, 240);
-
-        const OCEAN_SIZE = 120.0;
-
-        function makeClayBump() {
-            const c = document.createElement('canvas');
-            c.width = 256; c.height = 1024;
-            const g = c.getContext('2d');
-            g.fillStyle = 'rgb(128,128,128)';
-            g.fillRect(0, 0, 256, 1024);
-            for (let y = 0; y < 1024; y++) {
-                const ring = Math.sin(y * 0.55) * 5 + Math.sin(y * 0.13) * 4;
-                const v = Math.round(128 + ring + (Math.random() - 0.5) * 10);
-                g.fillStyle = `rgba(${v},${v},${v},0.85)`;
-                g.fillRect(0, y, 256, 1);
-            }
-            g.globalAlpha = 0.35;
-            for (let i = 0; i < 9000; i++) {
-                const v = Math.round(128 + (Math.random() - 0.5) * 60);
-                g.fillStyle = `rgb(${v},${v},${v})`;
-                g.fillRect(Math.random() * 256, Math.random() * 1024, 1.4, 1.4);
-            }
-            const tex = new THREE.CanvasTexture(c);
-            tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-            return tex;
-        }
-
-        const clayUniforms = {
-            uTime:  { value: 0 },
-            uMorph: { value: 0 },
-            uSwirl: { value: 0 },
-            uWave:  { value: 0.15 },
-            uGloss: { value: 0.82 },
-            uFoam:  { value: 0.0 },
-            uDrift: { value: 0.0 },
-            uClear: { value: 0.16 }
-        };
-
-        const clayMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff,
-            roughness: 0.55,
-            metalness: 0.0,
-            clearcoat: 1.0,
-            clearcoatRoughness: 0.4,
-            bumpMap: makeClayBump(),
-            bumpScale: 0.8,
-            envMapIntensity: 0.75,
-            side: THREE.DoubleSide
-        });
-
-        clayMaterial.onBeforeCompile = (shader) => {
-            Object.assign(shader.uniforms, clayUniforms);
-            clayMaterial.userData.shader = shader;
-
-            shader.vertexShader = `
-                uniform float uTime;
-                uniform float uMorph;
-                uniform float uSwirl;
-                uniform float uWave;
-                varying vec3 vPattern;
-                varying vec3 vWorldPos2;
-                varying float vCrest;
-                ${noiseChunk}
-                float seaHeight(vec2 o) {
-                    float swellA = snoise(vec3(o * 0.045, uTime * 0.18)) * 2.6;
-                    float swellB = snoise(vec3(o * 0.14,  uTime * 0.35)) * 0.9;
-                    float chop   = snoise(vec3(o * 0.4,   uTime * 0.6 )) * 0.25;
-                    return (swellA + swellB + chop) * uWave;
-                }
-            ` + shader.vertexShader;
-
-            shader.vertexShader = shader.vertexShader.replace('#include <beginnormal_vertex>', `
-                vec3 objectNormal = vec3(normal);
-                float twist = uSwirl * (position.y * 0.16 + 1.2);
-                float ct = cos(twist), st = sin(twist);
-                objectNormal.xz = mat2(ct, -st, st, ct) * objectNormal.xz;
-                vec2 oxz = (uv - 0.5) * ${OCEAN_SIZE.toFixed(1)};
-                float hC = seaHeight(oxz);
-                float eN = 0.65;
-                vec3 seaNormal = normalize(vec3(
-                    -(seaHeight(oxz + vec2(eN, 0.0)) - hC) / eN,
-                    1.0,
-                    -(seaHeight(oxz + vec2(0.0, eN)) - hC) / eN
-                ));
-                float m = smoothstep(0.0, 1.0, uMorph);
-                objectNormal = normalize(mix(objectNormal, seaNormal, m));
-            `);
-
-            shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
-                vec3 vasePos = vec3(position);
-                vasePos.xz = mat2(ct, -st, st, ct) * vasePos.xz;
-                vec3 seaPos = vec3(oxz.x, -3.0 + hC, oxz.y);
-                vec3 transformed = mix(vasePos, seaPos, m);
-                float unrest = uSwirl * snoise(vec3(transformed.xz * 0.1, uTime * 0.4)) * 2.0;
-                transformed.y += unrest * (1.0 - abs(m - 0.5) * 2.0);
-                vCrest = hC;
-                vPattern = position;
-                vWorldPos2 = (modelMatrix * vec4(transformed, 1.0)).xyz;
-            `);
-
-            shader.fragmentShader = `
-                uniform float uTime;
-                uniform float uMorph;
-                uniform float uGloss;
-                uniform float uFoam;
-                uniform float uDrift;
-                uniform float uClear;
-                varying vec3 vPattern;
-                varying vec3 vWorldPos2;
-                varying float vCrest;
-                ${noiseChunk}
-                ${paletteChunk}
-            ` + shader.fragmentShader;
-
-            shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `
-                #include <color_fragment>
-                vec3 pc = vPattern + vec3(0.0, uTime * uDrift, uTime * uDrift * 0.4);
-                float warpA = snoise(pc * 0.14);
-                float warpB = snoise(pc * 0.42 + 31.7);
-                float band  = sin(pc.y * 1.7 + warpA * 5.5 + warpB * 1.8);
-                float tBand = band * 0.5 + 0.5;
-                tBand = mix(0.12, 0.88, tBand);
-
-                vec3 clayCol = mix(ABYSS, PRUSSIAN, smoothstep(0.0, 0.4, tBand));
-                clayCol = mix(clayCol, CERULEAN, smoothstep(0.4, 0.74, tBand));
-                clayCol = mix(clayCol, SKY,      smoothstep(0.74, 0.92, tBand));
-                clayCol = mix(clayCol, ICE,      smoothstep(0.92, 0.99, tBand));
-
-                float vein = smoothstep(0.955, 1.0, abs(band));
-                clayCol = mix(clayCol, COBALT, vein * 0.35);
-
-                float footMask = (1.0 - smoothstep(-10.65, -10.25, vPattern.y)) * (1.0 - uMorph);
-                clayCol = mix(clayCol, vec3(0.93, 0.915, 0.89), footMask);
-
-                float foam = smoothstep(1.1, 2.4, vCrest) * uFoam;
-                foam += smoothstep(0.6, 0.0, abs(snoise(vWorldPos2 * 0.5 + uTime * 0.2))) * 0.12 * uFoam;
-                foam = clamp(foam, 0.0, 1.0);
-                clayCol = mix(clayCol, ICE, foam);
-
-                diffuseColor.rgb = pow(clayCol, vec3(2.2));
-            `);
-
-            shader.fragmentShader = shader.fragmentShader.replace('#include <roughnessmap_fragment>', `
-                float glossF = clamp((uGloss - 0.6) / 0.8, 0.0, 1.0);
-                float roughnessFactor = mix(0.62, 0.32, glossF);
-                roughnessFactor += snoise(vPattern * 26.0) * 0.05;
-                roughnessFactor += tBand * 0.05 - 0.02;
-                roughnessFactor = mix(roughnessFactor, 0.9, footMask);
-                roughnessFactor -= foam * 0.15;
-                roughnessFactor = clamp(roughnessFactor, 0.12, 1.0);
-            `);
-
-            shader.fragmentShader = shader.fragmentShader.replace('#include <lights_physical_fragment>', `
-                #include <lights_physical_fragment>
-                material.clearcoat = uClear * (1.0 - footMask);
-                material.clearcoatRoughness = mix(0.42, 0.2, glossF);
-            `);
-        };
-
-        const vessel = new THREE.Mesh(vaseGeo, clayMaterial);
-        scene.add(vessel);
-
-        function makeShadowTexture() {
-            const c = document.createElement('canvas');
-            c.width = c.height = 256;
-            const g = c.getContext('2d');
-            const grad = g.createRadialGradient(128, 128, 8, 128, 128, 126);
-            grad.addColorStop(0.0,  'rgba(14,30,48,0.40)');
-            grad.addColorStop(0.45, 'rgba(14,30,48,0.16)');
-            grad.addColorStop(1.0,  'rgba(14,30,48,0.0)');
-            g.fillStyle = grad;
-            g.fillRect(0, 0, 256, 256);
-            return new THREE.CanvasTexture(c);
-        }
-        const shadowMat = new THREE.MeshBasicMaterial({
-            map: makeShadowTexture(),
-            transparent: true,
-            depthWrite: false,
-            fog: false
-        });
-        const contactShadow = new THREE.Mesh(new THREE.PlaneGeometry(34, 28), shadowMat);
-        contactShadow.rotation.x = -Math.PI / 2;
-        contactShadow.position.set(2.0, -11.03, -1.0);
-        scene.add(contactShadow);
-
-        const SPRAY_N = 400;
-        const sprayGeo = new THREE.BufferGeometry();
-        const pVase = new Float32Array(SPRAY_N * 3);
-        const pSea  = new Float32Array(SPRAY_N * 3);
-        const pPhase = new Float32Array(SPRAY_N);
-        for (let i = 0; i < SPRAY_N; i++) {
-            const a = Math.random() * Math.PI * 2;
-            const rr = 12 + Math.random() * 14;
-            pVase[i*3]   = Math.cos(a) * rr;
-            pVase[i*3+1] = (Math.random() - 0.2) * 30;
-            pVase[i*3+2] = Math.sin(a) * rr;
-            pSea[i*3]   = (Math.random() - 0.5) * OCEAN_SIZE;
-            pSea[i*3+1] = -1.5 + Math.random() * 4.0;
-            pSea[i*3+2] = (Math.random() - 0.5) * OCEAN_SIZE;
-            pPhase[i] = Math.random() * Math.PI * 2;
-        }
-        sprayGeo.setAttribute('position', new THREE.BufferAttribute(pVase, 3));
-        sprayGeo.setAttribute('aSea', new THREE.BufferAttribute(pSea, 3));
-        sprayGeo.setAttribute('aPhase', new THREE.BufferAttribute(pPhase, 1));
-
-        const sprayMat = new THREE.ShaderMaterial({
-            uniforms: { uTime: { value: 0 }, uMorph: { value: 0 } },
-            vertexShader: `
-                uniform float uTime;
-                uniform float uMorph;
-                attribute vec3 aSea;
-                attribute float aPhase;
-                void main() {
-                    vec3 p = mix(position, aSea, smoothstep(0.0, 1.0, uMorph));
-                    p.y += sin(uTime * 0.5 + aPhase) * 0.8;
-                    p.x += cos(uTime * 0.3 + aPhase * 2.0) * 0.5 * uMorph;
-                    vec4 mv = viewMatrix * vec4(p, 1.0);
-                    gl_PointSize = (1.4 + uMorph * 1.2) * (60.0 / -mv.z);
-                    gl_Position = projectionMatrix * mv;
-                }
-            `,
-            fragmentShader: `
-                void main() {
-                    float d = length(gl_PointCoord - 0.5);
-                    float alpha = smoothstep(0.5, 0.0, d) * 0.22;
-                    gl_FragColor = vec4(vec3(0.106, 0.227, 0.361), alpha);
-                }
-            `,
-            transparent: true, blending: THREE.NormalBlending, depthWrite: false
-        });
-        scene.add(new THREE.Points(sprayGeo, sprayMat));
-
-        const config = [
-            { label: 'vessel',
-              morph: 0.0,  swirl: 0.0, wave: 0.15, gloss: 0.82, foam: 0.0,  drift: 0.0,  clear: 0.16,
-              rotate: 0.4, camY: 14, camDist: 54 },
-            { label: 'unfurling',
-              morph: 0.55, swirl: 1.1, wave: 0.6,  gloss: 0.6,  foam: 0.25, drift: 0.02, clear: 0.42,
-              rotate: 0.9, camY: 26, camDist: 76 },
-            { label: 'current',
-              morph: 1.0,  swirl: 0.0, wave: 0.9,  gloss: 1.05, foam: 0.8,  drift: 0.05, clear: 0.5,
-              rotate: 0.2, camY: 11, camDist: 84 }
-        ];
-        let stateIdx = 0;
-        const camControl = { distance: 54 };
-
-        const TWEENS = [];
-        const easeInOut = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        function tween(get, set, to, dur) {
-            TWEENS.push({ get, set, from: get(), to, start: performance.now(), dur });
-        }
-        function stepTweens(now) {
-            for (let i = TWEENS.length - 1; i >= 0; i--) {
-                const w = TWEENS[i];
-                const t = Math.min(1, (now - w.start) / w.dur);
-                w.set(w.from + (w.to - w.from) * easeInOut(t));
-                if (t >= 1) TWEENS.splice(i, 1);
-            }
-        }
-
-        const DUR = 3600;
-        function setState(i) {
-            if (i === stateIdx) return;
-            stateIdx = i;
-            TWEENS.length = 0;
-            const s = config[stateIdx];
-            const u = clayUniforms;
-            tween(() => u.uMorph.value, v => u.uMorph.value = v, s.morph, DUR);
-            tween(() => u.uSwirl.value, v => u.uSwirl.value = v, s.swirl, DUR);
-            tween(() => u.uWave.value,  v => u.uWave.value  = v, s.wave,  DUR);
-            tween(() => u.uGloss.value, v => u.uGloss.value = v, s.gloss, DUR);
-            tween(() => u.uFoam.value,  v => u.uFoam.value  = v, s.foam,  DUR);
-            tween(() => u.uDrift.value, v => u.uDrift.value = v, s.drift, DUR);
-            tween(() => u.uClear.value, v => u.uClear.value = v, s.clear, DUR);
-            tween(() => sprayMat.uniforms.uMorph.value, v => sprayMat.uniforms.uMorph.value = v, s.morph, DUR);
-            tween(() => shadowMat.opacity, v => shadowMat.opacity = v, 1.0 - s.morph, DUR);
-            tween(() => clayMaterial.bumpScale, v => clayMaterial.bumpScale = v, 0.8 * (1.0 - s.morph), DUR);
-            tween(() => controls.autoRotateSpeed, v => controls.autoRotateSpeed = v, s.rotate, DUR);
-            tween(() => camera.position.y, v => camera.position.y = v, s.camY, DUR);
-            tween(() => camControl.distance, v => camControl.distance = v, s.camDist, DUR);
-            if (stateLabel) stateLabel.textContent = s.label;
-            renderUntil = performance.now() + DUR + 600;
-            resume();
-        }
-
-        stage.addEventListener('click', () => setState((stateIdx + 1) % config.length));
-
-        if (motionOK) {
-            let lastScrollState = 0;
-            window.addEventListener('scroll', () => {
-                const y = window.scrollY, h = window.innerHeight;
-                const s = y < h * 0.18 ? 0 : y < h * 0.5 ? 1 : 2;
-                if (s !== lastScrollState) {
-                    lastScrollState = s;
-                    setState(s);
-                }
-            }, { passive: true });
-        }
-
-        let heroVisible = true;
-        let rafId = null;
-        let lastFrame = 0;
-        let renderUntil = performance.now() + 2000;
-        let framesRendered = 0;
-        const clock = new THREE.Clock();
-        const FRAME_MS = 1000 / 30;
-
-        function frame(now) {
-            rafId = null;
-            if (!heroVisible || document.hidden) return;
-            const wantMore = (motionOK && controls.autoRotate) || TWEENS.length > 0 || now < renderUntil;
-            if (wantMore) rafId = requestAnimationFrame(frame);
-            if (now - lastFrame < FRAME_MS) return;
-            lastFrame = now;
-
-            stepTweens(now);
-            const time = clock.getElapsedTime();
-            clayUniforms.uTime.value = time;
-            sprayMat.uniforms.uTime.value = time;
-            const dir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
-            camera.position.x = controls.target.x + dir.x * camControl.distance;
-            camera.position.z = controls.target.z + dir.z * camControl.distance;
-            controls.update();
-            renderer.render(scene, camera);
-            framesRendered++;
-            if (framesRendered === 2) stage.classList.add('live');
-        }
-        function resume() {
-            if (rafId === null && heroVisible && !document.hidden) {
-                clock.getDelta();
-                rafId = requestAnimationFrame(frame);
-            }
-        }
-
-        new IntersectionObserver(([entry]) => {
-            heroVisible = entry.isIntersecting;
-            if (heroVisible) resume();
-        }, { threshold: 0.05 }).observe(stage);
-        document.addEventListener('visibilitychange', resume);
-
-        function layout() {
-            const w = stage.clientWidth, h = stage.clientHeight;
-            if (w === 0 || h === 0) return;
-            renderer.setSize(w, h);
-            camera.aspect = w / h;
-            if (w > 920) camera.setViewOffset(w, h, -w * 0.16, h * 0.02, w, h);
-            else camera.clearViewOffset();
-            camera.updateProjectionMatrix();
-            renderUntil = performance.now() + 400;
-            resume();
-        }
-        new ResizeObserver(layout).observe(stage);
-        layout();
-
-        renderer.domElement.addEventListener('webglcontextlost', () => {
-            stage.classList.remove('live');
-            heroVisible = false;
-        });
-
-        resume();
-    }
-</script>
 </body>
 </html>
