@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600">
+  <rect width="1000" height="600" fill="#0E1719"/>
+  <text x="72" y="88" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="21" letter-spacing="4.2" fill="#9DAFAB">SPACED REPETITION</text>
+  <rect x="150" y="168" width="200" height="200" fill="none" stroke="#9DAFAB" stroke-opacity="0.45" stroke-width="2"/>
+  <line x1="150" y1="268" x2="350" y2="268" stroke="#9DAFAB" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <line x1="250" y1="168" x2="250" y2="368" stroke="#9DAFAB" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <text x="250" y="312" text-anchor="middle" font-family="'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="132" fill="#E0B94C">学</text>
+  <text x="250" y="412" text-anchor="middle" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" letter-spacing="2" fill="#8FC2B2">xué</text>
+  <rect x="400" y="168" width="200" height="200" fill="none" stroke="#9DAFAB" stroke-opacity="0.45" stroke-width="2"/>
+  <line x1="400" y1="268" x2="600" y2="268" stroke="#9DAFAB" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <line x1="500" y1="168" x2="500" y2="368" stroke="#9DAFAB" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <text x="500" y="312" text-anchor="middle" font-family="'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="132" fill="#E0B94C">习</text>
+  <text x="500" y="412" text-anchor="middle" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" letter-spacing="2" fill="#8FC2B2">xí</text>
+  <rect x="650" y="168" width="200" height="200" fill="none" stroke="#9DAFAB" stroke-opacity="0.45" stroke-width="2"/>
+  <line x1="650" y1="268" x2="850" y2="268" stroke="#9DAFAB" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <line x1="750" y1="168" x2="750" y2="368" stroke="#9DAFAB" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="7 9"/>
+  <text x="750" y="312" text-anchor="middle" font-family="'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif" font-size="132" fill="#E0B94C">课</text>
+  <text x="750" y="412" text-anchor="middle" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" letter-spacing="2" fill="#8FC2B2">kè</text>
+  <text x="928" y="566" text-anchor="end" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" letter-spacing="3" fill="#9DAFAB">HSK LEVEL 3</text>
+</svg>
