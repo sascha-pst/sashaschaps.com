@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HSK 3 Tutor — Sasha Schaps</title>
-<meta name="description" content="Flashcards, quizzes and a word list for the HSK 3 Chinese vocabulary — 94 core words, drilled on tian-zi-ge practice squares.">
+<title>HSK Tutor — Sasha Schaps</title>
+<meta name="description" content="Flashcards, quizzes and a searchable word list for HSK levels 1–3 — 601 words, filterable by level and part of speech, drilled on tian-zi-ge practice squares.">
 <meta name="theme-color" content="#F0EAD8">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F2E4'/%3E%3Cg fill='none' stroke-width='3.4'%3E%3Cpath d='M-1 9 C 5 3, 11 15, 17 9 S 29 3, 33 9' stroke='%2399ABA6'/%3E%3Cpath d='M-1 17 C 5 11, 11 23, 17 17 S 29 11, 33 17' stroke='%23ACB090'/%3E%3Cpath d='M-1 25 C 5 19, 11 31, 17 25 S 29 19, 33 25' stroke='%236F6C43'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,23 +65,43 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
 .app-title{font-weight:500;font-size:1rem;letter-spacing:-.01em;color:var(--cobalt-dark)}
 .app-title small{display:block;font-weight:300;font-size:.78rem;color:var(--faint);letter-spacing:0}
 
-.tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.bar{height:4px;background:var(--pale);margin-bottom:18px}
+.bar i{display:block;height:100%;background:var(--cobalt);transition:width .25s ease}
+
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
 .tab{padding:.55rem 1rem;font-size:.82rem;font-weight:500;
   background:transparent;color:var(--cobalt-dark);border:1.5px solid var(--mist)}
 .tab .zh{font-family:var(--hanzi);margin-right:.4em}
 .tab[aria-selected="true"]{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
 
-.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
-.pill{padding:.35rem .8rem;font-size:.78rem;
+/* --- filters --- */
+.filters{border:1px solid var(--mist);background:var(--surface);padding:12px 14px;margin-bottom:18px}
+.frow{display:flex;align-items:flex-start;gap:12px}
+.frow + .frow{margin-top:10px;padding-top:10px;border-top:1px solid var(--pale)}
+.flabel{flex:none;width:52px;padding-top:5px;
+  font-size:.58rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.fopts{display:flex;flex-wrap:wrap;gap:6px}
+.lv,.pill{font-family:var(--font);font-weight:400;line-height:1.2}
+.lv{padding:.3rem .7rem;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  background:transparent;color:var(--cobalt-dark);border:1px solid var(--mist)}
+.lv[aria-pressed="true"]{background:var(--cobalt-dark);color:#fff;border-color:var(--cobalt-dark)}
+.pill{padding:.3rem .7rem;font-size:.78rem;
   background:var(--pale);color:var(--cobalt-dark);border:1px solid var(--mist)}
 .pill[aria-pressed="true"]{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
+.lv:disabled,.pill:disabled{opacity:.32;cursor:not-allowed}
+.lv .n,.pill .n{opacity:.6;font-size:.9em;margin-left:.35em}
+.fsum{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  margin-top:10px;padding-top:10px;border-top:1px solid var(--pale);
+  font-size:.72rem;color:var(--faint)}
+.fsum button{background:none;border:none;padding:0;font-size:.72rem;color:var(--cobalt);
+  text-decoration:underline;text-underline-offset:2px}
 
 .stage{display:flex;flex-direction:column;align-items:center;gap:18px}
 
 .tzg{position:relative;width:100%;max-width:340px;aspect-ratio:1/1;
   background:var(--surface);border:2.5px solid var(--cobalt);
   box-shadow:0 10px 30px rgba(34,67,156,.12)}
-.tzg .guides{position:absolute;inset:0;pointer-events:none}
+.tzg .guides{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .tzg .guides i{position:absolute;display:block}
 .tzg .gh{left:0;right:0;top:50%;border-top:1.5px dashed var(--mist)}
 .tzg .gv{top:0;bottom:0;left:50%;border-left:1.5px dashed var(--mist)}
@@ -90,15 +110,18 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
 .tzg .gd2{transform:rotate(-45deg)}
 .tzg .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   padding:24px;text-align:center}
-.tzg .hz{font-family:var(--hanzi);color:var(--zink)}
-.tzg .hz.big{font-size:88px}.tzg .hz.small{font-size:56px}
+.tzg .hz{font-family:var(--hanzi);color:var(--zink);line-height:1.1}
+.tzg .hz.big{font-size:88px}.tzg .hz.small{font-size:56px}.tzg .hz.tiny{font-size:40px}
 .tzg .back .hz{font-size:40px;color:var(--cobalt)}
 .tzg .back .py{margin-top:4px;font-size:1.4rem;color:var(--zink)}
 .tzg .back .en{margin-top:8px;font-size:.95rem;color:var(--faint)}
-.tzg .back .cat{display:inline-block;margin-top:12px;padding:2px 8px;font-size:.7rem;
-  background:var(--pale);color:var(--cobalt-dark)}
+.tags{display:flex;gap:6px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.tag{padding:2px 8px;font-size:.7rem;background:var(--pale);color:var(--cobalt-dark)}
+.tag.lvl{background:var(--cobalt-dark);color:#fff}
 
 .hint{font-size:.82rem;color:var(--faint);text-align:center}
+.hint kbd{font-family:var(--font);font-size:.72rem;padding:1px 5px;
+  border:1px solid var(--mist);background:var(--surface);color:var(--faint)}
 .grade{display:flex;gap:12px}
 .btn{padding:.7rem 1.4rem;font-size:.9rem;font-weight:500;border:1px solid transparent}
 .btn.again{background:#FBEAE8;color:var(--seal);border-color:var(--seal)}
@@ -110,6 +133,9 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
 .finish .hz{font-family:var(--hanzi);font-size:56px;color:var(--cobalt)}
 .finish p{margin-top:8px;color:var(--zink)}
 .finish .btn{margin-top:20px}
+
+.empty{padding:2.6rem 1rem;text-align:center;color:var(--faint);font-size:.9rem;max-width:340px}
+.empty b{display:block;color:var(--zink);font-weight:500;margin-bottom:6px}
 
 .q-count{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .q-prompt{font-family:var(--hanzi);font-size:56px;color:var(--zink);text-align:center;line-height:1.15}
@@ -128,11 +154,12 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
   background:var(--surface);border:1.5px solid var(--mist);color:var(--zink)}
 .search:focus{outline:2px solid var(--cobalt);outline-offset:0;border-color:var(--cobalt)}
 .wl{width:100%;list-style:none;display:flex;flex-direction:column}
-.wl li{display:grid;grid-template-columns:76px 1fr auto;gap:12px;align-items:center;
+.wl li{display:grid;grid-template-columns:86px 1fr auto;gap:12px;align-items:center;
   padding:10px 4px;border-top:1px solid var(--pale)}
 .wl .hz{font-family:var(--hanzi);font-size:1.5rem;color:var(--zink)}
 .wl .py{font-size:.92rem;color:var(--cobalt-dark)}
 .wl .en{font-size:.85rem;color:var(--faint)}
+.wl .cats{font-size:.68rem;color:var(--faint);margin-top:2px;letter-spacing:.04em}
 .wl .known{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
   color:var(--green);border:1px solid var(--green);padding:2px 7px}
 .wl-empty{padding:2rem 0;text-align:center;color:var(--faint);font-size:.9rem}
@@ -155,7 +182,9 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
   .site-nav{flex-wrap:wrap;row-gap:8px}
   .opts{grid-template-columns:1fr}
   .tzg .hz.big{font-size:72px}
-  .wl li{grid-template-columns:62px 1fr auto}
+  .wl li{grid-template-columns:70px 1fr auto}
+  .frow{flex-direction:column;gap:6px}
+  .flabel{width:auto;padding-top:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -178,17 +207,20 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
 </nav>
 
 <header class="page">
-  <h1>HSK 3 Tutor</h1>
-  <div class="meta">94 words &middot; <b id="knownCount">0</b> known</div>
+  <h1>HSK Tutor</h1>
+  <div class="meta"><b id="totalCount">0</b> words &middot; <b id="knownCount">0</b> known</div>
 </header>
-<div class="sub">flashcards &middot; quiz &middot; word list &mdash; drilled on practice squares</div>
+<div class="sub">levels 1&ndash;3 &middot; flashcards &middot; quiz &middot; word list</div>
 
 <div class="app">
   <div class="app-head">
     <div class="seal" aria-hidden="true"><span>汉<br>语</span></div>
-    <div class="app-title">汉语水平考试 &middot; Level 3
+    <div class="app-title">汉语水平考试 &middot; Levels 1&ndash;3
+      <small id="progressLabel">Nothing marked known yet</small>
     </div>
   </div>
+
+  <div class="bar" role="presentation"><i id="barFill" style="width:0%"></i></div>
 
   <div class="tabs" role="tablist" aria-label="Mode">
     <button class="tab" role="tab" aria-selected="true"  data-mode="learn"><span class="zh">学</span>Learn</button>
@@ -196,8 +228,28 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
     <button class="tab" role="tab" aria-selected="false" data-mode="words"><span class="zh">词</span>Words</button>
   </div>
 
+  <div class="filters">
+    <div class="frow">
+      <div class="flabel" id="lvLabel">Level</div>
+      <div class="fopts" id="lvOpts" role="group" aria-labelledby="lvLabel"></div>
+    </div>
+    <div class="frow">
+      <div class="flabel" id="posLabel">Type</div>
+      <div class="fopts" id="posOpts" role="group" aria-labelledby="posLabel"></div>
+    </div>
+    <div class="fsum">
+      <span id="fsumText"></span>
+      <button type="button" id="resetFilters">Clear filters</button>
+    </div>
+  </div>
+
   <div id="stage" class="stage" aria-live="polite"></div>
 </div>
+
+<p class="note"><b>Progress is stored in this browser only.</b> Marking a card
+&ldquo;Got it&rdquo; or answering it correctly in the quiz saves it to
+<code>localStorage</code> &mdash; nothing is sent anywhere, and clearing site data resets it.
+<button type="button" id="resetProgress" style="background:none;border:none;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer">Reset progress</button></p>
 
 <footer class="site-foot">
   <a href="/#work">Selected work</a>
@@ -209,23 +261,48 @@ h1{font-weight:300;font-size:1.15rem;letter-spacing:.05em}
 <script>
 (function(){
 'use strict';
-var VOCAB = [{"h": "搬", "p": "bān", "e": "to move (house/objects)", "c": "Verbs"}, {"h": "帮忙", "p": "bāngmáng", "e": "to help", "c": "Verbs"}, {"h": "参加", "p": "cānjiā", "e": "to participate", "c": "Verbs"}, {"h": "迟到", "p": "chídào", "e": "to arrive late", "c": "Verbs"}, {"h": "打扫", "p": "dǎsǎo", "e": "to clean, sweep", "c": "Verbs"}, {"h": "打算", "p": "dǎsuàn", "e": "to plan, intend", "c": "Verbs"}, {"h": "带", "p": "dài", "e": "to bring, carry", "c": "Verbs"}, {"h": "担心", "p": "dānxīn", "e": "to worry", "c": "Verbs"}, {"h": "锻炼", "p": "duànliàn", "e": "to exercise", "c": "Verbs"}, {"h": "发烧", "p": "fāshāo", "e": "to have a fever", "c": "Verbs"}, {"h": "发现", "p": "fāxiàn", "e": "to discover", "c": "Verbs"}, {"h": "放", "p": "fàng", "e": "to put, place", "c": "Verbs"}, {"h": "放心", "p": "fàngxīn", "e": "to be at ease", "c": "Verbs"}, {"h": "复习", "p": "fùxí", "e": "to review", "c": "Verbs"}, {"h": "感冒", "p": "gǎnmào", "e": "to catch a cold", "c": "Verbs"}, {"h": "关心", "p": "guānxīn", "e": "to care about", "c": "Verbs"}, {"h": "害怕", "p": "hàipà", "e": "to be afraid", "c": "Verbs"}, {"h": "画", "p": "huà", "e": "to draw, paint", "c": "Verbs"}, {"h": "换", "p": "huàn", "e": "to exchange, change", "c": "Verbs"}, {"h": "记得", "p": "jìde", "e": "to remember", "c": "Verbs"}, {"h": "检查", "p": "jiǎnchá", "e": "to check, examine", "c": "Verbs"}, {"h": "见面", "p": "jiànmiàn", "e": "to meet (in person)", "c": "Verbs"}, {"h": "讲", "p": "jiǎng", "e": "to speak, explain", "c": "Verbs"}, {"h": "教", "p": "jiāo", "e": "to teach", "c": "Verbs"}, {"h": "接", "p": "jiē", "e": "to pick up, receive", "c": "Verbs"}, {"h": "结婚", "p": "jiéhūn", "e": "to get married", "c": "Verbs"}, {"h": "结束", "p": "jiéshù", "e": "to end, finish", "c": "Verbs"}, {"h": "解决", "p": "jiějué", "e": "to solve", "c": "Verbs"}, {"h": "借", "p": "jiè", "e": "to borrow, lend", "c": "Verbs"}, {"h": "决定", "p": "juédìng", "e": "to decide", "c": "Verbs"}, {"h": "爱好", "p": "àihào", "e": "hobby", "c": "Nouns"}, {"h": "办法", "p": "bànfǎ", "e": "method, way", "c": "Nouns"}, {"h": "办公室", "p": "bàngōngshì", "e": "office", "c": "Nouns"}, {"h": "比赛", "p": "bǐsài", "e": "competition, match", "c": "Nouns"}, {"h": "变化", "p": "biànhuà", "e": "change", "c": "Nouns"}, {"h": "冰箱", "p": "bīngxiāng", "e": "refrigerator", "c": "Nouns"}, {"h": "菜单", "p": "càidān", "e": "menu", "c": "Nouns"}, {"h": "衬衫", "p": "chènshān", "e": "shirt", "c": "Nouns"}, {"h": "成绩", "p": "chéngjì", "e": "grades, results", "c": "Nouns"}, {"h": "城市", "p": "chéngshì", "e": "city", "c": "Nouns"}, {"h": "船", "p": "chuán", "e": "boat, ship", "c": "Nouns"}, {"h": "词典", "p": "cídiǎn", "e": "dictionary", "c": "Nouns"}, {"h": "蛋糕", "p": "dàngāo", "e": "cake", "c": "Nouns"}, {"h": "灯", "p": "dēng", "e": "lamp, light", "c": "Nouns"}, {"h": "地铁", "p": "dìtiě", "e": "subway", "c": "Nouns"}, {"h": "地图", "p": "dìtú", "e": "map", "c": "Nouns"}, {"h": "电梯", "p": "diàntī", "e": "elevator", "c": "Nouns"}, {"h": "动物", "p": "dòngwù", "e": "animal", "c": "Nouns"}, {"h": "耳朵", "p": "ěrduo", "e": "ear", "c": "Nouns"}, {"h": "故事", "p": "gùshi", "e": "story", "c": "Nouns"}, {"h": "关系", "p": "guānxi", "e": "relationship", "c": "Nouns"}, {"h": "国家", "p": "guójiā", "e": "country", "c": "Nouns"}, {"h": "河", "p": "hé", "e": "river", "c": "Nouns"}, {"h": "护照", "p": "hùzhào", "e": "passport", "c": "Nouns"}, {"h": "环境", "p": "huánjìng", "e": "environment", "c": "Nouns"}, {"h": "会议", "p": "huìyì", "e": "meeting", "c": "Nouns"}, {"h": "机会", "p": "jīhuì", "e": "opportunity", "c": "Nouns"}, {"h": "季节", "p": "jìjié", "e": "season", "c": "Nouns"}, {"h": "节日", "p": "jiérì", "e": "festival, holiday", "c": "Nouns"}, {"h": "经理", "p": "jīnglǐ", "e": "manager", "c": "Nouns"}, {"h": "矮", "p": "ǎi", "e": "short (height)", "c": "Adjectives"}, {"h": "安静", "p": "ānjìng", "e": "quiet", "c": "Adjectives"}, {"h": "饱", "p": "bǎo", "e": "full (after eating)", "c": "Adjectives"}, {"h": "聪明", "p": "cōngming", "e": "smart, clever", "c": "Adjectives"}, {"h": "短", "p": "duǎn", "e": "short (length)", "c": "Adjectives"}, {"h": "饿", "p": "è", "e": "hungry", "c": "Adjectives"}, {"h": "方便", "p": "fāngbiàn", "e": "convenient", "c": "Adjectives"}, {"h": "干净", "p": "gānjìng", "e": "clean", "c": "Adjectives"}, {"h": "坏", "p": "huài", "e": "bad, broken", "c": "Adjectives"}, {"h": "简单", "p": "jiǎndān", "e": "simple", "c": "Adjectives"}, {"h": "健康", "p": "jiànkāng", "e": "healthy", "c": "Adjectives"}, {"h": "旧", "p": "jiù", "e": "old (things)", "c": "Adjectives"}, {"h": "久", "p": "jiǔ", "e": "a long time", "c": "Adjectives"}, {"h": "黄", "p": "huáng", "e": "yellow", "c": "Adjectives"}, {"h": "必须", "p": "bìxū", "e": "must", "c": "Adverbs & grammar"}, {"h": "比较", "p": "bǐjiào", "e": "comparatively, rather", "c": "Adverbs & grammar"}, {"h": "才", "p": "cái", "e": "only then, just", "c": "Adverbs & grammar"}, {"h": "除了", "p": "chúle", "e": "except, besides", "c": "Adverbs & grammar"}, {"h": "当然", "p": "dāngrán", "e": "of course", "c": "Adverbs & grammar"}, {"h": "根据", "p": "gēnjù", "e": "according to", "c": "Adverbs & grammar"}, {"h": "更", "p": "gèng", "e": "even more", "c": "Adverbs & grammar"}, {"h": "关于", "p": "guānyú", "e": "about, regarding", "c": "Adverbs & grammar"}, {"h": "还是", "p": "háishi", "e": "or (in questions); still", "c": "Adverbs & grammar"}, {"h": "或者", "p": "huòzhě", "e": "or (in statements)", "c": "Adverbs & grammar"}, {"h": "几乎", "p": "jīhū", "e": "almost", "c": "Adverbs & grammar"}, {"h": "经常", "p": "jīngcháng", "e": "often", "c": "Adverbs & grammar"}, {"h": "刚才", "p": "gāngcái", "e": "just now", "c": "Time & places"}, {"h": "后来", "p": "hòulái", "e": "later, afterwards", "c": "Time & places"}, {"h": "过去", "p": "guòqù", "e": "the past", "c": "Time & places"}, {"h": "附近", "p": "fùjìn", "e": "nearby", "c": "Time & places"}, {"h": "地方", "p": "dìfang", "e": "place", "c": "Time & places"}, {"h": "超市", "p": "chāoshì", "e": "supermarket", "c": "Time & places"}, {"h": "公园", "p": "gōngyuán", "e": "park", "c": "Time & places"}, {"h": "街道", "p": "jiēdào", "e": "street", "c": "Time & places"}];
-var CATS = ['All'];
-VOCAB.forEach(function(v){ if(CATS.indexOf(v.c)<0) CATS.push(v.c); });
 
+var VOCAB = [{"h":"北京","p":"Běijīng","e":"Beijing","l":"HSK 1","c":"Nouns"},{"h":"汉语","p":"Hànyǔ","e":"Chinese (language)","l":"HSK 1","c":"Nouns"},{"h":"中国","p":"Zhōngguó","e":"China","l":"HSK 1","c":"Nouns"},{"h":"爸爸","p":"bàba","e":"dad, father","l":"HSK 1","c":"Nouns"},{"h":"不","p":"bù","e":"not, no","l":"HSK 1","c":"Adverbs"},{"h":"不客气","p":"bù kèqi","e":"you're welcome","l":"HSK 1","c":"Expressions"},{"h":"八","p":"bā","e":"eight","l":"HSK 1","c":"Numbers & measures"},{"h":"杯子","p":"bēizi","e":"cup, glass","l":"HSK 1","c":"Nouns"},{"h":"本","p":"běn","e":"(measure word for books)","l":"HSK 1","c":"Numbers & measures"},{"h":"茶","p":"chá","e":"tea","l":"HSK 1","c":"Nouns"},{"h":"吃","p":"chī","e":"to eat","l":"HSK 1","c":"Verbs"},{"h":"出租车","p":"chūzūchē","e":"taxi","l":"HSK 1","c":"Nouns"},{"h":"菜","p":"cài","e":"dish, vegetable","l":"HSK 1","c":"Nouns"},{"h":"的","p":"de","e":"(possessive particle)","l":"HSK 1","c":"Grammar words"},{"h":"电脑","p":"diànnǎo","e":"computer","l":"HSK 1","c":"Nouns"},{"h":"电视","p":"diànshì","e":"television","l":"HSK 1","c":"Nouns"},{"h":"电影","p":"diànyǐng","e":"movie, film","l":"HSK 1","c":"Nouns"},{"h":"点","p":"diǎn","e":"o'clock; a little","l":"HSK 1","c":"Numbers & measures"},{"h":"对不起","p":"duìbuqǐ","e":"sorry, excuse me","l":"HSK 1","c":"Expressions"},{"h":"多","p":"duō","e":"many, much","l":"HSK 1","c":"Adjectives"},{"h":"多少","p":"duōshao","e":"how many, how much","l":"HSK 1","c":"Pronouns & questions"},{"h":"大","p":"dà","e":"big, large","l":"HSK 1","c":"Adjectives"},{"h":"读","p":"dú","e":"to read, to study","l":"HSK 1","c":"Verbs"},{"h":"东西","p":"dōngxi","e":"thing, stuff","l":"HSK 1","c":"Nouns"},{"h":"都","p":"dōu","e":"all, both","l":"HSK 1","c":"Adverbs"},{"h":"打电话","p":"dǎ diànhuà","e":"to make a phone call","l":"HSK 1","c":"Verbs"},{"h":"饭馆","p":"fànguǎn","e":"restaurant","l":"HSK 1","c":"Nouns"},{"h":"飞机","p":"fēijī","e":"airplane","l":"HSK 1","c":"Nouns"},{"h":"分钟","p":"fēnzhōng","e":"minute","l":"HSK 1","c":"Time & place"},{"h":"个","p":"gè","e":"(general measure word)","l":"HSK 1","c":"Numbers & measures"},{"h":"高兴","p":"gāoxìng","e":"happy, glad","l":"HSK 1","c":"Adjectives"},{"h":"工作","p":"gōngzuò","e":"to work; job","l":"HSK 1","c":"Verbs"},{"h":"狗","p":"gǒu","e":"dog","l":"HSK 1","c":"Nouns"},{"h":"会","p":"huì","e":"can, to know how to; will","l":"HSK 1","c":"Verbs"},{"h":"回","p":"huí","e":"to return, to go back","l":"HSK 1","c":"Verbs"},{"h":"火车站","p":"huǒchēzhàn","e":"train station","l":"HSK 1","c":"Nouns"},{"h":"和","p":"hé","e":"and, with","l":"HSK 1","c":"Grammar words"},{"h":"后面","p":"hòumian","e":"behind, at the back","l":"HSK 1","c":"Time & place"},{"h":"喝","p":"hē","e":"to drink","l":"HSK 1","c":"Verbs"},{"h":"很","p":"hěn","e":"very","l":"HSK 1","c":"Adverbs"},{"h":"好","p":"hǎo","e":"good, well","l":"HSK 1","c":"Adjectives"},{"h":"叫","p":"jiào","e":"to be called; to shout","l":"HSK 1","c":"Verbs"},{"h":"家","p":"jiā","e":"home, family","l":"HSK 1","c":"Nouns"},{"h":"九","p":"jiǔ","e":"nine","l":"HSK 1","c":"Numbers & measures"},{"h":"今天","p":"jīntiān","e":"today","l":"HSK 1","c":"Time & place"},{"h":"几","p":"jǐ","e":"how many; several","l":"HSK 1","c":"Pronouns & questions"},{"h":"块","p":"kuài","e":"(measure word) piece; yuan","l":"HSK 1","c":"Numbers & measures"},{"h":"看","p":"kàn","e":"to look, to watch, to read","l":"HSK 1","c":"Verbs"},{"h":"看见","p":"kànjiàn","e":"to see, to catch sight of","l":"HSK 1","c":"Verbs"},{"h":"开","p":"kāi","e":"to open; to drive; to turn on","l":"HSK 1","c":"Verbs"},{"h":"了","p":"le","e":"(completed-action particle)","l":"HSK 1","c":"Grammar words"},{"h":"六","p":"liù","e":"six","l":"HSK 1","c":"Numbers & measures"},{"h":"来","p":"lái","e":"to come","l":"HSK 1","c":"Verbs"},{"h":"零","p":"líng","e":"zero","l":"HSK 1","c":"Numbers & measures"},{"h":"冷","p":"lěng","e":"cold","l":"HSK 1","c":"Adjectives"},{"h":"老师","p":"lǎoshī","e":"teacher","l":"HSK 1","c":"Nouns"},{"h":"里","p":"lǐ","e":"inside, in","l":"HSK 1","c":"Time & place"},{"h":"吗","p":"ma","e":"(yes/no question particle)","l":"HSK 1","c":"Grammar words"},{"h":"没","p":"méi","e":"not, have not","l":"HSK 1","c":"Adverbs"},{"h":"没关系","p":"méi guānxi","e":"it doesn't matter, no problem","l":"HSK 1","c":"Expressions"},{"h":"明天","p":"míngtiān","e":"tomorrow","l":"HSK 1","c":"Time & place"},{"h":"名字","p":"míngzi","e":"name","l":"HSK 1","c":"Nouns"},{"h":"妈妈","p":"māma","e":"mom, mother","l":"HSK 1","c":"Nouns"},{"h":"猫","p":"māo","e":"cat","l":"HSK 1","c":"Nouns"},{"h":"买","p":"mǎi","e":"to buy","l":"HSK 1","c":"Verbs"},{"h":"米饭","p":"mǐfàn","e":"cooked rice","l":"HSK 1","c":"Nouns"},{"h":"呢","p":"ne","e":"(particle softening a question)","l":"HSK 1","c":"Grammar words"},{"h":"年","p":"nián","e":"year","l":"HSK 1","c":"Time & place"},{"h":"那","p":"nà","e":"that, those","l":"HSK 1","c":"Pronouns & questions"},{"h":"能","p":"néng","e":"to be able to, can","l":"HSK 1","c":"Verbs"},{"h":"哪","p":"nǎ","e":"which","l":"HSK 1","c":"Pronouns & questions"},{"h":"你","p":"nǐ","e":"you","l":"HSK 1","c":"Pronouns & questions"},{"h":"女儿","p":"nǚ'ér","e":"daughter","l":"HSK 1","c":"Nouns"},{"h":"漂亮","p":"piàoliang","e":"pretty, beautiful","l":"HSK 1","c":"Adjectives"},{"h":"朋友","p":"péngyou","e":"friend","l":"HSK 1","c":"Nouns"},{"h":"苹果","p":"píngguǒ","e":"apple","l":"HSK 1","c":"Nouns"},{"h":"钱","p":"qián","e":"money","l":"HSK 1","c":"Nouns"},{"h":"前面","p":"qiánmiàn","e":"in front, ahead","l":"HSK 1","c":"Time & place"},{"h":"去","p":"qù","e":"to go","l":"HSK 1","c":"Verbs"},{"h":"七","p":"qī","e":"seven","l":"HSK 1","c":"Numbers & measures"},{"h":"请","p":"qǐng","e":"please; to invite","l":"HSK 1","c":"Verbs"},{"h":"热","p":"rè","e":"hot","l":"HSK 1","c":"Adjectives"},{"h":"认识","p":"rènshi","e":"to know, to be acquainted with","l":"HSK 1","c":"Verbs"},{"h":"人","p":"rén","e":"person, people","l":"HSK 1","c":"Nouns"},{"h":"日","p":"rì","e":"day; sun","l":"HSK 1","c":"Time & place"},{"h":"睡觉","p":"shuìjiào","e":"to sleep","l":"HSK 1","c":"Verbs"},{"h":"说话","p":"shuōhuà","e":"to speak, to talk","l":"HSK 1","c":"Verbs"},{"h":"水","p":"shuǐ","e":"water","l":"HSK 1","c":"Nouns"},{"h":"水果","p":"shuǐguǒ","e":"fruit","l":"HSK 1","c":"Nouns"},{"h":"上","p":"shàng","e":"on, above; to go up","l":"HSK 1","c":"Time & place"},{"h":"上午","p":"shàngwǔ","e":"morning","l":"HSK 1","c":"Time & place"},{"h":"谁","p":"shéi","e":"who","l":"HSK 1","c":"Pronouns & questions"},{"h":"什么","p":"shénme","e":"what","l":"HSK 1","c":"Pronouns & questions"},{"h":"是","p":"shì","e":"to be (am, is, are)","l":"HSK 1","c":"Verbs"},{"h":"十","p":"shí","e":"ten","l":"HSK 1","c":"Numbers & measures"},{"h":"时候","p":"shíhou","e":"time, moment","l":"HSK 1","c":"Time & place"},{"h":"商店","p":"shāngdiàn","e":"shop, store","l":"HSK 1","c":"Nouns"},{"h":"书","p":"shū","e":"book","l":"HSK 1","c":"Nouns"},{"h":"少","p":"shǎo","e":"few, little","l":"HSK 1","c":"Adjectives"},{"h":"岁","p":"suì","e":"years old (age)","l":"HSK 1","c":"Numbers & measures"},{"h":"四","p":"sì","e":"four","l":"HSK 1","c":"Numbers & measures"},{"h":"三","p":"sān","e":"three","l":"HSK 1","c":"Numbers & measures"},{"h":"天气","p":"tiānqì","e":"weather","l":"HSK 1","c":"Nouns"},{"h":"太","p":"tài","e":"too, excessively","l":"HSK 1","c":"Adverbs"},{"h":"同学","p":"tóngxué","e":"classmate","l":"HSK 1","c":"Nouns"},{"h":"他","p":"tā","e":"he, him","l":"HSK 1","c":"Pronouns & questions"},{"h":"她","p":"tā","e":"she, her","l":"HSK 1","c":"Pronouns & questions"},{"h":"听","p":"tīng","e":"to listen, to hear","l":"HSK 1","c":"Verbs"},{"h":"喂","p":"wèi","e":"hello (on the phone)","l":"HSK 1","c":"Expressions"},{"h":"我","p":"wǒ","e":"I, me","l":"HSK 1","c":"Pronouns & questions"},{"h":"我们","p":"wǒmen","e":"we, us","l":"HSK 1","c":"Pronouns & questions"},{"h":"五","p":"wǔ","e":"five","l":"HSK 1","c":"Numbers & measures"},{"h":"下","p":"xià","e":"below, under; next","l":"HSK 1","c":"Time & place"},{"h":"现在","p":"xiànzài","e":"now","l":"HSK 1","c":"Time & place"},{"h":"下午","p":"xiàwǔ","e":"afternoon","l":"HSK 1","c":"Time & place"},{"h":"下雨","p":"xiàyǔ","e":"to rain","l":"HSK 1","c":"Verbs"},{"h":"谢谢","p":"xièxie","e":"thank you","l":"HSK 1","c":"Expressions"},{"h":"先生","p":"xiānsheng","e":"Mr., sir; husband","l":"HSK 1","c":"Nouns"},{"h":"些","p":"xiē","e":"some, a few","l":"HSK 1","c":"Numbers & measures"},{"h":"写","p":"xiě","e":"to write","l":"HSK 1","c":"Verbs"},{"h":"想","p":"xiǎng","e":"to want; to think; to miss","l":"HSK 1","c":"Verbs"},{"h":"小","p":"xiǎo","e":"small","l":"HSK 1","c":"Adjectives"},{"h":"小姐","p":"xiǎojie","e":"Miss, young lady","l":"HSK 1","c":"Nouns"},{"h":"学生","p":"xuésheng","e":"student","l":"HSK 1","c":"Nouns"},{"h":"学校","p":"xuéxiào","e":"school","l":"HSK 1","c":"Nouns"},{"h":"学习","p":"xuéxí","e":"to study, to learn","l":"HSK 1","c":"Verbs"},{"h":"星期","p":"xīngqī","e":"week","l":"HSK 1","c":"Time & place"},{"h":"喜欢","p":"xǐhuan","e":"to like","l":"HSK 1","c":"Verbs"},{"h":"月","p":"yuè","e":"month; moon","l":"HSK 1","c":"Time & place"},{"h":"一","p":"yī","e":"one","l":"HSK 1","c":"Numbers & measures"},{"h":"衣服","p":"yīfu","e":"clothes","l":"HSK 1","c":"Nouns"},{"h":"医生","p":"yīshēng","e":"doctor","l":"HSK 1","c":"Nouns"},{"h":"医院","p":"yīyuàn","e":"hospital","l":"HSK 1","c":"Nouns"},{"h":"椅子","p":"yǐzi","e":"chair","l":"HSK 1","c":"Nouns"},{"h":"有","p":"yǒu","e":"to have; there is","l":"HSK 1","c":"Verbs"},{"h":"桌子","p":"zhuōzi","e":"table, desk","l":"HSK 1","c":"Nouns"},{"h":"这","p":"zhè","e":"this, these","l":"HSK 1","c":"Pronouns & questions"},{"h":"住","p":"zhù","e":"to live, to stay","l":"HSK 1","c":"Verbs"},{"h":"中午","p":"zhōngwǔ","e":"noon, midday","l":"HSK 1","c":"Time & place"},{"h":"坐","p":"zuò","e":"to sit; to travel by","l":"HSK 1","c":"Verbs"},{"h":"做","p":"zuò","e":"to do, to make","l":"HSK 1","c":"Verbs"},{"h":"昨天","p":"zuótiān","e":"yesterday","l":"HSK 1","c":"Time & place"},{"h":"在","p":"zài","e":"at, in; to be at","l":"HSK 1","c":"Grammar words"},{"h":"再见","p":"zàijiàn","e":"goodbye","l":"HSK 1","c":"Expressions"},{"h":"字","p":"zì","e":"character, word","l":"HSK 1","c":"Nouns"},{"h":"怎么","p":"zěnme","e":"how","l":"HSK 1","c":"Pronouns & questions"},{"h":"怎么样","p":"zěnmeyàng","e":"how about?, how is it?","l":"HSK 1","c":"Pronouns & questions"},{"h":"爱","p":"ài","e":"to love","l":"HSK 1","c":"Verbs"},{"h":"二","p":"èr","e":"two","l":"HSK 1","c":"Numbers & measures"},{"h":"儿子","p":"érzi","e":"son","l":"HSK 1","c":"Nouns"},{"h":"吧","p":"ba","e":"(particle: suggestion, or “right?”)","l":"HSK 2","c":"Grammar words"},{"h":"别","p":"bié","e":"don't","l":"HSK 2","c":"Adverbs"},{"h":"报纸","p":"bàozhǐ","e":"newspaper","l":"HSK 2","c":"Nouns"},{"h":"白","p":"bái","e":"white","l":"HSK 2","c":"Adjectives"},{"h":"帮助","p":"bāngzhù","e":"to help","l":"HSK 2","c":"Verbs"},{"h":"百","p":"bǎi","e":"hundred","l":"HSK 2","c":"Numbers & measures"},{"h":"比","p":"bǐ","e":"compared to, than","l":"HSK 2","c":"Grammar words"},{"h":"穿","p":"chuān","e":"to wear, to put on","l":"HSK 2","c":"Verbs"},{"h":"唱歌","p":"chànggē","e":"to sing","l":"HSK 2","c":"Verbs"},{"h":"长","p":"cháng","e":"long","l":"HSK 2","c":"Adjectives"},{"h":"出","p":"chū","e":"to go out, to come out","l":"HSK 2","c":"Verbs"},{"h":"错","p":"cuò","e":"wrong, mistaken","l":"HSK 2","c":"Adjectives"},{"h":"次","p":"cì","e":"(measure word) time, occasion","l":"HSK 2","c":"Numbers & measures"},{"h":"从","p":"cóng","e":"from","l":"HSK 2","c":"Grammar words"},{"h":"得","p":"de","e":"(particle before a complement)","l":"HSK 2","c":"Grammar words"},{"h":"大家","p":"dàjiā","e":"everyone","l":"HSK 2","c":"Pronouns & questions"},{"h":"但是","p":"dànshì","e":"but, however","l":"HSK 2","c":"Grammar words"},{"h":"到","p":"dào","e":"to arrive, to reach","l":"HSK 2","c":"Verbs"},{"h":"打篮球","p":"dǎ lánqiú","e":"to play basketball","l":"HSK 2","c":"Verbs"},{"h":"弟弟","p":"dìdi","e":"younger brother","l":"HSK 2","c":"Nouns"},{"h":"第一","p":"dìyī","e":"first","l":"HSK 2","c":"Numbers & measures"},{"h":"得","p":"děi","e":"to have to, must","l":"HSK 2","c":"Verbs"},{"h":"懂","p":"dǒng","e":"to understand","l":"HSK 2","c":"Verbs"},{"h":"房间","p":"fángjiān","e":"room","l":"HSK 2","c":"Nouns"},{"h":"服务员","p":"fúwùyuán","e":"waiter, attendant","l":"HSK 2","c":"Nouns"},{"h":"非常","p":"fēicháng","e":"extremely, very","l":"HSK 2","c":"Adverbs"},{"h":"贵","p":"guì","e":"expensive","l":"HSK 2","c":"Adjectives"},{"h":"告诉","p":"gàosu","e":"to tell","l":"HSK 2","c":"Verbs"},{"h":"高","p":"gāo","e":"tall, high","l":"HSK 2","c":"Adjectives"},{"h":"哥哥","p":"gēge","e":"older brother","l":"HSK 2","c":"Nouns"},{"h":"给","p":"gěi","e":"to give; for","l":"HSK 2","c":"Verbs"},{"h":"公共汽车","p":"gōnggòng qìchē","e":"bus","l":"HSK 2","c":"Nouns"},{"h":"公斤","p":"gōngjīn","e":"kilogram","l":"HSK 2","c":"Numbers & measures"},{"h":"公司","p":"gōngsī","e":"company","l":"HSK 2","c":"Nouns"},{"h":"还","p":"huán","e":"to return (something)","l":"HSK 2","c":"Verbs"},{"h":"回答","p":"huídá","e":"to answer","l":"HSK 2","c":"Verbs"},{"h":"欢迎","p":"huānyíng","e":"to welcome","l":"HSK 2","c":"Verbs"},{"h":"号","p":"hào","e":"number; day of the month","l":"HSK 2","c":"Numbers & measures"},{"h":"还","p":"hái","e":"still, also","l":"HSK 2","c":"Adverbs"},{"h":"孩子","p":"háizi","e":"child","l":"HSK 2","c":"Nouns"},{"h":"红","p":"hóng","e":"red","l":"HSK 2","c":"Adjectives"},{"h":"黑","p":"hēi","e":"black","l":"HSK 2","c":"Adjectives"},{"h":"好吃","p":"hǎochī","e":"tasty, delicious","l":"HSK 2","c":"Adjectives"},{"h":"件","p":"jiàn","e":"(measure word for clothes, matters)","l":"HSK 2","c":"Numbers & measures"},{"h":"教室","p":"jiàoshì","e":"classroom","l":"HSK 2","c":"Nouns"},{"h":"介绍","p":"jièshào","e":"to introduce","l":"HSK 2","c":"Verbs"},{"h":"就","p":"jiù","e":"then, right away","l":"HSK 2","c":"Adverbs"},{"h":"姐姐","p":"jiějie","e":"older sister","l":"HSK 2","c":"Nouns"},{"h":"觉得","p":"juéde","e":"to feel, to think","l":"HSK 2","c":"Verbs"},{"h":"进","p":"jìn","e":"to enter","l":"HSK 2","c":"Verbs"},{"h":"近","p":"jìn","e":"near, close","l":"HSK 2","c":"Adjectives"},{"h":"机场","p":"jīchǎng","e":"airport","l":"HSK 2","c":"Nouns"},{"h":"鸡蛋","p":"jīdàn","e":"egg","l":"HSK 2","c":"Nouns"},{"h":"快","p":"kuài","e":"fast, quick","l":"HSK 2","c":"Adjectives"},{"h":"快乐","p":"kuàilè","e":"happy","l":"HSK 2","c":"Adjectives"},{"h":"课","p":"kè","e":"class, lesson","l":"HSK 2","c":"Nouns"},{"h":"咖啡","p":"kāfēi","e":"coffee","l":"HSK 2","c":"Nouns"},{"h":"开始","p":"kāishǐ","e":"to begin, to start","l":"HSK 2","c":"Verbs"},{"h":"可能","p":"kěnéng","e":"maybe, possibly","l":"HSK 2","c":"Adverbs"},{"h":"可以","p":"kěyǐ","e":"can, may","l":"HSK 2","c":"Verbs"},{"h":"考试","p":"kǎoshì","e":"exam; to take an exam","l":"HSK 2","c":"Nouns"},{"h":"两","p":"liǎng","e":"two (before a measure word)","l":"HSK 2","c":"Numbers & measures"},{"h":"累","p":"lèi","e":"tired","l":"HSK 2","c":"Adjectives"},{"h":"离","p":"lí","e":"away from, from","l":"HSK 2","c":"Grammar words"},{"h":"路","p":"lù","e":"road, route","l":"HSK 2","c":"Nouns"},{"h":"旅游","p":"lǚyóu","e":"to travel","l":"HSK 2","c":"Verbs"},{"h":"卖","p":"mài","e":"to sell","l":"HSK 2","c":"Verbs"},{"h":"慢","p":"màn","e":"slow","l":"HSK 2","c":"Adjectives"},{"h":"忙","p":"máng","e":"busy","l":"HSK 2","c":"Adjectives"},{"h":"妹妹","p":"mèimei","e":"younger sister","l":"HSK 2","c":"Nouns"},{"h":"门","p":"mén","e":"door, gate","l":"HSK 2","c":"Nouns"},{"h":"每","p":"měi","e":"every, each","l":"HSK 2","c":"Pronouns & questions"},{"h":"牛奶","p":"niúnǎi","e":"milk","l":"HSK 2","c":"Nouns"},{"h":"男人","p":"nánrén","e":"man","l":"HSK 2","c":"Nouns"},{"h":"您","p":"nín","e":"you (polite)","l":"HSK 2","c":"Pronouns & questions"},{"h":"女人","p":"nǚrén","e":"woman","l":"HSK 2","c":"Nouns"},{"h":"票","p":"piào","e":"ticket","l":"HSK 2","c":"Nouns"},{"h":"便宜","p":"piányi","e":"cheap","l":"HSK 2","c":"Adjectives"},{"h":"旁边","p":"pángbiān","e":"beside, next to","l":"HSK 2","c":"Time & place"},{"h":"跑步","p":"pǎobù","e":"to run, to jog","l":"HSK 2","c":"Verbs"},{"h":"千","p":"qiān","e":"thousand","l":"HSK 2","c":"Numbers & measures"},{"h":"晴","p":"qíng","e":"clear, sunny","l":"HSK 2","c":"Adjectives"},{"h":"去年","p":"qùnián","e":"last year","l":"HSK 2","c":"Time & place"},{"h":"妻子","p":"qīzi","e":"wife","l":"HSK 2","c":"Nouns"},{"h":"起床","p":"qǐchuáng","e":"to get up, to get out of bed","l":"HSK 2","c":"Verbs"},{"h":"让","p":"ràng","e":"to let, to allow","l":"HSK 2","c":"Verbs"},{"h":"上班","p":"shàngbān","e":"to go to work","l":"HSK 2","c":"Verbs"},{"h":"事情","p":"shìqing","e":"matter, affair","l":"HSK 2","c":"Nouns"},{"h":"时间","p":"shíjiān","e":"time","l":"HSK 2","c":"Time & place"},{"h":"生病","p":"shēngbìng","e":"to fall ill","l":"HSK 2","c":"Verbs"},{"h":"生日","p":"shēngrì","e":"birthday","l":"HSK 2","c":"Nouns"},{"h":"身体","p":"shēntǐ","e":"body, health","l":"HSK 2","c":"Nouns"},{"h":"手表","p":"shǒubiǎo","e":"wristwatch","l":"HSK 2","c":"Nouns"},{"h":"手机","p":"shǒujī","e":"mobile phone","l":"HSK 2","c":"Nouns"},{"h":"所以","p":"suǒyǐ","e":"so, therefore","l":"HSK 2","c":"Grammar words"},{"h":"送","p":"sòng","e":"to give (a gift); to see off","l":"HSK 2","c":"Verbs"},{"h":"跳舞","p":"tiàowǔ","e":"to dance","l":"HSK 2","c":"Verbs"},{"h":"题","p":"tí","e":"question, problem (on a test)","l":"HSK 2","c":"Nouns"},{"h":"它","p":"tā","e":"it","l":"HSK 2","c":"Pronouns & questions"},{"h":"踢","p":"tī","e":"to kick","l":"HSK 2","c":"Verbs"},{"h":"外","p":"wài","e":"outside","l":"HSK 2","c":"Time & place"},{"h":"完","p":"wán","e":"to finish, to run out","l":"HSK 2","c":"Verbs"},{"h":"玩","p":"wán","e":"to play, to have fun","l":"HSK 2","c":"Verbs"},{"h":"为","p":"wèi","e":"for, on behalf of","l":"HSK 2","c":"Grammar words"},{"h":"问","p":"wèn","e":"to ask","l":"HSK 2","c":"Verbs"},{"h":"问题","p":"wèntí","e":"question, problem","l":"HSK 2","c":"Nouns"},{"h":"晚上","p":"wǎnshang","e":"evening, night","l":"HSK 2","c":"Time & place"},{"h":"向","p":"xiàng","e":"toward, to","l":"HSK 2","c":"Grammar words"},{"h":"笑","p":"xiào","e":"to laugh, to smile","l":"HSK 2","c":"Verbs"},{"h":"休息","p":"xiūxi","e":"to rest","l":"HSK 2","c":"Verbs"},{"h":"小时","p":"xiǎoshí","e":"hour","l":"HSK 2","c":"Time & place"},{"h":"雪","p":"xuě","e":"snow","l":"HSK 2","c":"Nouns"},{"h":"姓","p":"xìng","e":"surname; to be surnamed","l":"HSK 2","c":"Verbs"},{"h":"西瓜","p":"xīguā","e":"watermelon","l":"HSK 2","c":"Nouns"},{"h":"新","p":"xīn","e":"new","l":"HSK 2","c":"Adjectives"},{"h":"希望","p":"xīwàng","e":"to hope","l":"HSK 2","c":"Verbs"},{"h":"洗","p":"xǐ","e":"to wash","l":"HSK 2","c":"Verbs"},{"h":"元","p":"yuán","e":"yuan (currency unit)","l":"HSK 2","c":"Numbers & measures"},{"h":"远","p":"yuǎn","e":"far","l":"HSK 2","c":"Adjectives"},{"h":"药","p":"yào","e":"medicine","l":"HSK 2","c":"Nouns"},{"h":"要","p":"yào","e":"to want; will, must","l":"HSK 2","c":"Verbs"},{"h":"羊肉","p":"yángròu","e":"mutton, lamb","l":"HSK 2","c":"Nouns"},{"h":"颜色","p":"yánsè","e":"color","l":"HSK 2","c":"Nouns"},{"h":"意思","p":"yìsi","e":"meaning","l":"HSK 2","c":"Nouns"},{"h":"右边","p":"yòubian","e":"right side","l":"HSK 2","c":"Time & place"},{"h":"游泳","p":"yóuyǒng","e":"to swim","l":"HSK 2","c":"Verbs"},{"h":"运动","p":"yùndòng","e":"sports, exercise","l":"HSK 2","c":"Nouns"},{"h":"鱼","p":"yú","e":"fish","l":"HSK 2","c":"Nouns"},{"h":"也","p":"yě","e":"also, too","l":"HSK 2","c":"Adverbs"},{"h":"阴","p":"yīn","e":"cloudy, overcast","l":"HSK 2","c":"Adjectives"},{"h":"因为","p":"yīnwèi","e":"because","l":"HSK 2","c":"Grammar words"},{"h":"一起","p":"yìqǐ","e":"together","l":"HSK 2","c":"Adverbs"},{"h":"眼睛","p":"yǎnjing","e":"eye","l":"HSK 2","c":"Nouns"},{"h":"已经","p":"yǐjīng","e":"already","l":"HSK 2","c":"Adverbs"},{"h":"着","p":"zhe","e":"(particle: ongoing state)","l":"HSK 2","c":"Grammar words"},{"h":"丈夫","p":"zhàngfu","e":"husband","l":"HSK 2","c":"Nouns"},{"h":"正在","p":"zhèngzài","e":"in the middle of (doing)","l":"HSK 2","c":"Adverbs"},{"h":"张","p":"zhāng","e":"(measure word for flat objects)","l":"HSK 2","c":"Numbers & measures"},{"h":"真","p":"zhēn","e":"really, truly","l":"HSK 2","c":"Adverbs"},{"h":"知道","p":"zhīdào","e":"to know","l":"HSK 2","c":"Verbs"},{"h":"长","p":"zhǎng","e":"to grow; senior","l":"HSK 2","c":"Verbs"},{"h":"找","p":"zhǎo","e":"to look for; to give change","l":"HSK 2","c":"Verbs"},{"h":"准备","p":"zhǔnbèi","e":"to prepare, to plan to","l":"HSK 2","c":"Verbs"},{"h":"最","p":"zuì","e":"most, -est","l":"HSK 2","c":"Adverbs"},{"h":"左边","p":"zuǒbian","e":"left side","l":"HSK 2","c":"Time & place"},{"h":"再","p":"zài","e":"again","l":"HSK 2","c":"Adverbs"},{"h":"自行车","p":"zìxíngchē","e":"bicycle","l":"HSK 2","c":"Nouns"},{"h":"早上","p":"zǎoshang","e":"early morning","l":"HSK 2","c":"Time & place"},{"h":"走","p":"zǒu","e":"to walk; to leave","l":"HSK 2","c":"Verbs"},{"h":"啊","p":"a","e":"(particle: exclamation)","l":"HSK 3","c":"Grammar words"},{"h":"变化","p":"biànhuà","e":"change","l":"HSK 3","c":"Nouns"},{"h":"别人","p":"biéren","e":"other people","l":"HSK 3","c":"Pronouns & questions"},{"h":"表示","p":"biǎoshì","e":"to express, to indicate","l":"HSK 3","c":"Verbs"},{"h":"表演","p":"biǎoyǎn","e":"to perform; performance","l":"HSK 3","c":"Verbs"},{"h":"半","p":"bàn","e":"half","l":"HSK 3","c":"Numbers & measures"},{"h":"办法","p":"bànfǎ","e":"method, way","l":"HSK 3","c":"Nouns"},{"h":"办公室","p":"bàngōngshì","e":"office","l":"HSK 3","c":"Nouns"},{"h":"被","p":"bèi","e":"(passive marker) by","l":"HSK 3","c":"Grammar words"},{"h":"必须","p":"bìxū","e":"must, have to","l":"HSK 3","c":"Adverbs"},{"h":"鼻子","p":"bízi","e":"nose","l":"HSK 3","c":"Nouns"},{"h":"搬","p":"bān","e":"to move (house or objects)","l":"HSK 3","c":"Verbs"},{"h":"班","p":"bān","e":"class, team","l":"HSK 3","c":"Nouns"},{"h":"帮忙","p":"bāngmáng","e":"to help out","l":"HSK 3","c":"Verbs"},{"h":"包","p":"bāo","e":"bag; to wrap","l":"HSK 3","c":"Nouns"},{"h":"北方","p":"běifāng","e":"the north","l":"HSK 3","c":"Time & place"},{"h":"宾馆","p":"bīnguǎn","e":"hotel","l":"HSK 3","c":"Nouns"},{"h":"冰箱","p":"bīngxiāng","e":"refrigerator","l":"HSK 3","c":"Nouns"},{"h":"把","p":"bǎ","e":"(marker moving the object before the verb)","l":"HSK 3","c":"Grammar words"},{"h":"饱","p":"bǎo","e":"full (from eating)","l":"HSK 3","c":"Adjectives"},{"h":"比较","p":"bǐjiào","e":"fairly, rather; to compare","l":"HSK 3","c":"Adverbs"},{"h":"比赛","p":"bǐsài","e":"match, competition","l":"HSK 3","c":"Nouns"},{"h":"差","p":"chà","e":"to lack; poor, inferior","l":"HSK 3","c":"Adjectives"},{"h":"船","p":"chuán","e":"boat, ship","l":"HSK 3","c":"Nouns"},{"h":"衬衫","p":"chènshān","e":"shirt, blouse","l":"HSK 3","c":"Nouns"},{"h":"成绩","p":"chéngjì","e":"grade, result","l":"HSK 3","c":"Nouns"},{"h":"城市","p":"chéngshì","e":"city","l":"HSK 3","c":"Nouns"},{"h":"迟到","p":"chídào","e":"to arrive late","l":"HSK 3","c":"Verbs"},{"h":"厨房","p":"chúfáng","e":"kitchen","l":"HSK 3","c":"Nouns"},{"h":"除了","p":"chúle","e":"besides, except","l":"HSK 3","c":"Grammar words"},{"h":"超市","p":"chāoshì","e":"supermarket","l":"HSK 3","c":"Nouns"},{"h":"春","p":"chūn","e":"spring (season)","l":"HSK 3","c":"Time & place"},{"h":"出现","p":"chūxiàn","e":"to appear, to emerge","l":"HSK 3","c":"Verbs"},{"h":"菜单","p":"càidān","e":"menu","l":"HSK 3","c":"Nouns"},{"h":"才","p":"cái","e":"only then, not until","l":"HSK 3","c":"Adverbs"},{"h":"层","p":"céng","e":"floor, storey; layer","l":"HSK 3","c":"Numbers & measures"},{"h":"词典","p":"cídiǎn","e":"dictionary","l":"HSK 3","c":"Nouns"},{"h":"词语","p":"cíyǔ","e":"word, expression","l":"HSK 3","c":"Nouns"},{"h":"参加","p":"cānjiā","e":"to take part in","l":"HSK 3","c":"Verbs"},{"h":"聪明","p":"cōngming","e":"clever, smart","l":"HSK 3","c":"Adjectives"},{"h":"草","p":"cǎo","e":"grass","l":"HSK 3","c":"Nouns"},{"h":"地","p":"de","e":"(particle turning a word into an adverb)","l":"HSK 3","c":"Grammar words"},{"h":"电梯","p":"diàntī","e":"elevator, lift","l":"HSK 3","c":"Nouns"},{"h":"电子","p":"diànzǐ","e":"electronic","l":"HSK 3","c":"Adjectives"},{"h":"段","p":"duàn","e":"(measure word) section, paragraph","l":"HSK 3","c":"Numbers & measures"},{"h":"锻炼","p":"duànliàn","e":"to exercise, to work out","l":"HSK 3","c":"Verbs"},{"h":"多么","p":"duōme","e":"how (…!)","l":"HSK 3","c":"Adverbs"},{"h":"短","p":"duǎn","e":"short (in length)","l":"HSK 3","c":"Adjectives"},{"h":"带","p":"dài","e":"to bring, to carry","l":"HSK 3","c":"Verbs"},{"h":"蛋糕","p":"dàngāo","e":"cake","l":"HSK 3","c":"Nouns"},{"h":"地方","p":"dìfang","e":"place","l":"HSK 3","c":"Time & place"},{"h":"地铁","p":"dìtiě","e":"subway, metro","l":"HSK 3","c":"Nouns"},{"h":"地图","p":"dìtú","e":"map","l":"HSK 3","c":"Nouns"},{"h":"动物","p":"dòngwù","e":"animal","l":"HSK 3","c":"Nouns"},{"h":"当然","p":"dāngrán","e":"of course","l":"HSK 3","c":"Adverbs"},{"h":"担心","p":"dānxīn","e":"to worry","l":"HSK 3","c":"Verbs"},{"h":"灯","p":"dēng","e":"lamp, light","l":"HSK 3","c":"Nouns"},{"h":"低","p":"dī","e":"low","l":"HSK 3","c":"Adjectives"},{"h":"冬","p":"dōng","e":"winter","l":"HSK 3","c":"Time & place"},{"h":"东","p":"dōng","e":"east","l":"HSK 3","c":"Time & place"},{"h":"打算","p":"dǎsuàn","e":"to plan to, to intend","l":"HSK 3","c":"Verbs"},{"h":"打扫","p":"dǎsǎo","e":"to clean, to sweep","l":"HSK 3","c":"Verbs"},{"h":"放","p":"fàng","e":"to put, to place; to let go","l":"HSK 3","c":"Verbs"},{"h":"放心","p":"fàngxīn","e":"to be at ease, to stop worrying","l":"HSK 3","c":"Verbs"},{"h":"附近","p":"fùjìn","e":"nearby, vicinity","l":"HSK 3","c":"Time & place"},{"h":"复习","p":"fùxí","e":"to review","l":"HSK 3","c":"Verbs"},{"h":"方便","p":"fāngbiàn","e":"convenient","l":"HSK 3","c":"Adjectives"},{"h":"发烧","p":"fāshāo","e":"to have a fever","l":"HSK 3","c":"Verbs"},{"h":"发现","p":"fāxiàn","e":"to discover, to find","l":"HSK 3","c":"Verbs"},{"h":"分","p":"fēn","e":"minute; cent; to divide","l":"HSK 3","c":"Numbers & measures"},{"h":"过去","p":"guòqù","e":"the past; to go over","l":"HSK 3","c":"Time & place"},{"h":"国家","p":"guójiā","e":"country, nation","l":"HSK 3","c":"Nouns"},{"h":"刮","p":"guā","e":"to blow (of wind); to scrape","l":"HSK 3","c":"Verbs"},{"h":"关","p":"guān","e":"to close; to turn off","l":"HSK 3","c":"Verbs"},{"h":"关系","p":"guānxi","e":"relationship, connection","l":"HSK 3","c":"Nouns"},{"h":"关心","p":"guānxīn","e":"to care about","l":"HSK 3","c":"Verbs"},{"h":"关于","p":"guānyú","e":"about, regarding","l":"HSK 3","c":"Grammar words"},{"h":"果汁","p":"guǒzhī","e":"fruit juice","l":"HSK 3","c":"Nouns"},{"h":"更","p":"gèng","e":"even more","l":"HSK 3","c":"Adverbs"},{"h":"故事","p":"gùshi","e":"story","l":"HSK 3","c":"Nouns"},{"h":"刚才","p":"gāngcái","e":"just now","l":"HSK 3","c":"Time & place"},{"h":"干净","p":"gānjìng","e":"clean","l":"HSK 3","c":"Adjectives"},{"h":"跟","p":"gēn","e":"with; to follow","l":"HSK 3","c":"Grammar words"},{"h":"根据","p":"gēnjù","e":"according to","l":"HSK 3","c":"Grammar words"},{"h":"公园","p":"gōngyuán","e":"park","l":"HSK 3","c":"Nouns"},{"h":"敢","p":"gǎn","e":"to dare","l":"HSK 3","c":"Verbs"},{"h":"感冒","p":"gǎnmào","e":"to catch a cold","l":"HSK 3","c":"Verbs"},{"h":"画","p":"huà","e":"to draw, to paint","l":"HSK 3","c":"Verbs"},{"h":"坏","p":"huài","e":"bad; broken","l":"HSK 3","c":"Adjectives"},{"h":"换","p":"huàn","e":"to change, to exchange","l":"HSK 3","c":"Verbs"},{"h":"黄","p":"huáng","e":"yellow","l":"HSK 3","c":"Adjectives"},{"h":"环境","p":"huánjìng","e":"environment","l":"HSK 3","c":"Nouns"},{"h":"会议","p":"huìyì","e":"meeting, conference","l":"HSK 3","c":"Nouns"},{"h":"或者","p":"huòzhě","e":"or (in statements)","l":"HSK 3","c":"Grammar words"},{"h":"花","p":"huā","e":"flower; to spend","l":"HSK 3","c":"Nouns"},{"h":"花园","p":"huāyuán","e":"garden","l":"HSK 3","c":"Nouns"},{"h":"害怕","p":"hàipà","e":"to be afraid","l":"HSK 3","c":"Verbs"},{"h":"还是","p":"háishi","e":"or (in questions); had better","l":"HSK 3","c":"Grammar words"},{"h":"河","p":"hé","e":"river","l":"HSK 3","c":"Nouns"},{"h":"后来","p":"hòulái","e":"afterwards, later","l":"HSK 3","c":"Time & place"},{"h":"护照","p":"hùzhào","e":"passport","l":"HSK 3","c":"Nouns"},{"h":"黑板","p":"hēibǎn","e":"blackboard","l":"HSK 3","c":"Nouns"},{"h":"健康","p":"jiànkāng","e":"healthy; health","l":"HSK 3","c":"Adjectives"},{"h":"见面","p":"jiànmiàn","e":"to meet","l":"HSK 3","c":"Verbs"},{"h":"借","p":"jiè","e":"to borrow; to lend","l":"HSK 3","c":"Verbs"},{"h":"结婚","p":"jiéhūn","e":"to get married","l":"HSK 3","c":"Verbs"},{"h":"节目","p":"jiémù","e":"program, show","l":"HSK 3","c":"Nouns"},{"h":"节日","p":"jiérì","e":"festival, holiday","l":"HSK 3","c":"Nouns"},{"h":"结束","p":"jiéshù","e":"to end, to finish","l":"HSK 3","c":"Verbs"},{"h":"旧","p":"jiù","e":"old, used (of things)","l":"HSK 3","c":"Adjectives"},{"h":"教","p":"jiāo","e":"to teach","l":"HSK 3","c":"Verbs"},{"h":"接","p":"jiē","e":"to pick up; to receive; to connect","l":"HSK 3","c":"Verbs"},{"h":"街道","p":"jiēdào","e":"street","l":"HSK 3","c":"Time & place"},{"h":"解决","p":"jiějué","e":"to solve, to settle","l":"HSK 3","c":"Verbs"},{"h":"检查","p":"jiǎnchá","e":"to check, to examine","l":"HSK 3","c":"Verbs"},{"h":"简单","p":"jiǎndān","e":"simple","l":"HSK 3","c":"Adjectives"},{"h":"讲","p":"jiǎng","e":"to speak, to explain","l":"HSK 3","c":"Verbs"},{"h":"脚","p":"jiǎo","e":"foot","l":"HSK 3","c":"Nouns"},{"h":"角","p":"jiǎo","e":"corner, angle; jiao (10 cents)","l":"HSK 3","c":"Nouns"},{"h":"久","p":"jiǔ","e":"long (in time)","l":"HSK 3","c":"Adjectives"},{"h":"决定","p":"juédìng","e":"to decide; decision","l":"HSK 3","c":"Verbs"},{"h":"记得","p":"jìde","e":"to remember","l":"HSK 3","c":"Verbs"},{"h":"季节","p":"jìjié","e":"season","l":"HSK 3","c":"Time & place"},{"h":"极","p":"jí","e":"extremely","l":"HSK 3","c":"Adverbs"},{"h":"句子","p":"jùzi","e":"sentence","l":"HSK 3","c":"Nouns"},{"h":"机会","p":"jīhuì","e":"opportunity, chance","l":"HSK 3","c":"Nouns"},{"h":"几乎","p":"jīhū","e":"almost, nearly","l":"HSK 3","c":"Adverbs"},{"h":"经常","p":"jīngcháng","e":"often","l":"HSK 3","c":"Adverbs"},{"h":"经过","p":"jīngguò","e":"to pass by, to go through","l":"HSK 3","c":"Verbs"},{"h":"经理","p":"jīnglǐ","e":"manager","l":"HSK 3","c":"Nouns"},{"h":"举行","p":"jǔxíng","e":"to hold (an event)","l":"HSK 3","c":"Verbs"},{"h":"筷子","p":"kuàizi","e":"chopsticks","l":"HSK 3","c":"Nouns"},{"h":"刻","p":"kè","e":"quarter (of an hour)","l":"HSK 3","c":"Numbers & measures"},{"h":"客人","p":"kèrén","e":"guest","l":"HSK 3","c":"Nouns"},{"h":"裤子","p":"kùzi","e":"trousers, pants","l":"HSK 3","c":"Nouns"},{"h":"渴","p":"kě","e":"thirsty","l":"HSK 3","c":"Adjectives"},{"h":"可爱","p":"kě'ài","e":"cute, lovable","l":"HSK 3","c":"Adjectives"},{"h":"空调","p":"kōngtiáo","e":"air conditioner","l":"HSK 3","c":"Nouns"},{"h":"哭","p":"kū","e":"to cry","l":"HSK 3","c":"Verbs"},{"h":"口","p":"kǒu","e":"mouth; (measure word for people)","l":"HSK 3","c":"Nouns"},{"h":"辆","p":"liàng","e":"(measure word for vehicles)","l":"HSK 3","c":"Numbers & measures"},{"h":"练习","p":"liànxí","e":"to practice; exercise","l":"HSK 3","c":"Verbs"},{"h":"脸","p":"liǎn","e":"face","l":"HSK 3","c":"Nouns"},{"h":"了解","p":"liǎojiě","e":"to understand, to find out about","l":"HSK 3","c":"Verbs"},{"h":"蓝","p":"lán","e":"blue","l":"HSK 3","c":"Adjectives"},{"h":"历史","p":"lìshǐ","e":"history","l":"HSK 3","c":"Nouns"},{"h":"离开","p":"líkāi","e":"to leave, to depart","l":"HSK 3","c":"Verbs"},{"h":"邻居","p":"línjū","e":"neighbor","l":"HSK 3","c":"Nouns"},{"h":"楼","p":"lóu","e":"building; floor","l":"HSK 3","c":"Nouns"},{"h":"老","p":"lǎo","e":"old (of people)","l":"HSK 3","c":"Adjectives"},{"h":"礼物","p":"lǐwù","e":"gift, present","l":"HSK 3","c":"Nouns"},{"h":"绿","p":"lǜ","e":"green","l":"HSK 3","c":"Adjectives"},{"h":"面包","p":"miànbāo","e":"bread","l":"HSK 3","c":"Nouns"},{"h":"面条","p":"miàntiáo","e":"noodles","l":"HSK 3","c":"Nouns"},{"h":"帽子","p":"màozi","e":"hat, cap","l":"HSK 3","c":"Nouns"},{"h":"明白","p":"míngbai","e":"to understand; clear","l":"HSK 3","c":"Verbs"},{"h":"马","p":"mǎ","e":"horse","l":"HSK 3","c":"Nouns"},{"h":"满意","p":"mǎnyì","e":"satisfied","l":"HSK 3","c":"Adjectives"},{"h":"马上","p":"mǎshàng","e":"right away, immediately","l":"HSK 3","c":"Adverbs"},{"h":"米","p":"mǐ","e":"meter; rice","l":"HSK 3","c":"Numbers & measures"},{"h":"年级","p":"niánjí","e":"grade, year (in school)","l":"HSK 3","c":"Nouns"},{"h":"年轻","p":"niánqīng","e":"young","l":"HSK 3","c":"Adjectives"},{"h":"鸟","p":"niǎo","e":"bird","l":"HSK 3","c":"Nouns"},{"h":"拿","p":"ná","e":"to take, to hold","l":"HSK 3","c":"Verbs"},{"h":"南","p":"nán","e":"south","l":"HSK 3","c":"Time & place"},{"h":"难","p":"nán","e":"difficult","l":"HSK 3","c":"Adjectives"},{"h":"难过","p":"nánguò","e":"sad, upset","l":"HSK 3","c":"Adjectives"},{"h":"奶奶","p":"nǎinai","e":"grandma (father's mother)","l":"HSK 3","c":"Nouns"},{"h":"努力","p":"nǔlì","e":"to work hard; diligent","l":"HSK 3","c":"Verbs"},{"h":"胖","p":"pàng","e":"fat, chubby","l":"HSK 3","c":"Adjectives"},{"h":"盘子","p":"pánzi","e":"plate, dish","l":"HSK 3","c":"Nouns"},{"h":"爬山","p":"páshān","e":"to climb a mountain, to hike","l":"HSK 3","c":"Verbs"},{"h":"啤酒","p":"píjiǔ","e":"beer","l":"HSK 3","c":"Nouns"},{"h":"葡萄","p":"pútao","e":"grape","l":"HSK 3","c":"Nouns"},{"h":"普通话","p":"pǔtōnghuà","e":"Mandarin, standard Chinese","l":"HSK 3","c":"Nouns"},{"h":"铅笔","p":"qiānbǐ","e":"pencil","l":"HSK 3","c":"Nouns"},{"h":"秋","p":"qiū","e":"autumn, fall","l":"HSK 3","c":"Time & place"},{"h":"骑","p":"qí","e":"to ride (a bike, a horse)","l":"HSK 3","c":"Verbs"},{"h":"奇怪","p":"qíguài","e":"strange, odd","l":"HSK 3","c":"Adjectives"},{"h":"其实","p":"qíshí","e":"actually, in fact","l":"HSK 3","c":"Adverbs"},{"h":"其他","p":"qítā","e":"other, the rest","l":"HSK 3","c":"Pronouns & questions"},{"h":"裙子","p":"qúnzi","e":"skirt","l":"HSK 3","c":"Nouns"},{"h":"清楚","p":"qīngchu","e":"clear, distinct","l":"HSK 3","c":"Adjectives"},{"h":"然后","p":"ránhòu","e":"then, afterwards","l":"HSK 3","c":"Grammar words"},{"h":"认为","p":"rènwéi","e":"to think, to believe","l":"HSK 3","c":"Verbs"},{"h":"认真","p":"rènzhēn","e":"serious, conscientious","l":"HSK 3","c":"Adjectives"},{"h":"热情","p":"rèqíng","e":"warm, enthusiastic","l":"HSK 3","c":"Adjectives"},{"h":"容易","p":"róngyì","e":"easy","l":"HSK 3","c":"Adjectives"},{"h":"如果","p":"rúguǒ","e":"if","l":"HSK 3","c":"Grammar words"},{"h":"刷","p":"shuā","e":"to brush; to swipe (a card)","l":"HSK 3","c":"Verbs"},{"h":"双","p":"shuāng","e":"pair","l":"HSK 3","c":"Numbers & measures"},{"h":"水平","p":"shuǐpíng","e":"level, standard","l":"HSK 3","c":"Nouns"},{"h":"上网","p":"shàngwǎng","e":"to go online","l":"HSK 3","c":"Verbs"},{"h":"世界","p":"shìjiè","e":"world","l":"HSK 3","c":"Nouns"},{"h":"瘦","p":"shòu","e":"thin, skinny; tight (of clothes)","l":"HSK 3","c":"Adjectives"},{"h":"树","p":"shù","e":"tree","l":"HSK 3","c":"Nouns"},{"h":"数学","p":"shùxué","e":"mathematics","l":"HSK 3","c":"Nouns"},{"h":"生气","p":"shēngqì","e":"to get angry","l":"HSK 3","c":"Verbs"},{"h":"声音","p":"shēngyīn","e":"sound, voice","l":"HSK 3","c":"Nouns"},{"h":"舒服","p":"shūfu","e":"comfortable","l":"HSK 3","c":"Adjectives"},{"h":"叔叔","p":"shūshu","e":"uncle (father's younger brother)","l":"HSK 3","c":"Nouns"},{"h":"使","p":"shǐ","e":"to make, to cause; to use","l":"HSK 3","c":"Verbs"},{"h":"虽然","p":"suīrán","e":"although","l":"HSK 3","c":"Grammar words"},{"h":"司机","p":"sījī","e":"driver","l":"HSK 3","c":"Nouns"},{"h":"伞","p":"sǎn","e":"umbrella","l":"HSK 3","c":"Nouns"},{"h":"甜","p":"tián","e":"sweet","l":"HSK 3","c":"Adjectives"},{"h":"条","p":"tiáo","e":"(measure word for long thin things)","l":"HSK 3","c":"Numbers & measures"},{"h":"腿","p":"tuǐ","e":"leg","l":"HSK 3","c":"Nouns"},{"h":"太阳","p":"tàiyáng","e":"sun","l":"HSK 3","c":"Nouns"},{"h":"糖","p":"táng","e":"sugar; candy","l":"HSK 3","c":"Nouns"},{"h":"特别","p":"tèbié","e":"especially; special","l":"HSK 3","c":"Adverbs"},{"h":"疼","p":"téng","e":"to ache, to hurt","l":"HSK 3","c":"Adjectives"},{"h":"提高","p":"tígāo","e":"to raise, to improve","l":"HSK 3","c":"Verbs"},{"h":"同事","p":"tóngshì","e":"colleague","l":"HSK 3","c":"Nouns"},{"h":"同意","p":"tóngyì","e":"to agree","l":"HSK 3","c":"Verbs"},{"h":"头发","p":"tóufa","e":"hair","l":"HSK 3","c":"Nouns"},{"h":"图书馆","p":"túshūguǎn","e":"library","l":"HSK 3","c":"Nouns"},{"h":"突然","p":"tūrán","e":"suddenly","l":"HSK 3","c":"Adverbs"},{"h":"体育","p":"tǐyù","e":"physical education, sports","l":"HSK 3","c":"Nouns"},{"h":"万","p":"wàn","e":"ten thousand","l":"HSK 3","c":"Numbers & measures"},{"h":"忘记","p":"wàngjì","e":"to forget","l":"HSK 3","c":"Verbs"},{"h":"完成","p":"wánchéng","e":"to complete, to accomplish","l":"HSK 3","c":"Verbs"},{"h":"位","p":"wèi","e":"(polite measure word for people)","l":"HSK 3","c":"Numbers & measures"},{"h":"为了","p":"wèile","e":"in order to","l":"HSK 3","c":"Grammar words"},{"h":"为什么","p":"wèishénme","e":"why","l":"HSK 3","c":"Pronouns & questions"},{"h":"文化","p":"wénhuà","e":"culture","l":"HSK 3","c":"Nouns"},{"h":"碗","p":"wǎn","e":"bowl","l":"HSK 3","c":"Nouns"},{"h":"夏","p":"xià","e":"summer","l":"HSK 3","c":"Time & place"},{"h":"像","p":"xiàng","e":"to resemble, to be like","l":"HSK 3","c":"Verbs"},{"h":"校长","p":"xiàozhǎng","e":"principal, headmaster","l":"HSK 3","c":"Nouns"},{"h":"鞋","p":"xié","e":"shoe","l":"HSK 3","c":"Nouns"},{"h":"熊猫","p":"xióngmāo","e":"panda","l":"HSK 3","c":"Nouns"},{"h":"先","p":"xiān","e":"first, in advance","l":"HSK 3","c":"Adverbs"},{"h":"香蕉","p":"xiāngjiāo","e":"banana","l":"HSK 3","c":"Nouns"},{"h":"相同","p":"xiāngtóng","e":"identical, the same","l":"HSK 3","c":"Adjectives"},{"h":"相信","p":"xiāngxìn","e":"to believe, to trust","l":"HSK 3","c":"Verbs"},{"h":"小心","p":"xiǎoxīn","e":"to be careful","l":"HSK 3","c":"Verbs"},{"h":"选择","p":"xuǎnzé","e":"to choose; choice","l":"HSK 3","c":"Verbs"},{"h":"信","p":"xìn","e":"letter; to believe","l":"HSK 3","c":"Nouns"},{"h":"兴趣","p":"xìngqù","e":"interest","l":"HSK 3","c":"Nouns"},{"h":"习惯","p":"xíguàn","e":"habit; to get used to","l":"HSK 3","c":"Nouns"},{"h":"行李箱","p":"xínglixiāng","e":"suitcase","l":"HSK 3","c":"Nouns"},{"h":"西","p":"xī","e":"west","l":"HSK 3","c":"Time & place"},{"h":"新闻","p":"xīnwén","e":"news","l":"HSK 3","c":"Nouns"},{"h":"新鲜","p":"xīnxiān","e":"fresh","l":"HSK 3","c":"Adjectives"},{"h":"需要","p":"xūyào","e":"to need","l":"HSK 3","c":"Verbs"},{"h":"洗手间","p":"xǐshǒujiān","e":"restroom, bathroom","l":"HSK 3","c":"Nouns"},{"h":"洗澡","p":"xǐzǎo","e":"to bathe, to shower","l":"HSK 3","c":"Verbs"},{"h":"愿意","p":"yuànyì","e":"to be willing","l":"HSK 3","c":"Verbs"},{"h":"越","p":"yuè","e":"the more (… the more)","l":"HSK 3","c":"Adverbs"},{"h":"月亮","p":"yuèliang","e":"moon","l":"HSK 3","c":"Nouns"},{"h":"爷爷","p":"yéye","e":"grandpa (father's father)","l":"HSK 3","c":"Nouns"},{"h":"银行","p":"yínháng","e":"bank","l":"HSK 3","c":"Nouns"},{"h":"用","p":"yòng","e":"to use","l":"HSK 3","c":"Verbs"},{"h":"又","p":"yòu","e":"again (in the past); also","l":"HSK 3","c":"Adverbs"},{"h":"游戏","p":"yóuxì","e":"game","l":"HSK 3","c":"Nouns"},{"h":"遇到","p":"yùdào","e":"to run into, to encounter","l":"HSK 3","c":"Verbs"},{"h":"云","p":"yún","e":"cloud","l":"HSK 3","c":"Nouns"},{"h":"要求","p":"yāoqiú","e":"to demand; requirement","l":"HSK 3","c":"Verbs"},{"h":"一边","p":"yìbiān","e":"at the same time; one side","l":"HSK 3","c":"Adverbs"},{"h":"一般","p":"yìbān","e":"generally; ordinary","l":"HSK 3","c":"Adjectives"},{"h":"一定","p":"yídìng","e":"certainly, definitely","l":"HSK 3","c":"Adverbs"},{"h":"一共","p":"yígòng","e":"altogether, in total","l":"HSK 3","c":"Adverbs"},{"h":"一会儿","p":"yíhuìr","e":"a little while","l":"HSK 3","c":"Time & place"},{"h":"应该","p":"yīnggāi","e":"should, ought to","l":"HSK 3","c":"Verbs"},{"h":"音乐","p":"yīnyuè","e":"music","l":"HSK 3","c":"Nouns"},{"h":"一样","p":"yíyàng","e":"the same","l":"HSK 3","c":"Adjectives"},{"h":"一直","p":"yìzhí","e":"straight; continuously","l":"HSK 3","c":"Adverbs"},{"h":"眼镜","p":"yǎnjìng","e":"glasses, spectacles","l":"HSK 3","c":"Nouns"},{"h":"以后","p":"yǐhòu","e":"after, later","l":"HSK 3","c":"Time & place"},{"h":"影响","p":"yǐngxiǎng","e":"to influence; influence","l":"HSK 3","c":"Verbs"},{"h":"以前","p":"yǐqián","e":"before, previously","l":"HSK 3","c":"Time & place"},{"h":"以为","p":"yǐwéi","e":"to think (mistakenly)","l":"HSK 3","c":"Verbs"},{"h":"有名","p":"yǒumíng","e":"famous","l":"HSK 3","c":"Adjectives"},{"h":"站","p":"zhàn","e":"station, stop; to stand","l":"HSK 3","c":"Nouns"},{"h":"照顾","p":"zhàogu","e":"to look after, to care for","l":"HSK 3","c":"Verbs"},{"h":"照片","p":"zhàopiàn","e":"photograph","l":"HSK 3","c":"Nouns"},{"h":"照相机","p":"zhàoxiàngjī","e":"camera","l":"HSK 3","c":"Nouns"},{"h":"着急","p":"zháojí","e":"anxious, worried","l":"HSK 3","c":"Adjectives"},{"h":"重要","p":"zhòngyào","e":"important","l":"HSK 3","c":"Adjectives"},{"h":"祝","p":"zhù","e":"to wish (someone something)","l":"HSK 3","c":"Verbs"},{"h":"注意","p":"zhùyì","e":"to pay attention to","l":"HSK 3","c":"Verbs"},{"h":"只","p":"zhī","e":"(measure word for animals)","l":"HSK 3","c":"Numbers & measures"},{"h":"中间","p":"zhōngjiān","e":"middle, between","l":"HSK 3","c":"Time & place"},{"h":"终于","p":"zhōngyú","e":"finally, at last","l":"HSK 3","c":"Adverbs"},{"h":"周末","p":"zhōumò","e":"weekend","l":"HSK 3","c":"Time & place"},{"h":"只","p":"zhǐ","e":"only, merely","l":"HSK 3","c":"Adverbs"},{"h":"种","p":"zhǒng","e":"kind, type","l":"HSK 3","c":"Numbers & measures"},{"h":"主要","p":"zhǔyào","e":"main, principal","l":"HSK 3","c":"Adjectives"},{"h":"最近","p":"zuìjìn","e":"recently, lately","l":"HSK 3","c":"Time & place"},{"h":"作业","p":"zuòyè","e":"homework","l":"HSK 3","c":"Nouns"},{"h":"作用","p":"zuòyòng","e":"effect, function","l":"HSK 3","c":"Nouns"},{"h":"字典","p":"zìdiǎn","e":"character dictionary","l":"HSK 3","c":"Nouns"},{"h":"自己","p":"zìjǐ","e":"oneself","l":"HSK 3","c":"Pronouns & questions"},{"h":"总是","p":"zǒngshì","e":"always","l":"HSK 3","c":"Adverbs"},{"h":"爱好","p":"àihào","e":"hobby","l":"HSK 3","c":"Nouns"},{"h":"饿","p":"è","e":"hungry","l":"HSK 3","c":"Adjectives"},{"h":"而且","p":"érqiě","e":"moreover, and also","l":"HSK 3","c":"Grammar words"},{"h":"安静","p":"ānjìng","e":"quiet","l":"HSK 3","c":"Adjectives"},{"h":"阿姨","p":"āyí","e":"aunt; nanny","l":"HSK 3","c":"Nouns"},{"h":"耳朵","p":"ěrduo","e":"ear","l":"HSK 3","c":"Nouns"},{"h":"矮","p":"ǎi","e":"short (in height)","l":"HSK 3","c":"Adjectives"}];
+
+/* Homographs like 长 cháng / 长 zhǎng are separate cards, so progress is
+   keyed on character + reading rather than character alone. */
+function keyOf(v){ return v.h + '\u0001' + v.p; }
+
+var LEVELS = ['All','HSK 1','HSK 2','HSK 3'];
+var POSORDER = ['Nouns','Verbs','Adjectives','Adverbs','Time & place',
+                'Numbers & measures','Pronouns & questions','Grammar words','Expressions'];
+var POSLIST = ['All'].concat(POSORDER.filter(function(p){
+  return VOCAB.some(function(v){ return v.c === p; });
+}));
+
+/* ---------- storage ---------- */
+var STORE_KEY = 'hsk-known-v2';
+var LEGACY_KEY = 'hsk3-known';
 var store = {
   load: function(){
     try{
-      var raw = localStorage.getItem('hsk3-known');
-      return raw ? new Set(JSON.parse(raw)) : new Set();
+      var raw = localStorage.getItem(STORE_KEY);
+      if(raw) return new Set(JSON.parse(raw));
+      var old = localStorage.getItem(LEGACY_KEY);
+      if(old){
+        var hanzi = new Set(JSON.parse(old));
+        var set = new Set();
+        VOCAB.forEach(function(v){ if(hanzi.has(v.h)) set.add(keyOf(v)); });
+        return set;
+      }
+      return new Set();
     }catch(e){ return new Set(); }
   },
   save: function(set){
-    try{ localStorage.setItem('hsk3-known', JSON.stringify(Array.from(set))); }catch(e){}
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(Array.from(set))); }catch(e){}
+  },
+  clear: function(){
+    try{ localStorage.removeItem(STORE_KEY); localStorage.removeItem(LEGACY_KEY); }catch(e){}
   }
 };
 var known = store.load();
 
+/* ---------- helpers ---------- */
 function shuffle(arr){
   var a = arr.slice();
   for(var i=a.length-1;i>0;i--){
@@ -239,32 +316,105 @@ function el(tag, attrs, children){
   if(attrs) Object.keys(attrs).forEach(function(k){
     if(k==='text') n.textContent = attrs[k];
     else if(k==='html') n.innerHTML = attrs[k];
+    else if(k==='disabled'){ if(attrs[k]) n.disabled = true; }
     else if(k.slice(0,2)==='on') n.addEventListener(k.slice(2), attrs[k]);
     else n.setAttribute(k, attrs[k]);
   });
-  (children||[]).forEach(function(c){ n.appendChild(c); });
+  (children||[]).forEach(function(c){ if(c) n.appendChild(c); });
   return n;
 }
+function stripTones(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+/* ---------- filter state ---------- */
+var filter = { level:'All', pos:'All' };
+function matches(v, level, pos){
+  return (level==='All' || v.l===level) && (pos==='All' || v.c===pos);
+}
+function pool(){
+  return VOCAB.filter(function(v){ return matches(v, filter.level, filter.pos); });
+}
+
 var stage = document.getElementById('stage');
 var knownCount = document.getElementById('knownCount');
+var totalCount = document.getElementById('totalCount');
+var barFill = document.getElementById('barFill');
+var progressLabel = document.getElementById('progressLabel');
+totalCount.textContent = VOCAB.length;
+
 function syncKnown(){
   knownCount.textContent = known.size;
+  var pct = VOCAB.length ? Math.round(known.size / VOCAB.length * 100) : 0;
+  barFill.style.width = pct + '%';
+  progressLabel.textContent = known.size
+    ? known.size + ' of ' + VOCAB.length + ' words marked known (' + pct + '%)'
+    : 'Nothing marked known yet';
   store.save(known);
 }
-syncKnown();
+
+/* ---------- filter UI ---------- */
+var lvOpts = document.getElementById('lvOpts');
+var posOpts = document.getElementById('posOpts');
+var fsumText = document.getElementById('fsumText');
+
+function renderFilters(){
+  lvOpts.innerHTML = '';
+  LEVELS.forEach(function(lv){
+    var n = VOCAB.filter(function(v){ return matches(v, lv, filter.pos); }).length;
+    lvOpts.appendChild(el('button',{
+      type:'button', class:'lv', 'aria-pressed':String(lv===filter.level),
+      disabled: n===0 && lv!==filter.level,
+      html: (lv==='All'?'All':lv.replace('HSK ','HSK&nbsp;')) + ' <span class="n">'+n+'</span>',
+      onclick:function(){ filter.level = lv; onFilterChange(); }
+    }));
+  });
+  posOpts.innerHTML = '';
+  POSLIST.forEach(function(p){
+    var n = VOCAB.filter(function(v){ return matches(v, filter.level, p); }).length;
+    posOpts.appendChild(el('button',{
+      type:'button', class:'pill', 'aria-pressed':String(p===filter.pos),
+      disabled: n===0 && p!==filter.pos,
+      html: p + ' <span class="n">'+n+'</span>',
+      onclick:function(){ filter.pos = p; onFilterChange(); }
+    }));
+  });
+  var p = pool();
+  var k = p.filter(function(v){ return known.has(keyOf(v)); }).length;
+  fsumText.textContent = p.length
+    ? p.length + ' word' + (p.length===1?'':'s') + ' selected · ' + k + ' known'
+    : 'No words match this combination';
+}
+
+function onFilterChange(){
+  renderFilters();
+  setMode(mode, true);
+}
+
+document.getElementById('resetFilters').addEventListener('click',function(){
+  filter.level='All'; filter.pos='All'; onFilterChange();
+});
+document.getElementById('resetProgress').addEventListener('click',function(){
+  known = new Set(); store.clear(); syncKnown(); renderFilters(); setMode(mode, true);
+});
+
+function emptyState(){
+  return el('div',{class:'empty'},[
+    el('b',{text:'Nothing to study here'}),
+    el('span',{text:'No words match this level and type together. Widen one of the filters above.'})
+  ]);
+}
 
 /* ================= Learn ================= */
-var learn = { cat:'All', deck:shuffle(VOCAB), idx:0, flipped:false, got:0, again:0 };
-function startDeck(c){
-  learn.cat=c;
-  learn.deck=shuffle(c==='All'?VOCAB:VOCAB.filter(function(v){return v.c===c;}));
+var learn = { deck:[], idx:0, flipped:false, got:0, again:0 };
+function startDeck(){
+  learn.deck = shuffle(pool());
   learn.idx=0; learn.flipped=false; learn.got=0; learn.again=0;
   renderLearn();
 }
 function grade(gotIt){
   var card = learn.deck[learn.idx];
+  if(!card) return;
   if(gotIt){
-    known.add(card.h); syncKnown();
+    known.add(keyOf(card)); syncKnown(); renderFilters();
     learn.got++; learn.idx++;
   }else{
     learn.deck.splice(learn.idx,1);
@@ -274,20 +424,17 @@ function grade(gotIt){
   learn.flipped=false;
   renderLearn();
 }
+function sizeClass(h){ return h.length>3 ? 'tiny' : (h.length>2 ? 'small' : 'big'); }
+
 function renderLearn(){
   stage.innerHTML='';
-  var pills = el('div',{class:'pills'});
-  CATS.forEach(function(c){
-    pills.appendChild(el('button',{class:'pill','aria-pressed':String(c===learn.cat),text:c,
-      onclick:function(){ startDeck(c); }}));
-  });
-  stage.appendChild(pills);
+  if(!learn.deck.length){ stage.appendChild(emptyState()); return; }
 
   if(learn.idx >= learn.deck.length){
     stage.appendChild(el('div',{class:'finish'},[
       el('div',{class:'hz',text:'好!'}),
       el('p',{text:'Deck finished — '+learn.got+' known, '+learn.again+' repeats along the way.'}),
-      el('button',{class:'btn go',text:'Shuffle and go again',onclick:function(){ startDeck(learn.cat); }})
+      el('button',{class:'btn go',text:'Shuffle and go again',onclick:startDeck})
     ]));
     return;
   }
@@ -295,7 +442,7 @@ function renderLearn(){
   var face;
   if(!learn.flipped){
     face = el('div',{class:'face front'},[
-      el('span',{class:'hz '+(card.h.length>2?'small':'big'),text:card.h})
+      el('span',{class:'hz '+sizeClass(card.h),text:card.h})
     ]);
   }else{
     face = el('div',{class:'face back'},[
@@ -303,11 +450,14 @@ function renderLearn(){
         el('div',{class:'hz',text:card.h}),
         el('div',{class:'py',text:card.p}),
         el('div',{class:'en',text:card.e}),
-        el('span',{class:'cat',text:card.c})
+        el('div',{class:'tags'},[
+          el('span',{class:'tag lvl',text:card.l}),
+          el('span',{class:'tag',text:card.c})
+        ])
       ])
     ]);
   }
-  var tzg = el('button',{class:'tzg',
+  var tzg = el('button',{class:'tzg',type:'button',
     'aria-label': learn.flipped?'Card back — activate to flip':'Card front — activate to reveal',
     onclick:function(){ learn.flipped=!learn.flipped; renderLearn(); }},[
     el('span',{class:'guides','aria-hidden':'true',
@@ -316,8 +466,8 @@ function renderLearn(){
   ]);
   stage.appendChild(tzg);
   stage.appendChild(el('p',{class:'hint',
-    text:(learn.flipped?'Did you know it?':'Tap the card to reveal')+
-      ' · card '+Math.min(learn.idx+1,learn.deck.length)+' of '+learn.deck.length}));
+    html:(learn.flipped?'Did you know it?':'Tap the card or press <kbd>space</kbd> to reveal')+
+      ' &middot; card '+Math.min(learn.idx+1,learn.deck.length)+' of '+learn.deck.length}));
   if(learn.flipped){
     stage.appendChild(el('div',{class:'grade'},[
       el('button',{class:'btn again',text:'Again 再来',onclick:function(){ grade(false); }}),
@@ -329,11 +479,18 @@ function renderLearn(){
 /* ================= Quiz ================= */
 var quiz = null;
 var quizTimer = null;
-function makeQuiz(n){
-  n = n || 10;
-  return shuffle(VOCAB).slice(0,n).map(function(w){
+function makeQuiz(){
+  var p = pool();
+  if(!p.length) return [];
+  var n = Math.min(10, p.length);
+  return shuffle(p).slice(0,n).map(function(w){
     var toEnglish = Math.random() < 0.5;
-    var wrong = shuffle(VOCAB.filter(function(v){return v.h!==w.h;})).slice(0,3);
+    /* Prefer distractors of the same type — guessing between two verbs is a
+       real test; guessing between a verb and a refrigerator is not. */
+    var sameType = VOCAB.filter(function(v){ return v.c===w.c && keyOf(v)!==keyOf(w); });
+    var others   = VOCAB.filter(function(v){ return v.c!==w.c; });
+    var wrong = shuffle(sameType).slice(0,3);
+    if(wrong.length < 3) wrong = wrong.concat(shuffle(others).slice(0, 3-wrong.length));
     return { word:w, toEnglish:toEnglish, options:shuffle([w].concat(wrong)) };
   });
 }
@@ -343,16 +500,19 @@ function startQuiz(){
 }
 function renderQuiz(){
   stage.innerHTML='';
+  if(!quiz.qs.length){ stage.appendChild(emptyState()); return; }
   if(quiz.qi >= quiz.qs.length){
+    var pct = Math.round(quiz.score / quiz.qs.length * 100);
     stage.appendChild(el('div',{class:'finish'},[
-      el('div',{class:'hz',text: quiz.score>=8?'很棒!':'加油!'}),
+      el('div',{class:'hz',text: pct>=70?'很棒!':'加油!'}),
       el('p',{text:'Score: '+quiz.score+' / '+quiz.qs.length}),
       el('button',{class:'btn go',text:'New quiz',onclick:startQuiz})
     ]));
     return;
   }
   var q = quiz.qs[quiz.qi];
-  stage.appendChild(el('div',{class:'q-count',text:'Question '+(quiz.qi+1)+' of '+quiz.qs.length+' · '+quiz.score+' right'}));
+  stage.appendChild(el('div',{class:'q-count',
+    text:'Question '+(quiz.qi+1)+' of '+quiz.qs.length+' · '+quiz.score+' right'}));
   if(q.toEnglish){
     stage.appendChild(el('div',{class:'q-prompt',text:q.word.h}));
     stage.appendChild(el('div',{class:'q-sub',text:'Pick the meaning'}));
@@ -364,22 +524,22 @@ function renderQuiz(){
   q.options.forEach(function(o){
     var b;
     if(q.toEnglish){
-      b = el('button',{class:'opt',text:o.e});
+      b = el('button',{class:'opt',type:'button',text:o.e});
     }else{
-      b = el('button',{class:'opt'},[el('span',{class:'hz',text:o.h})]);
+      b = el('button',{class:'opt',type:'button'},[el('span',{class:'hz',text:o.h})]);
     }
     b.addEventListener('click',function(){
       if(quiz.picked!==null) return;
       quiz.picked = o;
-      var right = o.h === q.word.h;
-      if(right){ quiz.score++; known.add(q.word.h); syncKnown(); }
+      var right = keyOf(o) === keyOf(q.word);
+      if(right){ quiz.score++; known.add(keyOf(q.word)); syncKnown(); renderFilters(); }
       Array.prototype.forEach.call(opts.children,function(c,i){
         c.disabled = true;
         var oo = q.options[i];
-        if(oo.h===q.word.h) c.dataset.state='right';
+        if(keyOf(oo)===keyOf(q.word)) c.dataset.state='right';
         else if(oo===o) c.dataset.state='wrong';
       });
-      quizTimer = setTimeout(function(){ quiz.qi++; quiz.picked=null; renderQuiz(); }, right?650:1300);
+      quizTimer = setTimeout(function(){ quiz.qi++; quiz.picked=null; renderQuiz(); }, right?650:1400);
     });
     opts.appendChild(b);
   });
@@ -387,45 +547,46 @@ function renderQuiz(){
 }
 
 /* ================= Words ================= */
-var words = { query:'', cat:'All' };
+var words = { query:'' };
 function renderWords(){
   stage.innerHTML='';
-  var search = el('input',{class:'search',type:'search',placeholder:'Search hanzi, pinyin, or English…',
+  var search = el('input',{class:'search',type:'search',
+    placeholder:'Search hanzi, pinyin, or English…',
     value:words.query,'aria-label':'Search words'});
   search.addEventListener('input',function(){ words.query=search.value; renderList(); });
   stage.appendChild(search);
-  var pills = el('div',{class:'pills'});
-  CATS.forEach(function(c){
-    pills.appendChild(el('button',{class:'pill','aria-pressed':String(c===words.cat),text:c,
-      onclick:function(){ words.cat=c; renderWords(); }}));
-  });
-  stage.appendChild(pills);
   var holder = el('ul',{class:'wl',id:'wl'});
   stage.appendChild(holder);
   renderList();
+
   function renderList(){
     var q = words.query.trim().toLowerCase();
-    var strip = function(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g,''); };
-    var res = VOCAB.filter(function(v){
-      if(words.cat!=='All' && v.c!==words.cat) return false;
+    var qs = stripTones(q);
+    var res = pool().filter(function(v){
       if(!q) return true;
       return v.h.indexOf(q)>=0 ||
              v.p.toLowerCase().indexOf(q)>=0 ||
-             strip(v.p.toLowerCase()).indexOf(strip(q))>=0 ||
+             stripTones(v.p.toLowerCase()).indexOf(qs)>=0 ||
              v.e.toLowerCase().indexOf(q)>=0;
     });
     holder.innerHTML='';
     if(!res.length){
-      holder.appendChild(el('li',{class:'wl-empty',text:'No matches — try pinyin without tones, like "jihui".'}));
+      holder.appendChild(el('li',{class:'wl-empty',
+        text: q ? 'No matches — try pinyin without tones, like "jihui".'
+                : 'No words match this level and type together.'}));
       return;
     }
     res.forEach(function(v){
-      var right = known.has(v.h)
+      var right = known.has(keyOf(v))
         ? el('span',{class:'known',text:'known'})
         : el('span',{});
       holder.appendChild(el('li',{},[
         el('span',{class:'hz',text:v.h}),
-        el('span',{},[ el('div',{class:'py',text:v.p}), el('div',{class:'en',text:v.e}) ]),
+        el('span',{},[
+          el('div',{class:'py',text:v.p}),
+          el('div',{class:'en',text:v.e}),
+          el('div',{class:'cats',text:v.l+' · '+v.c})
+        ]),
         right
       ]));
     });
@@ -433,18 +594,34 @@ function renderWords(){
 }
 
 /* ================= Tabs ================= */
+var mode = 'learn';
 var tabs = document.querySelectorAll('.tab');
-function setMode(m){
+function setMode(m, keepQuery){
   if(quizTimer){ clearTimeout(quizTimer); quizTimer=null; }
+  mode = m;
   tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.mode===m)); });
-  if(m==='learn') renderLearn();
+  if(m==='learn') startDeck();
   else if(m==='quiz') startQuiz();
-  else renderWords();
+  else { if(!keepQuery) words.query=''; renderWords(); }
 }
 tabs.forEach(function(t){
   t.addEventListener('click',function(){ setMode(t.dataset.mode); });
 });
-renderLearn();
+
+/* Keyboard drilling: space flips, 1 / 2 grade. Ignored while typing. */
+document.addEventListener('keydown',function(e){
+  if(mode!=='learn') return;
+  var tag = (e.target.tagName||'').toLowerCase();
+  if(tag==='input' || tag==='textarea') return;
+  if(!learn.deck.length || learn.idx >= learn.deck.length) return;
+  if(e.key===' '){ e.preventDefault(); learn.flipped=!learn.flipped; renderLearn(); }
+  else if(learn.flipped && e.key==='1'){ e.preventDefault(); grade(false); }
+  else if(learn.flipped && e.key==='2'){ e.preventDefault(); grade(true); }
+});
+
+syncKnown();
+renderFilters();
+setMode('learn');
 })();
 </script>
 </body>
