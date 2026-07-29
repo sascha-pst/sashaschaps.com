@@ -312,15 +312,14 @@ a{color:inherit;text-decoration:none}
 .project:hover .arrow{transform:translateX(6px)}
 
 .shelf-band{
-  content-visibility:auto;contain-intrinsic-size:auto 520px;
-  background:var(--pine);
-  color:var(--bone);
+  background:#52685D;
+  color:var(--cream);
   padding:clamp(40px,6vw,72px) 0;
   overflow:hidden;
 }
-.shelf-band .eyebrow{color:var(--steel);margin-bottom:12px}
+.shelf-band .eyebrow{color:#B9CCC2;margin-bottom:12px}
 .shelf-band .h2{max-width:20ch}
-.shelf-band .lede{color:rgba(242,241,234,.75);max-width:46ch}
+.shelf-band .lede{color:rgba(245,248,242,.78);max-width:46ch}
 .shelf-head{
   display:grid;grid-template-columns:1fr 1fr;
   gap:clamp(20px,4vw,56px);align-items:end;
@@ -345,14 +344,14 @@ a{color:inherit;text-decoration:none}
   white-space:nowrap;
   padding-bottom:4px;
 }
-.bk--olive{background:var(--olive)}   .bk--olive .spine{color:var(--bone)}
-.bk--steel{background:var(--steel)}   .bk--steel .spine{color:var(--pine)}
-.bk--bone{background:var(--bone)}     .bk--bone .spine{color:var(--pine)}
-.bk--slate{background:var(--slate)}   .bk--slate .spine{color:var(--bone)}
-.bk--deep{background:#43464D}         .bk--deep .spine{color:var(--steel)}
+.bk--olive{background:#8AAB98}        .bk--olive .spine{color:#33443C}
+.bk--steel{background:var(--water)}   .bk--steel .spine{color:#3E5048}
+.bk--bone{background:var(--cream)}    .bk--bone .spine{color:#52685D}
+.bk--slate{background:#6E8A7C}        .bk--slate .spine{color:var(--cream)}
+.bk--deep{background:#3E5048}         .bk--deep .spine{color:#B9CCC2}
 .shelf-board{
-  height:12px;background:#43464D;
-  box-shadow:0 6px 18px -6px rgba(0,0,0,.55);
+  height:12px;background:#3E5048;
+  box-shadow:0 6px 18px -6px rgba(38,52,45,.5);
 }
 
 .foot{padding:clamp(44px,6vw,84px) 0 40px}
@@ -694,6 +693,7 @@ a{color:inherit;text-decoration:none}
     sun1: [0.3, 0.45, 0.82], sun2: [-0.5, 0.15, 0.78],
     spec1: 150, spec2: 70, spec2Gain: 0.35, glintGain: 0.85,
     fresnelPow: 4, fresnelGain: 0.22,
+    iridSat: 0.3, iridFreq: 2.4, iridRipple: 2.5, iridDrift: 0.04,
     rippleScale: 6.5, warpScale: 3, warp: 0.6, bandFreq: 9, bandSkew: 4, bandGain: 0.06,
     grainScale: 240, grainAmp: 0.045,
     octaves: 3, lacunarity: 2.03, gain: 0.5,
@@ -732,6 +732,7 @@ a{color:inherit;text-decoration:none}
     float a=hash(i),b=hash(i+vec2(1.0,0.0)),c=hash(i+vec2(0.0,1.0)),d=hash(i+vec2(1.0,1.0));
     return mix(mix(a,b,f.x),mix(c,d,f.x),f.y); }
   float fbm(vec2 p){ float s=0.0,a=0.5; for(int i=0;i<${P.octaves};i++){ s+=a*vnoise(p); p*=${F(P.lacunarity)}; a*=${F(P.gain)}; } return s; }
+  vec3 pearl(float x){ vec3 r=0.5+0.5*cos(6.2831*(x+vec3(0.0,0.33,0.67))); return mix(vec3(1.0),r,${F(P.iridSat)}); }
   vec3 sand(vec2 uv){ vec2 p=uv*vec2(uAspect,1.0);
     float rip=fbm(p*${F(P.rippleScale)}+fbm(p*${F(P.warpScale)})*${F(P.warp)});
     float band=0.5+0.5*sin(rip*${F(P.bandFreq)}+p.x*${F(P.bandSkew)});
@@ -760,8 +761,9 @@ a{color:inherit;text-decoration:none}
     vec3 s1=normalize(vec3(${F(P.sun1[0])},${F(P.sun1[1])},${F(P.sun1[2])}));
     vec3 s2=normalize(vec3(${F(P.sun2[0])},${F(P.sun2[1])},${F(P.sun2[2])}));
     float sp=pow(max(dot(N,normalize(s1+V)),0.0),${F(P.spec1)})+pow(max(dot(N,normalize(s2+V)),0.0),${F(P.spec2)})*${F(P.spec2Gain)};
-    col+=sp*${C(P.glintColor)}*${F(P.glintGain)};
-    col=mix(col,${C(P.skyColor)},pow(1.0-N.z,${F(P.fresnelPow)})*${F(P.fresnelGain)});
+    vec3 nacre=pearl(N.z*${F(P.iridFreq)}+hc*${F(P.iridRipple)}+uTime*${F(P.iridDrift)});
+    col+=sp*${C(P.glintColor)}*nacre*${F(P.glintGain)};
+    col=mix(col,${C(P.skyColor)}*nacre,pow(1.0-N.z,${F(P.fresnelPow)})*${F(P.fresnelGain)});
     col*=mix(${F(P.vigDark)},${F(P.vigBright)},smoothstep(${F(P.vigOuter)},${F(P.vigInner)},length((uv-0.5)*vec2(uAspect,1.0))));
     col=vec3(1.0)-exp(-col*${F(P.exposure)});
     col+=(hash(uv*uResolution+fract(uTime))-0.5)*${F(P.grain)};
@@ -966,15 +968,21 @@ a{color:inherit;text-decoration:none}
   }
 
   ripple('heroCanvas', '.hero', {
-    sandHi: [248,248,243], sandLo: [212,211,198],
-    absorb: [72,75,84], absorbScale: 0.55,
-    deepColor: [167,180,194], deepGain: 0.22,
-    veinColor: [255,254,250], veinGain: 0.14,
-    skyColor: [199,206,219], fresnelGain: 0.26,
-    glintColor: [238,231,219], glintGain: 1.05,
-    baseDepth: 0.7, depthScale: 1.1,
-    floorBase: 0.44, causticGain: 0.32,
-    exposure: 1.75, vigDark: 0.9
+    sandHi: [223,230,226], sandLo: [184,199,190],
+    absorb: [55,75,68], absorbScale: 0.45,
+    deepColor: [126,150,140], deepGain: 0.26,
+    veinColor: [248,252,248], veinGain: 0.08,
+    skyColor: [218,226,221], fresnelGain: 0.3, fresnelPow: 3,
+    glintColor: [238,244,239], glintGain: 0.55,
+    spec1: 90, spec2: 45,
+    iridSat: 0.2, iridFreq: 2.2, iridRipple: 2.2, iridDrift: 0.02,
+    propagation: 0.225, damping: 0.9955,
+    ambientStrength: 0.012, ambientRate: 0.7,
+    clickStrength: 0.14, brushBase: 0.008, brushGain: 0.6, brushMax: 0.06,
+    baseDepth: 0.8, depthScale: 1.0,
+    floorBase: 0.5, causticGain: 0.22, contrast: 1.1, clamp2: 6,
+    exposure: 1.5, grain: 0.014,
+    vigDark: 0.95
   });
 
   })();
