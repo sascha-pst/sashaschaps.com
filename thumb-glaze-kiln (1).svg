@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="1000" height="600">
+  <defs>
+    <!-- stroke colour maps to height, so the line glows as the kiln climbs -->
+    <linearGradient id="glow" x1="0" y1="180" x2="0" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#F3DCB8"/>
+      <stop offset="28%"  stop-color="#CE8B4F"/>
+      <stop offset="62%"  stop-color="#BA7248"/>
+      <stop offset="100%" stop-color="#6E5247"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="600" fill="#ECEBE1"/>
+
+  <text x="72" y="88" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="21" letter-spacing="4.2" fill="#595C64">FIRING SCHEDULES</text>
+
+  <line x1="100" y1="192" x2="928" y2="192" stroke="#595C64" stroke-opacity="0.28"
+        stroke-width="1.5" stroke-dasharray="6 10"/>
+  <text x="100" y="168" font-family="'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="800" font-size="34"
+        letter-spacing="1" fill="#CE8B4F">&#9651; 6</text>
+
+  <line x1="100" y1="505" x2="928" y2="505" stroke="#595C64" stroke-opacity="0.16" stroke-width="1.5"/>
+
+  <polyline points="100,505 152,481 214,479 272,452 332,411 400,353 470,297 540,245 600,207 642,192 712,192 752,229 792,277 828,315 836,325 888,328 928,372" fill="none" stroke="url(#glow)" stroke-width="6"
+            stroke-linejoin="round" stroke-linecap="round"/>
+
+  <text x="928" y="566" text-anchor="end" font-family="'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20"
+        letter-spacing="3" fill="#595C64">CONE 6 &#183; 1222&#176;C</text>
+</svg>
