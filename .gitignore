@@ -1,0 +1,6 @@
+dist/
+node_modules/
+
+# Generated per build. Holds only the KDF salt (public — it ships inside the
+# gate page), but it is build state, not source.
+.staticrypt.json
