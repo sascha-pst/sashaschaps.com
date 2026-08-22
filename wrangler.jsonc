@@ -1,0 +1,14 @@
+{
+  // Existing Worker — the name must keep matching the Cloudflare project this
+  // repo already deploys to, or a merge would create a second Worker instead
+  // of updating the live one.
+  "name": "sashaschapsportfolio",
+  "compatibility_date": "2026-08-01",
+
+  // Serve the encrypted build, never the repo root. `npm run build` writes it.
+  // html_handling defaults to auto-trailing-slash, so /about resolves to
+  // about.html — which is how the project links between pages.
+  "assets": {
+    "directory": "./dist"
+  }
+}
