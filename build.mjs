@@ -45,9 +45,9 @@ execFileSync('npx', [
 // site's metadata rather than staticrypt's bare template.
 const gate = `${OUT}/index.html`;
 const meta = [
-  `<meta name="description" content="Sasha Schaps — data science and program enablement. UC Berkeley MIDS.">`,
+  `<meta name="description" content="Sasha Schaps — data science and program enablement.">`,
   `<meta property="og:title" content="Sasha Schaps — Data Science &amp; Program Enablement">`,
-  `<meta property="og:description" content="Berkeley MIDS · Python, SQL · regression, EDA and data visualization">`,
+  `<meta property="og:description" content="Python, SQL · regression, EDA and data visualization">`,
   `<meta name="twitter:card" content="summary">`,
   `<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F1EFE9'/%3E%3Cg fill='none' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M4 12 C 8 8, 12 16, 16 12 S 24 8, 28 12' stroke='%235C7268'/%3E%3Cpath d='M4 21 C 8 17, 12 25, 16 21 S 24 17, 28 21' stroke='%238FA9AC'/%3E%3C/g%3E%3C/svg%3E">`,
   '</head>',
