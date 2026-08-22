@@ -53,8 +53,8 @@ jobs:
             --template-instructions "This studio is password protected. Enter the password to come in." \
             --template-button "Come in" \
             --template-placeholder "Password" \
-            --template-color-primary "#2D6BD8" \
-            --template-color-secondary "#FAFBFC"
+            --template-color-primary "#5C7268" \
+            --template-color-secondary "#F1EFE9"
 
       - name: Keep link previews working on the gate page
         run: |
@@ -76,7 +76,11 @@ jobs:
           '
 
       - name: Copy public assets
-        run: cp ogcard.jpg heroposter.jpg dist/
+        run: |
+          shopt -s nullglob
+          cp CNAME dist/ 2>/dev/null || true
+          for f in *.jpg *.jpeg *.png *.webp *.svg *.mp4; do cp "$f" dist/; done
+          echo "dist contents:" && ls -1 dist
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
