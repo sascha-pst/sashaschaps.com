@@ -62,13 +62,11 @@ jobs:
             const fs = require("fs");
             const p = "dist/index.html";
             const inject = [
-              `<meta name="description" content="Sasha Schaps — data scientist in training at UC Berkeley MIDS.">`,
-              `<meta property="og:title" content="Sasha Schaps — Data Science">`,
-              `<meta property="og:description" content="Berkeley MIDS · Python, SQL · program execution · marbled clay">`,
-              `<meta property="og:image" content="https://sashaschaps.com/ogcard.jpg">`,
-              `<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">`,
-              `<meta name="twitter:card" content="summary_large_image">`,
-              `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\x27http://www.w3.org/2000/svg\x27 viewBox=\x270 0 64 64\x27%3E%3Ccircle cx=\x2745\x27 cy=\x2718\x27 r=\x276\x27 fill=\x27%238FBFE0\x27/%3E%3Cpath d=\x27M6 41c8-9 17-9 25-2s17 7 27-2\x27 fill=\x27none\x27 stroke=\x27%232D6BD8\x27 stroke-width=\x275\x27 stroke-linecap=\x27round\x27/%3E%3C/svg%3E">`,
+              `<meta name="description" content="Sasha Schaps — data science and program enablement. UC Berkeley MIDS.">`,
+              `<meta property="og:title" content="Sasha Schaps — Data Science &amp; Program Enablement">`,
+              `<meta property="og:description" content="Berkeley MIDS · Python, SQL · regression, EDA and data visualization">`,
+              `<meta name="twitter:card" content="summary">`,
+              `<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\x27http://www.w3.org/2000/svg\x27 viewBox=\x270 0 64 64\x27%3E%3Ccircle cx=\x2745\x27 cy=\x2718\x27 r=\x276\x27 fill=\x27%238FA9AC\x27/%3E%3Cpath d=\x27M6 41c8-9 17-9 25-2s17 7 27-2\x27 fill=\x27none\x27 stroke=\x27%235C7268\x27 stroke-width=\x275\x27 stroke-linecap=\x27round\x27/%3E%3C/svg%3E">`,
               `</head>`
             ].join("\n");
             fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace("</head>", inject));
