@@ -6,8 +6,9 @@
   "compatibility_date": "2026-08-01",
 
   // Serve the encrypted build, never the repo root. `npm run build` writes it.
+  // html_handling defaults to auto-trailing-slash, so /about resolves to
+  // about.html — which is how the project links between pages.
   "assets": {
-    "directory": "./dist",
-    "not_found_handling": "404-page"
+    "directory": "./dist"
   }
 }

@@ -14,13 +14,19 @@ The build fails closed without these — that is deliberate.
 
 | Setting | Value |
 | --- | --- |
-| Build command | `npm run build` |
-| Deploy command | `npx wrangler deploy` |
-| Environment variable | `STATICRYPT_PASSWORD` = the shared password |
+| Deploy command | `npm run build && npx wrangler deploy` |
+| `STATICRYPT_PASSWORD` | the shared password, stored as a **Secret** |
 
-Set them in the Cloudflare dashboard under the Worker's
-**Settings → Build** and **Settings → Variables and Secrets**. Add
-`STATICRYPT_PASSWORD` as a **Secret**, not a plaintext variable.
+Set both in the Cloudflare dashboard under the Worker's **Settings → Build**
+and **Settings → Variables and Secrets**. Store the password as a *Secret*,
+not a plaintext variable, so it is write-only once saved.
+
+Folding the build into the deploy command means there is only one field to
+change; a separate `npm run build` build command works equally well.
+
+Until these are set the build **fails**, and a failed build deploys nothing —
+the previously deployed version keeps serving. That is intentional: it is
+better to keep serving the old site than to publish an unprotected one.
 
 To change the password, edit that secret and redeploy. It is never stored in
 this repo.
