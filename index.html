@@ -12,6 +12,8 @@
 :root{
   --paper:#F2EEE6; --paper-2:#E6E0D4; --ink:#1B1B18; --ink-2:#4A463F; --muted:#6B665C;
   --sea:#2F5D5A; --line:rgba(27,27,24,.12); --line-strong:rgba(27,27,24,.3);
+  /* glaze palette for the bookshelf */
+  --tenmoku:#4A2E22; --celadon:#A9BBA9; --shino:#DCCFB6; --iron:#8C3B2A;
   --sans:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --pad:40px;
@@ -114,14 +116,53 @@ section,footer{position:relative;z-index:2}
 .row .ar{font-size:20px;text-align:right}
 .work .btn{margin-top:40px}
 
-/* reading */
-.shelf{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;margin-top:32px}
-.shelf h3{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
-  padding-bottom:12px;border-bottom:1px solid var(--line-strong)}
-.shelf ul{list-style:none;margin:0;padding:0}
-.shelf li{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.35}
-.shelf li span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.shelf li .now{font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);background:var(--sea);padding:3px 6px;margin-left:6px;vertical-align:2px}
+/* library: an actual shelf of spines, glazed by category */
+.lib-controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:28px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filter{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;color:var(--ink-2);
+  background:transparent;border:1px solid var(--line-strong);padding:9px 14px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.filter .sw{width:10px;height:10px;flex:none;background:var(--c,transparent)}
+.filter .c{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.filter:hover{border-color:var(--ink);color:var(--ink)}
+.filter[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.filter[aria-pressed="true"] .c{color:var(--paper-2)}
+.lib-pick{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;color:var(--ink);background:none;
+  border:0;border-bottom:1px solid var(--ink);padding:9px 0;cursor:pointer}
+.lib-pick:hover{color:var(--sea);border-color:var(--sea)}
+
+.shelf-wrap{margin-top:36px;overflow-x:auto;overflow-y:hidden;padding-top:34px;scrollbar-width:thin}
+.spines{display:flex;align-items:flex-end;gap:5px;min-width:max-content;min-height:320px;padding:0 6px;border-bottom:4px solid var(--ink)}
+.spine{--h:260px;--w:52px;--c:var(--sea);--t:var(--paper);position:relative;flex:none;height:var(--h);width:var(--w);
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;padding:16px 0 14px;
+  background:var(--c);color:var(--t);border:0;cursor:pointer;font-family:var(--sans);
+  box-shadow:inset -4px 0 0 rgba(0,0,0,.13),inset 2px 0 0 rgba(255,255,255,.1);
+  transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .4s,filter .4s}
+.spine::before{content:"";position:absolute;left:8px;right:8px;top:9px;height:1px;background:currentColor;opacity:.35}
+.spine .s-title,.spine .s-auth{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spine .s-title{font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;max-height:calc(var(--h) - 92px)}
+.spine .s-auth{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;opacity:.72;max-height:70px}
+.spine[data-now]::after{content:"";position:absolute;right:9px;bottom:calc(100% - 4px);width:9px;height:26px;background:var(--iron);
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}
+.spine:hover{transform:translateY(-10px)}
+.spine[aria-pressed="true"]{transform:translateY(-26px)}
+.spine.is-dim{opacity:.16;filter:grayscale(1);pointer-events:none}
+.spine:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.book{display:grid;grid-template-columns:140px minmax(0,1fr) auto;gap:32px;align-items:start;padding:34px 0 8px}
+.book-idx{font-size:64px;font-weight:100;line-height:.85;letter-spacing:-.04em}
+.book-idx small{display:block;margin-top:10px;font-size:13px;font-weight:400;letter-spacing:0;color:var(--muted)}
+.book-cat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2)}
+.book-cat .sw{width:12px;height:12px;background:var(--c)}
+.book-cat .now{color:var(--iron);font-weight:500}
+.book-title{margin-top:14px;font-size:clamp(30px,3.4vw,48px);font-weight:300;line-height:1;letter-spacing:-.025em}
+.book-auth{margin-top:10px;font-size:16px;color:var(--ink-2)}
+.book-note{margin-top:20px;max-width:58ch;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.book-nav{display:flex;gap:8px}
+.book-nav button{width:48px;height:48px;display:grid;place-items:center;font-size:18px;color:var(--ink);background:none;
+  border:1px solid var(--line-strong);cursor:pointer;transition:background .25s,color .25s}
+.book-nav button:hover{background:var(--ink);color:var(--paper)}
+.book-body.swap{animation:pull .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes pull{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* shore */
 .shore{margin-top:140px;height:760px;overflow:hidden}
@@ -138,11 +179,12 @@ footer a{color:var(--muted);padding:10px 0}
 /* tablet */
 @media (max-width:1100px){
   .route{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .shelf{grid-template-columns:repeat(3,minmax(0,1fr))}
   .about{grid-template-columns:1fr}
   .about .ph{height:560px}
   .cols,.row{grid-template-columns:56px 1fr 40px}
   .cols span:nth-child(3),.row .st{display:none}
+  .book{grid-template-columns:100px minmax(0,1fr)}
+  .book-nav{grid-column:2}
 }
 /* phone */
 @media (max-width:760px){
@@ -180,7 +222,16 @@ footer a{color:var(--muted);padding:10px 0}
   .row .t b{font-size:26px;line-height:1.1}
   .row .st{display:block;grid-column:1 / -1}
   .work .btn{display:flex;justify-content:space-between}
-  .shelf{grid-template-columns:1fr}
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}
+  .filter{flex:none}
+  .shelf-wrap{margin:28px -20px 0;padding:34px 20px 0}
+  .spines{min-height:270px}
+  .spine{height:calc(var(--h) * .86)}
+  .spine .s-title{max-height:calc(var(--h) * .86 - 90px)}
+  .book{grid-template-columns:1fr;gap:18px;padding-top:28px}
+  .book-idx{font-size:44px;display:flex;align-items:baseline;gap:12px}
+  .book-idx small{margin-top:0}
+  .book-nav{grid-column:auto}
   .shore{margin-top:88px;height:640px}
   .shore>img{object-position:50% 45%}
   .shore-body{bottom:32px;gap:28px}
@@ -188,7 +239,7 @@ footer a{color:var(--muted);padding:10px 0}
   .shore .ctas a{flex:1}
   footer{flex-direction:column;gap:6px;padding:28px 20px 36px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -266,14 +317,31 @@ footer a{color:var(--muted);padding:10px 0}
     <a class="btn" href="https://github.com/sascha-pst" target="_blank" rel="noopener">More on GitHub <span aria-hidden="true">↗</span></a>
   </section>
 
-  <section>
-  <div class="shelf">
-      <div><h3>Memoir &amp; fiction</h3><ul><li>Stay True<span>Hua Hsu</span></li><li>The Metamorphosis<span>Kafka</span></li><li>Crying in H Mart<span>Michelle Zauner</span></li></ul></div>
-      <div><h3>Ecology &amp; place</h3><ul><li>The Uninhabitable Earth <em class="now">Reading</em><span>David Wallace-Wells</span></li><li>Being Ecological<span>Timothy Morton</span></li><li>The Atlas of Vanishing Places<span>Travis Elborough</span></li><li>The Silk Roads<span>Peter Frankopan</span></li><li>Climate Optimism<span>Zahra Biabani</span></li></ul></div>
-      <div><h3>Philosophy</h3><ul><li>The Ethics of Ambiguity <em class="now">Reading</em><span>Simone de Beauvoir</span></li><li>A Philosophy of Walking<span>Frédéric Gros</span></li><li>Think<span>Simon Blackburn</span></li><li>The Myth of Sisyphus<span>Camus</span></li></ul></div>
-      <div><h3>Minds &amp; math</h3><ul><li>Field Experiments <em class="now">Reading</em><span>Alan S. Gerber &amp; Donald P. Green</span></li><li>Algorithms to Live By<span>Brian Christian &amp; Tom Griffiths</span></li><li>Gödel, Escher, Bach<span>Douglas Hofstadter</span></li><li>Weapons of Math Destruction<span>Cathy O'Neil</span></li></ul></div>
-      <div><h3>Advice</h3><ul><li>Principles<span>Ray Dalio</span></li><li>Ikigai<span>Héctor García &amp; Francesc Miralles</span></li><li>Tiny Experiments<span>Anne-Laure Le Cunff</span></li></ul></div>
-    </div></section> 
+  <section class="sec library" id="reading">
+    <div class="sec-head">
+      <h2><span class="thin">Little </span><span class="bold">library.</span></h2>
+      <p>Pull a book off the shelf to see what it’s about. The red ribbons mark what I’m reading now.</p>
+    </div>
+
+    <div class="lib-controls">
+      <div class="filters" id="lib-filters" role="group" aria-label="Filter the shelf"></div>
+      <button class="lib-pick" id="lib-pick" type="button">Pick one for me <span aria-hidden="true">↻</span></button>
+    </div>
+
+    <div class="shelf-wrap" id="lib-wrap">
+      <div class="spines" id="lib-spines" role="group" aria-label="Bookshelf"></div>
+    </div>
+
+    <div class="book" aria-live="polite">
+      <p class="book-idx" id="lib-idx"></p>
+      <div class="book-body" id="lib-body"></div>
+      <div class="book-nav">
+        <button type="button" id="lib-prev" aria-label="Previous book">←</button>
+        <button type="button" id="lib-next" aria-label="Next book">→</button>
+      </div>
+    </div>
+    <noscript><p class="book-note">Turn on JavaScript to browse the shelf.</p></noscript>
+  </section>
 
   <section class="shore" id="contact">
     <img src="assets/img/tidepool.jpg" alt="Sunlight glittering on a clear tidepool between dark rocks" loading="lazy">
@@ -296,5 +364,132 @@ footer a{color:var(--muted);padding:10px 0}
     <span>Set in Geist · Built with Jekyll</span>
   </footer>
 </div>
+
+<script>
+(function(){
+  // Each shelf gets a glaze color: [spine color, text color]
+  const SHELVES = {
+    "Memoir & fiction": ["var(--tenmoku)", "var(--paper)"],
+    "Ecology & place":  ["var(--sea)",     "var(--paper)"],
+    "Philosophy":       ["var(--ink)",     "var(--paper)"],
+    "Minds & math":     ["var(--celadon)", "var(--ink)"],
+    "Advice":           ["var(--shino)",   "var(--ink)"]
+  };
+
+  // Edit notes freely: s = short name printed on the spine, now = currently reading
+  const BOOKS = [
+    {t:"Stay True", a:"Hua Hsu", s:"Hsu", cat:"Memoir & fiction", note:"A memoir of a college friendship at Berkeley in the ’90s, and of the grief after it was cut short."},
+    {t:"The Metamorphosis", a:"Franz Kafka", s:"Kafka", cat:"Memoir & fiction", note:"A salesman wakes up as an insect, and his family’s patience turns out to have limits. Alienation, duty and work."},
+    {t:"Crying in H Mart", a:"Michelle Zauner", s:"Zauner", cat:"Memoir & fiction", note:"Losing a mother, and finding her again through Korean food, language and memory."},
+    {t:"The Uninhabitable Earth", a:"David Wallace-Wells", s:"Wallace-Wells", cat:"Ecology & place", now:true, note:"A clear-eyed survey of what warming could mean for heat, food, water and economies if we don’t change course."},
+    {t:"Being Ecological", a:"Timothy Morton", s:"Morton", cat:"Ecology & place", note:"An argument that we’re already ecological, and that thinking this way needn’t start from guilt."},
+    {t:"The Atlas of Vanishing Places", a:"Travis Elborough", s:"Elborough", cat:"Ecology & place", note:"Places that are disappearing, or already gone, told through their geography and history."},
+    {t:"The Silk Roads", a:"Peter Frankopan", s:"Frankopan", cat:"Ecology & place", note:"World history retold from the trade routes that linked east and west."},
+    {t:"Climate Optimism", a:"Zahra Biabani", s:"Biabani", cat:"Ecology & place", note:"Stories of climate progress around the world, as a counterweight to doom."},
+    {t:"The Ethics of Ambiguity", a:"Simone de Beauvoir", s:"de Beauvoir", cat:"Philosophy", now:true, note:"Existentialist ethics: freedom isn’t a solo project, because willing yourself free means willing others free too."},
+    {t:"A Philosophy of Walking", a:"Frédéric Gros", s:"Gros", cat:"Philosophy", note:"Walking as a way of thinking, through Nietzsche, Rousseau, Thoreau and others who did their best work on foot."},
+    {t:"Think", a:"Simon Blackburn", s:"Blackburn", cat:"Philosophy", note:"A friendly tour of philosophy’s big questions: knowledge, mind, free will, God and the good."},
+    {t:"The Myth of Sisyphus", a:"Albert Camus", s:"Camus", cat:"Philosophy", note:"On living with the absurd, and finding meaning in the effort itself."},
+    {t:"Field Experiments", a:"Alan S. Gerber & Donald P. Green", s:"Gerber & Green", cat:"Minds & math", now:true, note:"How to design, analyze and interpret randomized experiments in the real world."},
+    {t:"Algorithms to Live By", a:"Brian Christian & Tom Griffiths", s:"Christian", cat:"Minds & math", note:"Computer science ideas like optimal stopping and explore/exploit, applied to everyday decisions."},
+    {t:"Gödel, Escher, Bach", a:"Douglas Hofstadter", s:"Hofstadter", cat:"Minds & math", note:"Self-reference in math, art and music, and how minds might emerge from formal systems."},
+    {t:"Weapons of Math Destruction", a:"Cathy O’Neil", s:"O’Neil", cat:"Minds & math", note:"How opaque, large-scale algorithms can quietly reinforce inequality."},
+    {t:"Principles", a:"Ray Dalio", s:"Dalio", cat:"Advice", note:"Dalio’s operating rules for decisions, work and teams."},
+    {t:"Ikigai", a:"Héctor García & Francesc Miralles", s:"García", cat:"Advice", note:"The Japanese idea of a reason for being, drawn from long-lived communities in Okinawa."},
+    {t:"Tiny Experiments", a:"Anne-Laure Le Cunff", s:"Le Cunff", cat:"Advice", note:"Treating goals as small experiments rather than rigid plans."}
+  ];
+
+  const $ = id => document.getElementById(id);
+  const filtersEl = $("lib-filters"), spinesEl = $("lib-spines"), wrap = $("lib-wrap");
+  const idxEl = $("lib-idx"), bodyEl = $("lib-body");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let filter = "all", current = BOOKS.findIndex(b => b.now);
+  if (current < 0) current = 0;
+
+  const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const visible = b => filter === "all" || (filter === "now" ? !!b.now : b.cat === filter);
+  const visibleIdx = () => BOOKS.map((b, i) => visible(b) ? i : -1).filter(i => i >= 0);
+
+  // Filters
+  const opts = [["all", "All", null, BOOKS.length],
+    ...Object.keys(SHELVES).map(k => [k, k, SHELVES[k][0], BOOKS.filter(b => b.cat === k).length]),
+    ["now", "Reading now", "var(--iron)", BOOKS.filter(b => b.now).length]];
+  opts.forEach(([key, label, color, n]) => {
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.className = "filter"; btn.dataset.key = key;
+    btn.setAttribute("aria-pressed", key === filter);
+    btn.innerHTML = (color ? `<span class="sw" style="--c:${color}"></span>` : "") + `${esc(label)} <span class="c">${n}</span>`;
+    btn.addEventListener("click", () => setFilter(key));
+    filtersEl.appendChild(btn);
+  });
+
+  // Spines: height and width vary a little so the shelf looks real
+  const spines = BOOKS.map((b, i) => {
+    const el = document.createElement("button");
+    el.type = "button"; el.className = "spine";
+    const [c, t] = SHELVES[b.cat];
+    const h = Math.min(320, Math.max(228 + ((i * 37) % 5) * 16, b.t.length * 8.4 + 100));
+    const w = 42 + Math.min(b.t.length, 26) * 0.9;
+    el.style.cssText = `--h:${h}px;--w:${w}px;--c:${c};--t:${t}`;
+    if (b.now) el.dataset.now = "";
+    el.setAttribute("aria-label", `${b.t} by ${b.a}${b.now ? ", reading now" : ""}`);
+    el.innerHTML = `<span class="s-title">${esc(b.t)}</span><span class="s-auth">${esc(b.s)}</span>`;
+    el.addEventListener("click", () => select(i));
+    el.addEventListener("keydown", e => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1, true);
+    });
+    spinesEl.appendChild(el);
+    return el;
+  });
+
+  function setFilter(key){
+    filter = key;
+    filtersEl.querySelectorAll(".filter").forEach(f => f.setAttribute("aria-pressed", f.dataset.key === key));
+    BOOKS.forEach((b, i) => {
+      const on = visible(b);
+      spines[i].classList.toggle("is-dim", !on);
+      spines[i].tabIndex = on ? 0 : -1;
+    });
+    if (!visible(BOOKS[current])) select(visibleIdx()[0]); else render(false);
+  }
+
+  function select(i, focus){
+    current = i;
+    spines.forEach((s, j) => s.setAttribute("aria-pressed", j === i));
+    const el = spines[i];
+    wrap.scrollTo({left: el.offsetLeft - wrap.clientWidth / 2 + el.offsetWidth / 2, behavior: reduce ? "auto" : "smooth"});
+    if (focus) el.focus({preventScroll: true});
+    render(true);
+  }
+
+  function step(dir, focus){
+    const v = visibleIdx(), pos = v.indexOf(current);
+    select(v[(pos + dir + v.length) % v.length], focus);
+  }
+
+  function render(animate){
+    const b = BOOKS[current], v = visibleIdx(), pos = v.indexOf(current) + 1;
+    idxEl.innerHTML = `${String(pos).padStart(2, "0")}<small>of ${v.length}</small>`;
+    bodyEl.innerHTML =
+      `<p class="book-cat"><span class="sw" style="--c:${SHELVES[b.cat][0]}"></span>${esc(b.cat)}${b.now ? ' <span class="now">· Reading now</span>' : ""}</p>` +
+      `<h3 class="book-title">${esc(b.t)}</h3>` +
+      `<p class="book-auth">${esc(b.a)}</p>` +
+      `<p class="book-note">${esc(b.note)}</p>`;
+    if (animate){ bodyEl.classList.remove("swap"); void bodyEl.offsetWidth; bodyEl.classList.add("swap"); }
+  }
+
+  $("lib-prev").addEventListener("click", () => step(-1));
+  $("lib-next").addEventListener("click", () => step(1));
+  $("lib-pick").addEventListener("click", () => {
+    const v = visibleIdx().filter(i => i !== current);
+    if (v.length) select(v[Math.floor(Math.random() * v.length)]);
+  });
+
+  setFilter("all");
+  spines.forEach((s, j) => s.setAttribute("aria-pressed", j === current));
+  requestAnimationFrame(() => { const el = spines[current]; wrap.scrollLeft = el.offsetLeft - wrap.clientWidth / 2 + el.offsetWidth / 2; });
+})();
+</script>
 </body>
 </html>
