@@ -366,7 +366,6 @@ footer a{color:var(--muted);padding:10px 0}
 
 <script>
 (function(){
-  // Each shelf gets a glaze color: [spine color, text color]
   const SHELVES = {
     "Memoir & fiction": ["var(--tenmoku)", "var(--paper)"],
     "Ecology & place":  ["var(--sea)",     "var(--paper)"],
@@ -375,8 +374,8 @@ footer a{color:var(--muted);padding:10px 0}
     "Advice":           ["var(--shino)",   "var(--ink)"]
   };
 
-  // Edit notes freely: s = short name printed on the spine, now = currently reading
-  const BOOKS = [
+  // short name printed on the spine, now = currently reading
+const BOOKS = [
     {t:"Stay True", a:"Hua Hsu", s:"Hsu", cat:"Memoir & fiction", note:"A memoir of a college friendship at Berkeley in the ’90s, and of the grief after it was cut short."},
     {t:"The Metamorphosis", a:"Franz Kafka", s:"Kafka", cat:"Memoir & fiction", note:"A salesman wakes up as an insect, and his family’s patience turns out to have limits. Alienation, duty and work."},
     {t:"Crying in H Mart", a:"Michelle Zauner", s:"Zauner", cat:"Memoir & fiction", note:"Losing a mother, and finding her again through Korean food, language and memory."},
@@ -393,6 +392,11 @@ footer a{color:var(--muted);padding:10px 0}
     {t:"Algorithms to Live By", a:"Brian Christian & Tom Griffiths", s:"Christian", cat:"Minds & math", note:"Computer science ideas like optimal stopping and explore/exploit, applied to everyday decisions."},
     {t:"Gödel, Escher, Bach", a:"Douglas Hofstadter", s:"Hofstadter", cat:"Minds & math", note:"Self-reference in math, art and music, and how minds might emerge from formal systems."},
     {t:"Weapons of Math Destruction", a:"Cathy O’Neil", s:"O’Neil", cat:"Minds & math", note:"How opaque, large-scale algorithms can quietly reinforce inequality."},
+    {t:"The Art of Statistics", a:"David Spiegelhalter", s:"Spiegelhalter", cat:"Minds & math", note:"Learning from data through real questions, with the reasoning put ahead of the formulas."},
+    {t:"The Signal and the Noise", a:"Nate Silver", s:"Silver", cat:"Minds & math", note:"Why most predictions fail, and what separates good forecasters, from weather to elections."},
+    {t:"Naked Statistics", a:"Charles Wheelan", s:"Wheelan", cat:"Minds & math", note:"The core ideas of statistics, explained with plain language and humor."},
+    {t:"Invisible Women", a:"Caroline Criado Perez", s:"Criado Perez", cat:"Minds & math", note:"How data gaps that leave out women shape everything from medicine to city design."},
+    {t:"Race After Technology", a:"Ruha Benjamin", s:"Benjamin", cat:"Minds & math", note:"How supposedly neutral technologies can encode and extend racial bias."},
     {t:"Principles", a:"Ray Dalio", s:"Dalio", cat:"Advice", note:"Dalio’s operating rules for decisions, work and teams."},
     {t:"Ikigai", a:"Héctor García & Francesc Miralles", s:"García", cat:"Advice", note:"The Japanese idea of a reason for being, drawn from long-lived communities in Okinawa."},
     {t:"Tiny Experiments", a:"Anne-Laure Le Cunff", s:"Le Cunff", cat:"Advice", note:"Treating goals as small experiments rather than rigid plans."}
@@ -422,7 +426,6 @@ footer a{color:var(--muted);padding:10px 0}
     filtersEl.appendChild(btn);
   });
 
-  // Spines: height and width vary a little so the shelf looks real
   const spines = BOOKS.map((b, i) => {
     const el = document.createElement("button");
     el.type = "button"; el.className = "spine";
