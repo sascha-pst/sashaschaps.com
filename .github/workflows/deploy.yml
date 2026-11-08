@@ -80,6 +80,8 @@ jobs:
           shopt -s nullglob
           cp CNAME dist/ 2>/dev/null || true
           for f in *.jpg *.jpeg *.png *.webp *.svg *.mp4; do cp "$f" dist/; done
+          # photos the pages load from assets/img
+          if [ -d assets ]; then cp -r assets dist/; fi
           echo "dist contents:" && ls -1 dist
 
       - name: Configure Pages

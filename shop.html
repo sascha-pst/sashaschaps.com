@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shop · Sasha Schaps</title>
+<meta name="description" content="Wheel-thrown stoneware by Sasha Schaps: mugs, bowls, vases and planters, made in small batches in California.">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="canonical" href="https://sashaschaps.com/shop">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sasha Schaps">
+<meta property="og:title" content="Shop · Sasha Schaps">
+<meta property="og:description" content="Wheel-thrown stoneware, made in small batches in California.">
+<meta property="og:url" content="https://sashaschaps.com/shop">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F1EFE9'/%3E%3Cg fill='none' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M4 12 C 8 8, 12 16, 16 12 S 24 8, 28 12' stroke='%235C7268'/%3E%3Cpath d='M4 21 C 8 17, 12 25, 16 21 S 24 17, 28 21' stroke='%238FA9AC'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2EEE6; --paper-2:#E6E0D4; --ink:#1B1B18; --ink-2:#4A463F; --muted:#6B665C;
+  --sea:#2F5D5A; --line:rgba(27,27,24,.12); --line-strong:rgba(27,27,24,.3);
+  --tenmoku:#4A2E22; --celadon:#A9BBA9; --shino:#DCCFB6; --iron:#8C3B2A;
+  --sans:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --pad:40px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:var(--ink);text-decoration:none}
+a:hover{color:var(--sea)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+p,h1,h2,h3,h4{margin:0}
+button{font:inherit;color:inherit}
+.page{position:relative;overflow:hidden}
+.grid-lines{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:repeating-linear-gradient(90deg,rgba(27,27,24,.055) 0 1px,transparent 1px 12.5vw)}
+section,footer,header{position:relative;z-index:2}
+.mono{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+.thin{font-weight:100}.bold{font-weight:700}
+.display{text-transform:uppercase;line-height:.88;letter-spacing:-.035em}
+.display span{display:block}
+
+/* buttons (same as home) */
+.btn{display:inline-flex;align-items:center;gap:22px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.22em;
+  text-transform:uppercase;padding:17px 30px;border:1px solid var(--line-strong);background:none;cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn-solid{display:inline-flex;align-items:center;justify-content:space-between;gap:40px;background:var(--ink);color:var(--paper);border:0;cursor:pointer;
+  font-size:14px;font-weight:500;padding:17px 22px;transition:background .25s}
+.btn-solid:hover{background:var(--sea);color:var(--paper)}
+.btn-solid:disabled{background:var(--paper-2);color:var(--muted);cursor:not-allowed}
+.btn-line{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;border:1px solid var(--line-strong);background:none;cursor:pointer;
+  font-size:14px;padding:14px 18px;transition:background .25s,color .25s}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-line:disabled{color:var(--muted);border-color:var(--line);cursor:not-allowed;background:none}
+
+/* top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 56px}
+.brand{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:14px;letter-spacing:.34em;padding:10px 0}
+.brand svg{width:30px;height:30px;flex:none}
+.nav{display:flex;gap:32px;font-size:14px}
+.nav a{color:var(--ink-2);padding:12px 0}
+.nav a:hover{color:var(--sea)}
+.cart-count{font-family:var(--mono);font-size:12px;letter-spacing:.1em}
+
+/* hero */
+.hero{display:grid;grid-template-columns:6fr 5fr;gap:56px;align-items:end;padding:clamp(48px,10vh,120px) var(--pad) 0}
+.hero h1{font-size:clamp(56px,10.1vw,146px)}
+.hero-lede{margin-top:48px;max-width:520px;font-family:var(--mono);font-size:14px;line-height:1.7;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.hero .btn{margin-top:40px}
+.hero-art{position:relative;aspect-ratio:4/5;background:var(--paper-2);overflow:hidden}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+.tag{position:absolute;left:20px;bottom:18px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;background:rgba(242,238,230,.88);padding:8px 12px;text-transform:uppercase}
+
+/* facts strip */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);margin:88px var(--pad) 0}
+.facts>div{padding:22px 16px 0}
+.facts>div:first-child{padding-left:0}
+.facts>div+div{border-left:1px solid var(--line)}
+.facts .v{margin-top:10px;font-size:26px;font-weight:700;line-height:1;text-transform:uppercase}
+.facts .s{margin-top:6px;font-size:13px;color:var(--ink-2)}
+
+/* section heads */
+.sec{padding:120px var(--pad) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.sec-head h2{text-transform:uppercase;font-size:clamp(44px,5vw,72px);line-height:.92;letter-spacing:-.03em}
+.sec-head p{max-width:380px;font-family:var(--mono);font-size:12px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* filters (same as the library shelf) */
+.controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:28px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filter{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;color:var(--ink-2);
+  background:transparent;border:1px solid var(--line-strong);padding:9px 14px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.filter .sw{width:10px;height:10px;flex:none;background:var(--c,transparent)}
+.filter .c{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.filter:hover{border-color:var(--ink);color:var(--ink)}
+.filter[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.filter[aria-pressed="true"] .c{color:var(--paper-2)}
+.sort{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--ink);padding:9px 0;cursor:pointer}
+.sort:hover{color:var(--sea);border-color:var(--sea)}
+
+/* product grid */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 16px;margin-top:36px}
+.card{display:flex;flex-direction:column;gap:14px}
+.card .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--paper-2);cursor:pointer;border:0;padding:0;width:100%}
+.card .ph svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.card:hover .ph svg{transform:scale(1.05)}
+.card .meta{display:flex;justify-content:space-between}
+.card h3{text-transform:uppercase;font-size:26px;line-height:.95;letter-spacing:-.02em}
+.card h3 .thin{font-weight:200}
+.card .glaze{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)}
+.card .glaze .sw{width:10px;height:10px;background:var(--c)}
+.card .buy{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:2px;padding-top:14px;border-top:1px solid var(--line)}
+.price{font-size:22px;font-weight:300;letter-spacing:-.01em}
+.chip{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--paper);background:var(--sea);padding:5px 9px;text-transform:uppercase}
+.chip.out{background:var(--ink)}
+.chip.low{background:var(--iron)}
+
+/* process rows (same as selected work) */
+.cols,.row{display:grid;grid-template-columns:80px 4fr 6fr 60px;gap:32px;align-items:center}
+.cols{padding:36px 0 14px;border-bottom:1px solid var(--line-strong)}
+.row{padding:26px 0;border-bottom:1px solid var(--line);transition:background .25s,padding .25s}
+.row:hover{background:rgba(27,27,24,.045);padding-left:16px}
+.row .n{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.row b{font-size:30px;font-weight:300;letter-spacing:-.02em}
+.row .st{font-size:15px;line-height:1.55;color:var(--ink-2)}
+.row .ar{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+
+/* care / faq */
+.faq{display:grid;grid-template-columns:5fr 7fr;gap:56px;padding-top:36px}
+.faq .big{font-size:34px;font-weight:200;line-height:1.25;letter-spacing:-.01em}
+.faq .big strong{font-weight:600}
+details{border-bottom:1px solid var(--line);padding:22px 0}
+details:first-child{border-top:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-size:20px;font-weight:300}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+details[open] summary::after{content:"−"}
+details p{margin-top:12px;max-width:58ch;font-size:15px;line-height:1.6;color:var(--ink-2)}
+
+/* closing */
+.closing{margin-top:140px;padding:96px var(--pad) 72px;background:var(--paper-2);display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:end}
+.closing h2{font-size:clamp(46px,8vw,118px)}
+.closing p{margin-top:22px;max-width:520px;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.closing .ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}
+.closing .addr{margin-top:14px;text-align:right}
+
+footer{display:flex;justify-content:space-between;gap:16px;padding:36px var(--pad)}
+footer a{color:var(--muted);padding:10px 0}
+
+/* cart drawer */
+.overlay{position:fixed;inset:0;z-index:40;background:rgba(27,27,24,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;z-index:50;height:100%;width:min(460px,100%);background:var(--paper);border-left:1px solid var(--line-strong);
+  display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.drawer.open{transform:none}
+.d-head{display:flex;justify-content:space-between;align-items:flex-end;padding:28px 28px 22px;border-bottom:1px solid var(--line)}
+.d-head h3{text-transform:uppercase;font-size:40px;line-height:.9;letter-spacing:-.03em}
+.x{width:44px;height:44px;display:grid;place-items:center;font-size:18px;background:none;border:1px solid var(--line-strong);cursor:pointer;transition:background .25s,color .25s}
+.x:hover{background:var(--ink);color:var(--paper)}
+.d-items{flex:1;overflow:auto;padding:0 28px}
+.item{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.thumb{position:relative;width:72px;height:90px;background:var(--paper-2);overflow:hidden}
+.thumb svg{position:absolute;inset:0;width:100%;height:100%}
+.item h4{font-size:15px;font-weight:500;text-transform:uppercase;letter-spacing:.01em}
+.qty{display:flex;align-items:center;gap:10px;margin-top:10px}
+.qty button{width:28px;height:28px;display:grid;place-items:center;background:none;border:1px solid var(--line-strong);cursor:pointer}
+.qty button:hover{background:var(--ink);color:var(--paper)}
+.qty span{font-family:var(--mono);font-size:13px;min-width:16px;text-align:center}
+.qty .rm{width:auto;height:auto;display:inline;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:none;border:0;border-bottom:1px solid var(--line-strong);padding:2px 0;margin-left:6px;cursor:pointer}
+.empty{padding:64px 0;font-size:20px;font-weight:200;line-height:1.35;color:var(--ink-2)}
+.d-foot{padding:22px 28px 28px;border-top:1px solid var(--line)}
+.ln{display:flex;justify-content:space-between;padding:4px 0;font-size:14px;color:var(--ink-2)}
+.ln.total{margin:10px 0 18px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink);font-size:22px;font-weight:300}
+.d-foot .btn-solid{width:100%}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:20px;background:rgba(27,27,24,.45)}
+.modal.show{display:grid}
+.m-box{position:relative;width:100%;max-width:980px;max-height:92vh;overflow:auto;background:var(--paper);display:grid;grid-template-columns:1fr 1fr}
+.m-art{position:relative;min-height:520px;background:var(--paper-2)}
+.m-art svg{position:absolute;inset:0;width:100%;height:100%}
+.m-info{padding:40px;display:flex;flex-direction:column;gap:18px}
+.m-info .x{position:absolute;top:16px;right:16px}
+.m-info h3{text-transform:uppercase;font-size:clamp(36px,4vw,54px);line-height:.92;letter-spacing:-.03em;padding-right:40px}
+.m-info .note{font-size:16px;line-height:1.6;color:var(--ink-2)}
+.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+.specs>div{padding:16px 12px 0}
+.specs>div:first-child{padding-left:0}
+.specs>div+div{border-left:1px solid var(--line)}
+.specs .v{margin-top:8px;font-size:15px;font-weight:600}
+.m-buy{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:auto;padding-top:18px;border-top:1px solid var(--line)}
+.m-buy .price{font-size:34px}
+
+.co{grid-template-columns:1fr;max-width:520px;padding:40px}
+.co h3{text-transform:uppercase;font-size:44px;line-height:.9;letter-spacing:-.03em}
+.co label{display:block;margin:20px 0 8px}
+.co input{width:100%;font:inherit;font-size:15px;padding:13px 14px;background:transparent;border:1px solid var(--line-strong);color:var(--ink)}
+.co input:focus{outline:2px solid var(--sea);outline-offset:-1px}
+.co .btn-solid{width:100%;margin-top:4px}
+.demo{margin-top:20px;padding:14px 16px;border-left:3px solid var(--iron);background:var(--paper-2);font-size:13px;line-height:1.55;color:var(--ink-2)}
+
+.toast{position:fixed;left:50%;bottom:28px;z-index:70;transform:translate(-50%,120px);background:var(--ink);color:var(--paper);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:14px 20px;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.toast.show{transform:translate(-50%,0)}
+
+/* tablet */
+@media (max-width:1100px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hero{grid-template-columns:1fr 1fr}
+  .cols,.row{grid-template-columns:56px 1fr 40px}
+  .cols span:nth-child(3),.row .st{display:none}
+  .faq,.closing{grid-template-columns:1fr}
+  .closing .ctas{justify-content:flex-start}.closing .addr{text-align:left}
+}
+/* phone */
+@media (max-width:760px){
+  :root{--pad:20px}
+  .grid-lines{background-image:repeating-linear-gradient(90deg,rgba(27,27,24,.055) 0 1px,transparent 1px 25vw)}
+  .topbar{padding:16px 20px}
+  .brand{font-size:12px;letter-spacing:.3em}
+  .brand svg{width:24px;height:24px}
+  .nav{display:none}
+  .topbar .btn-solid{gap:10px;padding:14px 16px;font-size:13px}
+  .hero{grid-template-columns:1fr;gap:40px;padding-top:40px}
+  .hero-lede{margin-top:28px;font-size:12px}
+  .hero .btn{display:flex;justify-content:space-between;margin-top:28px}
+  .facts{margin-top:56px}
+  .facts .v{font-size:18px}.facts>div{padding:16px 8px 0}
+  .sec{padding-top:72px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px;padding-bottom:24px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}
+  .filter{flex:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 12px}
+  .card .meta{letter-spacing:.12em}
+  .card .meta span:last-child{display:none}
+  .card h3{font-size:20px}
+  .price{font-size:18px}
+  .card .buy{flex-direction:column;align-items:stretch}
+  .card .buy .btn-line{justify-content:center}
+  .cols{display:none}
+  .row{grid-template-columns:1fr;gap:8px;padding:20px 0}
+  .row .st{display:block}.row .ar{display:none}
+  .row b{font-size:26px}
+  .faq .big{font-size:25px;line-height:1.3}
+  .closing{margin-top:88px;padding:64px 20px 48px}
+  .m-box{grid-template-columns:1fr}
+  .m-art{min-height:320px}
+  .m-info{padding:28px 20px}
+  footer{flex-direction:column;gap:6px;padding:28px 20px 36px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grid-lines" aria-hidden="true"></div>
+
+  <header class="topbar" id="top">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="#1B1B18" stroke-width="1.6" stroke-linecap="round"><path d="M-2 12 C 5 6.8, 11 17.2, 17 12 S 29 6.8, 34 12"/><path d="M-2 21 C 5 15.8, 11 26.2, 17 21 S 29 15.8, 34 21"/></g></svg>
+      SASHA SCHAPS
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/">← Home</a>
+      <a href="#pieces">Pieces</a>
+      <a href="#process">Process</a>
+      <a href="#care">Care</a>
+    </nav>
+    <button class="btn-solid" id="openCart" type="button">Cart <span class="cart-count" id="cartCount">(0)</span></button>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="mono" style="font-size:12px;letter-spacing:.22em">[ The studio shop ]</p>
+      <h1 class="display" style="margin-top:28px"><span class="thin">Part-time</span><span class="bold">potter.</span></h1>
+      <p class="hero-lede">Wheel-thrown stoneware, glazed and fired in small batches in California. No two pieces come out of the kiln quite the same.</p>
+      <a class="btn" href="#pieces">See the pieces <span aria-hidden="true">↘</span></a>
+    </div>
+    <div class="hero-art" id="heroArt"><span class="tag">Fresh from the kiln</span></div>
+  </section>
+
+  <div class="facts">
+    <div><p class="mono">Made</p><p class="v">By hand</p><p class="s">Thrown, trimmed &amp; glazed</p></div>
+    <div><p class="mono">Fired</p><p class="v">Cone 6</p><p class="s">Food &amp; dishwasher safe</p></div>
+    <div><p class="mono">Shipping</p><p class="v">Free $75+</p><p class="s">Packed with care</p></div>
+  </div>
+
+  <section class="sec" id="pieces">
+    <div class="sec-head">
+      <h2><span class="thin">The</span><br><span class="bold">pieces.</span></h2>
+      <p>Each glaze breaks a little differently over the clay. Pull a piece off the shelf to see it up close.</p>
+    </div>
+    <div class="controls">
+      <div class="filters" id="filters" role="group" aria-label="Filter pieces"></div>
+      <button class="sort" id="sort" type="button">Sort: Featured <span aria-hidden="true">↻</span></button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="sec" id="process">
+    <div class="sec-head">
+      <h2><span class="thin">From clay</span><br><span class="bold">to kiln.</span></h2>
+      <p>Every piece passes through my hands a dozen times over two to three weeks.</p>
+    </div>
+    <div class="cols mono"><span>No.</span><span>Step</span><span>What happens</span><span></span></div>
+    <div class="row"><span class="n">01</span><b>Wedge</b><span class="st">Clay is kneaded to push out air and even the moisture, so it won't crack in the kiln.</span><span class="ar">Day 1</span></div>
+    <div class="row"><span class="n">02</span><b>Throw</b><span class="st">Centered and pulled up on the wheel into its rough form.</span><span class="ar">Day 1</span></div>
+    <div class="row"><span class="n">03</span><b>Trim</b><span class="st">At leather-hard, the foot is carved and handles attached.</span><span class="ar">Day 2–3</span></div>
+    <div class="row"><span class="n">04</span><b>Bisque</b><span class="st">A first, lower firing turns dry clay into porous ceramic that can take glaze.</span><span class="ar">Week 2</span></div>
+    <div class="row"><span class="n">05</span><b>Glaze &amp; fire</b><span class="st">Dipped, wiped, and fired to about 2,200°F, where the glaze melts into glass.</span><span class="ar">Week 3</span></div>
+  </section>
+
+  <section class="sec" id="care">
+    <div class="sec-head">
+      <h2><span class="thin">Care &amp;</span><br><span class="bold">questions.</span></h2>
+      <p>Made for daily use, not a shelf.</p>
+    </div>
+    <div class="faq">
+      <p class="big">Small variations in glaze, size and form are part of <strong>handmade</strong>, and the photos are representative of each line.</p>
+      <div>
+        <details><summary>Is it food and dishwasher safe?</summary><p>Yes. All glazes are lead-free and fired to stoneware temperature. Handwashing keeps them looking their best longest.</p></details>
+        <details><summary>How long does shipping take?</summary><p>Pieces ship within 3–5 business days, then usually take 2–6 days to arrive. Orders over $75 ship free.</p></details>
+        <details><summary>What if something arrives broken?</summary><p>Send a photo within 7 days and I'll replace it or refund you.</p></details>
+        <details><summary>Do you take custom orders?</summary><p>For sets of four or more, yes. Email me with what you have in mind.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" id="contact">
+    <div>
+      <h2 class="display"><span class="thin">Something</span><span class="bold">custom?</span></h2>
+      <p>Dinnerware sets, gifts, a glaze you saw and want on a different form. Tell me about it.</p>
+    </div>
+    <div>
+      <div class="ctas">
+        <a class="btn-solid" href="mailto:sasha.schaps@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+        <a class="btn-line" href="/">Back home <span aria-hidden="true">←</span></a>
+      </div>
+      <p class="mono addr">sasha.schaps@gmail.com</p>
+    </div>
+  </section>
+
+  <footer class="mono">
+    <span>Sasha Schaps · California</span>
+    <a href="#top">↑</a>
+    <span>Set in Geist · Thrown by hand</span>
+  </footer>
+</div>
+
+<!-- cart -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
+  <div class="d-head">
+    <h3><span class="thin">Your</span><br><span class="bold">cart.</span></h3>
+    <button class="x" id="closeCart" type="button" aria-label="Close cart">×</button>
+  </div>
+  <div class="d-items" id="items"></div>
+  <div class="d-foot">
+    <div class="ln"><span>Subtotal</span><span id="sub">$0</span></div>
+    <div class="ln"><span>Shipping</span><span id="ship">—</span></div>
+    <div class="ln total"><span>Total</span><span id="tot">$0</span></div>
+    <button class="btn-solid" id="checkoutBtn" type="button">Checkout <span aria-hidden="true">→</span></button>
+  </div>
+</aside>
+
+<div class="modal" id="pModal" role="dialog" aria-modal="true" aria-label="Piece details"><div class="m-box" id="pBox"></div></div>
+<div class="modal" id="cModal" role="dialog" aria-modal="true" aria-label="Checkout"><div class="m-box co" id="cBox"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  /* Glazes come from the home page's bookshelf palette */
+  const GLAZES = {
+    "Tenmoku":  {c:"#4A2E22", rim:"#9A6A3E"},
+    "Celadon":  {c:"#A9BBA9", rim:"#7E9580"},
+    "Shino":    {c:"#DCCFB6", rim:"#C08A5C"},
+    "Iron red": {c:"#8C3B2A", rim:"#3A1E16"},
+    "Sea":      {c:"#2F5D5A", rim:"#8FA9AC"},
+    "Marbled":  {c:"#E6DCCB", rim:"#4A2E22", marble:true}
+  };
+
+  /* Edit this list to change what's for sale. stock 0 = sold out. */
+  const PIECES = [
+    {id:1,  name:["Morning","mug"],      cat:"Mugs",     glaze:"Tenmoku",  shape:"mug",     price:38, stock:6, size:"12 oz",    note:"An everyday mug with a thumb-rest handle. Tenmoku breaks to amber where it thins at the rim."},
+    {id:2,  name:["Tide","mug"],         cat:"Mugs",     glaze:"Sea",      shape:"mug",     price:42, stock:2, size:"10 oz",    note:"Deep sea-green that pools in the throwing lines."},
+    {id:3,  name:["Marbled","tumbler"],  cat:"Mugs",     glaze:"Marbled",  shape:"tumbler", price:46, stock:4, size:"8 oz",     note:"Two clay bodies wedged together, so the swirl runs all the way through the wall. Clear glaze inside."},
+    {id:4,  name:["Noodle","bowl"],      cat:"Bowls",    glaze:"Celadon",  shape:"bowl",    price:56, stock:5, size:"7 in wide", note:"Wide and deep, in glassy celadon. Big enough for ramen and broth."},
+    {id:5,  name:["Breakfast","bowl"],   cat:"Bowls",    glaze:"Shino",    shape:"bowl",    price:34, stock:8, size:"5.5 in",   note:"Cereal and yogurt sized. Shino carbon-traps orange flashes at the rim."},
+    {id:6,  name:["Nesting","bowls"],    cat:"Bowls",    glaze:"Iron red", shape:"bowl",    price:84, stock:0, size:"Set of 3", note:"Three bowls that stack: prep, serve, snack."},
+    {id:7,  name:["Bud","vase"],         cat:"Vases",    glaze:"Celadon",  shape:"bottle",  price:32, stock:7, size:"5 in tall", note:"A small bottle for a single stem on a windowsill."},
+    {id:8,  name:["Tall","vase"],        cat:"Vases",    glaze:"Tenmoku",  shape:"vase",    price:95, stock:1, size:"11 in tall", note:"A shouldered vase with a carved line, glazed in glossy tenmoku."},
+    {id:9,  name:["Marbled","bottle"],   cat:"Vases",    glaze:"Marbled",  shape:"bottle",  price:72, stock:3, size:"8 in tall", note:"Neriage swirls in two clays, burnished and left mostly unglazed outside."},
+    {id:10, name:["Desk","planter"],     cat:"Planters", glaze:"Sea",      shape:"planter", price:58, stock:4, size:"5 in pot", note:"Drainage hole and matching saucer. Fits a 4 in nursery pot."},
+    {id:11, name:["Shino","planter"],    cat:"Planters", glaze:"Shino",    shape:"planter", price:64, stock:3, size:"6 in pot", note:"Satin shino over a toasty clay body, with saucer."},
+    {id:12, name:["Serving","plate"],    cat:"Plates",   glaze:"Iron red", shape:"plate",   price:68, stock:2, size:"11 in wide", note:"A large plate in iron red that breaks to black at the edges."}
+  ];
+  const FREE_SHIP = 75, SHIP = 9;
+  const SORTS = [["featured","Featured"],["low","Price ↑"],["high","Price ↓"]];
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const money = n => "$" + n;
+  const num = i => String(i).padStart(2,"0");
+  const title = p => `<span class="thin">${esc(p.name[0])}</span> <span class="bold">${esc(p.name[1])}</span>`;
+  const label = p => p.name.join(" ");
+
+  /* ---------- pottery drawings, in the site's flat, square style ---------- */
+  let uid = 0;
+  function art(p, big){
+    const g = GLAZES[p.glaze], id = "m" + (uid++);
+    const fill = g.marble ? `url(#${id})` : g.c;
+    const body = "#C9B79C", shadow = "rgba(27,27,24,.10)";
+    const defs = g.marble ? `<defs><pattern id="${id}" width="120" height="120" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+        <rect width="120" height="120" fill="${g.c}"/>
+        <path d="M-10 20 C 20 0, 40 40, 70 18 S 110 0, 130 22" stroke="${g.rim}" stroke-width="7" fill="none" opacity=".85"/>
+        <path d="M-10 60 C 25 42, 45 82, 75 58 S 112 44, 130 62" stroke="#A9BBA9" stroke-width="5" fill="none"/>
+        <path d="M-10 98 C 20 80, 50 118, 80 96 S 112 84, 130 100" stroke="${g.rim}" stroke-width="4" fill="none" opacity=".6"/>
+      </pattern></defs>` : "";
+    const S = {
+      mug:`<ellipse cx="200" cy="384" rx="100" ry="12" fill="${shadow}"/>
+        <path d="M282 196c58 0 58 108 0 108" fill="none" stroke="${g.c}" stroke-width="22"/>
+        <path d="M112 150h176v212c0 12-10 22-22 22H134c-12 0-22-10-22-22z" fill="${fill}"/>
+        <path d="M112 334h176v28c0 12-10 22-22 22H134c-12 0-22-10-22-22z" fill="${body}"/>
+        <path d="M112 330c30 8 60-6 88 2s58 0 88-4" stroke="${g.rim}" stroke-width="3" fill="none" opacity=".6"/>
+        <rect x="112" y="146" width="176" height="10" fill="${g.rim}"/>`,
+      tumbler:`<ellipse cx="200" cy="378" rx="84" ry="10" fill="${shadow}"/>
+        <path d="M126 150h148l-14 210c-1 10-8 18-20 18h-80c-12 0-19-8-20-18z" fill="${fill}"/>
+        <rect x="126" y="146" width="148" height="8" fill="${g.rim}" opacity=".5"/>`,
+      bowl:`<ellipse cx="200" cy="350" rx="120" ry="14" fill="${shadow}"/>
+        <path d="M60 196h280c0 86-62 146-140 146S60 282 60 196z" fill="${fill}"/>
+        <path d="M156 330h88v12c0 4-4 8-8 8h-72c-4 0-8-4-8-8z" fill="${body}"/>
+        <rect x="56" y="188" width="288" height="12" fill="${g.rim}"/>`,
+      vase:`<ellipse cx="200" cy="388" rx="80" ry="10" fill="${shadow}"/>
+        <path d="M174 70h52v26c0 20 58 58 58 140s-28 142-84 142-84-60-84-142 58-120 58-140z" fill="${fill}"/>
+        <rect x="170" y="64" width="60" height="10" fill="${g.rim}"/>
+        <path d="M128 190c46 12 98 12 144 0" stroke="${g.rim}" stroke-width="3" fill="none" opacity=".7"/>`,
+      bottle:`<ellipse cx="200" cy="384" rx="90" ry="10" fill="${shadow}"/>
+        <path d="M182 82h36v80c50 16 78 58 78 112 0 64-40 104-96 104s-96-40-96-104c0-54 28-96 78-112z" fill="${fill}"/>
+        <rect x="178" y="76" width="44" height="10" fill="${g.rim}"/>`,
+      planter:`<ellipse cx="200" cy="384" rx="124" ry="12" fill="${shadow}"/>
+        <path d="M150 140c-22-60 6-82 30-48 4-50 40-54 40 2 14-42 56-28 32 42" fill="#6E7F62"/>
+        <path d="M180 146c-34-30-62-8-44 14" fill="#8C9E7C"/>
+        <path d="M108 160h184l-20 200H128z" fill="${fill}"/>
+        <rect x="98" y="152" width="204" height="22" fill="${g.rim}" opacity=".85"/>
+        <rect x="80" y="356" width="240" height="22" fill="${body}"/>`,
+      plate:`<ellipse cx="200" cy="300" rx="168" ry="34" fill="${shadow}"/>
+        <ellipse cx="200" cy="270" rx="170" ry="56" fill="${g.rim}"/>
+        <ellipse cx="200" cy="264" rx="156" ry="48" fill="${fill}"/>
+        <ellipse cx="200" cy="264" rx="104" ry="30" fill="rgba(255,255,255,.08)"/>`
+    };
+    return `<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(label(p))}, ${esc(p.glaze)} glaze">${defs}
+      <g transform="translate(0 ${big?30:20})">${S[p.shape]}</g></svg>`;
+  }
+
+  /* ---------- state ---------- */
+  let cart = {}, filter = "all", sortIdx = 0;
+  try { cart = JSON.parse(localStorage.getItem("ss-cart") || "{}") || {}; } catch(e) { cart = {}; }
+  const save = () => { try { localStorage.setItem("ss-cart", JSON.stringify(cart)); } catch(e) {} };
+  const byId = id => PIECES.find(p => p.id === +id);
+
+  /* ---------- filters ---------- */
+  const cats = [...new Set(PIECES.map(p => p.cat))];
+  const filterOpts = [["all","All",null,PIECES.length],
+    ...cats.map(c => [c, c, null, PIECES.filter(p => p.cat === c).length]),
+    ...Object.keys(GLAZES).filter(k => PIECES.some(p => p.glaze === k)).map(k => ["g:"+k, k, GLAZES[k].c, PIECES.filter(p => p.glaze === k).length])];
+  $("filters").innerHTML = filterOpts.map(([k,l,c,n]) =>
+    `<button type="button" class="filter" data-filter="${esc(k)}" aria-pressed="${k===filter}">${c?`<span class="sw" style="--c:${c}"></span>`:""}${esc(l)} <span class="c">${n}</span></button>`).join("");
+
+  function visible(){
+    let list = PIECES.filter(p => filter === "all" || p.cat === filter || "g:"+p.glaze === filter);
+    const s = SORTS[sortIdx][0];
+    if (s === "low") list = [...list].sort((a,b) => a.price - b.price);
+    if (s === "high") list = [...list].sort((a,b) => b.price - a.price);
+    return list;
+  }
+
+  function chipFor(p){
+    if (p.stock === 0) return `<span class="chip out">Sold out</span>`;
+    if (p.stock <= 2) return `<span class="chip low">Only ${p.stock} left</span>`;
+    return "";
+  }
+
+  function renderGrid(){
+    $("grid").innerHTML = visible().map(p => {
+      const out = p.stock === 0, g = GLAZES[p.glaze];
+      return `<article class="card">
+        <button class="ph" type="button" data-view="${p.id}" aria-label="View ${esc(label(p))}">${art(p)}${chipFor(p)}</button>
+        <div class="meta mono"><span>No. ${num(p.id)} · ${esc(p.cat)}</span><span>${esc(p.size)}</span></div>
+        <h3>${title(p)}</h3>
+        <p class="glaze"><span class="sw" style="--c:${g.c}"></span>${esc(p.glaze)} glaze</p>
+        <div class="buy"><span class="price">${money(p.price)}</span>
+          <button class="btn-line" type="button" data-add="${p.id}" ${out?"disabled":""}>${out?"Sold out":"Add"} <span aria-hidden="true">${out?"":"+"}</span></button></div>
+      </article>`;
+    }).join("");
+  }
+
+  /* ---------- cart ---------- */
+  function add(id){
+    const p = byId(id), have = cart[id] || 0;
+    if (!p || p.stock === 0) return;
+    if (have >= p.stock) { toast(`Only ${p.stock} available`); return; }
+    cart[id] = have + 1; save(); renderCart(); toast(`Added · ${label(p)}`);
+  }
+  function setQty(id, q){
+    const p = byId(id);
+    if (!p || q <= 0) delete cart[id]; else cart[id] = Math.min(q, p.stock);
+    save(); renderCart();
+  }
+  function totals(){
+    const sub = Object.entries(cart).reduce((s,[id,q]) => s + (byId(id) ? byId(id).price * q : 0), 0);
+    const ship = sub === 0 || sub >= FREE_SHIP ? 0 : SHIP;
+    return {sub, ship, tot: sub + ship};
+  }
+  function renderCart(){
+    Object.keys(cart).forEach(id => { if (!byId(id) || byId(id).stock === 0) delete cart[id]; });
+    const entries = Object.entries(cart), count = entries.reduce((s,[,q]) => s + q, 0);
+    $("cartCount").textContent = `(${count})`;
+    $("items").innerHTML = entries.length ? entries.map(([id,q]) => {
+      const p = byId(id);
+      return `<div class="item">
+        <div class="thumb">${art(p)}</div>
+        <div><h4>${esc(label(p))}</h4><p class="mono" style="margin-top:4px">${esc(p.glaze)}</p>
+          <div class="qty"><button type="button" data-dec="${id}" aria-label="One fewer">−</button><span>${q}</span><button type="button" data-inc="${id}" aria-label="One more">+</button><button class="rm" type="button" data-rm="${id}">Remove</button></div></div>
+        <span class="price" style="font-size:18px">${money(p.price*q)}</span>
+      </div>`;
+    }).join("") : `<p class="empty">Nothing here yet. The shelf is a scroll away.</p>`;
+    const t = totals();
+    $("sub").textContent = money(t.sub);
+    $("ship").textContent = t.sub === 0 ? "—" : (t.ship ? money(t.ship) : "Free");
+    $("tot").textContent = money(t.tot);
+    $("checkoutBtn").disabled = !entries.length;
+    save();
+  }
+  function openCart(){ $("drawer").classList.add("open"); $("drawer").setAttribute("aria-hidden","false"); $("overlay").classList.add("show"); $("closeCart").focus(); }
+  function closeCart(){ $("drawer").classList.remove("open"); $("drawer").setAttribute("aria-hidden","true"); $("overlay").classList.remove("show"); }
+
+  /* ---------- piece detail ---------- */
+  function view(id){
+    const p = byId(id), out = p.stock === 0, g = GLAZES[p.glaze];
+    $("pBox").innerHTML = `
+      <div class="m-art">${art(p, true)}${chipFor(p)}</div>
+      <div class="m-info">
+        <button class="x" type="button" data-close aria-label="Close">×</button>
+        <p class="mono">No. ${num(p.id)} · ${esc(p.cat)}</p>
+        <h3>${title(p)}</h3>
+        <p class="note">${esc(p.note)}</p>
+        <div class="specs">
+          <div><p class="mono">Glaze</p><p class="v" style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:${g.c};display:inline-block"></span>${esc(p.glaze)}</p></div>
+          <div><p class="mono">Size</p><p class="v">${esc(p.size)}</p></div>
+          <div><p class="mono">In stock</p><p class="v">${out ? "None" : p.stock}</p></div>
+        </div>
+        <div class="m-buy"><span class="price">${money(p.price)}</span>
+          <button class="btn-solid" type="button" data-add="${p.id}" ${out?"disabled":""}>${out?"Sold out":"Add to cart"} <span aria-hidden="true">${out?"":"+"}</span></button></div>
+      </div>`;
+    $("pModal").classList.add("show");
+    $("pBox").querySelector(".x").focus();
+  }
+
+  /* ---------- checkout (not connected to payments yet) ---------- */
+  function checkout(){
+    const t = totals();
+    $("cBox").innerHTML = `
+      <button class="x" type="button" data-close aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+      <h3><span class="thin">Check</span><br><span class="bold">out.</span></h3>
+      <form id="coForm">
+        <label class="mono" for="coName">Name</label><input id="coName" autocomplete="name" required>
+        <label class="mono" for="coEmail">Email</label><input id="coEmail" type="email" autocomplete="email" required>
+        <label class="mono" for="coAddr">Shipping address</label><input id="coAddr" autocomplete="street-address" required>
+        <div class="ln total" style="margin-top:24px"><span>Total</span><span>${money(t.tot)}</span></div>
+        <button class="btn-solid" type="submit">Continue to payment <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="demo">Payments aren't connected yet, so no order is placed here. To buy a piece now, email <b>sasha.schaps@gmail.com</b>.</p>`;
+    $("cModal").classList.add("show");
+    $("coForm").addEventListener("submit", e => { e.preventDefault(); toast("Payments not connected yet"); });
+  }
+
+  /* ---------- wiring ---------- */
+  let tt;
+  function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2200); }
+  function closeModals(){ document.querySelectorAll(".modal").forEach(m => m.classList.remove("show")); }
+
+  document.addEventListener("click", e => {
+    const d = e.target.closest("[data-filter],[data-view],[data-add],[data-inc],[data-dec],[data-rm],[data-close]");
+    if (!d) return;
+    const ds = d.dataset;
+    if (ds.filter) {
+      filter = ds.filter;
+      document.querySelectorAll(".filter").forEach(f => f.setAttribute("aria-pressed", f.dataset.filter === filter));
+      renderGrid();
+    }
+    else if (ds.view) view(ds.view);
+    else if (ds.add) add(+ds.add);
+    else if (ds.inc) setQty(ds.inc, (cart[ds.inc] || 0) + 1);
+    else if (ds.dec) setQty(ds.dec, (cart[ds.dec] || 0) - 1);
+    else if (ds.rm) setQty(ds.rm, 0);
+    else if (d.hasAttribute("data-close")) closeModals();
+  });
+  document.querySelectorAll(".modal").forEach(m => m.addEventListener("click", e => { if (e.target === m) closeModals(); }));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModals(); closeCart(); } });
+  $("openCart").addEventListener("click", openCart);
+  $("closeCart").addEventListener("click", closeCart);
+  $("overlay").addEventListener("click", closeCart);
+  $("checkoutBtn").addEventListener("click", () => { closeCart(); checkout(); });
+  $("sort").addEventListener("click", () => {
+    sortIdx = (sortIdx + 1) % SORTS.length;
+    $("sort").innerHTML = `Sort: ${SORTS[sortIdx][1]} <span aria-hidden="true">↻</span>`;
+    renderGrid();
+  });
+
+  /* hero: a little shelf of glazes */
+  const heroSet = [
+    {name:["",""], glaze:"Tenmoku", shape:"vase"},
+    {name:["",""], glaze:"Celadon", shape:"bowl"},
+    {name:["",""], glaze:"Marbled", shape:"tumbler"}
+  ];
+  const strip = s => s.replace(/^<svg[^>]*>|<\/svg>$/g, "");
+  $("heroArt").insertAdjacentHTML("afterbegin",
+    `<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="420" width="400" height="6" fill="#1B1B18"/>
+      <g transform="translate(-40 -8) scale(.92)">${strip(art(heroSet[0]))}</g>
+      <g transform="translate(170 150) scale(.6)">${strip(art(heroSet[2]))}</g>
+      <g transform="translate(80 226) scale(.5)">${strip(art(heroSet[1]))}</g>
+    </svg>`);
+
+  renderGrid(); renderCart();
+})();
+</script>
+</body>
+</html>
