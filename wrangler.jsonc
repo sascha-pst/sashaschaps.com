@@ -1,0 +1,11 @@
+// Cloudflare Workers config: serve only the built, password-protected
+// site in dist/ (made by build.sh), never the raw repo files.
+{
+  // Must match the Worker's name in the Cloudflare dashboard.
+  "name": "sashaschaps-com",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash"
+  }
+}
