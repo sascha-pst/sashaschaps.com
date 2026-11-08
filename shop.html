@@ -324,7 +324,7 @@ footer a{color:var(--muted);padding:10px 0}
         <details><summary>Is it food and dishwasher safe?</summary><p>Yes. All glazes are lead-free and fired to stoneware temperature. Handwashing keeps them looking their best longest.</p></details>
         <details><summary>How long does shipping take?</summary><p>Pieces ship within 3–5 business days, then usually take 2–6 days to arrive. Orders over $75 ship free.</p></details>
         <details><summary>What if something arrives broken?</summary><p>Send a photo within 7 days and I'll replace it or refund you.</p></details>
-        <details><summary>Do you take custom orders?</summary><p>For sets of four or more, yes. Email me with what you have in mind.</p></details>
+        <details><summary>Do you take custom orders?</summary><p>For sets of four or more, yes. Just ask.</p></details>
       </div>
     </div>
   </section>
@@ -336,10 +336,9 @@ footer a{color:var(--muted);padding:10px 0}
     </div>
     <div>
       <div class="ctas">
-        <a class="btn-solid" href="mailto:sasha.schaps@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+        <a class="btn-solid" href="#pieces">Back to the pieces <span aria-hidden="true">↑</span></a>
         <a class="btn-line" href="/">Back home <span aria-hidden="true">←</span></a>
       </div>
-      <p class="mono addr">sasha.schaps@gmail.com</p>
     </div>
   </section>
 
@@ -572,7 +571,7 @@ footer a{color:var(--muted);padding:10px 0}
         <div class="ln total" style="margin-top:24px"><span>Total</span><span>${money(t.tot)}</span></div>
         <button class="btn-solid" type="submit">Continue to payment <span aria-hidden="true">→</span></button>
       </form>
-      <p class="demo">Payments aren't connected yet, so no order is placed here. To buy a piece now, email <b>sasha.schaps@gmail.com</b>.</p>`;
+      <p class="demo">Payments aren't connected yet, so no order is placed here.</p>`;
     $("cModal").classList.add("show");
     $("coForm").addEventListener("submit", e => { e.preventDefault(); toast("Payments not connected yet"); });
   }

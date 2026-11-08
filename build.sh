@@ -9,7 +9,7 @@
 # page gets the "Come in" password screen.
 set -euo pipefail
 
-PUBLIC_PAGES="shop.html"
+PUBLIC_PAGES=""   # e.g. "shop.html" to leave the shop open to everyone
 
 if [ -z "${SITE_PASSWORD:-}" ]; then
   echo "ERROR: SITE_PASSWORD is not set. Add it under Settings > Build > Variables and secrets in Cloudflare." >&2
