@@ -3,3 +3,7 @@ node_modules/
 .wrangler/
 .dev.vars
 .env
+
+# Licensed webfont binaries are deployed locally, not redistributed in Git.
+assets/fonts/*.woff
+assets/fonts/*.woff2
