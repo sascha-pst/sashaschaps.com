@@ -3,491 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sasha Schaps · Data fluency &amp; execution</title>
-<meta name="description" content="Sasha Schaps: data science, AI ethics and program enablement. UC Berkeley MIDS, Beezwax">
+<title>Sasha Schaps · A practice in curiosity</title>
+<meta name="description" content="Sasha Schaps explores data science, AI ethics, and program enablement. Selected projects, a little library, and a pottery practice.">
+<meta name="theme-color" content="#f5f3eb">
+<link rel="canonical" href="https://sashaschaps.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --paper:#F2EEE6; --paper-2:#E6E0D4; --ink:#1B1B18; --ink-2:#4A463F; --muted:#6B665C;
-  --sea:#2F5D5A; --line:rgba(27,27,24,.12); --line-strong:rgba(27,27,24,.3);
-  /* glaze palette for the bookshelf */
-  --tenmoku:#4A2E22; --celadon:#A9BBA9; --shino:#DCCFB6; --iron:#8C3B2A;
-  --sans:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
-  --pad:40px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
-  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-img{display:block;max-width:100%;width:100%;height:100%;object-fit:cover}
-a{color:var(--ink);text-decoration:none}
-a:hover{color:var(--sea)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
-p,h1,h2,h3{margin:0}
-.page{position:relative;overflow:hidden}
-.grid-lines{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background-image:repeating-linear-gradient(90deg,rgba(27,27,24,.055) 0 1px,transparent 1px 12.5vw)}
-section,footer{position:relative;z-index:2}
-.mono{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:11px;color:var(--muted)}
-.thin{font-weight:100}.bold{font-weight:700}
-.display{text-transform:uppercase;line-height:.88;letter-spacing:-.035em}
-.display span{display:block}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:22px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.22em;
-  text-transform:uppercase;padding:17px 30px;border:1px solid var(--line-strong);transition:background .25s,color .25s}
-.btn:hover{background:var(--ink);color:var(--paper)}
-.btn-solid{display:inline-flex;align-items:center;justify-content:space-between;gap:40px;background:var(--ink);color:var(--paper);
-  font-size:14px;font-weight:500;padding:17px 22px;transition:background .25s}
-.btn-solid:hover{background:var(--sea);color:var(--paper)}
-.btn-line{display:inline-flex;align-items:center;justify-content:space-between;gap:40px;border:1px solid var(--line-strong);
-  font-size:14px;padding:16px 22px;transition:background .25s,color .25s}
-.btn-line:hover{background:var(--ink);color:var(--paper)}
-
-/* hero */
-.hero{min-height:min(920px,100vh);display:flex;flex-direction:column}
-.hero>img{position:absolute;inset:0;object-position:50% 70%}
-.hero-scrim{position:absolute;inset:0;background:
-  linear-gradient(90deg,rgba(242,238,230,.94) 0%,rgba(242,238,230,.62) 48%,rgba(242,238,230,.05) 100%),
-  linear-gradient(180deg,rgba(242,238,230,0) 72%,var(--paper) 100%)}
-.topbar{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 56px}
-.brand{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:14px;letter-spacing:.34em;padding:10px 0}
-.brand svg{width:30px;height:30px;flex:none}
-.nav{display:flex;gap:32px;font-size:14px}
-.nav a{color:var(--ink-2);padding:12px 0}
-.nav a:hover{color:var(--sea)}
-.hero-body{position:relative;z-index:3;padding:clamp(80px,17vh,210px) var(--pad) 120px}
-.hero h1{font-size:clamp(56px,10.1vw,146px)}
-.hero-lede{margin-top:56px;max-width:560px;font-family:var(--mono);font-size:14px;line-height:1.7;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-.hero .btn{margin-top:40px}
-.hero-meta{position:absolute;z-index:3;right:56px;bottom:64px;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-
-/* section heads */
-.sec{padding:120px var(--pad) 0}
-.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-bottom:36px;border-bottom:1px solid var(--line)}
-.sec-head h2{text-transform:uppercase;font-size:clamp(44px,5vw,72px);line-height:.92;letter-spacing:-.03em}
-.sec-head p{max-width:380px;font-family:var(--mono);font-size:12px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-
-/* route */
-.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:32px}
-.card{display:flex;flex-direction:column;gap:16px}
-.card .ph{height:460px;overflow:hidden;background:var(--paper-2)}
-.card img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.card:hover img{transform:scale(1.05)}
-.card .meta{display:flex;justify-content:space-between}
-.card .meta span:last-child{color:var(--ink)}
-.card h3{text-transform:uppercase;font-size:30px;line-height:.95;letter-spacing:-.02em}
-.card h3 .thin{font-weight:200}
-.card p{font-size:14px;line-height:1.55;color:var(--ink-2)}
-
-/* about */
-.about{display:grid;grid-template-columns:7fr 5fr;gap:56px;padding-top:140px}
-.about .ph{position:relative;height:820px;overflow:hidden}
-.about .ph img{object-position:50% 60%}
-.tag{position:absolute;left:20px;bottom:18px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;background:rgba(242,238,230,.88);padding:8px 12px}
-.about-copy{display:flex;flex-direction:column;justify-content:space-between;gap:48px}
-.about-copy .big{margin-top:28px;font-size:34px;font-weight:200;line-height:1.25;letter-spacing:-.01em}
-.about-copy .big strong{font-weight:600}
-.about-copy .small{margin-top:28px;font-size:16px;line-height:1.65;color:var(--ink-2)}
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
-.facts>div{padding:22px 16px 0}
-.facts>div:first-child{padding-left:0}
-.facts>div+div{border-left:1px solid var(--line)}
-.facts .v{margin-top:10px;font-size:26px;font-weight:700;line-height:1}
-.facts .s{margin-top:6px;font-size:13px;color:var(--ink-2)}
-
-/* work */
-.work-head{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:end;padding-bottom:36px}
-.work-head h2{text-transform:uppercase;font-size:clamp(44px,5vw,72px);line-height:.92;letter-spacing:-.03em}
-.thumbs{display:flex;gap:16px;justify-content:flex-end}
-.thumbs div{width:180px;height:120px;overflow:hidden}
-.cols,.row{display:grid;grid-template-columns:80px 5fr 5fr 60px;gap:32px;align-items:center}
-.cols{padding-bottom:14px;border-bottom:1px solid var(--line-strong)}
-.row{padding:26px 0;border-bottom:1px solid var(--line);transition:background .25s,padding .25s}
-.row:hover{background:rgba(27,27,24,.045);padding-left:16px;color:var(--ink)}
-.row .n{font-family:var(--mono);font-size:13px;color:var(--muted)}
-.row .t{display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px}
-.row .t b{font-size:30px;font-weight:300;letter-spacing:-.02em}
-.chip{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--paper);background:var(--sea);padding:5px 9px}
-.row .st{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
-.row .ar{font-size:20px;text-align:right}
-.work .btn{margin-top:40px}
-
-/* library: an actual shelf of spines, glazed by category */
-.lib-controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:28px}
-.filters{display:flex;flex-wrap:wrap;gap:8px}
-.filter{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;color:var(--ink-2);
-  background:transparent;border:1px solid var(--line-strong);padding:9px 14px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
-.filter .sw{width:10px;height:10px;flex:none;background:var(--c,transparent)}
-.filter .c{font-family:var(--mono);font-size:11px;color:var(--muted)}
-.filter:hover{border-color:var(--ink);color:var(--ink)}
-.filter[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.filter[aria-pressed="true"] .c{color:var(--paper-2)}
-.lib-pick{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;color:var(--ink);background:none;
-  border:0;border-bottom:1px solid var(--ink);padding:9px 0;cursor:pointer}
-.lib-pick:hover{color:var(--sea);border-color:var(--sea)}
-
-.shelf-wrap{margin-top:36px;overflow-x:auto;overflow-y:hidden;padding-top:34px;scrollbar-width:thin}
-.spines{display:flex;align-items:flex-end;gap:5px;min-width:max-content;min-height:320px;padding:0 6px;border-bottom:4px solid var(--ink)}
-.spine{--h:260px;--w:52px;--c:var(--sea);--t:var(--paper);position:relative;flex:none;height:var(--h);width:var(--w);
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;padding:16px 0 14px;
-  background:var(--c);color:var(--t);border:0;cursor:pointer;font-family:var(--sans);
-  box-shadow:inset -4px 0 0 rgba(0,0,0,.13),inset 2px 0 0 rgba(255,255,255,.1);
-  transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .4s,filter .4s}
-.spine::before{content:"";position:absolute;left:8px;right:8px;top:9px;height:1px;background:currentColor;opacity:.35}
-.spine .s-title,.spine .s-auth{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.spine .s-title{font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;max-height:calc(var(--h) - 92px)}
-.spine .s-auth{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;opacity:.72;max-height:70px}
-.spine[data-now]::after{content:"";position:absolute;right:9px;bottom:calc(100% - 4px);width:9px;height:26px;background:var(--iron);
-  clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%)}
-.spine:hover{transform:translateY(-10px)}
-.spine[aria-pressed="true"]{transform:translateY(-26px)}
-.spine.is-dim{opacity:.16;filter:grayscale(1);pointer-events:none}
-.spine:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-
-.book{display:grid;grid-template-columns:140px minmax(0,1fr) auto;gap:32px;align-items:start;padding:34px 0 8px}
-.book-idx{font-size:64px;font-weight:100;line-height:.85;letter-spacing:-.04em}
-.book-idx small{display:block;margin-top:10px;font-size:13px;font-weight:400;letter-spacing:0;color:var(--muted)}
-.book-cat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2)}
-.book-cat .sw{width:12px;height:12px;background:var(--c)}
-.book-cat .now{color:var(--iron);font-weight:500}
-.book-title{margin-top:14px;font-size:clamp(30px,3.4vw,48px);font-weight:300;line-height:1;letter-spacing:-.025em}
-.book-auth{margin-top:10px;font-size:16px;color:var(--ink-2)}
-.book-note{margin-top:20px;max-width:58ch;font-size:16px;line-height:1.6;color:var(--ink-2)}
-.book-nav{display:flex;gap:8px}
-.book-nav button{width:48px;height:48px;display:grid;place-items:center;font-size:18px;color:var(--ink);background:none;
-  border:1px solid var(--line-strong);cursor:pointer;transition:background .25s,color .25s}
-.book-nav button:hover{background:var(--ink);color:var(--paper)}
-.book-body.swap{animation:pull .45s cubic-bezier(.2,.8,.2,1)}
-@keyframes pull{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-/* shore */
-.shore{margin-top:140px;height:760px;overflow:hidden}
-.shore>img{position:absolute;inset:0;object-position:50% 45%}
-.shore-scrim{position:absolute;inset:0;background:linear-gradient(180deg,var(--paper) 0%,rgba(242,238,230,.1) 26%,rgba(242,238,230,.25) 52%,rgba(242,238,230,.94) 100%)}
-.shore-body{position:absolute;left:var(--pad);right:var(--pad);bottom:56px;display:flex;flex-direction:column;align-items:flex-start;gap:36px}
-.shore-body .mono{color:var(--ink);font-size:12px}
-.shore h2{margin-top:22px;font-size:clamp(46px,8.9vw,128px)}
-.shore .ctas{display:flex;flex-wrap:wrap;gap:12px}
-
-footer{display:flex;justify-content:space-between;gap:16px;padding:36px var(--pad)}
-footer a{color:var(--muted);padding:10px 0}
-
-/* tablet */
-@media (max-width:1100px){
-  .route{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .about{grid-template-columns:1fr}
-  .about .ph{height:560px}
-  .cols,.row{grid-template-columns:56px 1fr 40px}
-  .cols span:nth-child(3),.row .st{display:none}
-  .book{grid-template-columns:100px minmax(0,1fr)}
-  .book-nav{grid-column:2}
-}
-/* phone */
-@media (max-width:760px){
-  :root{--pad:20px}
-  .grid-lines{background-image:repeating-linear-gradient(90deg,rgba(27,27,24,.055) 0 1px,transparent 1px 25vw)}
-  .topbar{padding:16px 20px}
-  .brand{font-size:12px;letter-spacing:.3em}
-  .brand svg{width:24px;height:24px}
-  .nav{display:none}
-  .topbar .btn-solid{gap:10px;padding:14px 16px;font-size:13px}
-  .hero{min-height:780px}
-  .hero>img{object-position:60% 70%}
-  .hero-scrim{background:linear-gradient(180deg,rgba(242,238,230,.55) 0%,rgba(242,238,230,.35) 40%,rgba(242,238,230,.88) 72%,var(--paper) 100%)}
-  .hero-body{padding:220px 20px 64px}
-  .hero-lede{margin-top:28px;font-size:12px}
-  .hero .btn{display:flex;justify-content:space-between;margin-top:28px}
-  .hero-meta{display:none}
-  .sec{padding-top:72px}
-  .sec-head{flex-direction:column;align-items:flex-start;gap:14px;padding-bottom:24px}
-  .route{grid-template-columns:1fr;gap:28px}
-  .card{display:grid;grid-template-columns:140px 1fr;gap:16px}
-  .card .ph{height:180px;grid-row:1 / span 3}
-  .card h3{font-size:28px}
-  .about{padding-top:80px;gap:36px}
-  .about .ph{height:460px}
-  .about-copy .big{font-size:25px;line-height:1.3}
-  .about-copy .small{font-size:15px}
-  .facts .v{font-size:20px}
-  .facts>div{padding:16px 8px 0}
-  .work-head{grid-template-columns:1fr;padding-bottom:24px}
-  .thumbs{display:none}
-  .cols{display:none}
-  .row{grid-template-columns:1fr 24px;padding:20px 0;border-top:0}
-  .row .n{grid-column:1 / -1}
-  .row .t b{font-size:26px;line-height:1.1}
-  .row .st{display:block;grid-column:1 / -1}
-  .work .btn{display:flex;justify-content:space-between}
-  .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}
-  .filter{flex:none}
-  .shelf-wrap{margin:28px -20px 0;padding:34px 20px 0}
-  .spines{min-height:270px}
-  .spine{height:calc(var(--h) * .86)}
-  .spine .s-title{max-height:calc(var(--h) * .86 - 90px)}
-  .book{grid-template-columns:1fr;gap:18px;padding-top:28px}
-  .book-idx{font-size:44px;display:flex;align-items:baseline;gap:12px}
-  .book-idx small{margin-top:0}
-  .book-nav{grid-column:auto}
-  .shore{margin-top:88px;height:640px}
-  .shore>img{object-position:50% 45%}
-  .shore-body{bottom:32px;gap:28px}
-  .shore .ctas{width:100%}
-  .shore .ctas a{flex:1}
-  footer{flex-direction:column;gap:6px;padding:28px 20px 36px}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/studio.css">
+<script src="assets/library.js" defer></script>
 </head>
 <body>
-<div class="page">
-  <div class="grid-lines" aria-hidden="true"></div>
-
-  <section class="hero" id="top">
-    <img src="assets/img/horizon.jpg" alt="Waves rolling into a rocky shore under a pale hazy sky">
-    <div class="hero-scrim" aria-hidden="true"></div>
-    <header class="topbar">
-      <a class="brand" href="#top">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="#1B1B18" stroke-width="1.6" stroke-linecap="round"><path d="M-2 12 C 5 6.8, 11 17.2, 17 12 S 29 6.8, 34 12"/><path d="M-2 21 C 5 15.8, 11 26.2, 17 21 S 29 15.8, 34 21"/></g></svg>
-        SASHA SCHAPS
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#work">Work</a>
-        <a href="#reading">Reading</a>
-        <a href="/shop">Shop</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <a class="btn-solid" href="mailto:sasha.schaps@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
-    </header>
-    <div class="hero-body">
-      <h1 class="display"><span class="thin">Data fluency &amp;</span><span class="bold">Execution.</span></h1>
-      <p class="hero-lede">Program enablement and AI ethics, grounded in the belief that data should leave people better off. Currently studying data science.</p>
-      <a class="btn" href="#route">See the work <span aria-hidden="true">↘</span></a>
-    </div>
-  </section>
-
-  <section class="sec" id="route">
-    <div class="sec-head">
-      <h2><span class="thin">Content</span><span class="bold">s.</span></h2>
-      <p>From projects to a library: background, approach, projects, reading and contact information.</p>
-    </div>
-    <div class="route">
-      <a class="card" href="#about"><div class="ph"><img src="assets/img/hikers.jpg" alt="A grassy alpine summit under a clear sky" style="object-position:50% 30%" loading="lazy"></div><div class="meta mono"><span></span><span aria-hidden="true">↗</span></div><h3><span class="thin">About</span> <span class="bold">Me</span></h3></a>
-      <a class="card" href="#about"><div class="ph"><img src="assets/img/prints.jpg" alt="getting it done" style="object-position:60% 50%" loading="lazy"></div><div class="meta mono"><span></span><span aria-hidden="true">↗</span></div><h3><span class="thin">The</span> <span class="bold">Work</span></h3></a>
-      <a class="card" href="#work"><div class="ph"><img src="assets/img/meadow.jpg" alt="Daisies in a wind-blurred alpine meadow" style="object-position:50% 60%" loading="lazy"></div><div class="meta mono"><span></span><span aria-hidden="true">↗</span></div><h3><span class="thin">The</span> <span class="bold">Projects</span></h3></a>
-      <a class="card" href="#reading"><div class="ph"><img src="assets/img/library.jpg" alt="flower with book" style="object-position:40% 50%" loading="lazy"></div><div class="meta mono"><span></span><span aria-hidden="true">↗</span></div><h3><span class="thin">Little</span> <span class="bold">library</span></h3></a>
-      <a class="card" href="#contact"><div class="ph"><img src="assets/img/foam.jpg" alt="from underwater in bright blue water" style="object-position:45% 50%" loading="lazy"></div><div class="meta mono"><span></span><span aria-hidden="true">↗</span></div><h3><span class="thin">Contact</span> <span class="bold">info</span></h3></a>
-    </div>
-  </section>
-
-  <section class="sec about" id="about">
-    <div class="ph">
-      <img src="assets/img/summit.jpg" alt="it's the top of a mountain" loading="lazy">
-      <span class="tag"></span>
-    </div>
-    <div class="about-copy">
-      <div>
-        <p class="mono" style="font-size:12px;letter-spacing:.22em">[ About ]</p>
-        <p class="big">A part-time potter and full-time marketing enablement manager, studying data science and AI. I’m committed to building and measuring systems that serve <strong>public interests</strong>.</p>
-      </div>
-      <div class="facts">
-        <div><p class="mono">Now</p><p class="v">MIDS</p><p class="s">UC Berkeley</p></div>
-        <div><p class="mono">Before</p><p class="v">META</p><p class="s">× World Health Org.</p></div>
-        <div><p class="mono">Focus</p><p class="v">AI ETHICS</p><p class="s">&amp; program enablement</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec work" id="work">
-    <div class="work-head">
-      <h2><span class="thin">Selected</span><br><span class="bold">work.</span></h2>
-      <div class="thumbs" aria-hidden="true"><div><img src="assets/img/calla.jpg" alt="" loading="lazy"></div><div><img src="assets/img/meadow.jpg" alt="" loading="lazy"></div></div>
-    </div>
-    <div class="cols mono"><span>No.</span><span>Project</span><span>Stack</span><span></span></div>
-    <a class="row" href="/project-raincheck"><span class="n">01</span><span class="t"><b>Project Raincheck</b><span class="chip">NEW</span></span><span class="st">Scrollytelling · Canvas · Climate data</span><span class="ar" aria-hidden="true">↗</span></a>
-    <a class="row" href="https://letsnotboiltheocean.app" target="_blank" rel="noopener"><span class="n">02</span><span class="t"><b>Let's Not Boil the Ocean</b><span class="chip">CURRENT</span></span><span class="st">Observable · D3 · Climate data</span><span class="ar" aria-hidden="true">↗</span></a>
-    <a class="row" href="/bullish-on-sharks"><span class="n">03</span><span class="t"><b>Bullish on Sharks</b></span><span class="st">EDA · Data cleaning</span><span class="ar" aria-hidden="true">↗</span></a>
-  </section>
-
-  <section class="sec library" id="reading">
-    <div class="sec-head">
-      <h2><span class="thin">Little </span><span class="bold">library.</span></h2>
-      <p>Pull a book off the shelf to see what it’s about. The red ribbons mark what I’m reading now.</p>
-    </div>
-
-    <div class="lib-controls">
-      <div class="filters" id="lib-filters" role="group" aria-label="Filter the shelf"></div>
-      <button class="lib-pick" id="lib-pick" type="button">Pick one for me <span aria-hidden="true">↻</span></button>
-    </div>
-
-    <div class="shelf-wrap" id="lib-wrap">
-      <div class="spines" id="lib-spines" role="group" aria-label="Bookshelf"></div>
-    </div>
-
-    <div class="book" aria-live="polite">
-      <p class="book-idx" id="lib-idx"></p>
-      <div class="book-body" id="lib-body"></div>
-      <div class="book-nav">
-        <button type="button" id="lib-prev" aria-label="Previous book">←</button>
-        <button type="button" id="lib-next" aria-label="Next book">→</button>
-      </div>
-    </div>
-    <noscript><p class="book-note">Turn on JavaScript to browse the shelf.</p></noscript>
-  </section>
-
-  <section class="shore" id="contact">
-    <img src="assets/img/tidepool.jpg" alt="Sunlight glittering on a clear tidepool between dark rocks" loading="lazy">
-    <div class="shore-scrim" aria-hidden="true"></div>
-    <div class="shore-body">
-      <div>
-        <h2 class="display"><span class="thin">What's the</span><span class="bold">opportunity?</span></h2>
-        <p style="margin-top:22px;max-width:520px;font-size:16px;line-height:1.6;color:var(--ink-2)">Open to connecting on data science, AI ethics and program enablement, with people working to make technology more useful and responsible.</p>
-      </div>
-      <div class="ctas">
-        <a class="btn-solid" href="mailto:sasha.schaps@gmail.com">Email me <span aria-hidden="true">↗</span></a>
-        <a class="btn-line" href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="mono">
-    <span>Sasha Schaps · California</span>
-    <a href="#top">↑</a>
-    <span>Set in Geist · Built with Jekyll</span>
-  </footer>
-</div>
-
-<script>
-(function(){
-  const SHELVES = {
-    "Memoir & fiction": ["var(--tenmoku)", "var(--paper)"],
-    "Ecology & place":  ["var(--sea)",     "var(--paper)"],
-    "Philosophy":       ["var(--ink)",     "var(--paper)"],
-    "Minds & math":     ["var(--celadon)", "var(--ink)"],
-    "Advice":           ["var(--shino)",   "var(--ink)"]
-  };
-
-  // short name printed on the spine, now = currently reading
-const BOOKS = [
-    {t:"Stay True", a:"Hua Hsu", s:"Hsu", cat:"Memoir & fiction", note:"A memoir of a college friendship at Berkeley in the ’90s, and of the grief after it was cut short."},
-    {t:"The Metamorphosis", a:"Franz Kafka", s:"Kafka", cat:"Memoir & fiction", note:"A salesman wakes up as an insect, and his family’s patience turns out to have limits. Alienation, duty and work."},
-    {t:"Crying in H Mart", a:"Michelle Zauner", s:"Zauner", cat:"Memoir & fiction", note:"Losing a mother, and finding her again through Korean food, language and memory."},
-    {t:"The Uninhabitable Earth", a:"David Wallace-Wells", s:"Wallace-Wells", cat:"Ecology & place", now:true, note:"A clear-eyed survey of what warming could mean for heat, food, water and economies if we don’t change course."},
-    {t:"Being Ecological", a:"Timothy Morton", s:"Morton", cat:"Ecology & place", note:"An argument that we’re already ecological, and that thinking this way needn’t start from guilt."},
-    {t:"The Atlas of Vanishing Places", a:"Travis Elborough", s:"Elborough", cat:"Ecology & place", note:"Places that are disappearing, or already gone, told through their geography and history."},
-    {t:"The Silk Roads", a:"Peter Frankopan", s:"Frankopan", cat:"Ecology & place", note:"World history retold from the trade routes that linked east and west."},
-    {t:"Climate Optimism", a:"Zahra Biabani", s:"Biabani", cat:"Ecology & place", note:"Stories of climate progress around the world, as a counterweight to doom."},
-    {t:"The Ethics of Ambiguity", a:"Simone de Beauvoir", s:"de Beauvoir", cat:"Philosophy", now:true, note:"Existentialist ethics: freedom isn’t a solo project, because willing yourself free means willing others free too."},
-    {t:"A Philosophy of Walking", a:"Frédéric Gros", s:"Gros", cat:"Philosophy", note:"Walking as a way of thinking, through Nietzsche, Rousseau, Thoreau and others who did their best work on foot."},
-    {t:"Think", a:"Simon Blackburn", s:"Blackburn", cat:"Philosophy", note:"A friendly tour of philosophy’s big questions: knowledge, mind, free will, God and the good."},
-    {t:"The Myth of Sisyphus", a:"Albert Camus", s:"Camus", cat:"Philosophy", note:"On living with the absurd, and finding meaning in the effort itself."},
-    {t:"Field Experiments", a:"Alan S. Gerber & Donald P. Green", s:"Gerber & Green", cat:"Minds & math", now:true, note:"How to design, analyze and interpret randomized experiments in the real world."},
-    {t:"Algorithms to Live By", a:"Brian Christian & Tom Griffiths", s:"Christian", cat:"Minds & math", note:"Computer science ideas like optimal stopping and explore/exploit, applied to everyday decisions."},
-    {t:"Gödel, Escher, Bach", a:"Douglas Hofstadter", s:"Hofstadter", cat:"Minds & math", note:"Self-reference in math, art and music, and how minds might emerge from formal systems."},
-    {t:"Weapons of Math Destruction", a:"Cathy O’Neil", s:"O’Neil", cat:"Minds & math", note:"How opaque, large-scale algorithms can quietly reinforce inequality."},
-    {t:"The Art of Statistics", a:"David Spiegelhalter", s:"Spiegelhalter", cat:"Minds & math", note:"Learning from data through real questions, with the reasoning put ahead of the formulas."},
-    {t:"The Signal and the Noise", a:"Nate Silver", s:"Silver", cat:"Minds & math", note:"Why most predictions fail, and what separates good forecasters, from weather to elections."},
-    {t:"Naked Statistics", a:"Charles Wheelan", s:"Wheelan", cat:"Minds & math", note:"The core ideas of statistics, explained with plain language and humor."},
-    {t:"Race After Technology", a:"Ruha Benjamin", s:"Benjamin", cat:"Minds & math", note:"How supposedly neutral technologies can encode and extend racial bias."},
-    {t:"Principles", a:"Ray Dalio", s:"Dalio", cat:"Advice", note:"Dalio’s operating rules for decisions, work and teams."},
-    {t:"Ikigai", a:"Héctor García & Francesc Miralles", s:"García", cat:"Advice", note:"The Japanese idea of a reason for being, drawn from long-lived communities in Okinawa."},
-    {t:"Tiny Experiments", a:"Anne-Laure Le Cunff", s:"Le Cunff", cat:"Advice", note:"Treating goals as small experiments rather than rigid plans."}
-  ];
-
-  const $ = id => document.getElementById(id);
-  const filtersEl = $("lib-filters"), spinesEl = $("lib-spines"), wrap = $("lib-wrap");
-  const idxEl = $("lib-idx"), bodyEl = $("lib-body");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let filter = "all", current = BOOKS.findIndex(b => b.now);
-  if (current < 0) current = 0;
-
-  const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  const visible = b => filter === "all" || (filter === "now" ? !!b.now : b.cat === filter);
-  const visibleIdx = () => BOOKS.map((b, i) => visible(b) ? i : -1).filter(i => i >= 0);
-
-  // Filters
-  const opts = [["all", "All", null, BOOKS.length],
-    ...Object.keys(SHELVES).map(k => [k, k, SHELVES[k][0], BOOKS.filter(b => b.cat === k).length]),
-    ["now", "Reading now", "var(--iron)", BOOKS.filter(b => b.now).length]];
-  opts.forEach(([key, label, color, n]) => {
-    const btn = document.createElement("button");
-    btn.type = "button"; btn.className = "filter"; btn.dataset.key = key;
-    btn.setAttribute("aria-pressed", key === filter);
-    btn.innerHTML = (color ? `<span class="sw" style="--c:${color}"></span>` : "") + `${esc(label)} <span class="c">${n}</span>`;
-    btn.addEventListener("click", () => setFilter(key));
-    filtersEl.appendChild(btn);
-  });
-
-  const spines = BOOKS.map((b, i) => {
-    const el = document.createElement("button");
-    el.type = "button"; el.className = "spine";
-    const [c, t] = SHELVES[b.cat];
-    const h = Math.min(320, Math.max(228 + ((i * 37) % 5) * 16, b.t.length * 8.4 + 100));
-    const w = 42 + Math.min(b.t.length, 26) * 0.9;
-    el.style.cssText = `--h:${h}px;--w:${w}px;--c:${c};--t:${t}`;
-    if (b.now) el.dataset.now = "";
-    el.setAttribute("aria-label", `${b.t} by ${b.a}${b.now ? ", reading now" : ""}`);
-    el.innerHTML = `<span class="s-title">${esc(b.t)}</span><span class="s-auth">${esc(b.s)}</span>`;
-    el.addEventListener("click", () => select(i));
-    el.addEventListener("keydown", e => {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-      e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1, true);
-    });
-    spinesEl.appendChild(el);
-    return el;
-  });
-
-  function setFilter(key){
-    filter = key;
-    filtersEl.querySelectorAll(".filter").forEach(f => f.setAttribute("aria-pressed", f.dataset.key === key));
-    BOOKS.forEach((b, i) => {
-      const on = visible(b);
-      spines[i].classList.toggle("is-dim", !on);
-      spines[i].tabIndex = on ? 0 : -1;
-    });
-    if (!visible(BOOKS[current])) select(visibleIdx()[0]); else render(false);
-  }
-
-  function select(i, focus){
-    current = i;
-    spines.forEach((s, j) => s.setAttribute("aria-pressed", j === i));
-    const el = spines[i];
-    wrap.scrollTo({left: el.offsetLeft - wrap.clientWidth / 2 + el.offsetWidth / 2, behavior: reduce ? "auto" : "smooth"});
-    if (focus) el.focus({preventScroll: true});
-    render(true);
-  }
-
-  function step(dir, focus){
-    const v = visibleIdx(), pos = v.indexOf(current);
-    select(v[(pos + dir + v.length) % v.length], focus);
-  }
-
-  function render(animate){
-    const b = BOOKS[current], v = visibleIdx(), pos = v.indexOf(current) + 1;
-    idxEl.innerHTML = `${String(pos).padStart(2, "0")}<small>of ${v.length}</small>`;
-    bodyEl.innerHTML =
-      `<p class="book-cat"><span class="sw" style="--c:${SHELVES[b.cat][0]}"></span>${esc(b.cat)}${b.now ? ' <span class="now">· Reading now</span>' : ""}</p>` +
-      `<h3 class="book-title">${esc(b.t)}</h3>` +
-      `<p class="book-auth">${esc(b.a)}</p>` +
-      `<p class="book-note">${esc(b.note)}</p>`;
-    if (animate){ bodyEl.classList.remove("swap"); void bodyEl.offsetWidth; bodyEl.classList.add("swap"); }
-  }
-
-  $("lib-prev").addEventListener("click", () => step(-1));
-  $("lib-next").addEventListener("click", () => step(1));
-  $("lib-pick").addEventListener("click", () => {
-    const v = visibleIdx().filter(i => i !== current);
-    if (v.length) select(v[Math.floor(Math.random() * v.length)]);
-  });
-
-  setFilter("all");
-  spines.forEach((s, j) => s.setAttribute("aria-pressed", j === current));
-  requestAnimationFrame(() => { const el = spines[current]; wrap.scrollLeft = el.offsetLeft - wrap.clientWidth / 2 + el.offsetWidth / 2; });
-})();
-</script>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead" id="top">
+ <a class="wordmark" href="/" aria-label="Sasha Schaps home">Sasha Schaps<span class="wordmark-dot" aria-hidden="true">✳</span></a>
+ <nav aria-label="Primary"><a href="#work">Work</a><a href="#about">About</a><a href="#reading">Reading</a><a href="/shop">Pottery ↗</a></nav>
+ <a class="contact-link" href="mailto:sasha.schaps@gmail.com">Say hello <span aria-hidden="true">↗</span></a>
+</header>
+<main id="main">
+<section class="intro" aria-labelledby="intro-heading">
+ <div class="intro-copy">
+  <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Data science · AI ethics · Making things</p>
+  <h1 id="intro-heading">Curiosity,<br>put to <em>work.</em></h1>
+  <p class="intro-description">I’m Sasha. I work at the intersection of people, data, and the systems we build—asking how technology can leave us better off.</p>
+  <a class="text-link" href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
+  <div class="intro-foot"><span>Based in California</span><span>A practice in paying attention.</span></div>
+ </div>
+ <figure class="intro-image"><img src="assets/img/horizon.jpg" alt="An open ocean horizon above a rocky California shoreline" fetchpriority="high"><figcaption><span>01 / A wider perspective</span><span>California, by the water</span></figcaption><span class="image-stamp" aria-hidden="true">Always<br><i>looking closer.</i></span></figure>
+</section>
+<div class="interlude" aria-label="Areas of interest"><span>People &amp; systems</span><span aria-hidden="true">✳</span><span>Data &amp; decisions</span><span aria-hidden="true">✳</span><span>Ideas &amp; practice</span></div>
+<section class="section work" id="work" aria-labelledby="work-title">
+ <div class="section-heading"><div><p class="eyebrow">01 / Selected work</p><h2 id="work-title">Questions worth<br><em>spending time with.</em></h2></div><p>A few explorations in climate, data, and the patterns hiding in plain sight.</p></div>
+ <div class="featured-projects">
+  <a class="project project-large" href="/project-raincheck"><div class="project-image rain-image"><img src="assets/img/meadow.jpg" alt="Wildflowers in an alpine meadow" loading="lazy"><span class="project-index">01</span><span class="image-label">Climate &amp; uncertainty</span></div><div class="project-meta"><span class="eyebrow">Scrollytelling · Canvas · Climate data</span><span class="project-arrow" aria-hidden="true">↗</span></div><h3>Project Raincheck</h3><p>What can El Niño really tell us about California rainfall? A closer look at a loose promise.</p></a>
+  <a class="project" href="https://letsnotboiltheocean.app" target="_blank" rel="noopener"><div class="project-image"><img src="assets/img/foam.jpg" alt="Sunlit blue water seen from below the surface" loading="lazy"><span class="project-index">02</span><span class="image-label">Ocean &amp; observation</span></div><div class="project-meta"><span class="eyebrow">Observable · D3 · Climate data</span><span class="project-arrow" aria-hidden="true">↗</span></div><h3>Let’s Not Boil the Ocean</h3><p>Exploring ocean conditions and fisheries through interactive climate data.</p></a>
+ </div>
+ <a class="project-row" href="/bullish-on-sharks"><span class="eyebrow">03</span><div><h3>Bullish on Sharks</h3><p>Exploratory analysis, data cleaning, and a different view of the ocean.</p></div><span class="eyebrow project-stack">Exploratory data analysis</span><span class="project-arrow" aria-hidden="true">↗</span></a>
+ <a class="text-link archive-link" href="https://github.com/sascha-pst" target="_blank" rel="noopener">More experiments on GitHub <span aria-hidden="true">↗</span></a>
+</section>
+<section class="section about" id="about" aria-labelledby="about-title">
+ <div class="about-photo"><img src="assets/img/summit.jpg" alt="A view from a mountain summit" loading="lazy"><p class="photo-caption">A little altitude. A little perspective.</p></div>
+ <div class="about-copy"><p class="eyebrow">02 / A little about me</p><h2 id="about-title">Equal parts<br><em>analysis &amp; instinct.</em></h2><p class="about-lede">A part-time potter and full-time marketing enablement manager, studying data science and AI.</p><p>I’m committed to building and measuring systems that serve public interests. My work brings together program execution, a growing data science practice, and questions about how we make technology more useful and responsible.</p><dl class="about-facts"><div><dt>Currently studying</dt><dd>UC Berkeley · MIDS</dd></div><div><dt>Previously</dt><dd>Meta × World Health Organization</dd></div><div><dt>Thinking about</dt><dd>AI ethics &amp; program enablement</dd></div></dl><a class="text-link" href="mailto:sasha.schaps@gmail.com">Let’s compare notes <span aria-hidden="true">↗</span></a></div>
+</section>
+<section class="section library" id="reading" aria-labelledby="reading-title">
+ <div class="section-heading"><div><p class="eyebrow">03 / Notes from the bookshelf</p><h2 id="reading-title">A little <em>library.</em></h2></div><p>Ideas to sit with, return to, and carry into the work. Pull a book from the shelf; a red ribbon marks a current read.</p></div>
+ <div class="lib-controls"><div class="filters" id="lib-filters" role="group" aria-label="Filter the shelf"></div><button class="lib-pick" id="lib-pick" type="button">Find me a book <span aria-hidden="true">↻</span></button></div>
+ <div class="shelf-wrap" id="lib-wrap"><div class="spines" id="lib-spines" role="group" aria-label="Bookshelf"></div></div>
+ <div class="book" aria-live="polite"><p class="book-idx" id="lib-idx"></p><div class="book-body" id="lib-body"></div><div class="book-nav"><button type="button" id="lib-prev" aria-label="Previous book">←</button><button type="button" id="lib-next" aria-label="Next book">→</button></div></div>
+ <noscript><p>Enable JavaScript to browse the interactive bookshelf.</p></noscript>
+</section>
+<section class="pottery-note"><div><p class="eyebrow">Away from the screen</p><h2>Thinking with<br><em>my hands.</em></h2><p>There’s another side to the practice: wheel-thrown stoneware, made in small batches in California.</p><a class="text-link" href="/shop">Visit the pottery shop <span aria-hidden="true">↗</span></a></div><figure><img src="assets/img/prints.jpg" alt="A close look at organic patterns and texture" loading="lazy"><figcaption>Attention to the process.</figcaption></figure></section>
+<section class="contact-section" id="contact" aria-labelledby="contact-title"><p class="eyebrow">04 / Keep the conversation going</p><div class="contact-main"><h2 id="contact-title">Good work starts<br>with a <em>conversation.</em></h2><a class="round-link" href="mailto:sasha.schaps@gmail.com" aria-label="Email Sasha Schaps">↗</a></div><div class="contact-bottom"><p>Data science, AI ethics, program enablement.<br>Or a book you think I should read.</p><a href="mailto:sasha.schaps@gmail.com">sasha.schaps@gmail.com</a></div></section>
+</main>
+<footer class="site-footer"><a class="wordmark" href="#top">Sasha Schaps<span aria-hidden="true">✳</span></a><p>California · Always a work in progress.</p><a href="https://github.com/sascha-pst" target="_blank" rel="noopener">GitHub ↗</a><a href="#top">Back to top ↑</a></footer>
 </body>
 </html>

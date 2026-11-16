@@ -36,6 +36,10 @@ jobs:
                 catch (e) { console.error(`${f}: ${e.message}`); fail = 1; }
               }
             }
+            for (const f of fs.readdirSync("assets", { recursive: true }).filter(f => f.endsWith(".js"))) {
+              try { new Function(fs.readFileSync(`assets/${f}`, "utf8")); }
+              catch (e) { console.error(`assets/${f}: ${e.message}`); fail = 1; }
+            }
             if (fail) process.exit(1);
             console.log("inline scripts parse OK");
           '
