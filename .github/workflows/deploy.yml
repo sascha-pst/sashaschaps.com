@@ -46,6 +46,9 @@ jobs:
             console.log("inline scripts parse OK");
           '
 
+      - name: Verify site password gate
+        run: node --test tests/auth.test.mjs
+
       - name: Encrypt the site with staticrypt
         env:
           STATICRYPT_PASSWORD: ${{ secrets.SITE_PASSWORD }}

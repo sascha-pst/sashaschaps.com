@@ -8,3 +8,5 @@
 /* Pearl and sage accents from the portfolio's sea-glass palette. */
 :root{--paper:#fafaf5;--paper-2:#edeee3;--ink:#33433c;--ink-2:#536159;--muted:#69756d;--sea:#5d776b;--line:#dfe4da;--line-strong:#b8c3b6;--tenmoku:#796f58;--celadon:#bac9b7;--shino:#e1d8ba;--iron:#9c8866}
 .topbar{border-bottom:0}.brand:after{color:#98a889}.hero h1 .bold{color:#6d8272}.hero-art{border-radius:12px;background:#e8eddf}.card .ph{border-radius:9px;background:#eef0e7}.tag{background:#fafaf5}.filters .filter[aria-pressed=true]{background:#607568;border-color:#607568}.closing{color:var(--ink);background:radial-gradient(ellipse at 5% 100%,#cfddcaa1,transparent 70%),radial-gradient(ellipse at 90% 100%,#ded8b7aa,transparent 65%),#f6f7ef}.closing p{color:var(--ink-2)}.closing .btn-solid{background:#607568;color:var(--paper)}.closing .btn-line{color:var(--ink);border-color:#b9c8b4}.closing .btn-solid:hover{background:#40584b}.closing .btn-line:hover{background:#607568;color:var(--paper)}
+
+.lock-form{margin:0}.lock-form button{font:inherit;font-size:10px;background:none;border:0;border-bottom:1px solid currentColor;color:inherit;padding:5px 0;cursor:pointer}
