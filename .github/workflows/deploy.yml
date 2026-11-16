@@ -1,3 +1,5 @@
+# Optional password-protected GitHub Pages mirror.
+# The live custom domain is served by the sashaschaps-com Cloudflare Worker (wrangler.jsonc).
 name: Deploy site (password protected)
 
 on:
