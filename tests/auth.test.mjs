@@ -36,3 +36,9 @@ test('missing configuration fails closed and oversized submissions are rejected'
  const s=setup();s.env.SITE_SESSION_SECRET='';assert.equal((await s.call()).status,503);assert.equal(s.requests,0);
  s.env.SITE_SESSION_SECRET='test-only-session-secret-of-at-least-32-characters';assert.equal((await s.login('/','x'.repeat(5000))).status,413);
 });
+
+test('the login font is public while the original font path and portfolio remain gated',async()=>{
+ const s=setup();const font=await s.call('/_auth/castaway.woff2');assert.equal(await font.text(),'private portfolio');assert.equal(s.requests,1);
+ const gate=await s.call('/assets/fonts/CastawayRegular.woff2');assert.match(await gate.text(),/name="password"/);assert.equal(s.requests,1);
+ const html=await(await s.call('/')).text();assert.match(html,/class="lead">A little space for/);assert.match(html,/class="company">good company/);assert.doesNotMatch(html,/This corner of the internet|Sasha|Schaps/);
+});
