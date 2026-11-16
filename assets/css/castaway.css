@@ -6,33 +6,16 @@
   font-style: normal;
   font-display: swap;
 }
-:root { --serif: 'Castaway', 'Fraunces', Georgia, serif; }
-h1, h2, h3, .wordmark, .brand, .book-idx,
-.project h3, .project-row h3, .card h3,
-.hero h1, .sec-head h2, .closing h2, .facts .v, .row b,
-.faq .big, .d-head h3, .modal h2 {
-  font-family: var(--serif);
+.intro h1 {
+  font-family: 'Castaway', 'Fraunces', Georgia, serif;
   font-weight: 400;
+  font-style: normal;
   font-synthesis: none;
   font-variation-settings: normal;
+  font-size: 52px;
+  line-height: 1.18;
   letter-spacing: -.025em;
 }
-h1 em, h2 em, h3 em, .image-stamp i,
-.hero h1 .bold, .sec-head h2 .bold, .closing h2 .bold,
-.faq .big strong {
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: inherit;
-}
-.intro h1 { font-size: 52px; line-height: 1.16; letter-spacing: -.035em; }
-.section-heading h2, .about h2, .pottery-note h2 { line-height: 1.18; }
-.project h3, .project-row h3 { font-size: 19px; line-height: 1.4; }
-.book-title { line-height: 1.25; }
-.masthead .wordmark { font-size: 25px; }
-.contact-main h2 { line-height: 1.2; }
 @media(max-width:700px) {
-  .intro h1 { font-size: 44px; }
-  .section-heading h2, .about h2, .pottery-note h2 { font-size: 32px; }
-  .masthead .wordmark { font-size: 24px; }
-  .contact-main h2 { font-size: clamp(30px,7vw,43px); }
+  .intro h1 { font-size: 42px; }
 }
