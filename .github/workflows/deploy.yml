@@ -47,7 +47,7 @@ jobs:
           '
 
       - name: Verify site password gate
-        run: node --test tests/auth.test.mjs
+        run: node --test tests/*.test.mjs
 
       - name: Encrypt the site with staticrypt
         env:
